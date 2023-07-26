@@ -110,10 +110,10 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 
 <addon id="repository.rebase" name="Repo Rebase" version="1.0" provider-name="Rik Ream">
     <extension point="xbmc.addon.repository" name="Rebase Repository">
-        <dir>
+        <dir>                         
             <info compressed="false">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml</info>
-            <checksum>https://https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
+            <checksum>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
