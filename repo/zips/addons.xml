@@ -3,16 +3,16 @@
 	<requires>
 		<import addon="script.module.six" />
 		<import addon="script.module.kodi-six" />
-		<import addon="script.module.requests" optional="true"/>
-		<import addon="script.module.websocket" version="0.50.0"  optional="true"/>
-		<import addon="script.module.youtube.dl" optional="true"/>
+		<import addon="script.module.requests" optional="true" />
+		<import addon="script.module.websocket" version="0.50.0" optional="true" />
+		<import addon="script.module.youtube.dl" optional="true" />
 		<import addon="plugin.video.youtube" optional="true" />
 		<import addon="script.module.dateutil" optional="true" />
-		<import addon="script.module.resolveurl" optional="true"/>
-		<import addon="script.module.urlresolver" optional="true"/>
-		<import addon="script.module.cloudscraper" optional="true"/>
-		<import addon="script.module.inputstreamhelper" optional="true"/>
-		<import addon="script.module.slproxy" optional="true"/>
+		<import addon="script.module.resolveurl" optional="true" />
+		<import addon="script.module.urlresolver" optional="true" />
+		<import addon="script.module.cloudscraper" optional="true" />
+		<import addon="script.module.inputstreamhelper" optional="true" />
+		<import addon="script.module.slproxy" optional="true" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>
@@ -50,9 +50,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 		</assets>
 		<news>Primera versión también compatible con Kodi 19 Matrix</news>
 	</extension>
-</addon>
-
-<addon id="repository.balandro" name="Balandro Repo" version="3.0.0" provider-name="Balandro Team">
+</addon><addon id="repository.balandro" name="Balandro Repo" version="3.0.0" provider-name="Balandro Team">
 
     <extension point="xbmc.addon.repository" name="balandro repo">
         <dir>
@@ -82,10 +80,8 @@ No se acepta ninguna responsabilidad por el uso de este addon.
        <forum>https://www.mimediacenter.info/foro/</forum>
     </extension>
 
-    <!--<extension point="xbmc.service" library="service.py" start="login|startup" />-->
-</addon>
-
-<addon id="repository.fontsvr" name="[B]Repo[/B] [COLOR azure][B]FONTSVR[/B] [COLOR limegreen][B]MATRIX[/B][/COLOR]|[COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0" provider-name="Rik Team">
+    
+</addon><addon id="repository.fontsvr" name="[B]Repo[/B] [COLOR azure][B]FONTSVR[/B] [COLOR limegreen][B]MATRIX[/B][/COLOR]|[COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0" provider-name="Rik Team">
     <extension point="xbmc.addon.repository" name="[B[COLOR white]Repo FONTSVR[/B][/COLOR]">
         <dir>
 		<info compressed="false">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml</info>
@@ -106,8 +102,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         </assets>
 		<source>https://github.com/fontsvr/repo-fontsVR/</source>
     </extension>
-</addon>
-<addon id="repository.rebase" name="Repo Rebase" version="1.0" provider-name="Rik Ream">
+</addon><addon id="repository.rebase" name="Repo Rebase" version="1.0" provider-name="Rik Ream">
     
 	<extension point="xbmc.addon.repository" name="Repo Rebase">
         <dir>                         
