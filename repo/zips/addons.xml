@@ -28,7 +28,7 @@
 	
     <extension point="xbmc.addon.metadata">
         <summary>Repo [COLOR azure]FONTSVR[/COLOR] [COLOR limegreen]MATRIX[/COLOR][COLOR azure]|[/COLOR][COLOR violet]NEXUS[/COLOR]</summary>
-        <description>Repositorio de addons [COLOR azure]FONTSVR[/COLOR]
+        <description>Repositorio de addons [COLOR azure]FONTSVR[/COLOR][CR]
 [COLOR gold]Developers:[/COLOR] Rik Team</description>
         <disclaimer>Repositorio de addons para Kodi 19.x MATRIX y 20.x NEXUS.</disclaimer>
         <platform>all</platform>
