@@ -1,0 +1,8 @@
+RikTeam_fonts 1.0
+
+- Versión inicial
+- Comprobación de enlaces a las fuentes
+
+
+
+
