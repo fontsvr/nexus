@@ -1,23 +1,91 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="ADDON_ID_HERE" name="REPO_NAME_HERE" version="VERSION_NUMBER_HERE" provider-name="YOUR_USERNAME_HERE">
-    <extension point="xbmc.addon.repository" name="Example Repository">
+<addons><addon id="plugin.video.kodispaintv" name="[COLOR red]Kodi[/COLOR][COLOR yellow]Spain[/COLOR][COLOR red]Tv[/COLOR]" version="3.0.0" provider-name="joheos11">
+	<requires>
+		<import addon="script.module.six" />
+		<import addon="script.module.kodi-six" />
+		<import addon="script.module.requests" optional="true"/>
+		<import addon="script.module.websocket" version="0.50.0"  optional="true"/>
+		<import addon="script.module.youtube.dl" optional="true"/>
+		<import addon="plugin.video.youtube" optional="true" />
+		<import addon="script.module.dateutil" optional="true" />
+		<import addon="script.module.resolveurl" optional="true"/>
+		<import addon="script.module.urlresolver" optional="true"/>
+		<import addon="script.module.cloudscraper" optional="true"/>
+		<import addon="script.module.inputstreamhelper" optional="true"/>
+		<import addon="script.module.slproxy" optional="true"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	
+	<extension point="xbmc.addon.repository" name="KodiSpain repository">
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/joheos11/repository.kodispain/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/joheos11/repository.kodispain/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/joheos11/repository.kodispain/master/</datadir>
+		</dir>
+    </extension>
+
+	<extension point="xbmc.addon.metadata">
+		<summary>Canales de Televisión, deportes y más...</summary>
+		<description>
+Puedes seguirme en https://t.me/kodispain y http://konectas.es
+
+AVISO LEGAL:
+
+Este complemento no aloja ningun contenido mostrado.
+Todo el contenido se encuentra libremente en internet.
+No se acepta ninguna responsabilidad por el uso de este addon.
+
+¡Disfruta!
+		</description>
+		<platform>all</platform>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/media/screenshoot-1.jpg</screenshot>
+			<screenshot>resources/media/screenshoot-2.jpg</screenshot>
+			<screenshot>resources/media/screenshoot-3.jpg</screenshot>
+			<screenshot>resources/media/screenshoot-4.jpg</screenshot>
+		</assets>
+		<news>Primera versión también compatible con Kodi 19 Matrix</news>
+	</extension>
+</addon>
+
+<addon id="repository.balandro" name="Balandro Repo" version="3.0.0" provider-name="Balandro Team">
+
+    <extension point="xbmc.addon.repository" name="balandro repo">
         <dir>
-            <info compressed="false">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml</info>
-            <checksum>https://https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
+            <info>https://raw.githubusercontent.com/balandro-tk/balandro/main/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/balandro-tk/balandro/main/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/balandro-tk/balandro/main/</datadir>
         </dir>
     </extension>
+
     <extension point="xbmc.addon.metadata">
-        <summary>REPO_NAME_HERE</summary>
-        <description>DESCRIPTION OF YOUR REPO HERE</description>
-        <disclaimer />
-        <platform>all</platform>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
+       <summary>Repositorio de Balandro</summary>
+       <assets>
+          <icon>icon.png</icon>
+       </assets>
+       <news>
+       [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]3.0.0[/COLOR][COLOR red]  Enero 2023[/B][/COLOR]
+
+       [COLOR goldenrod][B]Media Centers soportados[COLOR plum][I]  20.x,  19.x,  18.x  y  17.x[/I][/B][/COLOR]
+
+       [COLOR springgreen][B]Fuentes:[/COLOR]  [COLOR cyan]balandro-tk.github.io/balandro/[/B][/COLOR]
+       </news>
+       <description>[COLOR yellow][B]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] MOD derivado de Pelisalacarta y Alfa,[COLOR mediumaquamarine] y Tiene Como Objeto, Permitir Visualizar Películas, Series y Documentales, Todo a Través de Internet y Directamente Desde su Sistema Media Center. [COLOR orchid]Este Add-On es Tan Solo un Mero Ejercicio de Aprendizaje Del Lenguaje de Programación Python y se Distribuye Sin Ningún Contenido Multimedia Adjunto al Mismo [COLOR lightgrey][I]En Consecuencia Solo Las Webs Son Plenamente Responsables de Los Contenidos Que Publiquen.[/I][/B][/COLOR]</description>
+       <disclaimer>[COLOR tan][B]Está Prohibida su Distribución, Solo o Junto Con Contenidos Multimedia Protegidos Por Los Derechos de Autor. [COLOR chocolate]Si Este Tipo de Contenido Está Prohibido en su País, Solamente Usted Será el Responsable de su Uso. [COLOR white]La Vulneración de Estas Prohibiciones Exonerarán de Cualquier Culpa a sus Autores, [COLOR red]Siendo el Único Responsable Quien lo Haya Distribuido o Utilizado Ilegalmente.[/B][/COLOR]</disclaimer>
+       <platform>all</platform>
+       <license>GNU GPL v3</license>
+       <source>https://balandro-tk.github.io/balandro/</source>
+       <forum>https://www.mimediacenter.info/foro/</forum>
     </extension>
-</addon><addon id="repository.fontsvr" name="[B]Repo[/B] [COLOR azure][B]FONTSVR[/B] [COLOR limegreen][B]MATRIX[/B][/COLOR]|[COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0" provider-name="Rik Team">
+
+    <!--<extension point="xbmc.service" library="service.py" start="login|startup" />-->
+</addon>
+
+<addon id="repository.fontsvr" name="[B]Repo[/B] [COLOR azure][B]FONTSVR[/B] [COLOR limegreen][B]MATRIX[/B][/COLOR]|[COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0" provider-name="Rik Team">
     <extension point="xbmc.addon.repository" name="[B[COLOR white]Repo FONTSVR[/B][/COLOR]">
         <dir>
 		<info compressed="false">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml</info>
@@ -38,4 +106,24 @@
         </assets>
 		<source>https://github.com/fontsvr/repo-fontsVR/</source>
     </extension>
-</addon></addons>
+</addon>
+
+<addon id="repository.rebase" name="Repo Rebase" version="1.0" provider-name="Rik Ream">
+    <extension point="xbmc.addon.repository" name="Rebase Repository">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml</info>
+            <checksum>https://https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>REPO REBASE</summary>
+        <description>first repo</description>
+        <disclaimer />
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+	</addon></addons>
