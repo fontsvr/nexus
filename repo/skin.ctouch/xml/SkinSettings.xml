@@ -345,7 +345,8 @@
 						<include>settings-submenu-common</include>
 						<label>Nombre de Items Siempre Visibles (Inicio Iconos)</label>
 						<textwidth>1125</textwidth>
-						<!--<onclick>Skin.ToggleSetting(etiquetas-visibles)</onclick>-->
+					<!--<visible>Skin.HasSetting(etiquetas-visibles)</visible>no aqui-->
+						<onclick>Skin.ToggleSetting(etiquetas-visibles)</onclick>
 						<selected>Skin.HasSetting(etiquetas-visibles)</selected>
 						<radioposx>1240</radioposx>
 						<radiowidth>40</radiowidth>
@@ -2012,6 +2013,26 @@
 					<onclick>ActivateWindow(5111)</onclick>
 					<onclick>Skin.SetBool(FirstRunSetup,true)</onclick>-->
 				</control>
+				    <control type="radiobutton" id="319">
+						<!--<onup>347</onup>-->
+						<font>ctouch21</font>
+						<radioposx>1200</radioposx>
+						<label>Repositorio Rebase $INFO[System.AddonVersion(repository.rebase),(,)]</label>
+						<height>70</height>
+						<radiowidth>120</radiowidth>
+						<radioheight>120</radioheight>
+						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>																		
+						<!--<onup>8000</onup>-->
+						<onup>347</onup>
+						<onclick condition="System.HasAddon(repository.rebase)">ActivateWindow(10040,&quot;addons://repository.rebase/&quot;,return)</onclick>
+						<selected>System.HasAddon(repository.rebase)</selected>
+						<include>DefaultSettingButton</include>
+						<texturenofocus/>
+					</control>
 					<control type="radiobutton" id="320">
 						<!--<onup>347</onup>-->
 						<font>ctouch21</font>
@@ -2025,8 +2046,6 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.stva)">InstallAddon(repository.stva)</onclick>																		
-						<!--<onup>8000</onup>-->
-						<onup>347</onup>
 						<onclick condition="System.HasAddon(repository.stva)">ActivateWindow(10040,&quot;addons://repository.stva/&quot;,return)</onclick>
 						<selected>System.HasAddon(repository.stva)</selected>
 						<include>DefaultSettingButton</include>
@@ -2145,7 +2164,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.magellan)</onclick>																		
+						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>																		
 						<onclick condition="System.HasAddon(repository.KODIvertiDO_TEAM)">ActivateWindow(10040,&quot;addons://repository.KODIvertiDO_TEAM/&quot;,return)</onclick>
 						<selected>System.HasAddon(repository.KODIvertiDO_TEAM)</selected>
 						<include>DefaultSettingButton</include>
@@ -2346,8 +2365,7 @@
 						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.fontsvr)">InstallAddon(repository.fontsvr)</onclick>
+						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>	
 						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>
 						<onclick condition="!System.HasAddon(plugin.video.KovertidoTeamTvCine)">InstallAddon(plugin.video.KovertidoTeamTvCine)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">ActivateWindow(10040,&quot;addons://plugin.video.KovertidoTeamTvCine/&quot;,return)</onclick>
@@ -2400,6 +2418,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<onclick condition="!System.HasAddon(repository.theblackghost)">InstallAddon(repository.theblackghost)</onclick>
 						<onclick condition="!System.HasAddon(plugin.video.blackghost)">InstallAddon(plugin.video.blackghost)</onclick>																		
 						<selected>System.HasAddon(plugin.video.blackghost)</selected>
 						<include>DefaultSettingButton</include>
@@ -2547,6 +2566,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<onclick condition="!System.HasAddon(repository.Luar)">InstallAddon(repository.Luar)</onclick>
 						<onclick condition="!System.HasAddon(script.luar)">InstallAddon(script.luar)</onclick>																		
 						<selected>System.HasAddon(script.luar)</selected>
 						<include>DefaultSettingButton</include>
@@ -2563,7 +2583,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.fontsvr)">InstallAddon(repository.fontsvr)</onclick>
+						<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>
 						<onclick condition="!System.HasAddon(script.kelebek)">InstallAddon(script.kelebek)</onclick>																		
 						<selected>System.HasAddon(script.kelebek)</selected>
 						<include>DefaultSettingButton</include>
@@ -2580,7 +2600,8 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(script.limpiarkodi)">InstallAddon(plugin.program.autocompletion)</onclick>																		
+						<!--<onclick condition="!System.HasAddon(plugin.program.autocompletion)">InstallAddon(plugin.program.autocompletion)</onclick>-->																	
+						<onclick condition="!System.HasAddon(script.limpiarkodi)">InstallAddon(plugin.program.autocompletion)</onclick>
 						<selected>System.HasAddon(plugin.program.autocompletion)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2644,6 +2665,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<onclick condition="!System.HasAddon(repository.github)">InstallAddon(repository.github)</onclick>
 						<onclick condition="!System.HasAddon(plugin.video.torrest)">InstallAddon(plugin.video.torrest)</onclick>
 						<selected>System.HasAddon(plugin.video.torrest)</selected>
 						<include>DefaultSettingButton</include>
@@ -2666,8 +2688,8 @@
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
 					</control>
-				   <control type="button" id="320"><!--vacio-dirige top de 321 a 321-->
-				  <!--<onup>320</onup>-->
+				   <control type="button" id="319"><!--vacio-dirige a top 319-->
+				  <!--<onup>319</onup>-->
 					<height>50</height>
 					<label>Fin Addons</label>
 					<font>ctouch21</font>

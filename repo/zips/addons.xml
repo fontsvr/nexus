@@ -1799,7 +1799,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<icon>icon.png</icon>
 		</assets>
 	</extension>
-</addon><addon id="skin.ctouch" version="9.4.1" name="Cristal Touch" provider-name="Rik Team">
+</addon><addon id="skin.ctouch" version="9.3.4.1" name="Cristal Touch" provider-name="Rik Team">
 	<requires>
 		<import addon="resource.language.es_es" version="0.0.0" />		
 	</requires>
