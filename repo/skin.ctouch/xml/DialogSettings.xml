@@ -7,141 +7,136 @@
 	</coordinates>
 	<controls>
 		<control type="image">
-			<include>fullscreenimage</include>
-			<texture colordiffuse="mask-background">background-mask.png</texture>
-			<aspectratio>scale</aspectratio>
-		</control>
-		<control type="image">
+			<visible>!Window.IsVisible(sliderdialog)</visible>
 			<!-- Dialog background image -->
-			<left>321</left>
-			<top>90</top>
-			<width>1272</width>
-			<height>900</height>
-			<texture border="14">button-menu-background.png</texture>
+			<left>30</left>
+			<bottom>200</bottom>
+			<width>800</width>
+			<height>375</height>
+			<texture border="14" colordiffuse="darkgrey">backtransparent.png</texture>
 		</control>
 		<control type="label" id="2">
+			<visible>!Window.IsVisible(sliderdialog)</visible>
 			<!-- Dialog heading -->
-			<left>336</left>
-			<top>110</top>
-			<width>1242</width>
+			<left>35</left>
+			<bottom>585</bottom>
+			<width>800</width>
 			<height>38</height>
-			<align>center</align>
-			<font>ctouch23w</font>
-		</control>
-		<control type="image">
-			<left>336</left>
-			<top>160</top>
-			<width>1242</width>
-			<height>4</height>
-			<texture>separator.png</texture>
+			<align>left</align>
+			<font>ctouch20w</font>
 		</control>
 		<control type="grouplist" id="5">
+			<visible>!Window.IsVisible(sliderdialog)</visible>
 			<!-- Default Grouplist -->
-			<left>366</left>
-			<top>189</top>
-			<width>1182</width>
-			<height>675</height>
-			<itemgap>10</itemgap>
+			<left>35</left>
+			<bottom>200</bottom>
+			<width>780</width>
+			<height>370</height>
+			<itemgap>5</itemgap>
 			<pagecontrol>60</pagecontrol>
 			<onleft>noop</onleft>
 			<onright>60</onright>
-			<onup>noop</onup>
+			<onup>5</onup>
 			<ondown>9000</ondown>
 		</control>
 		<control type="button" id="7">
 			<!-- Default Button -->
-			<height>75</height>
-			<font>ctouch22</font>
+			<height>55</height>
+			<font>ctouch19</font>
 			<texturenofocus/>
 		</control>
 		<control type="radiobutton" id="8">
 			<!-- Default Radiobutton -->
-			<height>75</height>
-			<font>ctouch22</font>
+			<height>55</height>
+			<font>ctouch19</font>
+			<radioposx>740</radioposx>
+			<radiowidth>35</radiowidth>
+			<radioheight>35</radioheight>			
 			<texturenofocus/>
 		</control>
 		<control type="spincontrolex" id="9">
 			<!-- Default Spincontrolex -->
-			<height>75</height>
-			<font>ctouch22</font>
+			<height>55</height>
+			<font>ctouch19</font>
 			<texturenofocus/>
-		</control>
-		<control type="image" id="11">
-			<!-- Default Seperator -->
-			<height>2</height>
-			<texture>separator.png</texture>
 		</control>
 		<control type="edit" id="12">
 			<!-- Default Edit -->
-			<height>75</height>
-			<font>ctouch22</font>
+			<height>55</height>
+			<font>ctouch19</font>
 			<texturenofocus/>
 		</control>
 		<control type="sliderex" id="13">
 			<!-- Default Sliderex -->
-			<height>75</height>
-			<font>ctouch22</font>
+			<height>55</height>
+			<font>ctouch19</font>
+			<textwidth>400</textwidth>
 			<texturenofocus/>
+			<texturesliderbar border="8" colordiffuse="midgrey">progress-bar-focus.png</texturesliderbar>
+			<textureslidernib>progress-bar-focus.png</textureslidernib>
+			<textureslidernibfocus>progress-bar-focus.png</textureslidernibfocus>
+			<include>autscroll</include>
 		</control>
 		<control type="label" id="14">
 			<!-- Default Label -->
-			<height>75</height>
-			<font>ctouch22</font>
+			<height>55</height>
+			<font>ctouch19</font>
 			<textoffsetx>27</textoffsetx>
 			<texturenofocus/>
 		</control>
 		<control type="scrollbar" id="60">
-			<left>1558</left>
-			<top>186</top>
-			<width>20</width>
-			<height>675</height>
-			<onright>5</onright>
+			<left>815</left>
+			<top>505</top>
+			<width>12</width>
+			<height>390</height>
+			<onleft>5</onleft>
 			<animation condition="!Control.HasFocus(60) + !Container.Scrolling + !String.IsEqual(Skin.String(show-scrollbar),$LOCALIZE[31875])" effect="fade" start="100" end="0" time="200" reversible="true">Conditional</animation>
 			<visible>$EXP[isEnabledScrollbar]</visible>
 		</control>
 		<!-- Markers for control area items -->
 		<include content="page-offscreen-vertical">
-			<param name="indicator1left" value="945"/>
-			<param name="indicator1top" value="159"/>
-			<param name="indicator2left" value="945"/>
-			<param name="indicator2top" value="867"/>
+			<param name="indicator1left" value="425"/>
+			<param name="indicator1top" value="500"/>
+			<param name="indicator2left" value="425"/>
+			<param name="indicator2top" value="890"/>
 			<param name="indicatorsize" value="24"/>
 			<param name="indicatorcontainer" value="5"/>
 		</include>
 		<control type="grouplist" id="9000">
-			<left>372</left>
-			<top>900</top>
-			<width>1170</width>
-			<height>75</height>
-			<align>center</align>
+			<left>200</left>
+			<top>888</top>
+			<width>630</width>
+			<height>55</height>
+			<align>right</align>
 			<orientation>horizontal</orientation>
-			<itemgap>10</itemgap>
+			<itemgap>5</itemgap>
 			<onup>5</onup>
 			<ondown>9000</ondown>
+			<visible>!Window.IsVisible(sliderdialog) + Skin.HasSetting(menulittle)</visible>
 			<control type="button" id="28">
 				<!-- OK -->
-				<width>390</width>
-				<height>75</height>
+				<width>200</width>
+				<height>50</height>
 				<align>center</align>
-				<font>ctouch22</font>
+				<font>ctouch18</font>
 				<onleft>noop</onleft>
 				<onright>29</onright>
 			</control>
 			<control type="button" id="29">
 				<!-- Cancel -->
-				<width>390</width>
-				<height>75</height>
+				<width>200</width>
+				<height>50</height>
 				<align>center</align>
-				<font>ctouch22</font>
+				<font>ctouch18</font>
 				<onleft>28</onleft>
 				<onright>30</onright>
 			</control>
 			<control type="button" id="30">
 				<!-- Clear/Settings -->
-				<width>390</width>
-				<height>75</height>
+				<width>200</width>
+				<height>50</height>
 				<align>center</align>
-				<font>ctouch22</font>
+				<font>ctouch18</font>
 				<onleft>29</onleft>
 				<onright>noop</onright>
 			</control>

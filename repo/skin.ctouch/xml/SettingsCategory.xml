@@ -3,7 +3,6 @@
 	<defaultcontrol>3</defaultcontrol>
 	<controls>
 		<include>background</include>
-		<include>playerplay</include>
 		<control type="image">
 			<!-- Dialog background image -->
 			<left>1520</left>

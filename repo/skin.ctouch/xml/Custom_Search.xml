@@ -108,21 +108,21 @@
 				<item>
 					<thumb>$INFO[Skin.String(CustomSearch.1.Icon)]</thumb>
 					<label>$INFO[Skin.String(CustomSearch.1.Label)]</label>
-					<label2>$LOCALIZE[571]</label2>
-					<onclick>$INFO[Skin.String(CustomSearch.1.Path)]</onclick>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick>$INFO[Skin.String(customsearch.1.path)]</onclick>
 					<visible>!String.IsEmpty(Skin.String(CustomSearch.1.Path))</visible>
 				</item>
 				<item>
 					<thumb>$INFO[Skin.String(CustomSearch.2.Icon)]</thumb>
 					<label>$INFO[Skin.String(CustomSearch.2.Label)]</label>
-					<label2>$LOCALIZE[571]</label2>
-					<onclick>$INFO[Skin.String(CustomSearch.2.Path)]</onclick>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick>$INFO[Skin.String(customsearch.2.path)]</onclick>
 					<visible>!String.IsEmpty(Skin.String(CustomSearch.2.Path))</visible>
 				</item>
 				<item>
 					<thumb>$INFO[Skin.String(CustomSearch.3.Icon)]</thumb>
 					<label>$INFO[Skin.String(CustomSearch.3.Label)]</label>
-					<label2>$LOCALIZE[571]</label2>
+					<onclick>Dialog.Close(all)</onclick>
 					<onclick>$INFO[Skin.String(CustomSearch.3.Path)]</onclick>
 					<visible>!String.IsEmpty(Skin.String(CustomSearch.3.Path))</visible>
 				</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
-	<visible>Player.Seeking | Player.Forwarding | Player.Rewinding | $EXP[PlayerSeek]</visible>
+	<visible>Player.Seeking | Player.Forwarding | Player.Rewinding | $EXP[PlayerSeek] | Player.HasPerformedSeek(3)</visible>
 	<animation effect="fade" end="0" time="500">WindowClose</animation>
 	<coordinates>
 		<left>0</left>
@@ -16,9 +16,6 @@
 			<texture>diffuse/background_mask.png</texture>
 			<visible>Window.IsVisible(fullscreenvideo)</visible>
 		</control>
-		<control type="group">
-			<visible>![Window.IsVisible(fullscreeninfo) | Window.IsVisible(sliderdialog) | Window.IsVisible(osdvideosettings) | Window.IsVisible(osdaudiosettings) | Window.IsVisible(videobookmarks) | Window.IsVisible(subtitlesearch) | Window.IsVisible(osdsubtitlesettings)]</visible>
-		</control>
 		<!-- Player action labels -->
 		<control type="group">
 			<visible>[Window.IsVisible(fullscreenvideo) | Window.IsVisible(visualisation)] + ![Window.IsVisible(sliderdialog) | Window.IsVisible(osdvideosettings) | Window.IsVisible(osdaudiosettings) | Window.IsVisible(subtitlesearch) | Window.IsVisible(osdsubtitlesettings) | Window.IsVisible(videobookmarks)]</visible>
@@ -32,33 +29,32 @@
 				<visible>Player.Caching | Player.Paused | Player.Forwarding | Player.Rewinding</visible>
 			</control>
 			<control type="label">
-				<width>1920</width>
+				<width>100%</width>
 				<height>60</height>
 				<top>995</top>
-				<align>center</align>
-				<label>$INFO[Player.SeekStepSize]</label>
-				<visible>!String.IsEmpty(Player.SeekStepSize)</visible>
+				<centerleft>85%</centerleft>
+				<label>$VAR[SeekLabel]</label>
 			</control>	
 			<control type="grouplist">
 				<left>612</left>
-				<top>192</top>
+				<top>50</top>
 				<width>696</width>
 				<height>96</height>
 				<align>center</align>
 				<aligny>center</aligny>
 				<orientation>horizontal</orientation>
 				<control type="image" id="750">
-					<width>96</width>
-					<height>96</height>
+					<width>85</width>
+					<height>85</height>
 					<texture>$VAR[PlayStateImage]</texture>
 					<animation effect="rotate" start="360" end="0" center="auto" time="8400" loop="true" condition="String.IsEqual(Control.GetLabel(750),busy.png)">conditional</animation>
 				</control>
 				<control type="label">
 					<!-- Player state text -->
-					<width min="0" max="570">auto</width>
-					<height>90</height>
+					<width min="0" max="750">auto</width>
+					<left>10</left>
 					<label>$VAR[PlayStateTxt]</label>
-					<font>ctouch38</font>
+					<font>ctouch25w</font>
 				</control>
 			</control>
 		</control>
@@ -69,7 +65,7 @@
 			<control type="group" id="1">
 				<visible>!VideoPlayer.Content(LiveTV)</visible>
 					<control type="label" id="1">
-						<left>25</left>
+						<left>30</left>
 						<top>905</top>
 						<width>345</width>
 						<height>30</height>
@@ -78,7 +74,7 @@
 						<align>left</align>
 					</control>
 					<control type="label" id="1">
-						<left>1550</left>
+						<left>1545</left>
 						<top>905</top>
 						<width>345</width>
 						<height>30</height>
@@ -89,24 +85,24 @@
 			</control>
 			<control type="group" id="1">
 				<visible>VideoPlayer.Content(LiveTV)</visible>
-				<control type="label" id="1">
-					<left>25</left>
-					<top>920</top>
-					<width>345</width>
-					<height>30</height>
-					<font>ctouch20</font>
-					<label>[COLOR=disabled-text]($INFO[System.Time])[/COLOR] $INFO[PVR.EpgEventElapsedTime]</label>
-					<align>left</align>
-				</control>
-				<control type="label" id="1">
-					<left>1550</left>
-					<top>920</top>
-					<width>345</width>
-					<height>30</height>
-					<font>ctouch20</font>
-					<label>-$INFO[PVR.EpgEventRemainingTime] [COLOR=disabled-text]($INFO[PVR.EpgEventFinishTime])[/COLOR]</label>
-					<align>right</align>
-				</control>
+					<control type="label" id="1">
+						<left>1545</left>
+						<top>905</top>
+						<width>345</width>
+						<height>30</height>
+						<font>ctouch19</font>
+						<label>$INFO[PVR.EpgEventElapsedTime] | $INFO[PVR.EpgEventDuration]</label>
+						<align>right</align>
+					</control>
+					<control type="label" id="1">
+						<left>30</left>
+						<top>905</top>
+						<width>345</width>
+						<height>30</height>
+						<font>ctouch19</font>
+						<label>Acaba a las $INFO[PVR.EpgEventFinishTime]</label>
+						<align>left</align>
+					</control>
 			</control>
 			<control type="group">
 				<animation effect="fade" start="100" end="0" condition="String.IsEmpty(MusicPlayer.TimeRemaining)">Conditional</animation>
@@ -123,7 +119,7 @@
 					</control>
 					<control type="progress">
 						<left>25</left>
-						<top>960</top>
+						<top>950</top>
 						<width>1870</width>
 						<height>20</height>
 						<colordiffuse>CacheBarColor</colordiffuse>						
@@ -131,15 +127,25 @@
 					</control>
 					<control type="progress">
 						<left>25</left>
-						<top>960</top>
+						<top>950</top>
 						<width>1870</width>
 						<height>22</height>
 						<info>Player.Progress</info>
 					</control>
+					<control type="slider" id="401">
+						<!-- Seek Slider -->
+						<left>0</left>
+						<top>950</top>
+						<width>100%</width>
+						<height>25</height>
+						<textureslidernib>progress-bar-focus.png</textureslidernib>
+						<textureslidernibfocus>progress-bar-focus.png</textureslidernibfocus>
+						<visible>Player.SeekEnabled</visible>
+					</control>					
 				</control>
 				<control type="progress">
 					<left>25</left>
-					<top>960</top>
+					<top>950</top>
 					<width>1870</width>
 					<height>22</height>
 					<info>PVR.EpgEventProgress</info>
@@ -148,7 +154,7 @@
 				<control type="slider" id="401">
 					<!-- Live TV Seek Slider -->
 					<left>25</left>
-					<top>960</top>
+					<top>950</top>
 					<width>1870</width>
 					<height>22</height>
 					<info>PVR.TimeshiftProgressPlayPos</info>

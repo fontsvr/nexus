@@ -144,8 +144,9 @@
 		<disabledcolor>disabled-text</disabledcolor>
 		<texturefocus border="9" colordiffuse="$VAR[AccentColor]">button-default-white.png</texturefocus>
 		<texturenofocus border="9" colordiffuse="midgrey">button-default.png</texturenofocus>
-		<texturesliderbar colordiffuse="ProgressBarColor" border="8">progress-bar-focus.png</texturesliderbar>
-		<pulseonselect>false</pulseonselect>
+		<texturesliderbar border="8">progress-bar-focus.png</texturesliderbar>
+		<texturesliderbarfocus colordiffuse="ProgressBarColor" border="8">progress-bar-focus.png</texturesliderbarfocus>
+		<pulseonselect>true</pulseonselect>
 		<sliderwidth>200</sliderwidth>
 		<sliderheight>16</sliderheight>
 		<textoffsetx>27</textoffsetx>

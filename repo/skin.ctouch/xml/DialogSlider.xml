@@ -3,20 +3,11 @@
 	<defaultcontrol>11</defaultcontrol>
 	<coordinates>
 		<left>424</left>
-		<top>938</top>
+		<top>30</top>
 	</coordinates>
 	<controls>
 		<control type="group">
 			<visible>![Window.IsVisible(notification) | Window.IsVisible(volumebar)]</visible>
-			<control type="image">
-				<!-- Dialog background -->
-				<left>0</left>
-				<top>0</top>
-				<width>1062</width>
-				<height>130</height>
-				<texture border="14">button-menu-background.png</texture>
-				<colordiffuse>mask-background</colordiffuse>
-			</control>
 			<control type="label" id="10">
 				<!-- Dialog heading -->
 				<left>33</left>
@@ -24,16 +15,18 @@
 				<width>477</width>
 				<height>30</height>
 				<aligny>center</aligny>
+				<font>ctouch19</font>
 			</control>
 			<control type="button">
 				<!-- Touch Close button -->
-				<left>1029</left>
-				<top>-15</top>
+				<left>515</left>
+				<top>-5</top>
 				<width>64</width>
 				<height>64</height>
 				<texturefocus>touch-close.png</texturefocus>
 				<texturenofocus>touch-close.png</texturenofocus>
 				<onclick>Dialog.Close(sliderdialog)</onclick>
+				<visible>Skin.HasSetting(menulittle)</visible>
 			</control>
 			<control type="label" id="12">
 				<!-- Slider value -->
@@ -43,21 +36,25 @@
 				<height>30</height>
 				<align>right</align>
 				<aligny>center</aligny>
+				<font>ctouch19</font>
 			</control>
 			<control type="image">
 				<!-- Seek slider background -->
 				<left>27</left>
-				<top>75</top>
+				<top>76</top>
 				<width>1008</width>
-				<height>24</height>
+				<height>18</height>
 				<texture border="12,0,12,0">progress-bar-focus.png</texture>
 				<colordiffuse>ProgressBarColor</colordiffuse>
 			</control>
 			<control type="slider" id="11">
 				<left>27</left>
-				<top>72</top>
+				<top>76</top>
 				<width>1008</width>
-				<height>30</height>
+				<height>18</height>
+				<texturesliderbar border="10" colordiffuse="$VAR[AccentColor]">progress-bar-focus.png</texturesliderbar>
+				<textureslidernib>progress-bar-focus.png</textureslidernib>
+				<textureslidernibfocus>progress-bar-focus.png</textureslidernibfocus>
 			</control>
 		</control>
 	</controls>

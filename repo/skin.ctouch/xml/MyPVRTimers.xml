@@ -15,26 +15,9 @@
 			<align>left</align>
 			<aligny>center</aligny>
 			<orientation>horizontal</orientation>
-			<control type="label">
-				<!-- Video screen heading -->
-				<width max="600">auto</width>
-				<height>93</height>
-				<label>$VAR[PVRHeading]</label>
-				<font>ctouch30</font>
-				<wrapmultiline>true</wrapmultiline>
-				<aligny>top</aligny>
-			</control>
-			<control type="label">
-				<!-- Number of files -->
-				<width max="120">auto</width>
-				<height>93</height>
-				<label>$INFO[Container.NumItems,(,)]</label>
-				<aligny>top</aligny>
-			</control>
 		</control>
 		<include file="View-PVR.xml">PVRTimerListView</include>
 		<include>touch-controls</include>
-		<include>touch-controlsl</include>
 		<include>hora</include>		
 		
 		<control type="group">
@@ -57,7 +40,7 @@
 				<top>210</top>
 				<width>558</width>
 				<height>51</height>
-				<font>ctouch23</font>
+				<font>ctouch20</font>
 				<label>$LOCALIZE[31557]</label>
 				<align>center</align>
 			</control>
@@ -93,7 +76,7 @@
 					<!-- Sort by button -->
 					<width>564</width>
 					<height>72</height>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 					<label>$LOCALIZE[103]</label>
 				</control>
 				<control type="togglebutton" id="4">
@@ -102,21 +85,21 @@
 					<height>72</height>
 					<label>$LOCALIZE[21429]: $LOCALIZE[21430]</label>
 					<altlabel>$LOCALIZE[21429]: $LOCALIZE[21431]</altlabel>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 				</control>
 				<control type="button" id="28">
 					<label/>
 					<!-- Change Channel Groups -->
 					<width>564</width>
 					<height>72</height>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 				</control>
 				<control type="button" id="901">
 					<!-- Channels -->
 					<width>564</width>
 					<height>72</height>
 					<label>$LOCALIZE[19019]</label>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 					<onclick>SetFocus(14)</onclick>
 					<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 					<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(tvchannels)</onclick>
@@ -127,7 +110,7 @@
 					<width>564</width>
 					<height>72</height>
 					<label>$LOCALIZE[22020]</label>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 					<onclick>SetFocus(14)</onclick>
 					<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 					<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(tvguide)</onclick>
@@ -138,7 +121,7 @@
 					<width>564</width>
 					<height>72</height>
 					<label>$LOCALIZE[19163]</label>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 					<onclick>SetFocus(14)</onclick>
 					<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 					<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(tvrecordings)</onclick>
@@ -149,7 +132,7 @@
 					<width>564</width>
 					<height>72</height>
 					<label>$LOCALIZE[137]</label>
-					<font>ctouch22</font>
+					<font>ctouch20</font>
 					<onclick>SetFocus(14)</onclick>
 					<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 					<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(tvsearch)</onclick>

@@ -2,7 +2,7 @@
 <window>
    	<controls>
 		<control type="group" id="1">
-			<visible>[Player.ShowInfo | Window.IsActive(videoosd)] + ![Window.IsVisible(sliderdialog) | Window.IsVisible(osdvideosettings) | Window.IsVisible(osdaudiosettings) | Window.IsVisible(videobookmarks)]</visible>
+			<visible>[Player.ShowInfo | Window.IsActive(videoosd)]</visible>
 			<control type="image" id="1">
 				<!-- Dialog background -->
 				<left>0</left>
@@ -29,6 +29,7 @@
 				<label>[B]$INFO[VideoPlayer.Title][/B]</label>
 				<align>left</align>
 				<visible>!VideoPlayer.Content(LiveTV)</visible>
+				<visible>!Window.IsVisible(sliderdialog)</visible>
 			</control>
 			<control type="label" id="1">
 				<!-- Title of currently playing video -->
@@ -39,38 +40,40 @@
 				<font>ctouch25</font>
 				<label>$INFO[System.Time(hh:mm)]</label>
 				<align>right</align>
+				<visible>!Window.IsVisible(sliderdialog)</visible>
 			</control>
-			<control type="group" id="1">
+			<control type="grouplist" id="1">
 				<!-- Details of Live TV Program -->
 				<visible>VideoPlayer.Content(LiveTV)</visible>
+				<orientation>horizontal</orientation>
+				<left>30</left>
+				<top>25</top>
+				<height>45</height>
+				<width>100%</width>
+				<align>left</align>
+				<itemgap>20</itemgap>
 				<control type="label" id="1">
 					<!-- TV Channel Name -->
-					<left>30</left>
-					<top>25</top>
-					<width>320</width>
-					<height>38</height>
-					<font>ctouch20</font>
+					<width>auto</width>
+					<height>45</height>
+					<font>ctouch25</font>
 					<label>[B]$INFO[VideoPlayer.ChannelName][/B]</label>
 					<align>left</align>
 				</control>
 				<control type="label" id="1">
 					<!-- Title of Live TV Program -->
-					<left>30</left>
-					<top>25</top>
-					<width>726</width>
-					<height>38</height>
-					<font>ctouch16</font>
+					<width>auto</width>
+					<height>45</height>
+					<font>ctouch18</font>
 					<label>[B]$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ,][/B]</label>
 					<align>left</align>			
 				</control>
 				<control type="label" id="1">
 					<!-- Tv Show title up next -->
-					<left>1100</left>
-					<top>25</top>
-					<width>800</width>
-					<height>38</height>
-					<font>ctouch16</font>
-					<label>[B]$INFO[VideoPlayer.NextTitle,$LOCALIZE[19031]: ,][/B]</label>
+					<width>auto</width>
+					<height>45</height>
+					<font>ctouch18</font>
+					<label>- [B]$INFO[VideoPlayer.NextTitle,$LOCALIZE[19031]: ,][/B]</label>
 					<align>left</align>
 					<textcolor>disabled-text</textcolor>
 				</control>
@@ -84,7 +87,7 @@
 				<align>center</align>
 				<orientation>horizontal</orientation>
 				<itemgap>-3</itemgap>
-				<animation effect="fade" start="0" end="100" time="1000">WindowOpen</animation>
+				<animation effect="fade" start="0" end="100" time="500">WindowOpen</animation>
 				<control type="image" id="1">
 					<!-- Audio Channels -->
 					<width>80</width>
@@ -146,12 +149,12 @@
 				<control type="group" id="1">
 					<visible>VideoPlayer.Content(LiveTV)</visible>
 					<control type="label" id="1">
-						<left>25</left>
+						<left>26</left>
 						<top>1020</top>
 						<width>345</width>
 						<height>30</height>
 						<font>ctouch20</font>
-						<label>[COLOR=disabled-text]($INFO[System.Time])[/COLOR] $INFO[PVR.EpgEventElapsedTime]</label>
+						<label></label>
 						<align>left</align>
 					</control>
 					<control type="label" id="1">
@@ -160,7 +163,7 @@
 						<width>345</width>
 						<height>30</height>
 						<font>ctouch20</font>
-						<label>-$INFO[PVR.EpgEventRemainingTime] [COLOR=disabled-text]($INFO[PVR.EpgEventFinishTime])[/COLOR]</label>
+						<label></label>
 						<align>right</align>
 					</control>
 				</control>

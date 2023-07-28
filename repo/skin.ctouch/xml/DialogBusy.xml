@@ -21,7 +21,7 @@
 			<width>150</width>
 			<height>150</height>
 			<colordiffuse>blue</colordiffuse>
-			<texture colordiffuse="$VAR[AccentColor]">busy_bg.png</texture>
+			<texture colordiffuse="$VAR[AccentColor]">busy_bg.png</texture><!--busy_bg.png-->
 			<aspectratio>keep</aspectratio>
 		</control>
 		<control type="image">
@@ -31,7 +31,7 @@
 			<width>150</width>
 			<height>150</height>
 			<colordiffuse>blue</colordiffuse>
-			<texture colordiffuse="$VAR[AccentColor]">busy.png</texture>
+			<texture colordiffuse="$VAR[AccentColor]">busy.png</texture><!--busy.png-->
 			<aspectratio>keep</aspectratio>
 			<include>busy-spin</include>
 		</control>

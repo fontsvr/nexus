@@ -12,9 +12,9 @@
 			<movement>9</movement>
 			<onleft>$VAR[ListScrollNavSets]</onleft>
 			<onright>$VAR[ListScrollNavVideo]</onright>
-			<onup condition="!Skin.HasSetting(menuoculto) + !Player.HasVideo">Control.SetFocus(80001,$INFO[Container(50).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(50).Position])</onup>
 			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">50</onup>
-			<onup condition="Player.HasVideo">7000</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(50).Position])</onup>
 			<ondown>50</ondown>
             <include content="View_Forced">
                 <param name="string" value="$LOCALIZE[31941]" />
@@ -273,7 +273,9 @@
 			<movement>9</movement>
 			<onleft>$VAR[ListScrollNavSets]</onleft>
 			<onright>$VAR[ListScrollNavVideo]</onright>
-			<onup>Control.SetFocus(80001,$INFO[Container(57).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(57).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">57</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(57).Position])</onup>
 			<ondown>57</ondown>
             <include content="View_Forced">
                 <param name="string" value="$LOCALIZE[31945]" />
@@ -452,45 +454,45 @@
 			<visible>Control.IsVisible(57)</visible>
 			<control type="image">
 				<left>35</left>
-				<top>150</top>
+				<top>130</top>
 				<width>805</width>
 				<height>510</height>
 				<texture background="true">diffuse/landscape_shadow.png</texture>
 				<aspectratio scalediffuse="false">stretch</aspectratio>
-				<visible>$EXP[isnotParentFolder]</visible>	
+				<visible>$EXP[isnotParentFolder] + !Player.HasVideo </visible>	
 			</control>
 			<control type="image">
 				<left>50</left>
-				<top>165</top>
+				<top>145</top>
 				<width>770</width>
 				<height>475</height>
 				<texture background="true" diffuse="diffuse/landscape.png">$VAR[IconPoster]</texture>
 				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
-				<visible>$EXP[isnotDefaultIcon] + ![Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
+				<visible>$EXP[isnotDefaultIcon] + ![Player.HasVideo | Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
 			</control>	
 			<control type="image">
 				<left>50</left>
-				<top>165</top>
+				<top>145</top>
 				<width>770</width>
 				<height>475</height>
 				<texture background="true" diffuse="diffuse/bigposter.png">$VAR[IconPoster]</texture>
 				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
-				<visible>$EXP[isDefaultIcon] + $EXP[isParentFolder]</visible>	
+				<visible>$EXP[isDefaultIcon] + $EXP[isParentFolder] + !Player.HasVideo</visible>	
 			</control>	
 			<control type="image">
 				<left>50</left>
-				<top>165</top>
+				<top>145</top>
 				<width>770</width>
 				<height>475</height>
 				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>	
 				<texture background="true" diffuse="diffuse/landscape.png">$INFO[ListItem.Art(fanart)]</texture>
-				<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)] | $EXP[isParentFolder]</visible>
+				<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)] + !Player.HasVideo</visible>
 			</control>				
 			<control type="group">
 				<left>50</left>
 				<width>770</width>
 				<height>475</height>
-				<top>165</top>
+				<top>145</top>
 				<visible>Player.HasVideo</visible>
 				<control type="videowindow">
 					<width>770</width>
@@ -500,7 +502,7 @@
 			<control type="textbox">
 				<!-- Plot Outline -->
 				<left>50</left>
-				<top>670</top>
+				<top>680</top>
 				<width>770</width>
 				<height>180</height>
 				<font>ctouch20</font>
@@ -510,7 +512,7 @@
 			<control type="textbox">
 				<!-- Plot Outline -->
 				<left>50</left>
-				<top>670</top>
+				<top>680</top>
 				<width>770</width>
 				<height>350</height>
 				<font>ctouch20</font>
@@ -520,7 +522,7 @@
 			<control type="label">
 				<!-- Género -->
 				<left>50</left>
-				<top>875</top>						
+				<top>885</top>						
 				<width>770</width>
 				<height>25</height>
 				<label>$INFO[ListItem.Genre]</label>	
@@ -529,7 +531,7 @@
 			</control>				
 			<control type="grouplist">
 				<left>50</left>
-				<top>920</top>
+				<top>930</top>
 				<itemgap>250</itemgap>
 				<orientation>horizontal</orientation>
 				<control type="label">
@@ -559,7 +561,7 @@
 			</control>
 				<control type="image">
 					<left>40</left>
-					<bottom>60</bottom>
+					<bottom>50</bottom>
 					<!-- Star Rating -->
 					<width>70</width>
 					<height>50</height>
@@ -571,11 +573,11 @@
 				</control>
 				<control type="label">
 					<!-- Star Rating -->
-					<bottom>65</bottom>
+					<bottom>55</bottom>
 					<left>100</left>
 					<width>60</width>
 					<height>40</height>
-					<label>[B]$INFO[Container(10051).ListItem.Rating][/B]</label>
+					<label>[B]$INFO[ListItem.Rating][/B]</label>
 					<font>ctouch18</font>
 					<textcolor>lightgrey</textcolor>											
 					<align>center</align>
@@ -584,7 +586,7 @@
 				<control type="image">
 					<align>left</align>
 					<left>190</left>
-					<bottom>50</bottom>
+					<bottom>43</bottom>
 					<width>100</width>
 					<height>70</height>
 					<texture>$VAR[Image_CombinedStudio]</texture>
@@ -592,7 +594,7 @@
 				<control type="image">
 					<!-- Show logo -->
 					<left>550</left>
-					<top>545</top>
+					<top>515</top>
 					<width>250</width>
 					<height>90</height>
 					<aligny>bottom</aligny>
@@ -624,7 +626,9 @@
 			<height>1080</height>
 			<onleft>$VAR[ListScrollNavSets]</onleft>
 			<onright>$VAR[ListScrollNavVideo]</onright>
-			<onup>Control.SetFocus(80001,$INFO[Container(58).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(58).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">58</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(58).Position])</onup>
 			<ondown>58</ondown>
 			<visible>!Container.Content(addons)</visible>
             <include content="View_Forced">
@@ -632,11 +636,6 @@
             </include>			
 			<viewtype label="31944">wall</viewtype>
 			<pagecontrol>1258</pagecontrol>
-			<animation type="TYPE" condition="Skin.HasSetting(tiltvideowallicon)" reversible="false">
-				<effect type="rotatey" end="-15" />
-				<effect type="slide" end="105,0" />
-				<effect type="zoom" end="120" center="auto" />
-			</animation>
 			<itemlayout height="465" width="310" condition="Container.Content(Sets) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons)">
 				<control type="image">
 					<left>0</left>
@@ -780,45 +779,45 @@
 			<visible>Control.IsVisible(58)</visible>
 			<control type="image">
 				<left>35</left>
-				<top>150</top>
+				<top>130</top>
 				<width>805</width>
 				<height>510</height>
 				<texture background="true">diffuse/landscape_shadow.png</texture>
 				<aspectratio scalediffuse="false">stretch</aspectratio>
-				<visible>$EXP[isnotParentFolder]</visible>	
+				<visible>$EXP[isnotParentFolder] + !Player.HasVideo </visible>	
 			</control>
 			<control type="image">
 				<left>50</left>
-				<top>165</top>
+				<top>145</top>
 				<width>770</width>
 				<height>475</height>
 				<texture background="true" diffuse="diffuse/landscape.png">$VAR[IconPoster]</texture>
 				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
-				<visible>$EXP[isnotDefaultIcon] + ![Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
+				<visible>$EXP[isnotDefaultIcon] + ![Player.HasVideo | Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
 			</control>	
 			<control type="image">
 				<left>50</left>
-				<top>165</top>
+				<top>145</top>
 				<width>770</width>
 				<height>475</height>
 				<texture background="true" diffuse="diffuse/bigposter.png">$VAR[IconPoster]</texture>
 				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
-				<visible>$EXP[isDefaultIcon] + $EXP[isParentFolder]</visible>	
+				<visible>$EXP[isDefaultIcon] + $EXP[isParentFolder] + !Player.HasVideo</visible>	
 			</control>	
 			<control type="image">
 				<left>50</left>
-				<top>165</top>
+				<top>145</top>
 				<width>770</width>
 				<height>475</height>
 				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>	
 				<texture background="true" diffuse="diffuse/landscape.png">$INFO[ListItem.Art(fanart)]</texture>
-				<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)] | $EXP[isParentFolder]</visible>
+				<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)] + !Player.HasVideo</visible>
 			</control>				
 			<control type="group">
 				<left>50</left>
 				<width>770</width>
 				<height>475</height>
-				<top>165</top>
+				<top>145</top>
 				<visible>Player.HasVideo</visible>
 				<control type="videowindow">
 					<width>770</width>
@@ -828,7 +827,7 @@
 			<control type="textbox">
 				<!-- Plot Outline -->
 				<left>50</left>
-				<top>670</top>
+				<top>680</top>
 				<width>770</width>
 				<height>180</height>
 				<font>ctouch20</font>
@@ -838,7 +837,7 @@
 			<control type="textbox">
 				<!-- Plot Outline -->
 				<left>50</left>
-				<top>670</top>
+				<top>680</top>
 				<width>770</width>
 				<height>350</height>
 				<font>ctouch20</font>
@@ -848,7 +847,7 @@
 			<control type="label">
 				<!-- Género -->
 				<left>50</left>
-				<top>875</top>						
+				<top>885</top>						
 				<width>770</width>
 				<height>25</height>
 				<label>$INFO[ListItem.Genre]</label>	
@@ -857,15 +856,15 @@
 			</control>				
 			<control type="grouplist">
 				<left>50</left>
-				<top>920</top>
-				<itemgap>260</itemgap>
+				<top>930</top>
+				<itemgap>250</itemgap>
 				<orientation>horizontal</orientation>
 				<control type="label">
 					<!-- Estado -->
 					<height>25</height>
 					<font>ctouch18</font>
-					<label>Estado: $INFO[Window(home).Property(SkinHelper.ListItem.Status)]</label>
-					<visible>!String.isEmpty(Window(home).Property(SkinHelper.ListItem.Status)) + $EXP[isTvshow]</visible>
+					<label>$INFO[Window(home).Property(TMDbHelper.ListItem.Status)]</label>
+					<visible>!String.isEmpty(Window(home).Property(TMDbHelper.ListItem.Status)) + $EXP[isTvshow]</visible>
 					<textcolor>lightgrey</textcolor>
 				</control>	
 				<control type="label">
@@ -887,7 +886,7 @@
 			</control>
 				<control type="image">
 					<left>40</left>
-					<bottom>60</bottom>
+					<bottom>50</bottom>
 					<!-- Star Rating -->
 					<width>70</width>
 					<height>50</height>
@@ -899,7 +898,7 @@
 				</control>
 				<control type="label">
 					<!-- Star Rating -->
-					<bottom>65</bottom>
+					<bottom>56</bottom>
 					<left>100</left>
 					<width>60</width>
 					<height>40</height>
@@ -912,7 +911,7 @@
 				<control type="image">
 					<align>left</align>
 					<left>190</left>
-					<bottom>50</bottom>
+					<bottom>43</bottom>
 					<width>100</width>
 					<height>70</height>
 					<texture>$VAR[Image_CombinedStudio]</texture>
@@ -920,15 +919,22 @@
 				<control type="image">
 					<!-- Show logo -->
 					<left>550</left>
-					<top>545</top>
+					<top>515</top>
 					<width>250</width>
-					<alignx>right</alignx>
 					<height>90</height>
 					<aligny>bottom</aligny>
 					<texture>$VAR[VideoLogo]</texture>
 					<aspectratio alignx="right" aligny="bottom">keep</aspectratio>
-					<animation effect="fade" delay="100" start="0" end="100" time="200">Visible</animation>
 					<visible>$EXP[isnotParentFolder] + !Player.HasVideo</visible>
+				</control>
+				<control type="label">
+					<!-- Title -->
+					<left>52</left>
+					<top>605</top>
+					<width>768</width>
+					<height>90</height>
+					<label>$INFO[ListItem.Label]</label>
+					<font>ctouch19</font>
 				</control>
 			<control type="scrollbar" id="1258">
 				<left>1900</left>
@@ -956,7 +962,9 @@
 			<onleft condition="Skin.HasSetting(lock-screensettings)">4521</onleft>
 			<onleft condition="!Skin.HasSetting(lock-screensettings)">9000</onleft>
 			<onright>$VAR[ListScrollNavVideo]</onright>
-			<onup>Control.SetFocus(80001,$INFO[Container(52).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(52).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">52</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(52).Position])</onup>
 			<visible>!Container.Content(addons)</visible>
 			<ondown>52</ondown>
             <include content="View_Forced">
@@ -1123,7 +1131,9 @@
 			<onleft condition="Skin.HasSetting(lock-screensettings)">4521</onleft>
 			<onleft condition="!Skin.HasSetting(lock-screensettings)">9000</onleft>
 			<onright>$VAR[ListScrollNavVideo]</onright>
-			<onup>Control.SetFocus(80001,$INFO[Container(59).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(59).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">59</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(59).Position])</onup>
 			<visible>!Container.Content(addons)</visible>
 			<ondown>59</ondown>
             <include content="View_Forced">
@@ -1301,7 +1311,9 @@
 			<onleft condition="Skin.HasSetting(lock-screensettings)">4521</onleft>
 			<onleft condition="!Skin.HasSetting(lock-screensettings)">9000</onleft>
 			<onright>$VAR[ListScrollNavVideo]</onright>
-			<onup>Control.SetFocus(80001,$INFO[Container(55).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(59).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">59</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(59).Position])</onup>
 			<ondown>59</ondown>
             <include content="View_Forced">
                 <param name="string" value="$LOCALIZE[31987]" />
@@ -1456,7 +1468,9 @@
 			<preloaditems>7</preloaditems>
 			<focusposition>0</focusposition>
 			<scrolltime>250</scrolltime>		
-			<onup>Control.SetFocus(80001,$INFO[Container(54).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(54).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">54</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(54).Position])</onup>
 			<ondown>9000</ondown>
             <include content="View_Forced">
                 <param name="string" value="$LOCALIZE[31942]" />
@@ -1689,6 +1703,325 @@
 		</control>
 	</include>
 	
+<!-- Slider Paisaje-->
+	<include name="VideoWrapViewLandscape">		
+		<control type="wraplist" id="554">
+			<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(sets)]</visible>		
+			<viewtype label="32019">icon</viewtype>
+			<left>0</left>
+			<visible>!Container.Content(addons)</visible>
+			<top>500</top>
+			<right>-70</right>
+			<height>1080</height>
+			<onleft>54</onleft>
+			<onright>54</onright>
+			<movement>7</movement>
+			<preloaditems>7</preloaditems>
+			<focusposition>1</focusposition>
+			<scrolltime>250</scrolltime>		
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(554).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">554</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(554).Position])</onup>
+			<ondown>9000</ondown>
+            <include content="View_Forced">
+                <param name="string" value="$LOCALIZE[32019]" />
+            </include>			
+			<orientation>horizontal</orientation>
+			<itemlayout height="320" width="470">
+				<control type="group">
+					<control type="image">
+						<left>10</left>
+						<top>125</top>
+						<width>460</width>
+						<height>280</height>
+						<texture background="true">diffuse/landscape_shadow.png</texture>
+						<aspectratio scalediffuse="false">stretch</aspectratio>
+						<visible>$EXP[isnotParentFolder]</visible>	
+					</control>
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<align>center</align>								
+						<texture diffuse="diffuse/landscape.png" background="true" fallback="DefaultVideo.png">$VAR[IconPoster]</texture>
+						<bordersize>5</bordersize>
+						<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
+						<visible>$EXP[isnotDefaultIcon] + ![Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
+					</control>
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<align>center</align>								
+						<texture diffuse="diffuse/landscape.png" background="true" fallback="DefaultVideo.png">$VAR[IconPoster]</texture>
+						<bordersize>5</bordersize>
+						<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
+						<visible>$EXP[isDefaultIcon] + $EXP[isParentFolder]</visible>	
+					</control>			
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<align>center</align>								
+						<texture diffuse="diffuse/landscape.png" background="true">$INFO[ListItem.Art(fanart)]</texture>
+						<bordersize>5</bordersize>
+						<aspectratio scalediffuse="false" fallback="DefaultVideo.png">scale</aspectratio>
+						<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)] | $EXP[isParentFolder]</visible>
+					</control>		
+					<control type="image">
+						<top>135</top>
+						<right>10</right>
+						<width>50</width>
+						<height>50</height>
+						<texture>$VAR[Overlay_Corner]</texture>
+					</control>																							
+					<control type="image">
+						<!-- Watched Overlay -->
+						<right>12</right>
+						<top>135</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>$VAR[Overlay]</texture>
+					</control>
+					<include content="listitem-count">
+						<param name="left" value="407" />
+						<param name="top" value="100" />
+						<param name="count" value="ListItem.Property(UnwatchedEpisodes)" />
+						<param name="size" value="65" />
+					</include>
+				</control>
+			</itemlayout>
+			<focusedlayout height="320" width="470">
+				<control type="group">
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<texture background="true">diffuse/landscape_shadow.png</texture>
+						<aspectratio scalediffuse="false">stretch</aspectratio>
+						<bordertexture diffuse="diffuse/landscape.png" colordiffuse="$VAR[AccentColor]">homeiconlite_landscape.png</bordertexture>
+					</control>
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<align>center</align>								
+						<texture diffuse="diffuse/landscape.png" background="true" fallback="DefaultVideo.png">$VAR[IconPoster]</texture>
+						<bordersize>5</bordersize>
+						<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
+						<visible>$EXP[isnotDefaultIcon]</visible>
+					</control>
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<align>center</align>								
+						<texture diffuse="diffuse/landscape	.png" background="true" fallback="DefaultVideo.png">$VAR[IconPoster]</texture>
+						<bordersize>5</bordersize>
+						<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
+						<visible>$EXP[isDefaultIcon] + $EXP[isParentFolder]</visible>	
+					</control>			
+					<control type="image">
+						<left>15</left>
+						<top>130</top>
+						<width>450</width>
+						<height>270</height>
+						<align>center</align>								
+						<texture diffuse="diffuse/landscape.png" background="true">$INFO[ListItem.Art(fanart)]</texture>
+						<bordersize>5</bordersize>
+						<aspectratio scalediffuse="false" fallback="DefaultVideo.png">scale</aspectratio>
+						<visible>[Container.Content(movies) | Container.Content(tvshows)] | $EXP[isParentFolder]</visible>
+					</control>		
+					<control type="image">
+						<top>135</top>
+						<right>10</right>
+						<width>50</width>
+						<height>50</height>
+						<texture>$VAR[Overlay_Corner]</texture>
+					</control>																							
+					<control type="image">
+						<!-- Watched Overlay -->
+						<right>12</right>
+						<top>135</top>
+						<width>28</width>
+						<height>28</height>
+						<texture>$VAR[Overlay]</texture>
+					</control>
+					<include content="listitem-count">
+						<param name="left" value="407" />
+						<param name="top" value="100" />
+						<param name="count" value="ListItem.Property(UnwatchedEpisodes)" />
+						<param name="size" value="65" />
+					</include>
+				</control>												
+			</focusedlayout>
+		</control>
+		<control type="group">
+			<visible>Control.IsVisible(554)</visible>
+			<control type="image" id="7216">
+				<!-- Show logo -->
+				<left>190</left>
+				<bottom>785</bottom>
+				<width>600</width>
+				<align>center</align>
+				<height>160</height>
+				<texture>$VAR[VideoLogo]</texture>
+				<aspectratio alignx="left" aligny="top">keep</aspectratio>
+				<animation effect="fade" delay="100" start="0" end="100" time="200">Visible</animation>
+				<visible>$EXP[isnotParentFolder]</visible>
+			</control>
+			<control type="label">
+				<!-- Title -->
+				<left>100</left>
+				<top>190</top>
+				<aligny>bottom</aligny>
+				<alignx>left</alignx>
+				<width>800</width>
+				<height>100</height>
+				<font>ctouch38</font>
+				<include>scrolltext</include>
+				<label>[B]$INFO[ListItem.Label][/B]</label>
+				<wrapmultiline>true</wrapmultiline>
+				<animation effect="fade" delay="100" start="0" end="100" time="200">Visible</animation>
+				<visible>String.IsEmpty(ListItem.Art(tvshow.clearlogo)) + String.IsEmpty(ListItem.Art(clearlogo)) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.ClearLogo))</visible>
+			</control>
+			<control type="image">
+				<!-- Star Rating -->
+				<top>915</top>
+				<width>50</width>
+				<height>50</height>
+				<texture>tmdb.png</texture>
+				<align>left</align>
+				<left>100</left>
+				<aspectratio>keep</aspectratio>
+				<textcolor>lightgrey</textcolor>											
+				<visible>!String.isEmpty(ListItem.Rating)</visible>										
+			</control>
+			<control type="label">
+				<!-- Star Rating -->
+				<top>917</top>
+				<align>left</align>
+				<left>160</left>
+				<width>60</width>
+				<height>40</height>
+				<label>[B]$INFO[ListItem.Rating][/B]</label>
+				<font>ctouch18</font>
+				<textcolor>lightgrey</textcolor>											
+				<visible>!String.isEmpty(ListItem.Rating)</visible>										
+			</control>					
+			<control type="image">
+				<align>center</align>
+				<left>240</left>
+				<top>902</top>
+				<width>100</width>
+				<height>70</height>
+				<texture>$VAR[Image_CombinedStudio]</texture>
+			</control>
+			<control type="label">
+				<top>325</top>
+				<left>100</left>
+				<align>left</align>
+				<!-- Lema -->
+				<width>800</width>
+				<height>30</height>
+				<font>ctouch18</font>
+				<textcolor>$VAR[AccentColor]</textcolor>
+				<label>[I]$INFO[ListItem.Tagline][/I]</label>
+			</control>																					
+			<control type="grouplist">
+				<left>100</left>
+				<align>left</align>
+				<top>980</top>
+				<width>1400</width>
+				<orientation>horizontal</orientation>
+				<!-- Año -->			
+				<control type="label">
+					<width>90</width>
+					<height>40</height>
+					<label>$INFO[ListItem.Year]</label>
+					<font>ctouch18</font>
+					<textcolor>lightgrey</textcolor>											
+					<align>left</align>
+					<visible>$EXP[isMovie] + !String.isEmpty(ListItem.Year)</visible>					
+				</control>
+				<control type="label">
+					<width>150</width>
+					<height>40</height>
+					<align>left</align>
+					<font>ctouch18</font>
+					<textcolor>lightgrey</textcolor>											
+					<label>$INFO[ListItem.Premiered]</label>
+					<visible>[$EXP[isTvshow] | $EXP[isEpisode] | $EXP[isSeason]] + !String.isEmpty(ListItem.Premiered)</visible>
+				</control>								
+				<!-- Duration -->				
+				<control type="label">
+					<width>150</width>
+					<height>40</height>
+					<align>center</align>
+					<textcolor>lightgrey</textcolor>											
+					<font>ctouch18</font>
+					<label>[COLOR $VAR[AccentColor]]| [/COLOR] $INFO[Listitem.Duration(h),,h] $INFO[Listitem.Duration(mm),,m]</label>
+					<visible>!String.isEmpty(ListItem.Duration)</visible>
+				</control>
+				<control type="label">
+					<!-- Estado -->
+					<width>180</width>
+					<height>39</height>
+					<font>ctouch18</font>
+					<textcolor>lightgrey</textcolor>											
+					<label>[COLOR $VAR[AccentColor]]| [/COLOR] $INFO[Window(home).Property(SkinHelper.ListItem.Status)]</label>
+					<visible>!String.isEmpty(Window(home).Property(SkinHelper.ListItem.Status)) + $EXP[isTvshow]</visible>
+				</control>	
+				<control type="label">
+					<!-- Genero -->
+					<width>540</width>
+					<height>40</height>
+					<label>[COLOR $VAR[AccentColor]]| [/COLOR] $INFO[ListItem.Genre]</label>
+					<textcolor>lightgrey</textcolor>											
+					<font>ctouch18</font>
+					<visible>!String.isEmpty(ListItem.Genre)</visible>					
+				</control>				
+			</control>				
+				<control type="textbox">
+					<!-- Plot (Show if no outline available) -->
+					<left>100</left>
+					<top>370</top>
+					<width>800</width>
+					<height>225</height>
+					<font>ctouch20</font>
+					<label>$INFO[ListItem.Plot]</label>
+					<align>justify</align>
+					<visible>String.Contains(Container.FolderPath,plugin://plugin.video.alfa)</visible>
+				</control>
+				<control type="textbox">
+					<!-- Plot (Show if no outline available) -->
+					<left>100</left>
+					<top>370</top>
+					<width>800</width>
+					<height>225</height>
+					<font>ctouch20</font>
+					<label>$INFO[ListItem.Plot]</label>
+					<align>justify</align>
+					<visible>!String.Contains(Container.FolderPath,plugin://plugin.video.alfa)</visible>
+				</control>
+			<control type="group"><!-- TV Shows, Seasons or Episodes -->
+				<visible>[Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
+				<include content="listitem-count">
+					<param name="left" value="625" />
+					<param name="top" value="177" />
+					<param name="count" value="ListItem.Property(UnwatchedEpisodes)" />
+					<param name="size" value="105" />
+				</include>
+			</control>
+		</control>
+	</include>
+	
 	<include name="BannerView">
 		<control type="group">
 			<visible>Control.IsVisible(53)</visible>
@@ -1700,7 +2033,9 @@
 				<width>870</width>
 				<height>900</height>
 				<pagecontrol>1253</pagecontrol>
-				<onup>Control.SetFocus(80001,$INFO[Container(53).Position])</onup>
+				<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(53).Position])</onup>
+				<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">53</onup>
+				<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(53).Position])</onup>
 				<ondown>53</ondown>
 				<onleft condition="Skin.HasSetting(lock-screensettings)">4531</onleft>
 				<onleft condition="!Skin.HasSetting(lock-screensettings)">90001</onleft>
@@ -1929,7 +2264,9 @@
 			<movement>4</movement>
 			<onleft>9000</onleft>
 			<onright>1256</onright>
-			<onup>Control.SetFocus(80001,$INFO[Container(56).Position])</onup>
+			<onup condition="!Skin.HasSetting(menuoculto)">Control.SetFocus(80001,$INFO[Container(56).Position])</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + !Player.HasVideo">56</onup>
+			<onup condition="Skin.HasSetting(menuoculto) + Player.HasVideo">Control.SetFocus(70001,$INFO[Container(56).Position])</onup>
 			<ondown>56</ondown>
             <include content="View_Forced">
                 <param name="string" value="$LOCALIZE[31945]" />
