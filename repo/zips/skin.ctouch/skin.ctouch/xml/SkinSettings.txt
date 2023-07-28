@@ -1,8 +1,0 @@
-
-SkinSettings.xml -Activar Items , -repos, -addons, -buscador
-Includes_WidgetsHome.xml
-Includes_IconHome.xml
-Custom_Setup.xml
-Custom_Setup_Addons.xml
-
-

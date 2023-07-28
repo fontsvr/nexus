@@ -413,6 +413,8 @@
 				<top>328</top>
 				<width>64</width>
 				<height>64</height>
+				<texturefocus>touch-close.png</texturefocus>
+				<texturenofocus>touch-close.png</texturenofocus>
 				<onclick>SetFocus(6005)</onclick>
 			</control>
 			<control type="image">

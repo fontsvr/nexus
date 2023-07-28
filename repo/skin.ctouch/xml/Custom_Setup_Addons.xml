@@ -120,6 +120,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+				<onclick condition="!System.HasAddon(repository.resolveurl)">InstallAddon(repository.resolveurl)</onclick>
 					<onclick condition="!System.HasAddon(script.module.resolveurl)">InstallAddon(script.module.resolveurl)</onclick>																		
 					<selected>System.HasAddon(script.module.resolveurl)</selected>
 					<texturenofocus/>
@@ -136,7 +137,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(repository.Palantir)">InstallAddon(repository.Palantir)</onclick>																		
+					<onclick condition="!System.HasAddon(repository.palantir2)">InstallAddon(repository.palantir2)</onclick>																		
 					<onclick condition="!System.HasAddon(plugin.video.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.palantir2)</selected>
@@ -314,7 +315,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 				</control>
 			</control>
 		</control>
-		<!--af botó continuar aquí-->
+		<!--af botó continuar aquí NO-->
 		<!--<control type="button" id="308">
 		          <onup>326</onup>
 					<top>1035</top><!--70--><!--

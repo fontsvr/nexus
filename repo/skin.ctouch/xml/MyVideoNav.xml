@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
 	<defaultcontrol always="true">50</defaultcontrol>
-	<views>50,57,56,58,52,59,54,55,554</views>
+	<views>50,57,56,58,52,59,54,55</views>
 	<onload>ClearProperty(ShowScreenSettings,home)</onload>
 	<onunload>ClearProperty(ShowScreenSettings,home)</onunload>
 	<menucontrol>9000</menucontrol>
@@ -11,6 +11,7 @@
 		<include>background</include>
 		<include>maskfadebackground</include>
 		<include>vignette-views</include>
+		<include>playerplay</include>
 		<control type="image" id="1">
 			<!-- Dialog background -->
 			<left>0</left>
@@ -40,7 +41,6 @@
 			<include file="View-Video.xml">VideoPaisajeView</include>
 			<include file="View-Video.xml">VideoWrapView</include>	
 			<include file="View-Video.xml">VideoSquareView</include>	
-			<include file="View-Video.xml">VideoWrapViewLandscape</include>	
 		</control>
 		<control type="group">
 			<!-- No Label tag means video addon is busy pulling in content, so show a busy animation -->

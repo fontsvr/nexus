@@ -50,21 +50,6 @@
 	<expression name="isnotParentFolder">!ListItem.IsParentFolder</expression>
 	<expression name="PlayerSeek">[Player.Seeking | [!Player.Paused + Player.DisplayAfterSeek] | !String.IsEmpty(Player.SeekNumeric)]</expression>
 
-	<variable name="WidgetIcon">
-		<value condition="Control.HasFocus(9806)">icons/palantir.png</value>
-		<value condition="Control.HasFocus(9814)">icons/palantir.png</value>
-		<value condition="Control.HasFocus(9807)">icons/palantir.png</value>
-		<value condition="Control.HasFocus(9808)">icons/palantir.png</value>
-		<value condition="Control.HasFocus(9809)">icons/palantir.png</value>
-		<value condition="Control.HasFocus(9802)">icons/alfa.png</value>
-		<value condition="Control.HasFocus(9803)">icons/alfa.png</value>
-		<value condition="Control.HasFocus(9804)">icons/alfa.png</value>
-		<value condition="Control.HasFocus(9805)">icons/alfa.png</value>
-		<value condition="Control.HasFocus(9810)">icons/cristalazul.png</value>
-		<value condition="Control.HasFocus(9811)">icons/cristalazul.png</value>
-		<value condition="Control.HasFocus(9812)">icons/cristalazul.png</value>
-		<value condition="Control.HasFocus(9813)">icons/cristalazul.png</value>
-	</variable>
 	<variable name="AddonIcon">
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.alfa)">icons/alfa.png</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.palantir2)">icons/palantir.png</value>
@@ -76,11 +61,6 @@
 		<value condition="String.Contains(Container.FolderPath,plugin://script.luar)">icons/luar.jpg</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://script.stva)">icons/complementostva.png</value>
 		<value>skin-logo-little.png</value>
-	</variable>
-	<variable name="SeekLabel">
-		<value condition="!String.IsEmpty(Player.SeekStepSize)">[COLOR button_focus]$LOCALIZE[773][/COLOR] $INFO[Player.SeekStepSize]</value>
-		<value condition="!String.IsEmpty(Player.SeekOffset) + Player.HasPerformedSeek(3)">[COLOR button_focus]$LOCALIZE[773][/COLOR] $INFO[Player.SeekOffset]</value>
-		<value condition="Player.IsTempo">$LOCALIZE[31142]: $INFO[Player.PlaySpeed]</value>
 	</variable>
 	<variable name="AccentColorLabel">
 		<value condition="!String.IsEmpty(Skin.String(color_accent)) + !String.IsEqual(Skin.String(color_accent),None)">$INFO[Skin.String(color_accent),,       ]</value>
@@ -109,11 +89,11 @@
 		<value condition="Skin.HasSetting(SkinHelper.EnableExtraFanart) + !String.IsEmpty(Control.GetLabel(300000))">$INFO[Control.GetLabel(300000)]</value>
 		<value condition="!Skin.HasSetting(background-fanarts) + Player.HasAudio + !String.IsEmpty(MusicPlayer.Property(Fanart_Image))">$INFO[MusicPlayer.Property(Fanart_Image)]</value>
 		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(Window(home).Property(SkinHelper.Music.FanArt))">$INFO[Window(home).Property(SkinHelper.Music.FanArt)]</value>
-		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(ListItem.Art(set.fanart)) + !Skin.HasSetting(staticbg)">$INFO[ListItem.Art(set.fanart)]</value>
-		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(ListItem.Art(fanart)) + !Skin.HasSetting(staticbg)">$INFO[ListItem.Art(fanart)]</value>
-		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(ListItem.Property(Fanart_Image)) + !Skin.HasSetting(staticbg)">$INFO[ListItem.Property(Fanart_Image)]</value>
-		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(Fanart.Image) + !Skin.HasSetting(staticbg)">$INFO[Fanart.Image]</value>
-		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(Window.Property(Fanart)) + !Skin.HasSetting(staticbg)">$INFO[Window.Property(Fanart)]</value>
+		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(ListItem.Art(set.fanart))">$INFO[ListItem.Art(set.fanart)]</value>
+		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(ListItem.Property(Fanart_Image))">$INFO[ListItem.Property(Fanart_Image)]</value>
+		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(Fanart.Image)">$INFO[Fanart.Image]</value>
+		<value condition="!Skin.HasSetting(background-fanarts) + !String.IsEmpty(Window.Property(Fanart))">$INFO[Window.Property(Fanart)]</value>
 		<value condition="!String.IsEmpty(Skin.String(background-custom))">$INFO[Skin.String(background-custom)]</value>
 		<value condition="String.IsEmpty(Skin.String(background-custom))">background-iconhome.jpg</value>
 		<value>colours/black.png</value>
@@ -588,18 +568,18 @@
 	</variable>
 	<variable name="WidgetTitle">
 		<value condition="Control.HasFocus(9806)">Series en Seguimiento</value>
-		<value condition="Control.HasFocus(9814)">Novedades en Películas</value>
-		<value condition="Control.HasFocus(9807)">Series Nuevas</value>
-		<value condition="Control.HasFocus(9808)">Últimas Películas Añadidas</value>
-		<value condition="Control.HasFocus(9809)">Últimas Series añadidas</value>
-		<value condition="Control.HasFocus(9802)">Películas en Tendencia</value>
-		<value condition="Control.HasFocus(9803)">Series en Emisión</value>
-		<value condition="Control.HasFocus(9804)">Series Populares</value>
-		<value condition="Control.HasFocus(9805)">Películas Populares</value>
-		<value condition="Control.HasFocus(9810)">Cine Super Estrenos</value>
-		<value condition="Control.HasFocus(9811)">Series</value>
-		<value condition="Control.HasFocus(9812)">Cine 4K</value>
-		<value condition="Control.HasFocus(9813)">Series en Torrent</value>
+		<value condition="Control.HasFocus(9814)">Novedades de Películas Palantir</value>
+		<value condition="Control.HasFocus(9807)">Nuevas Series Palantir</value>
+		<value condition="Control.HasFocus(9808)">Últimas Películas Añadidas Palantir</value>
+		<value condition="Control.HasFocus(9809)">Últimas Series añadidas Palantir</value>
+		<value condition="Control.HasFocus(9802)">Películas en Tendencia Alfa</value>
+		<value condition="Control.HasFocus(9803)">Series en Emisión Alfa</value>
+		<value condition="Control.HasFocus(9804)">Series Populares Alfa</value>
+		<value condition="Control.HasFocus(9805)">Películas Populares Alfa</value>
+		<value condition="Control.HasFocus(9810)">Cine Super Estrenos Cristal</value>
+		<value condition="Control.HasFocus(9811)">Series Cristal</value>
+		<value condition="Control.HasFocus(9812)">Cine 4K Cristal</value>
+		<value condition="Control.HasFocus(9813)">Series Cristal en Torrent</value>
 		<value condition="Control.HasFocus(9815)">$INFO[Skin.String(CustomWidget.1.Label)]</value>	
 		<value condition="Control.HasFocus(9816)">$INFO[Skin.String(CustomWidget.2.Label)]</value>	
 		<value condition="Control.HasFocus(9817)">$INFO[Skin.String(CustomWidget.3.Label)]</value>	
@@ -4463,7 +4443,6 @@
 				<!-- Resets the timer when navigating to a new item, so each item's first visible fanart will
 					show for the full amount of time -->
 				<resetonlabelchange>true</resetonlabelchange>
-				<visible>!Skin.HasSetting(staticbg)</visible>
 			</control>
 			<control type="image"><!-- Use Skin default background as a base layer for backdrops -->
 				<texture>background.png</texture>
@@ -5028,11 +5007,11 @@
 					<param name="list_id" value="$PARAM[list_id]"/>
 				</include>
 				<visible>Integer.IsGreater(Container($PARAM[list_id]).NumItems,0) | Container($PARAM[list_id]).IsUpdating</visible>
-				<itemlayout width="311">
+				<itemlayout width="312">
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
-						<width>275</width>
+						<width>265</width>
 						<height>406</height>
 						<texture background="true">diffuse/bigposter_shadow.png</texture>
 						<aspectratio scalediffuse="false">stretch</aspectratio>
@@ -5041,18 +5020,18 @@
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
-						<width>270</width>
+						<width>260</width>
 						<height>400</height>
 						<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
 						<texture background="true" fallback="DefaultVideo.png" diffuse="diffuse/bigposter.png">$VAR[IconPoster]</texture>
 						<bordersize>5</bordersize>										
 					</control>
 				</itemlayout>
-				<focusedlayout width="311">
+				<focusedlayout width="312">
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
-						<width>270</width>
+						<width>260</width>
 						<height>400</height>
 						<texture diffuse="diffuse/bigposter.png" background="true" fallback="DefaultVideo.png">$VAR[IconPoster]</texture>
 						<bordertexture colordiffuse="$VAR[AccentColor]">homeiconlite_poster.png</bordertexture>
@@ -5127,7 +5106,7 @@
 						<height>198</height>
 						<texture background="true">diffuse/landscape_shadow.png</texture>
 						<aspectratio scalediffuse="false">stretch</aspectratio>
-						<visible>$EXP[isParentFolder]</visible>
+						<visible>$EXP[isnotParentFolder]</visible>
 					</control>	
 					<control type="image">
 						<left>0</left>
@@ -5136,7 +5115,7 @@
 						<height>195</height>
 						<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
 						<align>center</align>
-						<texture background="true" fallback="DefaultVideo.png" diffuse="diffuse/landscape.png">$VAR[Landscape]</texture>
+						<texture background="true" fallback="special://skin/extras/more.png" diffuse="diffuse/landscape.png">$VAR[Landscape]</texture>
 						<bordersize>5</bordersize>										
 					</control>
 				</itemlayout>
@@ -5231,7 +5210,7 @@
 	<include name="PlotandDetailsHome">
 			<control type="group">
 			<visible>Control.HasFocus(9825) | Control.HasFocus(9824) | Control.HasFocus(9823) | Control.HasFocus(9822) | Control.HasFocus(9821) | Control.HasFocus(9820) | Control.HasFocus(9819) | Control.HasFocus(9818) | Control.HasFocus(9817) | Control.HasFocus(9816) | Control.HasFocus(9815) | Control.HasFocus(9814) | Control.HasFocus(9813) | Control.HasFocus(9812) | Control.HasFocus(9811) | Control.HasFocus(9810) | Control.HasFocus(9802) | Control.HasFocus(9803) | Control.HasFocus(9804) | Control.HasFocus(9805) | Control.HasFocus(9806) | Control.HasFocus(9807) | Control.HasFocus(9808) | Control.HasFocus(9809)</visible>						
-				<top>120</top>
+				<top>50</top>
 				<left>0</left>
 				<control type="image">
 					<!-- Show logo -->
@@ -5240,17 +5219,17 @@
 					<width>700</width>
 					<height>215</height>
 					<aspectratio>keep</aspectratio>
-					<texture background="true">$VAR[VideoLogo]</texture>
+					<texture background="true">$VAR[Videologo]</texture>
 				</control>
 				<control type="label">
 					<!-- Title -->
-					<left>60</left>
-					<top>5</top>
-					<width>800</width>
+					<left>50</left>
+					<top>0</top>
+					<width>1200</width>
 					<height>195</height>
-					<font>ctouch29w</font>
-					<include>scrolltext</include>
+					<font>ctouch30w</font>
 					<wrapmultiline>true</wrapmultiline>
+					<include>scrolltext</include>
 					<align>left</align>
 					<label>[B]$INFO[ListItem.Label][/B]</label>
 					<visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Art.ClearLogo))</visible>
@@ -5259,52 +5238,22 @@
 					<!-- Plot (Show if no outline available) -->
 					<top>175</top>
 					<left>62</left>
-					<width>800</width>
-					<height>243</height>
+					<width>850</width>
+					<height>210</height>
 					<font>ctouch19</font>
 					<label>$INFO[ListItem.Plot]</label>
 					<align>left</align>
 					<visible>!String.IsEmpty(ListItem.Plot)</visible>
 				</control>
-				<control type="image">
-					<top>469</top>
-					<left>62</left>
-					<width>40</width>
-					<height>40</height>
-					<texture diffuse="diffuse/square.png">$VAR[WidgetIcon]</texture>
-					<aspectratio>scale</aspectratio>
-				</control>	
-				<control type="label">
-					<top>469</top>
-					<left>110</left>
-					<width>600</width>
-					<height>40</height>
-					<textcolor>midgrey</textcolor>
-					<label>$VAR[WidgetTitle]</label>
-					<font>ctouch18</font>
-					<align>left</align>
-					<visible>![Control.HasFocus(9815) | Control.HasFocus(9816) | Control.HasFocus(9817) | Control.HasFocus(9818) | Control.HasFocus(9819) | Control.HasFocus(9820) | Control.HasFocus(9821) | Control.HasFocus(9822) | Control.HasFocus(9823) | Control.HasFocus(9824) | Control.HasFocus(9825) | Control.HasFocus(9826)]</visible> 
-				</control>								
-				<control type="label">
-					<top>469</top>
-					<left>62</left>
-					<width>600</width>
-					<height>40</height>
-					<textcolor>midgrey</textcolor>
-					<label>$VAR[WidgetTitle]</label>
-					<font>ctouch18</font>
-					<align>left</align>
-					<visible>[Control.HasFocus(9815) | Control.HasFocus(9816) | Control.HasFocus(9817) | Control.HasFocus(9818) | Control.HasFocus(9819) | Control.HasFocus(9820) | Control.HasFocus(9821) | Control.HasFocus(9822) | Control.HasFocus(9823) | Control.HasFocus(9824) | Control.HasFocus(9825) | Control.HasFocus(9826)]</visible> 
-				</control>								
 			</control>
 			<control type="group">
-				<top>340</top>
-				<right>50</right>			
+				<top>250</top>
+				<left>55</left>			
 				<visible>Control.HasFocus(9825) | Control.HasFocus(9824) | Control.HasFocus(9823) | Control.HasFocus(9822) | Control.HasFocus(9821) | Control.HasFocus(9820) | Control.HasFocus(9819) | Control.HasFocus(9818) | Control.HasFocus(9817) | Control.HasFocus(9816) | Control.HasFocus(9815) | Control.HasFocus(9814) | Control.HasFocus(9813) | Control.HasFocus(9812) | Control.HasFocus(9811) | Control.HasFocus(9810) | Control.HasFocus(9802) | Control.HasFocus(9803) | Control.HasFocus(9804) | Control.HasFocus(9805) | Control.HasFocus(9806) | Control.HasFocus(9807) | Control.HasFocus(9808) | Control.HasFocus(9809)</visible>						
 				<control type="image">
 					<!-- Star Rating -->
-					<right>0</right>
-					<top>240</top>
+					<left>1700</left>
+					<top>180</top>
 					<width>70</width>
 					<height>50</height>
 					<texture>tmdb.png</texture>
@@ -5314,8 +5263,8 @@
 				</control>
 				<control type="label">
 					<!-- Star Rating -->
-					<top>245</top>
-					<right>70</right>
+					<top>185</top>
+					<left>1770</left>
 					<width>60</width>
 					<height>40</height>
 					<label>[B]$INFO[ListItem.Rating][/B]</label>
@@ -5325,14 +5274,25 @@
 				</control>								
 				<control type="image">
 					<!-- Studio -->
-					<right>150</right>
-					<top>220</top>
+					<left>1590</left>
+					<top>165</top>
 					<width>100</width>
 					<height>80</height>
 					<texture>$VAR[Image_CombinedStudio]</texture>
-					<align>center</align>
+					<align>top</align>
 					<aspectratio>keep</aspectratio>
 				</control>
+				<control type="label">
+					<!-- Star Rating -->
+					<top>360</top>
+					<left>10</left>
+					<width>600</width>
+					<height>40</height>
+					<textcolor>midgrey</textcolor>
+					<label>$VAR[WidgetTitle]</label>
+					<font>ctouch18</font>
+					<align>left</align>
+				</control>								
 			</control>			
 	</include>
 	<include name="DetailsCategorias">
@@ -5398,6 +5358,47 @@
             </control>
         </definition>
     </include>					
+	<include name="playerplay">
+		<control type="grouplist" id="7000">
+			<right>50</right>
+			<top>96</top>
+			<width>650</width>
+			<height>100</height>	
+			<itemgap>20</itemgap>
+			<align>right</align>
+			<orientation>horizontal</orientation>
+			<defaultcontrol>2</defaultcontrol>	
+			<viewtype>button</viewtype>		
+			<ondown condition="Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">50</ondown>
+			<ondown condition="!Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">57</ondown>
+			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">58</ondown>
+			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">52</ondown>
+			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">59</ondown>
+			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54)">55</ondown>
+			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + Control.isVisible(54)">54</ondown>
+			<ondown condition="!Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
+			<ondown condition="Window.isActive(Settings)">8999</ondown>
+			<onup>8000</onup>
+			<control type="button" id="70001">
+				<width>60</width>
+				<height>60</height>
+				<texturefocus>osd-btn-stop-focus.png</texturefocus>
+				<texturenofocus>osd-btn-stop.png</texturenofocus>
+				<onclick>PlayerControl(Stop)</onclick>
+				<include>focus-zoom</include>
+				<visible>Player.HasVideo</visible>
+			</control>
+			<control type="button" id="70002">
+				<width>60</width>
+				<height>60</height>
+				<texturefocus>osd-btn-zoom-focus.png</texturefocus>
+				<texturenofocus>osd-btn-zoom.png</texturenofocus>
+				<onclick>ActivateWindow(fullscreenvideo)</onclick>
+				<include>focus-zoom</include>
+				<visible>Player.HasVideo</visible>
+			</control>			
+		</control>
+	</include>
 	<include name="touch-controls">
 		<control type="grouplist" id="8000">
 			<right>40</right>
@@ -5409,37 +5410,17 @@
 			<orientation>horizontal</orientation>
 			<defaultcontrol>2</defaultcontrol>	
 			<viewtype>button</viewtype>		
-			<ondown condition="Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">50</ondown>
-			<ondown condition="!Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">57</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">58</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">52</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">59</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">55</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(554) + Control.isVisible(54)">54</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + Control.IsVisible(554)">554</ondown>
-			<ondown condition="!Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
-			<ondown condition="Control.IsVisible(10) | Window.isActive(tvguide)">10</ondown>
-			<ondown condition="Control.IsVisible(7)">7</ondown>
-			<ondown condition="Window.isActive(Settings)">8999</ondown>
+			<ondown condition="!Player.HasVideo + Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">50</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">57</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">58</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">52</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">59</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54)">55</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + Control.isVisible(54)">54</ondown>
+			<ondown condition="!Player.HasVideo + !Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
+			<ondown condition="!Player.HasVideo + Window.isActive(Settings)">8999</ondown>
+			<ondown condition="Player.HasVideo">7000</ondown>
 			<visible>Skin.HasSetting(menulittle)</visible>
-			<control type="button" id="70001">
-				<width>80</width>
-				<height>80</height>
-				<texturefocus>osd-btn-stop-focus.png</texturefocus>
-				<texturenofocus colordiffuse="lightgrey">osd-btn-stop.png</texturenofocus>
-				<onclick>PlayerControl(Stop)</onclick>
-				<include>focus-zoom</include>
-				<visible>Player.HasVideo</visible>
-			</control>
-			<control type="button" id="70002">
-				<width>80</width>
-				<height>80</height>
-				<texturefocus>osd-btn-zoom-focus.png</texturefocus>
-				<texturenofocus colordiffuse="lightgrey">osd-btn-zoom.png</texturenofocus>
-				<onclick>ActivateWindow(fullscreenvideo)</onclick>
-				<include>focus-zoom</include>
-				<visible>Player.HasVideo</visible>
-			</control>			
 			<control type="button" id="80001">
 				<!-- Back -->
 				<width>80</width>
@@ -5479,7 +5460,7 @@
 				<onclick condition="!String.IsEqual(Window(home).Property(ShowScreenSettings),show)">SetProperty(ShowScreenSettings,show,home)</onclick>
 				<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 				<include>focus-zoom</include>
-				<visible>[Window.isActive(tvguide) | Control.isVisible(50) | Control.isVisible(57) | Control.isVisible(58) | Control.isVisible(52) | Control.isVisible(59) | Control.isVisible(55) | Control.isVisible(54) | Control.isVisible(554)]</visible>
+				<visible>[Control.isVisible(50) | Control.isVisible(57) | Control.isVisible(58) | Control.isVisible(52) | Control.isVisible(59) | Control.isVisible(55) | Control.isVisible(54)]</visible>
 			</control>
 			<control type="button" id="80005">
 				<!-- Favourite -->
@@ -5510,38 +5491,17 @@
 			<orientation>horizontal</orientation>
 			<defaultcontrol>2</defaultcontrol>	
 			<viewtype>button</viewtype>		
-			<ondown condition="Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">50</ondown>
-			<ondown condition="!Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">57</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">58</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">52</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">59</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">55</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + Control.isVisible(54) + !Control.isVisible(554)">54</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + Control.isVisible(554)">554</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554) + Control.IsVisible(10)">10</ondown>
-			<ondown condition="!Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554) + !Control.IsVisible(10)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
-			<ondown condition="Control.IsVisible(10) | Window.isActive(tvguide)">10</ondown>
-			<ondown condition="Control.IsVisible(7)">7</ondown>
-			<ondown condition="Window.isActive(Settings)">8999</ondown>
+			<ondown condition="!Player.HasVideo + Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">50</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">57</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">58</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">52</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">59</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54)">55</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + Control.isVisible(54)">54</ondown>
+			<ondown condition="!Player.HasVideo + !Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
+			<ondown condition="!Player.HasVideo + Window.isActive(Settings)">8999</ondown>
+			<ondown condition="Player.HasVideo">7000</ondown>
 			<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + !Skin.HasSetting(menuoculto)</visible>
-			<control type="button" id="70001">
-				<width>75</width>
-				<height>75</height>
-				<texturefocus>osd-btn-stop-focus.png</texturefocus>
-				<texturenofocus colordiffuse="lightgrey">osd-btn-stop.png</texturenofocus>
-				<onclick>PlayerControl(Stop)</onclick>
-				<include>focus-zoom</include>
-				<visible>Player.HasVideo</visible>
-			</control>
-			<control type="button" id="70002">
-				<width>75</width>
-				<height>75</height>
-				<texturefocus>osd-btn-zoom-focus.png</texturefocus>
-				<texturenofocus colordiffuse="lightgrey">osd-btn-zoom.png</texturenofocus>
-				<onclick>ActivateWindow(fullscreenvideo)</onclick>
-				<include>focus-zoom</include>
-				<visible>Player.HasVideo</visible>
-			</control>			
 			<control type="button" id="80001">
 				<!-- Back -->
 				<width>75</width>
@@ -5581,7 +5541,7 @@
 				<onclick condition="!String.IsEqual(Window(home).Property(ShowScreenSettings),show)">SetProperty(ShowScreenSettings,show,home)</onclick>
 				<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 				<include>focus-zoom</include>
-				<visible>[Window.isActive(tvguide) | Control.isVisible(50) | Control.isVisible(57) | Control.isVisible(58) | Control.isVisible(52) | Control.isVisible(59) | Control.isVisible(55) | Control.isVisible(54) | Control.isVisible(554)]</visible>
+				<visible>[Control.isVisible(50) | Control.isVisible(57) | Control.isVisible(58) | Control.isVisible(52) | Control.isVisible(59) | Control.isVisible(55) | Control.isVisible(54)]</visible>
 			</control>
 			<control type="button" id="80005">
 				<!-- Favourite -->
@@ -5613,38 +5573,16 @@
 			<orientation>horizontal</orientation>
 			<defaultcontrol>2</defaultcontrol>	
 			<viewtype>button</viewtype>		
-			<ondown condition="Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">50</ondown>
-			<ondown condition="!Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">57</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">58</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">52</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">59</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554)">55</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + Control.isVisible(54) + !Control.isVisible(554)">54</ondown>
-			<ondown condition="!Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + Control.isVisible(554)">554</ondown>
-			<ondown condition="Control.IsVisible(10) | Window.isActive(tvguide)">10</ondown>
-			<ondown condition="!Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54) + !Control.isVisible(554) + !Window.isActive(tvguide)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
-			<ondown condition="Control.IsVisible(7)">7</ondown>
-			<ondown condition="Window.isActive(Settings)">8999</ondown>
-			<control type="button" id="70001">
-				<width>75</width>
-				<height>75</height>
-				<texturefocus>osd-btn-stop-focus.png</texturefocus>
-				<texturenofocus colordiffuse="lightgrey">osd-btn-stop.png</texturenofocus>
-				<onclick>PlayerControl(Stop)</onclick>
-				<include>focus-zoom</include>
-				<visible>Player.HasVideo</visible>
-				<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
-			</control>
-			<control type="button" id="70002">
-				<width>75</width>
-				<height>75</height>
-				<texturefocus>osd-btn-zoom-focus.png</texturefocus>
-				<texturenofocus colordiffuse="lightgrey">osd-btn-zoom.png</texturenofocus>
-				<onclick>ActivateWindow(fullscreenvideo)</onclick>
-				<include>focus-zoom</include>
-				<visible>Player.HasVideo</visible>
-				<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
-			</control>			
+			<ondown condition="!Player.HasVideo + Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">50</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">57</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">58</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">52</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">59</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + Control.isVisible(55) + !Control.isVisible(54)">55</ondown>
+			<ondown condition="!Player.HasVideo + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + Control.isVisible(54)">54</ondown>
+			<ondown condition="!Player.HasVideo + !Window.isActive(Settings + !Control.isVisible(50) + !Control.isVisible(57) + !Control.isVisible(58) + !Control.isVisible(52) + !Control.isVisible(59) + !Control.isVisible(55) + !Control.isVisible(54)">Control.SetFocus(9000,$INFO[Container(80001).Position])</ondown>
+			<ondown condition="!Player.HasVideo + Window.isActive(Settings)">8999</ondown>
+			<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
 			<control type="button" id="80002">
 				<!-- Home -->
 				<width>75</width>
@@ -5653,8 +5591,7 @@
 				<texturenofocus colordiffuse="lightgrey">touch-home1.png</texturenofocus>
 				<onclick>ActivateWindow(Home)</onclick>
 				<include>focus-zoom</include>
-				<visible>!Window.IsActive(Home) + [Window.IsActive(settings) | Window.IsActive(SkinSettings)]</visible>
-				<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
+				<visible>[!Window.IsActive(Home) | Window.IsActive(settings) | Window.IsActive(SkinSettings)]</visible>
 			</control>			
 			<control type="button" id="80003">
 				<!-- Search -->
@@ -5665,7 +5602,6 @@
 				<onclick>ActivateWindow(1132)</onclick>
 				<include>focus-zoom</include>
 				<visible>[Window.IsActive(Home) | Window.IsActive(settings) | Window.IsActive(SkinSettings)]</visible>
-				<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
 			</control>
 			<control type="button" id="80004">
 				<!-- Screen Settings -->
@@ -5678,7 +5614,6 @@
 				<onclick condition="String.IsEqual(Window(home).Property(ShowScreenSettings),show)">ClearProperty(ShowScreenSettings,home)</onclick>
 				<include>focus-zoom</include>
 				<visible>Control.isVisible(54)</visible>
-				<visible>!Skin.HasSetting(menulittle) | !Control.isVisible(450) | Skin.HasSetting(menuoculto) | Window.isActive(tvguide)</visible>
 			</control>
 			<control type="button" id="80005">
 				<!-- Favourite -->
@@ -5689,7 +5624,6 @@
 				<onclick>ActivateWindow(favourites)</onclick>
 				<include>focus-zoom</include>
 				<visible>[Window.IsActive(Home) | Window.IsActive(settings) | Window.IsActive(SkinSettings)]</visible>
-				<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
 			</control>
 			<control type="button" id="80006">
 				<!-- Settings -->
@@ -5700,14 +5634,13 @@
 				<onclick>Activatewindow(1136)</onclick>
 				<include>focus-zoom</include>
 				<visible>[Window.IsActive(Home) | Window.IsActive(settings) | Window.IsActive(SkinSettings)]</visible>
-				<visible>!Skin.HasSetting(menulittle) + !Control.isVisible(450) + Skin.HasSetting(menuoculto)</visible>
 			</control>
 		</control>
 	</include>	
 	<include name="hora">
   	  <control type="grouplist" id="8000">
-		<left>30</left>
-		<top>15</top>
+		<left>20</left>
+		<top>10</top>
 		<width>400</width>
 		<height>80</height>	
 		<itemgap>15</itemgap>

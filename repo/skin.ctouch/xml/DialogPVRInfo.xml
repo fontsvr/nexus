@@ -3,54 +3,32 @@
 	<defaultcontrol always="true">7</defaultcontrol>
 	<controls>
 		<include>background</include>
-		<include>hora</include>
-		<include>touch-controls</include>
 		<control type="group">
 			<control type="image">
 				<left>90</left>
-				<top>245</top>
-				<width>297</width>
-				<height>440</height>
-				<texture background="true">diffuse/bigposter_shadow.png</texture>
-				<aspectratio scalediffuse="false">stretch</aspectratio>
+				<top>158</top>
+				<width>384</width>
+				<height>384</height>
+				<texture fallback="icon-radio.png">$VAR[PVRIcon]</texture>
+				<aspectratio>keep</aspectratio>
 				<visible>!String.IsEmpty(Window.Property(IsRadio))</visible>
 			</control>
 			<control type="image">
 				<left>90</left>
-				<top>245</top>
-				<width>297</width>
-				<height>440</height>
-				<texture background="true" fallback="defaultaddonpvrclient.png" diffuse="diffuse/bigposter.png">$VAR[PVRIcon]</texture>
-				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
-				<bordersize>5</bordersize>
-				<visible>!String.IsEmpty(Window.Property(IsRadio))</visible>
-			</control>
-			<control type="image">
-				<left>90</left>
-				<top>245</top>
-				<width>297</width>
-				<height>440</height>
-				<texture background="true">diffuse/bigposter_shadow.png</texture>
-				<aspectratio scalediffuse="false">stretch</aspectratio>
-				<visible>String.IsEmpty(Window.Property(IsRadio))</visible>
-			</control>
-			<control type="image">
-				<left>90</left>
-				<top>245</top>
-				<width>297</width>
-				<height>440</height>
-				<texture background="true" fallback="defaultaddonpvrclient.png" diffuse="diffuse/bigposter.png">$VAR[PVRIcon]</texture>
-				<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
-				<bordersize>5</bordersize>
+				<top>358</top>
+				<width>384</width>
+				<height>384</height>
+				<texture fallback="icon-livetv.png">$VAR[PVRIcon]</texture>
+				<aspectratio>keep</aspectratio>
 				<visible>String.IsEmpty(Window.Property(IsRadio))</visible>
 			</control>
 			<control type="label">
 				<!-- PVR Program name -->
 				<left>570</left>
-				<top>110</top>
+				<top>18</top>
 				<width>1290</width>
 				<height>108</height>
-				<font>ctouch30w</font>
+				<font>ctouch30</font>
 				<label>$INFO[ListItem.Label]</label>
 				<wrapmultiline>true</wrapmultiline>
 				<aligny>center</aligny>
@@ -58,9 +36,9 @@
 			</control>
 			<control type="label">
 				<!-- Channel name -->
-				<left>50</left>
-				<top>150</top>
-				<width>490</width>
+				<left>570</left>
+				<top>126</top>
+				<width>1290</width>
 				<height>33</height>
 				<font>ctouch22</font>
 				<label>$INFO[ListItem.ChannelName]</label>
@@ -69,18 +47,18 @@
 				<include condition="Skin.HasSetting(text-autoscroll)">scrolltext</include>
 			</control>
 			<control type="image">
-				<left>50</left>
-				<top>200</top>
-				<width>1810</width>
-				<height>25</height>
-				<texture flipy="true">sep2.png</texture>
+				<left>570</left>
+				<top>162</top>
+				<width>1290</width>
+				<height>6</height>
+				<texture>separator.png</texture>
 			</control>
 			<control type="textbox" id="1122">
 				<!-- PVR program description -->
 				<left>570</left>
-				<top>225</top>
+				<top>168</top>
 				<width>1290</width>
-				<height>270</height>
+				<height>174</height>
 				<label>$VAR[ListPlotLong]</label>
 				<font>ctouch20</font>
 				<align>justify</align>
@@ -89,9 +67,9 @@
 			<control type="scrollbar" id="1123">
 				<!-- PVR program description scrollbar -->
 				<left>1869</left>
-				<top>250</top>
+				<top>165</top>
 				<width>18</width>
-				<height>250</height>
+				<height>183</height>
 				<onup>1123</onup>
 				<onright>1123</onright>
 				<onleft>9000</onleft>
@@ -101,15 +79,15 @@
 			</control>
 			<control type="image">
 				<left>570</left>
-				<top>515</top>
+				<top>348</top>
 				<width>1290</width>
-				<height>18</height>
-				<texture>sep2.png</texture>
+				<height>6</height>
+				<texture>separator.png</texture>
 			</control>
 			<control type="group">
 				<control type="list" id="49">
 					<left>570</left>
-					<top>535</top>
+					<top>360</top>
 					<width>1290</width>
 					<height>225</height>
 					<onleft>49</onleft>
@@ -125,7 +103,7 @@
 							<width>240</width>
 							<height>45</height>
 							<font>ctouch20</font>
-							<align>left</align>
+							<align>right</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
@@ -135,7 +113,7 @@
 							<width>1028</width>
 							<height>45</height>
 							<font>ctouch20</font>
-							<aligny>left</aligny>
+							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 					</itemlayout>
@@ -146,7 +124,7 @@
 							<width>240</width>
 							<height>45</height>
 							<font>ctouch20</font>
-							<align>left</align>
+							<align>right</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
@@ -156,7 +134,7 @@
 							<width>1028</width>
 							<height>45</height>
 							<font>ctouch20</font>
-							<aligny>left</aligny>
+							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 					</focusedlayout>
@@ -180,92 +158,129 @@
 					</content>
 				</control>
 			</control>
-			<control type="image">
-				<left>570</left>
-				<top>735</top>
-				<width>1350</width>
-				<height>18</height>
-				<texture flipy="true">sep2.png</texture>
-			</control>
 			<control type="grouplist" id="9000">
 				<!-- Option buttons -->
-				<left>570</left>
-				<top>800</top>
+				<left>540</left>
+				<top>600</top>
 				<width>1320</width>
 				<height>144</height>
 				<orientation>horizontal</orientation>
 				<itemgap>22</itemgap>
-				<align>left</align>
+				<align>center</align>
 				<onleft>1005</onleft>
 				<onright>1005</onright>
-				<onup>80001</onup>
+				<onup condition="Integer.IsGreater(Container(1122).NumPages,1)">1123</onup>
+				<onup condition="Integer.IsLessOrEqual(Container(1122).NumPages,1)">1005</onup>
 				<ondown condition="Integer.IsGreaterOrEqual(Container(950).NumItems,1)">950</ondown>
 				<ondown condition="Integer.IsLess(Container(950).NumItems,1)">1005</ondown>
 				<control type="button" id="7">
 					<!-- OK button -->
+					<include>info-options-common</include>
 					<label>$LOCALIZE[186]</label>
-					<width>280</width>
-					<height>70</height>
-					<font>ctouch18</font>
-					<align>center</align>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
-					<texturenofocus>button-default-focus.png</texturenofocus>
+					<texturefocus>button-info-ok-focus.png</texturefocus>
+					<texturenofocus>button-info-ok.png</texturenofocus>
 				</control>
 				<control type="button" id="6">
 					<!-- Record button -->
+					<include>info-options-common</include>
 					<label>$LOCALIZE[24022]</label>
-					<width>280</width>
-					<height>70</height>
-					<font>ctouch18</font>
-					<align>center</align>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
-					<texturenofocus>button-default-focus.png</texturenofocus>
+					<texturefocus>button-info-record-focus.png</texturefocus>
+					<texturenofocus>button-info-record.png</texturenofocus>
 					<visible>Window.IsActive(PVRGuideInfo)</visible>
 				</control>
 				<control type="button" id="9">
 					<!-- Timer button -->
+					<include>info-options-common</include>
 					<label>$LOCALIZE[19061]</label>
-					<width>280</width>
-					<height>70</height>
-					<font>ctouch18</font>
-					<align>center</align>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
-					<texturenofocus>button-default-focus.png</texturenofocus>
+					<texturefocus>button-info-timer-focus.png</texturefocus>
+					<texturenofocus>button-info-timer.png</texturenofocus>
 					<visible>Window.IsActive(PVRGuideInfo)</visible>
 				</control>
 				<control type="button" id="5">
 					<!-- Switch channel button -->
+					<include>info-options-common</include>
 					<label>$LOCALIZE[19165]</label>
-					<width>280</width>
-					<height>70</height>
-					<font>ctouch18</font>
-					<align>center</align>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
-					<texturenofocus>button-default-focus.png</texturenofocus>
+					<texturefocus>button-info-refresh-focus.png</texturefocus>
+					<texturenofocus>button-info-refresh.png</texturenofocus>
 					<visible>Window.IsActive(PVRGuideInfo)</visible>
 				</control>
 				<control type="button" id="4">
 					<!-- Similar button -->
+					<include>info-options-common</include>
 					<label>$LOCALIZE[19003]</label>
-					<width>280</width>
-					<height>70</height>
-					<font>ctouch18</font>
-					<align>center</align>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
-					<texturenofocus>button-default-focus.png</texturenofocus>
+					<texturefocus>button-info-cast-focus.png</texturefocus>
+					<texturenofocus>button-info-cast.png</texturenofocus>
 					<visible>Window.IsActive(PVRGuideInfo)</visible>
 				</control>
 				<control type="button" id="8">
 					<!-- Play button -->
+					<include>info-options-common</include>
 					<label>$LOCALIZE[19687]</label>
-					<width>280</width>
-					<height>70</height>
-					<font>ctouch18</font>
-					<align>center</align>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
-					<texturenofocus>button-default-focus.png</texturenofocus>
+					<texturefocus>button-info-play-focus.png</texturefocus>
+					<texturenofocus>button-info-play.png</texturenofocus>
 					<visible>Window.IsActive(PVRRecordingInfo)</visible>
 				</control>
+			</control>
+			<control type="label">
+				<!-- PVR Channels heading -->
+				<left>30</left>
+				<top>732</top>
+				<height>30</height>
+				<width>450</width>
+				<label>$LOCALIZE[19163]</label>
+				<font>ctouch22</font>
+				<align>right</align>
+			</control>
+			<control type="image">
+				<left>510</left>
+				<top>756</top>
+				<width>1350</width>
+				<height>6</height>
+				<texture>separator.png</texture>
+			</control>
+			<control type="list" id="950">
+				<left>15</left>
+				<top>762</top>
+				<width>1890</width>
+				<height>312</height>
+				<onleft>1010</onleft>
+				<onright>1010</onright>
+				<onup>9000</onup>
+				<ondown>1010</ondown>
+				<viewtype label="31028">list</viewtype>
+				<orientation>horizontal</orientation>
+				<itemlayout height="312" width="315">
+					<control type="image">
+						<left>52</left>
+						<top>18</top>
+						<width>210</width>
+						<height>210</height>
+						<aspectratio>keep</aspectratio>
+						<texture colordiffuse="UnFocusedPosters" background="true">$INFO[ListItem.Icon]</texture>
+					</control>
+				</itemlayout>
+				<focusedlayout height="312" width="315">
+					<control type="image">
+						<left>52</left>
+						<top>18</top>
+						<width>210</width>
+						<height>210</height>
+						<aspectratio>keep</aspectratio>
+						<texture background="true">$INFO[ListItem.Icon]</texture>
+						<animation effect="zoom" start="100" end="104" center="auto" time="200" tween="back" easing="out" reversible="false">focus</animation>
+					</control>
+					<control type="textbox">
+						<left>0</left>
+						<top>240</top>
+						<width>315</width>
+						<height>72</height>
+						<label>$INFO[ListItem.Label] [COLOR=disabled-text]$INFO[ListItem.Label2,(,)][/COLOR]</label>
+						<font>ctouch20</font>
+						<align>center</align>
+						<animation effect="fade" time="100" delay="200">Focus</animation>
+						<visible>Control.HasFocus(950)</visible>
+					</control>
+				</focusedlayout>
 			</control>
 			<control type="group">
 				<!-- Markers for control area items -->

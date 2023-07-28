@@ -38,14 +38,6 @@
 			<onright>5</onright>
 			<ondown>9001</ondown>
 		</control>
-		<control type="image">
-			<!-- Dialog background -->
-			<left>560</left>
-			<top>160</top>
-			<width>15</width>
-			<height>755</height>
-			<texture>sep.png</texture>
-		</control>
 		<control type="grouplist" id="5">
 			<!-- Control area -->
 			<left>600</left>
@@ -68,7 +60,7 @@
 			<visible>$EXP[isEnabledScrollbar]</visible>
 		</control>
 		<control type="group" id="9001">
-			<left>85</left>
+			<left>100</left>
 			<top>970</top>
 			<control type="button" id="28">
 				<!-- OK Button -->
@@ -83,11 +75,10 @@
 				<onright>29</onright>
 				<onup>3</onup>
 				<texturefocus border="9" colordiffuse="$VAR[AccentColor]">button-default-white.png</texturefocus>
-				<texturenofocus border="9" colordiffuse="backgrey">button-default-white.png</texturenofocus>
 			</control>
 			<control type="button" id="29">
 				<!-- Cancel Button -->
-				<left>325</left>
+				<left>350</left>
 				<top>0</top>
 				<width>300</width>
 				<height>68</height>
@@ -98,11 +89,10 @@
 				<onright>30</onright>
 				<onup>3</onup>
 				<texturefocus border="9" colordiffuse="$VAR[AccentColor]">button-default-white.png</texturefocus>
-				<texturenofocus border="9" colordiffuse="backgrey">button-default-white.png</texturenofocus>
 			</control>
 			<control type="button" id="30">
 				<!-- Defaults Button -->
-				<left>650</left>
+				<left>700</left>
 				<top>0</top>
 				<width>300</width>
 				<height>68</height>
@@ -113,7 +103,6 @@
 				<onright>28</onright>
 				<onup>3</onup>
 				<texturefocus border="9" colordiffuse="$VAR[AccentColor]">button-default-white.png</texturefocus>
-				<texturenofocus border="9" colordiffuse="backgrey">button-default-white.png</texturenofocus>
 			</control>
 		</control>
 		<control type="button" id="7">

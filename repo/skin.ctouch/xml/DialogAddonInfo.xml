@@ -247,20 +247,17 @@
 					<onup>Control.SetFocus(80001,$INFO[Container(9000).Position])</onup>
 					<visible>Control.IsEnabled(9)</visible>
 				</control>
-				<control type="radiobutton" id="13">
+				<control type="button" id="13">
 					<!-- Enable/disable auto updates -->
 					<width>300</width>
 					<height>65</height>
 					<align>center</align>
-					<font>ctouch19</font>
-					<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
+					<font>ctouch20</font>
+					<texturefocus>button-default-focus_back.png</texturefocus>
 					<texturenofocus/>
-					<include>settings-submenu-common</include>
+					<colordiffuse>$VAR[AccentColor]</colordiffuse>
 					<label>$LOCALIZE[21340]</label>
 					<onup>Control.SetFocus(80001,$INFO[Container(9000).Position])</onup>
-					<radioposx>262</radioposx>
-					<radiowidth>35</radiowidth>
-					<radioheight>35</radioheight>
 					<visible>Control.IsEnabled(13)</visible>
 				</control>
 				<control type="button" id="10">

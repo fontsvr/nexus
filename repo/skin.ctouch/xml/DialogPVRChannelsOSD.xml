@@ -6,112 +6,129 @@
 		<top>0</top>
 	</coordinates>
 	<controls>
+		<include>fadebackground</include>
 		<control type="group">
 			<control type="image">
 				<!-- Dialog background -->
-				<left>0</left>
-				<top>0</top>
-				<width>650</width>
-				<height>100%</height>
-				<texture border="14" colordiffuse="black">backtransparent.png</texture>
-			</control>
-			<control type="button">
-				<!-- Touch mouse close button -->
-				<right>15</right>
-				<bottom>15</bottom>
-				<width>180</width>
-				<height>75</height>
-				<texturefocus colordiffuse="$VAR[AccentColor]">backtransparent.png</texturefocus>
-				<texturenofocus colordiffuse="midgrey">backtransparent.png</texturenofocus>
-				<onclick>Dialog.Close(PVROSDChannels)</onclick>
-				<align>center</align>
-				<aligny>center</aligny>
-				<label>Cerrar</label>
-				<font>ctouch19</font>
-				<visible>Skin.HasSetting(menulittle)</visible>
+				<left>580</left>
+				<top>92</top>
+				<width>740</width>
+				<height>890</height>
+				<texture border="14">button-menu-background.png</texture>
 			</control>
 			<control type="grouplist">
-				<left>20</left>
-				<top>20</top>
-				<width>620</width>
+				<left>630</left>
+				<top>105</top>
+				<width>645</width>
 				<height>60</height>
 				<align>center</align>
 				<aligny>top</aligny>
 				<orientation>horizontal</orientation>
 				<control type="label">
-				<itemgap>5</itemgap>
 					<!-- Video screen heading -->
-					<width>620</width>
-					<height>25</height>
-					<label>$VAR[PVRChannelOSDHeading]  $INFO[Container(11).NumItems,(,)]</label>
-					<font>ctouch19</font>
+					<width max="550">auto</width>
+					<height>60</height>
+					<label>$VAR[PVRChannelOSDHeading]</label>
+					<font>ctouch23</font>
+					<wrapmultiline>true</wrapmultiline>
 					<aligny>top</aligny>
-					<alignx>left</alignx>
+				</control>
+				<control type="label">
+					<!-- Number of files -->
+					<width max="95">auto</width>
+					<height>60</height>
+					<label>$INFO[Container(11).NumItems,(,)]</label>
+					<font>ctouch23</font>
+					<aligny>top</aligny>
 				</control>
 			</control>
 			<control type="label">
 				<!-- Header -->
-				<left>20</left>
-				<top>80</top>
-				<width>620</width>
-				<height>25</height>
-				<font>ctouch18</font>
+				<left>598</left>
+				<top>152</top>
+				<width>684</width>
+				<height>36</height>
+				<font>ctouch23</font>
 				<label>$INFO[System.Date(DDD)], $INFO[System.Date(d)] $INFO[System.Date(mmm)] $INFO[System.Date(yyyy)] • $INFO[System.Time]</label>
-				<align>left</align>
+				<align>center</align>
+			</control>
+			<control type="button">
+				<left>1287</left>
+				<top>79</top>
+				<width>48</width>
+				<height>48</height>
+				<texturefocus>touch-close.png</texturefocus>
+				<texturenofocus>touch-close.png</texturenofocus>
+				<onclick>Dialog.Close(pvrosdchannels)</onclick>
 			</control>
 			<control type="image">
-				<left>20</left>
-				<top>115</top>
-				<width>620</width>
-				<height>12</height>
-				<texture flipx="true">sep2.png</texture>
+				<left>598</left>
+				<top>196</top>
+				<width>704</width>
+				<height>6</height>
+				<texture>separator.png</texture>
 			</control>
 			<control type="list" id="11">
-				<left>0</left>
-				<top>145</top>
-				<width>650</width>
-				<height>920</height>
-				<onright>60</onright>
-				<onleft>close</onleft>
-				<movement>4</movement>
-				<focusposition>4</focusposition>
+				<left>618</left>
+				<top>205</top>
+				<width>684</width>
+				<height>765</height>
+				<onleft>60</onleft>
+				<onright>close</onright>
+				<viewtype label="535">list</viewtype>
 				<pagecontrol>60</pagecontrol>
-				<itemlayout height="115" width="630">
+				<itemlayout height="153" width="684">
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
 						<width>630</width>
-						<height>120</height>
-						<texture/>
+						<height>153</height>
+						<texture border="9" colordiffuse="midgrey">button-default.png</texture>
 					</control>
 					<control type="label">
-						<left>15</left>
+						<left>14</left>
 						<top>18</top>
-						<width>65</width>
+						<width>60</width>
 						<height>36</height>
-						<font>ctouch19</font>
+						<font>ctouch23</font>
 						<label>$INFO[ListItem.ChannelNumberLabel]</label>
 						<visible>$EXP[isEmptyPVRIcon]</visible>
 					</control>
 					<control type="image">
-						<left>15</left>
+						<left>14</left>
 						<top>18</top>
-						<width>65</width>
-						<height>65</height>
+						<width>60</width>
+						<height>60</height>
 						<texture>$VAR[PVRIcon]</texture>
 						<visible>$EXP[isnotEmptyPVRIcon]</visible>
 					</control>
+					<control type="image">
+						<left>18</left>
+						<top>100</top>
+						<width>30</width>
+						<height>30</height>
+						<texture>overlayisrecording.png</texture>
+						<visible>ListItem.IsRecording</visible>
+					</control>
 					<control type="label">
-						<left>100</left>
-						<top>15</top>
+						<left>84</left>
+						<top>18</top>
 						<width>525</width>
 						<height>36</height>
-						<font>ctouch18</font>
+						<font>ctouch20</font>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>84</left>
+						<top>60</top>
+						<width>525</width>
+						<height>36</height>
+						<font>ctouch20</font>
 						<label>$INFO[ListItem.Title]</label>
 					</control>
 					<control type="label">
-						<left>100</left>
-						<top>57</top>
+						<left>84</left>
+						<top>102</top>
 						<width>120</width>
 						<height>36</height>
 						<font>ctouch18</font>
@@ -120,17 +137,17 @@
 						<visible>ListItem.HasEpg</visible>
 					</control>
 					<control type="progress">
-						<left>225</left>
-						<top>72</top>
-						<width>271</width>
-						<height>12</height>
-						<info colordiffuse="white">ListItem.Progress</info>
+						<left>215</left>
+						<top>117</top>
+						<width>318</width>
+						<height>9</height>
+						<info>ListItem.Progress</info>
 						<visible>ListItem.HasEpg</visible>
 					</control>
 					<control type="label">
-						<left>505</left>
-						<top>57</top>
-						<width>130</width>
+						<left>555</left>
+						<top>102</top>
+						<width>120</width>
 						<height>36</height>
 						<font>ctouch18</font>
 						<selectedcolor>button-text</selectedcolor>
@@ -138,43 +155,60 @@
 						<visible>ListItem.HasEpg</visible>
 					</control>
 				</itemlayout>
-				<focusedlayout height="115" width="650">
+				<focusedlayout height="153" width="684">
 					<control type="image">
-						<left>-5</left>
+						<left>0</left>
 						<top>0</top>
-						<width>670</width>
-						<height>120</height>
-						<texture border="9" colordiffuse="$VAR[AccentColor]">button-default-white.png</texture>
+						<width>684</width>
+						<height>153</height>
+						<texture border="9">button-default-focus.png</texture>
 						<visible>Control.HasFocus(11)</visible>
 					</control>
 					<control type="label">
-						<left>15</left>
+						<left>14</left>
 						<top>18</top>
-						<width>65</width>
+						<width>60</width>
 						<height>36</height>
-						<font>ctouch19</font>
+						<font>ctouch23</font>
 						<label>$INFO[ListItem.ChannelNumberLabel]</label>
 						<visible>$EXP[isEmptyPVRIcon]</visible>
 					</control>
 					<control type="image">
-						<left>15</left>
+						<left>14</left>
 						<top>18</top>
-						<width>65</width>
-						<height>65</height>
+						<width>60</width>
+						<height>60</height>
 						<texture>$VAR[PVRIcon]</texture>
 						<visible>$EXP[isnotEmptyPVRIcon]</visible>
 					</control>
+					<control type="image">
+						<left>18</left>
+						<top>100</top>
+						<width>30</width>
+						<height>30</height>
+						<texture>overlayisrecording.png</texture>
+						<visible>ListItem.IsRecording</visible>
+					</control>
 					<control type="label">
-						<left>100</left>
-						<top>15</top>
+						<left>84</left>
+						<top>18</top>
 						<width>525</width>
 						<height>36</height>
-						<font>ctouch18</font>
+						<font>ctouch20</font>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>84</left>
+						<top>60</top>
+						<width>525</width>
+						<height>36</height>
+						<font>ctouch20</font>
+						<selectedcolor>button-text</selectedcolor>
 						<label>$INFO[ListItem.Title]</label>
 					</control>
 					<control type="label">
-						<left>100</left>
-						<top>57</top>
+						<left>84</left>
+						<top>102</top>
 						<width>120</width>
 						<height>36</height>
 						<font>ctouch18</font>
@@ -183,18 +217,17 @@
 						<visible>ListItem.HasEpg</visible>
 					</control>
 					<control type="progress">
-						<left>225</left>
-						<top>72</top>
-						<width>271</width>
-						<height>12</height>
+						<left>215</left>
+						<top>117</top>
+						<width>318</width>
+						<height>9</height>
 						<info>ListItem.Progress</info>
-						<colordiffuse>white</colordiffuse>
 						<visible>ListItem.HasEpg</visible>
 					</control>
 					<control type="label">
-						<left>505</left>
-						<top>57</top>
-						<width>130</width>
+						<left>555</left>
+						<top>102</top>
+						<width>120</width>
 						<height>36</height>
 						<font>ctouch18</font>
 						<selectedcolor>button-text</selectedcolor>
@@ -204,12 +237,12 @@
 				</focusedlayout>
 			</control>
 			<control type="scrollbar" id="60">
-				<left>655</left>
-				<top>180</top>
-				<width>12</width>
-				<height>900</height>
-				<onleft>11</onleft>
-				<onright>close</onright>
+				<left>596</left>
+				<top>205</top>
+				<width>18</width>
+				<height>765</height>
+				<onleft>close</onleft>
+				<onright>11</onright>
 				<animation condition="!Control.HasFocus(60) + !Container.Scrolling + !String.IsEqual(Skin.String(show-scrollbar),$LOCALIZE[31875])" effect="fade" start="100" end="0" time="200" reversible="true">Conditional</animation>
 				<visible>$EXP[isEnabledScrollbar]</visible>
 			</control>
