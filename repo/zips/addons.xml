@@ -447,6 +447,39 @@ plugin.program.[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR lime][B]MATRIX[/COLOR]
             <clearlogo>resources/media/clearlogo.png</clearlogo>
         </assets>
     </extension>
+</addon><addon id="plugin.video.KovertidoTeamTvCine" version="2.45" name="[B][COLOR white]Kodi[COLOR gold]verti[COLOR yellow]do[COLOR gold]Team[COLOR lightpink]Tv[COLOR lime]Cine[/COLOR][/B]" provider-name="equipo KODIvertiDO TEAM">
+<requires>
+    <import addon="script.module.requests" optional="true" />
+    <import addon="script.module.resolveurl" optional="true" />
+	<import addon="script.module.six" optional="true" />
+	<import addon="plugin.video.youtube" optional="true" />
+  </requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+   <extension point="xbmc.addon.repository" name="kodivertido">
+        <info>https://raw.githubusercontent.com/mendelux/KODIvertiDO_TEAM/master/_repo/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/mendelux/KODIvertiDO_TEAM/master/_repo/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/mendelux/KODIvertiDO_TEAM/master/_repo/</datadir>
+    </extension>	
+	<extension point="xbmc.addon.metadata">
+                <platform>all</platform>
+		<summary lang="en">KovertidoTeamTvCine</summary>
+		<summary lang="da">KovertidoTeamTvCine</summary>
+		<description lang="en">
+[COLOR white]Complemento gratuito que no aloja ningun contenido.               Todo el contenido se encuentra en internet.No se acepta ninguna responsabilidad por el uso de este addon.[/COLOR]</description>
+		<website />
+		<license>GPL 2.0</license>
+		<platform>all</platform>
+<assets>
+        <icon>icon.gif</icon>
+  <screenshot>resources/screenshots/screenshot1.gif</screenshot>
+  <screenshot>resources/screenshots/screenshot3.gif</screenshot>
+  <screenshot>resources/screenshots/screenshot2.jpg</screenshot>
+        <fanart>fanart.jpg</fanart>
+</assets>        
+		<language>es</language>
+	</extension>
 </addon><addon id="plugin.video.Magellan_Matrix" name="[COLOR lime]Magellan[/COLOR]" version="3.0.0" provider-name="[COLOR lime][B]Magellan[/B][/COLOR]">
 	<requires>
 		<import addon="script.module.six" />
