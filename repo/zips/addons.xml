@@ -2121,7 +2121,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.ctouch" version="9.3.4.1" name="Cristal Touch" provider-name="STVA">
+</addon><addon id="skin.ctouch" version="9.3.4.2" name="Cristal Touch" provider-name="STVA">
 	<requires>
 		<import addon="resource.language.es_es" version="0.0.0" />		
 	</requires>

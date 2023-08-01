@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
 	<defaultcontrol>8000</defaultcontrol>
-	<onload condition="!Skin.HasSetting(FirstRunSetup)">ActivateWindow(1130)</onload> 	
-	<onload condition="Skin.HasSetting(FirstRunSetup) + !Skin.HasSetting(SetupInicio)">ActivateWindow(5111)</onload> 	
+<!--<onload condition="!Skin.HasSetting(FirstPagina)">ActivateWindow(5200)</onload>-->
+<onload condition="!Skin.HasSetting(FirstPagina)">AlarmClock(FirstPagina,ReplaceWindow(5200),00:01,silent)</onload>
+<!--<onload condition="Skin.HasSetting(FirstRunSetup) + Skin.HasSetting(SetupInicio) + Skin.HasSetting(consejo)+!Skin.HasSetting(FirstPagina)">ActivateWindow(5200)</onload>-->	
+	<!--<onload condition="!Skin.HasSetting(FirstRunSetup)">ActivateWindow(1130)</onload>-->
+	<!--<onload condition="Skin.HasSetting(FirstPagina) + Skin.HasSetting(FirstRunSetup)">ActivateWindow(5111)</onload>-->
+	
+	<onload condition="Skin.HasSetting(FirstPagina) + Skin.HasSetting(FirstRunSetup) + !Skin.HasSetting(SetupInicio)">ActivateWindow(5111)</onload>
+	
+    <!--<onload condition="!Skin.HasSetting(FirstRunSetup) + Skin.HasSetting(FirstPagina)">ActivateWindow(1130)</onload>-->
     <onload>Skin.SetBool(TMDbHelper.Service)</onload>
-	<onload condition="Skin.HasSetting(FirstRunSetup) + Skin.HasSetting(SetupInicio) + !Skin.HasSetting(consejo)">AlarmClock(consejo,ReplaceWindow(1140),00:20,silent)</onload>
+	<onload condition="Skin.HasSetting(FirstRunSetup) + Skin.HasSetting(FirstPagina) + Skin.HasSetting(SetupInicio) + !Skin.HasSetting(consejo)">AlarmClock(consejo,ReplaceWindow(1140),00:20,silent)</onload>
 	<onup>Control.SetFocus(80008,$INFO[Container(9000).Position])</onup>
 	<include>zoom-openclose</include>
 	<controls>

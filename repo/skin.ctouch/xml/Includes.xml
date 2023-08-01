@@ -64,11 +64,18 @@
 		<value condition="Control.HasFocus(9811)">icons/cristalazul.png</value>
 		<value condition="Control.HasFocus(9812)">icons/cristalazul.png</value>
 		<value condition="Control.HasFocus(9813)">icons/cristalazul.png</value>
+		<value condition="Control.HasFocus(9815)">icons/balandro.png</value>
+		<value condition="Control.HasFocus(9816)">icons/tacones.png</value>
+		<value condition="Control.HasFocus(9817)">icons/duffyou.jpg</value>
+		<value condition="Control.HasFocus(9818)">icons/blackgost.png</value>
 	</variable>
 	<variable name="AddonIcon">
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.alfa)">icons/alfa.png</value>
+		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.balandro)">icons/balandro.png</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.palantir2)">icons/palantir.png</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.cristalazul)">icons/cristalazul.png</value>
+		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.tacones)">icons/tacones.png</value>
+		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.blackghost)">icons/blackghost.png</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.winner)">icons/winner.jpg</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.moestv)">icons/moes.jpg</value>
 		<value condition="String.Contains(Container.FolderPath,plugin://plugin.video.magellan)">icons/magellan.png</value>

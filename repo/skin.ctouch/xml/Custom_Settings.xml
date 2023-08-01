@@ -101,21 +101,23 @@
 					<thumb>icons/luarsettings.png</thumb>
 					<label>Luar</label>
 					<onclick>Dialog.Close(all)</onclick>
-					<onclick condition="!System.HasAddon(script.luar)">InstallAddon(script.luar)</onclick>
+				<onclick condition="!System.HasAddon(repository.luar)">InstallAddon(repository.luar)</onclick>
+					<onclick condition="!System.HasAddon(script.luar) + System.HasAddon(repository.luar)">InstallAddon(script.luar)</onclick>
 					<onclick>ActivateWindow(10001,&quot;plugin://script.luar/&quot;,return)</onclick>
 				</item>
 				<item>
 					<thumb>special://skin/extras/icons/kelebeksettings.png</thumb>
 					<label>Kelebek</label>
 					<onclick>Dialog.Close(all)</onclick>
-					<onclick condition="!System.HasAddon(script.kelebek)">InstallAddon(script.kelebek)</onclick>
+					<onclick condition="!System.HasAddon(script.kelebek) + System.HasAddon(repository.rebase)">InstallAddon(script.kelebek)</onclick>
 					<onclick>ActivateWindow(10001,&quot;plugin://script.kelebek/&quot;,return)</onclick>
 				</item>
 				<item>
 					<thumb>icons/cstva.png</thumb>
 					<label>Complemento STVA</label>
 					<onclick>Dialog.Close(all)</onclick>
-					<onclick condition="!System.HasAddon(script.script.stva)">InstallAddon(script.stva)</onclick>
+					<onclick condition="!System.HasAddon(repository.stva)">InstallAddon(repository.stva)</onclick>
+					<onclick condition="!System.HasAddon(script.script.stva) + System.HasAddon(repository.stva)">InstallAddon(script.stva)</onclick>
 					<onclick>RunAddon(script.stva)</onclick>
 				</item>
 				<item>
@@ -128,7 +130,11 @@
 					<thumb>icons/settings.png</thumb>
 					<label>Ajustes Iniciales</label>
 					<onclick>Dialog.Close(all)</onclick>
-					<onclick>ActivateWindow(1130)</onclick> 
+					<!--<onclick>ActivateWindow(1130)</onclick>-->
+				<onclick>Skin.SetBool(FirstPagina,false)</onclick>
+				<onclick>Skin.SetBool(FirstRunSetup,false)</onclick>
+				<onclick>Skin.SetBool(SetupInicio,false)</onclick>
+					<onclick>ActivateWindow(5200)</onclick> 
 				</item>
 				<item>
 					<thumb>icons/quit.png</thumb>

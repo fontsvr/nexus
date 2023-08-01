@@ -110,6 +110,22 @@
 			</focusedlayout>
 			<content>
 				<item>
+					<!-- Cristalazul pelis-->
+					<thumb>special://skin/extras/homeicons/cristal-pelis.png</thumb>
+					<label>Cine Cristal</label>
+					<label2>$LOCALIZE[571]</label2>
+					<onclick>ActivateWindow(videos,&quot;plugin://plugin.video.cristalazul/?fanart=https%3a%2f%2fi.imgur.com%2fbg6n3AV.png&amp;mode=1&amp;name=%5bCOLOR%20white%5dCINE%5b%2fCOLOR%5d&amp;regexs=%7b%27distancia%27%3a%20%7b%27name%27%3a%20%27distancia%27%2c%20%27expres%27%3a%20%27%23%24pyFunction%5cnimport%20re%2crequests%2cbase64%2cshutil%2crandom%5cnfrom%20kodi_six%20import%20xbmc%2cxbmcgui%2cxbmcaddon%2cxbmcvfs%5cnfrom%20six.moves%20import%20urllib_request%5cnimport%20six%5cnTRANSLATEPATH%20%3d%20xbmc.translatePath%20if%20six.PY2%20else%20xbmcvfs.translatePath%5cndef%20GetLSProData(page_data%2cCookie_Jar%2cm)%3a%5cn%20%20%20%20%20%20pasta%20%3d%20requests.get(%5c%27http%3a%2f%2fbit.ly%2fcristal_menus_distancia%5c%27%2c%20headers%3d%7b%5c%27User-Agent%5c%27%3a%20%5c%27Mozilla%2f5.0%5c%27%7d).text%5cn%20%20%20%20%20%20pasta%20%3d%20six.ensure_str(pasta)%5cn%20%20%20%20%20%20return%20re.findall(%5c%27%3d%22(.%2a%3f)%22%5c%27%2c%20pasta)%5b3%5d%5cn%27%2c%20%27page%27%3a%20None%2c%20%27cookiejar%27%3a%20%27%27%7d%7d&amp;url=%24doregex%5bdistancia%5d&quot;,return)</onclick>
+					<visible>Skin.HasSetting(cristalazul-items) + !Skin.HasSetting(cristalazul)</visible>
+				</item>
+				<item>
+					<!-- Cristalazul series-->
+					<thumb>special://skin/extras/homeicons/cristal-series.png</thumb>
+					<label>Series Cristal</label>
+					<label2>$LOCALIZE[571]</label2>
+					<onclick>ActivateWindow(videos,&quot;plugin://plugin.video.cristalazul/?fanart=https%3a%2f%2fi.imgur.com%2fbg6n3AV.png&amp;mode=1&amp;name=%5bCOLOR%20white%5dSERIES%5b%2fCOLOR%5d&amp;regexs=%7b%27distancia%27%3a%20%7b%27name%27%3a%20%27distancia%27%2c%20%27expres%27%3a%20%27%23%24pyFunction%5cnimport%20re%2crequests%2cbase64%2cshutil%2crandom%5cnfrom%20kodi_six%20import%20xbmc%2cxbmcgui%2cxbmcaddon%2cxbmcvfs%5cnfrom%20six.moves%20import%20urllib_request%5cnimport%20six%5cnTRANSLATEPATH%20%3d%20xbmc.translatePath%20if%20six.PY2%20else%20xbmcvfs.translatePath%5cndef%20GetLSProData(page_data%2cCookie_Jar%2cm)%3a%5cn%20%20%20%20%20%20pasta%20%3d%20requests.get(%5c%27http%3a%2f%2fbit.ly%2fcristal_menus_distancia%5c%27%2c%20headers%3d%7b%5c%27User-Agent%5c%27%3a%20%5c%27Mozilla%2f5.0%5c%27%7d).text%5cn%20%20%20%20%20%20pasta%20%3d%20six.ensure_str(pasta)%5cn%20%20%20%20%20%20return%20re.findall(%5c%27%3d%22(.%2a%3f)%22%5c%27%2c%20pasta)%5b4%5d%5cn%27%2c%20%27page%27%3a%20None%2c%20%27cookiejar%27%3a%20%27%27%7d%7d&amp;url=%24doregex%5bdistancia%5d&quot;,return)</onclick>
+					<visible>Skin.HasSetting(cristalazul-items) + !Skin.HasSetting(cristalazul)</visible>
+				</item>
+				<item>
 					<!-- Cine -->
 					<thumb>special://skin/extras/homeicons/pcanales.png</thumb>
 					<label>Cine Cristal</label>
@@ -239,7 +255,7 @@
 				</item>	
 				<item><!--balandro-->
 					<thumb>special://skin/extras/homeicons/pelis-balandro.png</thumb>
-					<label>Pelis en Balandro</label>
+					<label>Pelis Balandro</label>
 					<label2>$LOCALIZE[571]</label2>
 					<onclick condition="!System.HasAddon(plugin.video.balandro)">InstallAddon(plugin.video.balandro)</onclick>															
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5yaWsvZmlsZXMvLmtvZGkvYWRkb25zL3BsdWdpbi52aWRlby5iYWxhbmRyby9yZXNvdXJjZXMvbWVkaWEvdGhlbWVzL2RlZmF1bHQvY2xhcGJvYXJkLnBuZyIsCiAgICAidGl0bGUiOiAiW0NPTE9SIGRlZXBza3libHVlXSAtIFBlbMOtY3VsYXNbL0NPTE9SXSIKfQ%3D%3D&quot;,return)</onclick>
@@ -295,65 +311,65 @@
 				</item>-->
 				<item>
 					<thumb>special://skin/extras/homeicons/coleccion.png</thumb>
-					<label2>Colección</label2>
+					<label2>Colección Series Videoteca</label2>
 					<onclick>ActivateWindow(1142)</onclick>
 					<visible>!Skin.HasSetting(coleccion-v) + Library.HasContent(tvshows)</visible>
 				</item>	
 				<item>
-					<thumb>special://skin/extras/homeicons/seguimiento.png</thumb>
+					<thumb>special://skin/extras/homeicons/palantir-seguimiento.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
 					<label>Series en Seguimiento</label>
 					<onclick>ActivateWindow(videos,&quot;plugin://plugin.video.palantir2/?cahVT1N2R14mS5d3ZJ5mQoplMVl2TpF0dMNUQpNmMWBDWzoFcah1Yp9UaCV1YuZFbmFVZ5pEaZNjUwJmM0k2TpFkbUdFb6h1MOx2YtxGbVl3Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscyUllmclN3XzlWTnAiOi42bpR3YhJyeQficSKkxFXh8DKpMXJo8id09yZy9mLiRWZpZ3btVGa05yd3d3LvozcwRHdodCIQhVRHVkUgIGZtRHIlJXZodHIzVWayV2cg02byZGI05WZ052bj91chhGIssmbxwGIsIGZtRHIs8WakVXYgwCZp9VZpJXZzBCLyVGdz9GcsEGb1RXYyF2YgwycpNHcv5WazBCLv5mbhBCLlJnYt9mbgQ3YlxWZTJCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0Lb9GduVWatlWdnV2cg4WZgMXZpJXZTBCIgASXlRXaodHIS9ETPN0WnAiOiwWZiFGbiACLncmbw5ycllmclN3L0NWYyR3ciF2LhlGZl12LyVGdzFWbvcXYy9icpRnbhxWYQ9ibvRGZhJXa05WYsFGUv02bj5iY1hGdpd2LvozcwRHdodCI6IibvNWaiACLnYWan5CdyFmbhZ2LyIXa05WYsFGcu8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2L4lmc0FWbhlGZl1Gbr5iclRnblNmLhlGZl12LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWavQ3YhJHdzJWYvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsIjMwITLwETL2ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzCNuIjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDdadlUwl1U1omWXVDMahVS1FmM4RnWXJFcZdVMoRGSKBXZDlTbhdFesNWe4UXYykzahNVOop1RSZnYu1kdjdEexolMsVHTupFcadkV2xkbChmYHZUdkdEb51Ua50WWXVDaj5WU1plMs1mS5d3ZJ1GbqJmM0k2TpFkbhhkUwMGSNZDT5ljbhhlUvR2VJVXWykDdMFjQoJ2RGVHZHxWeZdlUrJmM0YXVHZ0cZdVNwEGWJZ3YtZ0MMJTMoN2MSx2YplDdadlUwl1U5gWWu5EMj1mRqR2Q5onWYpE&quot;,return)</onclick>
 					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(seguimiento)</visible>
 				</item>					
 				<item>
-					<thumb>special://skin/extras/homeicons/nuevas.png</thumb>
+					<thumb>special://skin/extras/homeicons/palantir-series.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Series</label>
+					<label>Series Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?XSDpkeahlUmRWbsxGZ5lkNJZkU5R2VWlTZ5pEaZNjUwJmM0k2TpFkbidlV1R2UjNXSDpkaiJTNwo1V1ATSq92ZKJjWwJ2RWpnS5d3ZJ1mWoJWbGlHZDlkNJNEZE9Eb4NmVY5Ebj5mTjhFSaxmW%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJyeQfnM2chBCZp9VblRXagknYgIVREJ1TgACM00DZp9VduVWbgUmclh2dgMXduVWbg02byZGI0JXYuFmZswWczxibvNWas42bpR3YhxCblJWYsBCdjVGblN3JgojIsF3ciACLwAiOiU2ZhBnIgwyJdJ1TM90Qvs1cllmclNVXkx2bnBiUPx0TDt1JgojIsVmYhxmIgwyJn5GcuMXZpJXZz9CdjFmc0NnYh9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHanAiOi42bjlmIgwyJml2ZuQnch5WYmxFXyIXa05WYsFGcu8WZklmdu4WanVHbwxFXz52bkRWYcxVak92Scx1ZulWbh9mUcxVY0FGRwBXQcxVbhdWZ2xFXzJXZzVFXcpzQnAiOiQnch5WYmJCIs0VKnkyZuBnLu92Yp9CdjFmc0NnYh9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHasADMwATMgwiMyAjMtETMtAjMg42sDn2YhpXasFWd0NWYgEWbpRHbaOML14iMuIjL2BiMgIXa05WYsFGUo42bpRXYjlmZpR3bOdCIsciMgIXa05WYsFGUgUmci92cg42sDn2Yh1mcvZmbJdCKgwSKnkiMGRHWGhnQjhkQFlFWShGWGh3UiJjR0F2V14GWGhHTiJjUwhlR4hmWHJldi5mTjhFSCNHZXRGcilWNyE2VSxmY5VzdZdFeoJmbSB3Yqp0YYdkWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJjRpN2MSlXWX5EMMNjTsNWbsx2Y5Vzdi12Yux0QBl2YHZkbaNVS2kERBN&quot;,return)</onclick>
 					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(actualizadas)</visible>
 				</item>					
-				<item>
-					<thumb>special://skin/extras/homeicons/actualizadas.png</thumb>
+				<item> <!--palantir2-items que no se mostraran de momento al seleccionar items palantir-->
+					<thumb>special://skin/extras/homeicons/palantir-series-nuevas.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Series Nuevas</label>
+					<label>Series Nuevas Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?IpUMahFMllnSol1MSBnYyQTaPlWQuJ2RspHZHZ0aiFTO6pFWKBnWW1kbMNUQpllM5UHZHZVdkNUS2k0Qk1WYXhHbjl3Yzl0QK1WWXVDaj5WUp9UaB5WU6B3YYZkV6pFWKp3PvIjcpRnbhxWYw5yblRWa25ibpdWdsB3LvojbpdWdsBHKlRXYkBXduIXZulWY052bDdCIscyc6Osbl1GIhJXYwBSY0NXa2BSY0NXZgIXZjVGbiFGdzV0JosFI6ISduVWT0hXZ052bjJCIscyclxWamdCI6ICduVGdu92YiACLnMVZpJXZz91bkFGdzlGbnAiOi42bpR3YhJyeQfiM2clRGIkVGdhRGc1BCLjNXZkBybu5WYgknYgIXZkJ3buxFInMXYsVmdv5Efz9ma1JWaExXZtlmbBxHbhRnbl1Wdj9GRnACUYV0RFJFI09mbgkncvdWZ0F2YgQmbhBCMg4DIlZXa0NWYgUmclh2duxFIzVWayV2cg02byZmbcRnblRnbvN2XzFGagwyauFDbgwiYk1GdgwybpRWdhBCLkl2XllmclNHIsIXZ0N3bwxSYsVHdhJXYjBCLzl2cw9mbpNHIs8mbuFGIsUmci12buBCdjVGblNlIgojIsF3ciACLwAiOiU2ZhBnIgwyJdJ1TM90Qvs1cllmclNHIzFmdlVnTdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5yclRnbll2YlJ3XzVWayV2cvQ3YhJHdzJWYvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZcxlMylGduFGbhBnLvVGZpZnLul2Z1xGccx1cu9GZkFGXclGZvtEXcdmbp1WYvJFXcFGdhREcwFEXc1WYnVmdcx1cyV2cVxFX6M0JgojI0JXYuFmZiACLdlyJpglR4JjWXRGaiZFejFFWCdnUHZEMZZFejVVb5gmYXxWdaFDejNlM5sWYWh3YZdlUrJmM1oHWGh3dihkVuF2V0UHZtx2aadFO1N2RGNXWXVDMhhVS5hlR41WWXVDaj5WU1plMs1mS5d3ZJ1GbqJmM0k2TpFkbhhkUwMGSNZDT5ljbhhlUvR2VJVXWykDdMFjQoJ2RGVHZHxWeZdlUrJmM0YXVHZ0cZdVNwEGWJZ3YtZ0MMJTMoN2MSx2YplDdadlUwl1U5gWWu5EMj1mRqR2Q5onWYpEcahlTmNWbWpWYXZVdkdkV6xkbCVnW5N2cJNkS3l1VkxWSq92ZNN0dnlkbOxGZGljMhdlVzkkavdmV&quot;,return)</onclick>
 					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(actualizadas)</visible>
 				</item>					
 				<item>
-					<thumb>special://skin/extras/homeicons/pelis-palantir.png</thumb>
+					<thumb>special://skin/extras/homeicons/palantir-pelis.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Películas</label>
+					<label>Películas Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?Qzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDRGRPxGejZFWOx2Yu50YYhkWsplM%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye9dyYzFGIkl2XtVGdpBSeiBiUFRkUPBCIwITPkl2X15WZtBSZyVGa3Byc15WZtBSbvJnZgQnch5WYmxCbxNHLu92YpxibvlGdjFGLsVmYhxGI0NWZsV2cnAiOiwWczJCIsADI6ISZnFGciACLn0lUPx0TD9yWzFGb1NWrDzWZQ1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzFGb1NWasVGcvQ3YhJHdzJWYvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZcxlMylGduFGbhBnLvVGZpZnLul2Z1xGccx1cu9GZkFGXclGZvtEXcdmbp1WYvJFXcFGdhREcwFEXc1WYnVmdcx1cyV2cVxFX6M0JgojI0JXYuFmZiACLdlyJpcmbw5ibvNWavQ3YhJHdzJWYvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsIjMwITLxETLwIDIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzSNuIjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpYEdYZEeCNGSCVUWYJFaYZEeTJmMGRXYXVjbYZEeMJmMSBHWGhHaadkU2JmbONGWIJ0ckdFZwJWa1ITYXJFbilXN3l1V4hmYuJFcjpmSjh1RahmYtZUekNUNuF2VZ5GTDFUahdlT2JWaJZTSDR2bkhkU3NmevZHTyQGckdEaxkVa1omYyAjdVdkRzl1V1ATYYpEaadkU2JWa5EVWXhHai5mUwNWa5kXWYNmdidlR6R2RWlHTyEDbadEboxkMGl2YzIVeZdlTww0MCxmYHxmakdFeoNWe1cnYtNmbMNUQpN2RG5mWTlkNJRU&quot;,return)</onclick>
-					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(pelis-palantir)</visible>
+					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(palantir-pelis)</visible>
 				</item>					
 				<item>
-					<thumb>special://skin/extras/homeicons/novedades.png</thumb>
+					<thumb>special://skin/extras/homeicons/palantir-novedades.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Novedades</label>
+					<label>Nuevas Pelis Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?ZFbmFVZ5pEaZNjUwJmM0k2TpFkbidEb6R2RGtmYxkzdadFewl1MWNXWW1kbMNUQpllM5UHZHZVdkNUS2k0Qk1WYXhHbjl3Yzl0QK1WWXVDaj5WUp9UaB5WU6B3YYZkV6p1PvIjcpRnbhxWYw5yblRWa25ibpdWdsB3LvojbpdWdsBHKlRXYkBXduIXZulWY052bDdCIscyc6Osbl1GIhJXYwBSY0NXa2BSY0NXZgIXZjVGbiFGdzV0JosFI6ISduVWT0hXZ052bjJCIscyclxWamdCI6ICduVGdu92YiACLnMVYsV3YpxWZw91bkFGdzlGbnAiOi42bpR3YhJye0nIjNXZkBCZlRXYkBXdgwyYzVGZg8mbuFGI5JGIyVGZy9GIkl2XwV3bydGI5JGIwV3bydGInE2YpNXdNx3cvpWdilGR8VWbp5WQ8xWY05WZtV3YvR0JgAFWFdURSBCdv5GI5J3bnVGdhNGIk5WYgADI%2bASZ2lGdjFGIFJVRIdFIzlGblBHIN9kUGBiYk1GdskyJjcCLzdWY0hCVBNkTPN0XQV1TSdEIsQWafBXdvJ3ZgwiclR3cvBHIsEGb1RXYyF2YgwycpNHcv5WazBCLv5mbhBCLlJnYt9mbgQ1QFxURTJCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZkFGZlZ3bO1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVGduVWajVmcfNXasVGcvQ3YhJHdzJWYvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZcxlMylGduFGbhBnLvVGZpZnLul2Z1xGccx1cu9GZkFGXclGZvtEXcdmbp1WYvJFXcFGdhREcwFEXc1WYnVmdcx1cyV2cVxFX6M0JgojI0JXYuFmZiACLdlyJpglS6hlR4JjWXRGaiZFejFFWCdnUHZEMZZFejVVb5gmYXxWdaFDejNlM5sWYWh3YZdlUrJmM1oHWGh3dihkVuF2V0UHZtx2aadFO1N2RGNXWXVDMhhVS5hlR41WWXVDaj5WU1plMs1mS5d3ZJ1GbqJmM0k2TpFkbhhkUwMGSNZDT5ljbhhlUvR2VJVXWykDdMFjQoJ2RGVHZHxWeZdlUrJmM0YXVHZ0cZdVNwEGWJZ3YtZ0MMJTMoN2MSx2YplDdadlUwl1U5gWWu5EMj1mRqR2Q5cnWXhHcjFTO5p1VOBnWXVDMahVT1N2R14mS5d3ZJ5mQoplMVl2TpF0dMNUQpNmMWBDWzoFcah1Yp9UaCV1Yu&quot;,return)</onclick>
 					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(novedades)</visible>
 				</item>					
 				<item>
-					<thumb>special://skin/extras/homeicons/documentales.png</thumb>
+					<thumb>special://skin/extras/homeicons/palantir-documentales.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Documentales</label>
+					<label>Documentales Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?Qzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDRGRPxGejZFWOx2Yu50YYhkWsplM%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADO9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZsFGduVWb1N2bE1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVGbhRnbl1Wdj9GZv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZcxlMylGduFGbhBnLvVGZpZnLul2Z1xGccx1cu9GZkFGXclGZvtEXcdmbp1WYvJFXcFGdhREcwFEXc1WYnVmdcx1cyV2cVxFX6M0JgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsIjMwITLxETLwIDIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzSNuIjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpYEdYZEeCNGSCVUWYJFaYZEeTJmMGRXYXVjbYZEeMJmMSBHWGhHaadkU2JmbONGWIJ0ckdFZwJWa1ITYXJFbilXN3l1V4hmYuJFcjpmSjh1RahmYtZUekNUNuF2VZ5GTDFUahdlT2JWaJZTSDR2bkhkU3NmevZHTyQGckdEaxkVa1omYyAjdVdkRzl1V1ATYYpEaadkU2JWa5EVWXhHai5mUwNWa5kXWYNmdidlR6R2RWlHTyEDbadEboxkM1wWYyQndMJjU2l1MWRnWXVDMZdFesNWe1cnYtNmbMNUQpN2RG5mWTlkNJRU&quot;,return)</onclick>
 					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(documentales-palantir)</visible>
 				</item>					
 				<item>
 					<thumb>special://skin/extras/homeicons/dibujos.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Dibujos</label>
+					<label>Dibujos Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?pNmMWBDWzoFcah1Yp9UaCV1YuZFbmFVZ5pEaZNjUwJmM0k2TpFkbidlV1R2UjNXSDpkaiJTNwo1V1ATSq92ZKJjWwJ2RWpnS5d3ZJ1mWoJWbGlHZDlkNJNEZE9Eb4NmVY5Ebj5mTjhFSaxmW%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJyeQfnM2chBCZp9VblRXagknYgIVREJ1TgACM10DZp9VduVWbgUmclh2dgMXduVWbg02byZGI0JXYuFmZswWczxibvNWas42bpR3YhxCblJWYsBCdjVGblN3JgojIsF3ciACLwAiOiU2ZhBnIgwyJdJ1TM90Qvs1cvpWdilGRdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5ycvpWdilGZv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZcxlMylGduFGbhBnLvVGZpZnLul2Z1xGccx1cu9GZkFGXclGZvtEXcdmbp1WYvJFXcFGdhREcwFEXc1WYnVmdcx1cyV2cVxFX6M0JgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsIjMwITLxETLwIDIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzSNuIjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpIjR0hlR4J0YIJURZhlUohlR4NlYyYEdhdVNuhlR4xkYyIFcYZEeop1RSZnYu50YYhkQzR2VkBnYpVjMhdlUsJWe1cXWXhHai5mUwNmaKNGWHpFai1mR5R2Q14WYXllbMNUQpF2VOZnYplkNJNEZvRGSSd3Y69mdMJDZwR2RoFTWpVjaiJDM2V1RGNXWXVDMhhlSop1RSZnYplTUZdFeoJmbSB3YplTeZh1Y2J2VGpHZHZVeMJTMsp1RshGTyUDbhJDd2xkMSBXWuZVciNTT1N2R14mS5d3ZJ5mQoplMVl2TpF0dMNUQ&quot;,return)</onclick>
-					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(dibujos)</visible>
+					<visible>Skin.HasSetting(palantir2-items) + !Skin.HasSetting(dibujos)</visible>
 				</item>					
 				<item>
 					<thumb>special://skin/extras/homeicons/telenovelas.png</thumb>
 					<label2>$LOCALIZE[571]</label2>
-					<label>Telenovelas</label>
+					<label>Telenovelas Palantir2</label>
 					<onclick>ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?JNkS6pFWSZGZtxGbklXS2kkRSlHZXZVOllnSol1MSBnYyQTaPlWQuJ2VWVHZTN2cJNkSqJmM1AjWXVDMJp2bnpkMaBnYHZleKl3dnlUbahmYtZUekNUS2k0QkR0Tsh3YWhlTsNmbONGWIpFb%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJyeQfnM2chBCZp9VblRXagknYgIVREJ1TgYjM9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXYsVmdv5WZsVGVdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5ycllmclN3Lvt2al52LhlGZl12LyVGdzFWbvcXYy9icpRnbhxWYQ9ibvRGZhJXa05WYsFGUv02bj5iY1hGdpd2LvozcwRHdodCI6IibvNWaiACLnYWan5CdyFmbhZGXcJjcpRnbhxWYw5yblRWa25ibpdWdsBHXcNnbvRGZhxFXpR2bLxFXn5WatF2bSxFXhRXYEBHcBxFXtF2ZlZHXcNnclNXVcxlODdCI6ICdyFmbhZmIgwSXpcSKn5Gcu42bjl2Lvt2al52LhlGZl12LyVGdzFWbvcXYy9icpRnbhxWYQ9ibvRGZhJXa05WYsFGUv02bj5iY1hGdpd2LvozcwRHdoxCMwADMxACLyIDMy0SMx0CMyAibzOcajFmepxWY1R3YhBSYtlGdsp5wsUjLy4iMuYHIyAicpRnbhxWYQhibvlGdhNWamlGdv50JgwyJyAicpRnbhxWYQBSZyJ2bzBibzOcajFWby9mZul0JoACLpcSKaJjR0hlR4J0YIJURZhlUohlR4NlYyYEdhdVNuhlR4xkYyIFcYZEeop1RSZnYu50YYhkQzR2VkBnYpVjMhdlUsJWe1cXWXhHai5mUwNmaKNGWHpFai1mR5R2Q14WYXllbMNUQpF2VOZnYplkNJNEZvRGSSd3Y69mdMJDZwR2RoFTWpVjaiJDM2V1RGNXWXVDMhhlSop1RSZnYplTUZdFeoJmbSB3YplTeZh1Y2J2VGpHZHZVeMJTMsp1RshGTyUDbhJDd2x0MOx2YtxGbjlXN3JWbj5GTDFUajdkRup1UJZTSEF0c&quot;,return)</onclick>
-					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(telenovelas)</visible>
+					<visible>Skin.HasSetting(palantir2-items) + !Skin.HasSetting(telenovelas)</visible>
 				</item>					
 				<item>
 					<!-- Update Palantir -->
@@ -363,7 +379,7 @@
 					<onclick>RunAddon(plugin.video.palantir2)</onclick>
 					<onclick>ActivateWindow(home)</onclick>
 					<onclick>ReloadSkin()</onclick>
-					<visible>Skin.HasSetting(palantir-items) + !Skin.HasSetting(updatepalantir)</visible>
+					<visible>Skin.HasSetting(palantir2-items) + !Skin.HasSetting(updatepalantir)</visible>
 				</item>
 				<item>
 					<!-- Plataformas TV -->

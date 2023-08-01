@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window id="1130">
     <defaultcontrol>321</defaultcontrol>
+<onload condition="!System.HasAddon(repository.reeebase)">InstallAddon(repository.rebase)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + !System.HasAddon(plugin.video.cristalazul)">InstallAddon(plugin.video.cristalazul)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.palantir2)+ !System.HasAddon(plugin.video.palantir2)">InstallAddon(plugin.video.palantir2)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.alfa-addon)+ !System.HasAddon(plugin.video.alfa)">InstallAddon(plugin.video.alfa)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.balandro)+ !System.HasAddon(plugin.video.balandro)">InstallAddon(plugin.video.balandro)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.michaz)+ !System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.magellan)+ !System.HasAddon(plugin.video.Magellan_Matrix)">InstallAddon(plugin.video.Magellan_Matrix)</onload>
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.KODIvertiDO_TEAM)+ !System.HasAddon(plugin.video.KovertidoTeamTvCine">InstallAddon(plugin.video.KovertidoTeamTvCine)</onload>
+	<!--<onload condition="System.HasAddon(repository.rebase)">InstallAddon(plugin.video.winner)</onload>-->
+	<!--<onload condition="System.HasAddon(repository.rebase)">InstallAddon(plugin.video.moestv)</onload>-->
+	<!--<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.stva)">InstallAddon(script.stva)</onload>-->
+	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(plugin.video.cristalazul) + !System.HasAddon(repository.resolveurl)">InstallAddon(repository.resolveurl)</onload>
+	
     <controls>
 		<include>background</include>
 		<control type="image">
@@ -8,7 +21,7 @@
 			<texture colordiffuse="mask-background-black">background-mask.png</texture>
 			<aspectratio>scale</aspectratio>
 		</control>
-		<control  type="image" id="006"><!--type="image"-->
+		<control type="image" id="006"><!--type="image"-->
 			<right>30</right>
 			<top>10</top><!--10-->
 		<onleft>321</onleft>
@@ -18,13 +31,39 @@
 			<width>150</width>
 			<height>150</height>
 			<texture background="true">special://skin/resources/icon.png</texture>
-		<onclick>Skin.SetBool(SetupInicio)</onclick>
+		<!--<onclick>Skin.SetBool(SetupInicio)</onclick>
 		<onclick>Close</onclick>
-		<onclick>ReplaceWindow(Home)</onclick>
+		<onclick>ReplaceWindow(Home)</onclick>-->
+		</control>
+		<control type="button" id="008"><!--type="info"-->
+			<onright>007</onright>
+			<right>30</right>
+			<top>10</top><!--10-->
+	<!--<onfocus>ActivateWindow(1150)</onfocus>-->
+		<onclick>ActivateWindow(1150)</onclick>
+	<onfocus>AlarmClock(custominfo,ReplaceWindow(1150),00:01,silent)</onfocus>
+		<onfocus>Skin.SetBool(custominfo)</onfocus>
+		
+		<onleft>321</onleft>
+		<onright>321</onright>
+		<onup>308</onup>
+		<ondown>308</ondown>
+			<width>150</width>
+			<height>150</height>
+			<include>focus-zoom</include>
+			<texturefocus border="0" colordiffuse="$VAR[AccentColor]">backrodotrans.png</texturefocus>
+			<texturenofocus border="0" colordiffuse="midgrey">backrodotrans.png</texturenofocus>-->
+		<align>center</align>
+			<aligny>center</aligny>
+			<label>info</label>
+			<font>ctouch19</font>
+		<!--<onclick>ReplaceWindow(Home)</onclick>-->
 		</control>
 		<!--button cerrar texto-->
 		<control type="button" id="007">
 			<!-- Touch mouse close button -->
+		<!--<onfocus>ActivateWindow(1140)</onfocus>
+        <onunfocus>Dialog.Close(all)</onunfocus>-->
 			<right>15</right>
 			<bottom>14</bottom>
 			<width>180</width>
@@ -32,24 +71,24 @@
 			<onup>308</onup>
 		    <ondown>308</ondown>
 			<onleft>321</onleft>
-		    <onright>321</onright>
+		    <onright>008</onright>
 			<texturefocus colordiffuse="$VAR[AccentColor]">button-default-focus_back.png</texturefocus>
 			<texturenofocus colordiffuse="midgrey">backtransparent.png</texturenofocus>
 			<align>center</align>
 			<aligny>center</aligny>
 			<label>CERRAR</label>
 			<font>ctouch19</font>
-			<onclick>Skin.SetBool(SetupInicio)</onclick>
-		    <onclick>Close</onclick>
-		    <onclick>ReplaceWindow(Home)</onclick>
+			<onclick>Close</onclick>
+			<onclick>ActivateWindow(5111)</onclick>
+			<onclick>Skin.SetBool(FirstRunSetup,true)</onclick>
 		</control>
 		
 		<control type="image">
 			<!-- Dialog background image -->
 			<centerleft>50%</centerleft>
-			<top>385</top>
+			<top>200</top>
 			<width>1400</width>
-			<height>680</height>
+			<height>800</height><!--790-->
 			<texture border="14" colordiffuse="midgrey">backtransparent.png</texture>
 		</control>
 		<control type="label">
@@ -65,23 +104,20 @@
 		</control>
 		<control type="textbox">
 			<centerleft>50%</centerleft>
-			<width>1400</width>
-			<height>550</height>
+			<width>1300</width>
+			<height>50</height><!--550-->
 			<top>130</top>
 			<shadowcolor>black</shadowcolor>
 			<pagecontrol>3000</pagecontrol>
 			<font>font14</font>
 			<align>center</align>
-			<label>Instala los siguientes addons que nutrirán de contenido y otras funciones al Skin.
-Al instalar algunos addons primero pedirá instalar su repositorio y después el addon.[CR]
-[B][COLOR blue]Si tu dispositivo es Windows[/B][/COLOR], después de instalar Winner, pulsa de nuevo para que descargue los módulos Acestream para poder ver los enlaces deportivos.
-[B][COLOR blue]Si tu dispositivo es Android[/B][/COLOR], descarga Acestream desde stva.es</label>
+			<label>Instala addons de video y otros que desees.</label>
 		</control>
 		<control type="group">
 			<centerleft>50%</centerleft>
-			<top>285</top><!--225-->
-			<height>760</height><!--900-->
-			<width>1300</width>
+			<top>130</top><!--285-225-->
+			<height>840</height><!--760-900-->
+			<width>1380</width><!--1340-1300-->
 			<control type="grouplist" id="9000">
 				<orientation>vertical</orientation>
 			<onright>007</onright>
@@ -104,7 +140,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 					<texturenofocus/>
 					<radioposx>1220</radioposx>
-					<onclick condition="!System.HasAddon(plugin.video.cristalazul)">InstallAddon(plugin.video.cristalazul)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.cristalazul) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.cristalazul)</onclick>
 					<selected>System.HasAddon(plugin.video.cristalazul)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
@@ -120,7 +156,8 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(script.module.resolveurl)">InstallAddon(script.module.resolveurl)</onclick>																		
+				<onclick condition="!System.HasAddon(repository.resolveurl)">InstallAddon(repository.resolveurl)</onclick>
+					<onclick condition="!System.HasAddon(script.module.resolveurl) + System.HasAddon(repository.resolveurl)">InstallAddon(script.module.resolveurl)</onclick>																		
 					<selected>System.HasAddon(script.module.resolveurl)</selected>
 					<texturenofocus/>
 					<include>DefaultSettingButton</include>
@@ -136,8 +173,8 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(repository.Palantir)">InstallAddon(repository.Palantir)</onclick>																		
-					<onclick condition="!System.HasAddon(plugin.video.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>																		
+					<onclick condition="!System.HasAddon(repository.palantir2)">InstallAddon(repository.palantir2)</onclick>																	
+					<onclick condition="!System.HasAddon(plugin.video.palantir2) + System.HasAddon(repository.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.palantir2)</selected>
 					<include>DefaultSettingButton</include>
@@ -153,8 +190,8 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>																		
-					<onclick condition="!System.HasAddon(plugin.video.alfa)">InstallAddon(plugin.video.alfa)</onclick>																		
+					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>																
+					<onclick condition="!System.HasAddon(plugin.video.alfa) +  System.HasAddon(repository.alfa-addon)">InstallAddon(plugin.video.alfa)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.alfa)</selected>
 					<include>DefaultSettingButton</include>
@@ -171,8 +208,8 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(repository.balandro)">InstallAddon(repository.balandro)</onclick>																		
-					<onclick condition="!System.HasAddon(plugin.video.balandro)">InstallAddon(plugin.video.balandro)</onclick>																		
+					<onclick condition="!System.HasAddon(repository.balandro)">InstallAddon(repository.balandro)</onclick>																
+					<onclick condition="!System.HasAddon(plugin.video.balandro) + System.HasAddon(repository.balandro)">InstallAddon(plugin.video.balandro)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.balandro)</selected>
 					<include>DefaultSettingButton</include>
@@ -188,8 +225,8 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>																		
-					<onclick condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onclick>																		
+					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>																
+					<onclick condition="!System.HasAddon(plugin.video.vavooto) + System.HasAddon(repository.michaz)">InstallAddon(plugin.video.vavooto)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.vavooto)</selected>
 					<include>DefaultSettingButton</include>
@@ -205,7 +242,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(plugin.video.winner)">InstallAddon(plugin.video.winner)</onclick>																		
+					<onclick condition="!System.HasAddon(plugin.video.winner) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.winner)</onclick>																		
 					<onclick condition="System.HasAddon(script.module.horus)">ActivateWindow(10025,&quot;plugin://script.module.horus/&quot;,return)</onclick>
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.winner)</selected>
@@ -222,7 +259,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(plugin.video.moestv)">InstallAddon(plugin.video.moestv)</onclick>																		
+					<onclick condition="!System.HasAddon(plugin.video.moestv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.moestv)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.moestv)</selected>
 					<include>DefaultSettingButton</include>
@@ -238,8 +275,8 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-					<onclick condition="!System.HasAddon(repository.repo.stva)">InstallAddon(repository.repo.stva)</onclick>																		
-					<onclick condition="!System.HasAddon(script.stva)">InstallAddon(script.stva)</onclick>																		
+					<onclick condition="!System.HasAddon(repository.stva)">InstallAddon(repository.stva)</onclick>-->																	
+					<onclick condition="!System.HasAddon(script.stva) + System.HasAddon(repository.stva)">InstallAddon(script.stva)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(script.stva)</selected>
 					<include>DefaultSettingButton</include>
@@ -258,7 +295,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.jurialmunkey)">InstallAddon(repository.jurialmunkey)</onclick>																		
-					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>																		
+					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(repository.jurialmunkey)">InstallAddon(plugin.video.themoviedb.helper)</onclick>																		
 					<selected>System.HasAddon(plugin.video.themoviedb.helper)</selected>
 					<texturenofocus/>
 					<include>DefaultSettingButton</include>
@@ -292,15 +329,35 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.magellan)">InstallAddon(repository.magellan)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix) + System.HasAddon(repository.magellan)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
 					    <texturenofocus/>
 					    <selected>System.HasAddon(plugin.video.Magellan_Matrix)</selected>
 						<include>DefaultSettingButton</include>
 					</control>
+				<control type="button" id="333">
+						<radioposx>1220</radioposx>
+					    <font>font14</font>
+						<label>KodivertidoTVCine $INFO[System.AddonVersion(plugin.video.KovertidoTeamTvCine),(,)][COLOR grey] - Pelis y Series[/COLOR]</label>
+						<height>60</height>
+					    <radiowidth>100</radiowidth>
+					    <radioheight>100</radioheight>
+						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<!--<onclick condition="!System.HasAddon(plugin.video.KovertidoTeamTvCine)+ System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(plugin.video.KovertidoTeamTvCine)</onclick>-->
+                       <onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>
+					   <onclick condition="!System.HasAddon(plugin.video.KovertidoTeamTvCine)">InstallAddon(plugin.video.KovertidoTeamTvCine)</onclick>							
+						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">ActivateWindow(10040,&quot;addons://plugin.video.KovertidoTeamTvCine/&quot;,return)</onclick>
+						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">Skin.SetBool(kodivertido-items)</onclick>
+					    <selected>System.HasAddon(plugin.video.KovertidoTeamTvCine)</selected>
+						<include>DefaultSettingButton</include>
+						<texturenofocus/>
+					</control>	
 				<control type="button" id="308">
-				  <onup>326</onup>
+				  <!--<onup>326</onup>
 				  <onright>007</onright>
-				  <onleft>007</onleft>
+				  <onleft>007</onleft>-->
 					<top>70</top>
 					<height>60</height>
 					<label>Continuar</label>
@@ -314,7 +371,7 @@ Al instalar algunos addons primero pedirá instalar su repositorio y después el
 				</control>
 			</control>
 		</control>
-		<!--af botó continuar aquí-->
+		<!--af botó continuar aquí NO-->
 		<!--<control type="button" id="308">
 		          <onup>326</onup>
 					<top>1035</top><!--70--><!--

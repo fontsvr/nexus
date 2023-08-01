@@ -416,7 +416,63 @@
 						<radioheight>40</radioheight>
 						<height>70</height>
 					</control>
-					<control type="label" id="522">
+					<control type="radiobutton" id="522">
+						<width>1300</width>
+						<texturenofocus/>
+						<include>DefaultSettingButton</include>
+						<label>Ocultar Buscador Balandro</label>
+						<textwidth>550</textwidth>
+						<onclick>Skin.ToggleSetting(buscador-balandro)</onclick>
+						<selected>Skin.HasSetting(buscador-balandro)</selected>
+						<font>ctouch21</font>
+						<radioposx>1240</radioposx>
+						<radiowidth>40</radiowidth>
+						<radioheight>40</radioheight>
+						<height>70</height>
+					</control>
+					<control type="radiobutton" id="523">
+						<width>1300</width>
+						<texturenofocus/>
+						<include>DefaultSettingButton</include>
+						<label>Ocultar Buscador Tacones</label>
+						<textwidth>550</textwidth>
+						<onclick>Skin.ToggleSetting(buscador-tacones)</onclick>
+						<selected>Skin.HasSetting(buscador-tacones)</selected>
+						<font>ctouch21</font>
+						<radioposx>1240</radioposx>
+						<radiowidth>40</radiowidth>
+						<radioheight>40</radioheight>
+						<height>70</height>
+					</control>
+					<control type="radiobutton" id="524">
+						<width>1300</width>
+						<texturenofocus/>
+						<include>DefaultSettingButton</include>
+						<label>Ocultar Buscador DuffYou</label>
+						<textwidth>550</textwidth>
+						<onclick>Skin.ToggleSetting(buscador-duffyou)</onclick>
+						<selected>Skin.HasSetting(buscador-duffyou)</selected>
+						<font>ctouch21</font>
+						<radioposx>1240</radioposx>
+						<radiowidth>40</radiowidth>
+						<radioheight>40</radioheight>
+						<height>70</height>
+					</control>
+					<control type="radiobutton" id="525">
+						<width>1300</width>
+						<texturenofocus/>
+						<include>DefaultSettingButton</include>
+						<label>Ocultar Buscador BlackGhost</label>
+						<textwidth>550</textwidth>
+						<onclick>Skin.ToggleSetting(buscador-blackghost)</onclick>
+						<selected>Skin.HasSetting(buscador-blackghost)</selected>
+						<font>ctouch21</font>
+						<radioposx>1240</radioposx>
+						<radiowidth>40</radiowidth>
+						<radioheight>40</radioheight>
+						<height>70</height>
+					</control>
+					<control type="label" id="529">
 						<left>70</left>
 						<height>70</height>
 						<width>500</width>
@@ -720,8 +776,8 @@
 						<include>DefaultSettingButton</include>
 						<label>Cristal Azul</label>
 						<textwidth>380</textwidth><!--550-->
-						<onclick>Skin.ToggleSetting(cristal-items)</onclick>
-						<selected>Skin.HasSetting(cristal-items)</selected>
+						<onclick>Skin.ToggleSetting(cristalazul-items)</onclick>
+						<selected>Skin.HasSetting(cristalazul-items)</selected>
 						<font>ctouch21</font>
 						<radioposx>390</radioposx><!--560-->
 						<radiowidth>40</radiowidth>
@@ -947,7 +1003,7 @@
 					    <!--balandro-->
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/pelis-balandro.png" />
-							<param name="itemlabel" value="Pelis Balandro" />
+							<param name="itemlabel" value="Pelis en Balandro" />
 							<param name="itemcondition" value="!Skin.HasSetting(pelis-balandro) + Skin.HasSetting(balandro-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="pelis-balandro" />
@@ -997,6 +1053,21 @@
 							<param name="itemcondition" value="!Skin.HasSetting(blackghost) + Skin.HasSetting(blackghost-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="blackghost" />
+						</include>
+						<!--cristalazul-->
+						<include content="listpanelitems">
+							<param name="itemthumb" value="special://skin/extras/homeicons/cristal-pelis.png" />
+							<param name="itemlabel" value="Cine Cristal" />
+							<param name="itemcondition" value="!Skin.HasSetting(peliscristal) + Skin.HasSetting(cristalazul-items)" />
+							<param name="itemmenuid" value="9021" />
+							<param name="itemtoggle" value="peliscristal" />
+						</include>
+						<include content="listpanelitems">
+							<param name="itemthumb" value="special://skin/extras/homeicons/cristal-series.png" />
+							<param name="itemlabel" value="Series Cristal" />
+							<param name="itemcondition" value="!Skin.HasSetting(seriescristal) + Skin.HasSetting(cristalazul-items)" />
+							<param name="itemmenuid" value="9021" />
+							<param name="itemtoggle" value="seriescristal" />
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/pcanales.png" />
@@ -1098,7 +1169,7 @@
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/tags.png" />
-							<param name="itemlabel" value="Pelis en Tendencia" /><!--Pelis en Tendencia-->
+							<param name="itemlabel" value="Pelis Alfa" /><!--Pelis en Tendencia-->
 							<param name="itemcondition" value="!Skin.HasSetting(ptendencia) + Skin.HasSetting(alfa-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="ptendencia" />
@@ -1119,7 +1190,7 @@
 						</include>-->
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/hot.png" />
-							<param name="itemlabel" value="Series en Tendencia" />
+							<param name="itemlabel" value="Series en Alfa" />
 							<param name="itemcondition" value="!Skin.HasSetting(stendencia) + Skin.HasSetting(alfa-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="stendencia" />
@@ -1147,64 +1218,64 @@
 						</include>-->
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/coleccion.png" />
-							<param name="itemlabel" value="Colección" />
+							<param name="itemlabel" value="Colección Series Videoteca" />
 							<param name="itemcondition" value="!Skin.HasSetting(coleccion-v) + Library.HasContent(tvshows)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="coleccion-v" />
-						</include>
+						</include><!--palantir2-items son items que no activo de momento-->
 						<include content="listpanelitems">
-							<param name="itemthumb" value="special://skin/extras/homeicons/seguimiento.png" />
+							<param name="itemthumb" value="special://skin/extras/homeicons/palantir-seguimiento.png" />
 							<param name="itemlabel" value="Series en Seguimiento" />
 							<param name="itemcondition" value="!Skin.HasSetting(seguimiento) + Skin.HasSetting(palantir-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="seguimiento" />
 						</include>
 						<include content="listpanelitems">
-							<param name="itemthumb" value="special://skin/extras/homeicons/actualizadas.png" />
-							<param name="itemlabel" value="Series Actualizadas" />
+							<param name="itemthumb" value="special://skin/extras/homeicons/palantir-series-nuevas.png" />
+							<param name="itemlabel" value="Series Nuevas Palantir" />
 							<param name="itemcondition" value="!Skin.HasSetting(actualizadas) + Skin.HasSetting(palantir-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="actualizadas" />
 						</include>
 						<include content="listpanelitems">
-							<param name="itemthumb" value="special://skin/extras/homeicons/pelis-palantir.png" />
+							<param name="itemthumb" value="special://skin/extras/homeicons/palantir-pelis.png" />
 							<param name="itemlabel" value="Pelis Palantir" />
-							<param name="itemcondition" value="!Skin.HasSetting(pelis-palantir) + Skin.HasSetting(palantir-items)" />
+							<param name="itemcondition" value="!Skin.HasSetting(palantir-pelis) + Skin.HasSetting(palantir-items)" />
 							<param name="itemmenuid" value="9021" />
-							<param name="itemtoggle" value="pelis-palantir" />
+							<param name="itemtoggle" value="palantir-pelis" />
 						</include>
 						<include content="listpanelitems">
-							<param name="itemthumb" value="special://skin/extras/homeicons/novedades.png" />
-							<param name="itemlabel" value="Novedades" />
+							<param name="itemthumb" value="special://skin/extras/homeicons/palantir-novedades.png" />
+							<param name="itemlabel" value="Novedad Pelis Palantir2" />
 							<param name="itemcondition" value="!Skin.HasSetting(novedades) + Skin.HasSetting(palantir-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="novedades" />
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/documentales.png" />
-							<param name="itemlabel" value="Documentales" />
+							<param name="itemlabel" value="Documentales Palantir2" />
 							<param name="itemcondition" value="!Skin.HasSetting(documentales-palantir) + Skin.HasSetting(palantir-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="documentales-palantir" />
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/dibujos.png" />
-							<param name="itemlabel" value="Dibujos" />
-							<param name="itemcondition" value="!Skin.HasSetting(dibujos) + Skin.HasSetting(palantir-items)" />
+							<param name="itemlabel" value="Dibujos Palantir" />
+							<param name="itemcondition" value="!Skin.HasSetting(dibujos) + Skin.HasSetting(palantir2-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="dibujos" />
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/telenovelas.png" />
-							<param name="itemlabel" value="Telenovelas" />
-							<param name="itemcondition" value="!Skin.HasSetting(telenovelas) + Skin.HasSetting(palantir-items)" />
+							<param name="itemlabel" value="Telenovelas Palantir2" />
+							<param name="itemcondition" value="!Skin.HasSetting(telenovelas) + Skin.HasSetting(palantir2-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="telenovelas" />
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/updatepalantir.png" />
-							<param name="itemlabel" value="Actualizar Palantir" />
-							<param name="itemcondition" value="!Skin.HasSetting(updatepalantir) + Skin.HasSetting(palantir-items)" />
+							<param name="itemlabel" value="Actualizar Palantir2" />
+							<param name="itemcondition" value="!Skin.HasSetting(updatepalantir) + Skin.HasSetting(palantir2-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="updatepalantir" />
 						</include>
@@ -1224,7 +1295,7 @@
 						</include>
 						<include content="listpanelitems">
 							<param name="itemthumb" value="special://skin/extras/homeicons/menutv.png" />
-							<param name="itemlabel" value="TV Premium tv" />
+							<param name="itemlabel" value="TV Premium Mag" />
 							<param name="itemcondition" value="!Skin.HasSetting(tvmagellan) + Skin.HasSetting(sportv-items)" />
 							<param name="itemmenuid" value="9021" />
 							<param name="itemtoggle" value="tvmagellan" />
@@ -2025,7 +2096,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>																		
+						<onclick condition="!System.HasAddon(repository.reeebase)">InstallAddon(repository.rebase)</onclick>																		
 						<!--<onup>8000</onup>-->
 						<onup>347</onup>
 						<onclick condition="System.HasAddon(repository.rebase)">ActivateWindow(10040,&quot;addons://repository.rebase/&quot;,return)</onclick>
@@ -2048,6 +2119,23 @@
 						<onclick condition="!System.HasAddon(repository.stva)">InstallAddon(repository.stva)</onclick>																		
 						<onclick condition="System.HasAddon(repository.stva)">ActivateWindow(10040,&quot;addons://repository.stva/&quot;,return)</onclick>
 						<selected>System.HasAddon(repository.stva)</selected>
+						<include>DefaultSettingButton</include>
+						<texturenofocus/>
+					</control><!--Luar-->
+					<control type="radiobutton" id="318">
+						<radioposx>1200</radioposx>
+						<height>70</height>
+						<font>ctouch21</font>
+						<label>Repositorio Luar $INFO[System.AddonVersion(repository.luar),(,)]</label>
+						<radiowidth>120</radiowidth>
+						<radioheight>120</radioheight>
+						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<onclick condition="!System.HasAddon(repository.luar)">InstallAddon(repository.luar)</onclick>																		
+						<onclick condition="System.HasAddon(repository.luar)">ActivateWindow(10040,&quot;addons://repository.luar/&quot;,return)</onclick>
+						<selected>System.HasAddon(repository.luar)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
 					</control>
@@ -2156,23 +2244,6 @@
 					<control type="radiobutton" id="327">
 						<radioposx>1200</radioposx>
 						<font>ctouch21</font>
-						<label>Repositorio KODIvertiDO TEAM $INFO[System.AddonVersion(repository.KODIvertiDO_TEAM),(,)]</label>
-						<height>70</height>
-						<radiowidth>120</radiowidth>
-						<radioheight>120</radioheight>
-						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>																		
-						<onclick condition="System.HasAddon(repository.KODIvertiDO_TEAM)">ActivateWindow(10040,&quot;addons://repository.KODIvertiDO_TEAM/&quot;,return)</onclick>
-						<selected>System.HasAddon(repository.KODIvertiDO_TEAM)</selected>
-						<include>DefaultSettingButton</include>
-						<texturenofocus/>
-					</control>
-					<control type="radiobutton" id="328">
-						<radioposx>1200</radioposx>
-						<font>ctouch21</font>
 						<label>Repositorio TheBlackGhost $INFO[System.AddonVersion(repository.theblackghost),(,)]</label>
 						<height>70</height>
 						<radiowidth>120</radiowidth>
@@ -2184,6 +2255,23 @@
 						<onclick condition="!System.HasAddon(repository.theblackghost)">InstallAddon(repository.theblackghost)</onclick>																		
 						<onclick condition="System.HasAddon(repository.theblackghost)">ActivateWindow(10040,&quot;addons://repository.theblackghost/&quot;,return)</onclick>
 						<selected>System.HasAddon(repository.theblackghost)</selected>
+						<include>DefaultSettingButton</include>
+						<texturenofocus/>
+					</control>
+					<control type="button" id="328">
+						<radioposx>1200</radioposx>
+						<font>ctouch21</font>
+						<label>Repositorio KODIvertiDO TEAM $INFO[System.AddonVersion(repository.KODIvertiDO_TEAM),(,)]</label>
+						<height>70</height>
+						<radiowidth>120</radiowidth>
+						<radioheight>120</radioheight>
+						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>																		
+						<onclick condition="System.HasAddon(repository.KODIvertiDO_TEAM)">ActivateWindow(10040,&quot;addons://repository.KODIvertiDO_TEAM/&quot;,return)</onclick>
+						<selected>System.HasAddon(repository.KODIvertiDO_TEAM)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
 					</control>
@@ -2204,12 +2292,12 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(plugin.video.cristalazul)">InstallAddon(plugin.video.cristalazul)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.cristalazul) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.cristalazul)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(widgets-cristal-pelis1)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(widgets-cristal-pelis2)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(widgets-cristal-series1)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(widgets-cristal-pelis2)</onclick>
-						<onclick condition="System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(cristal-items)</onclick>
+						<onclick condition="System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(cristalazul-items)</onclick>
 						<onclick condition="!System.HasAddon(plugin.video.cristalazul)">Skin.SetBool(buscador-cristal)</onclick>
 						<selected>System.HasAddon(plugin.video.cristalazul)</selected>
 						<include>DefaultSettingButton</include>
@@ -2227,7 +2315,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.palantir2)">InstallAddon(repository.palantir2)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.palantir2) + System.HasAddon(repository.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.palantir2)">ActivateWindow(10040,&quot;addons://plugin.video.palantir2/&quot;,return)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.palantir2)">Skin.SetBool(widgets-palantir-myseries)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.palantir2)">Skin.SetBool(widgets-palantir-pelis1)</onclick>
@@ -2252,7 +2340,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.alfa)">InstallAddon(plugin.video.alfa)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.alfa) + System.HasAddon(repository.alfa-addon)">InstallAddon(plugin.video.alfa)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.alfa)">ActivateWindow(10040,&quot;addons://plugin.video.alfa/&quot;,return)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.alfa)">Skin.SetBool(widgets-alfa-pelis1)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.alfa)">Skin.SetBool(widgets-alfa-pelis2)</onclick>
@@ -2276,7 +2364,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.balandro)">InstallAddon(repository.balandro)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.balandro)">InstallAddon(plugin.video.balandro)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.balandro) + System.HasAddon(repository.balandro)">InstallAddon(plugin.video.balandro)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.balandro)">ActivateWindow(10040,&quot;addons://plugin.video.balandro/&quot;,return)</onclick>
 						<!--<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(widgets-balandro-pelis1)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(widgets-balandro-pelis2)</onclick>
@@ -2301,13 +2389,13 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.vavooto) + System.HasAddon(repository.michaz)">InstallAddon(plugin.video.vavooto)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.vavooto)">ActivateWindow(10040,&quot;addons://plugin.video.vavooto/&quot;,return)</onclick>
 						<!--<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(widgets-balandro-pelis1)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(widgets-balandro-pelis2)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(widgets-balandro-series1)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(widgets-balandro-series2)</onclick>-->
-						<onclick condition="System.HasAddon(plugin.video.balandro)">Skin.SetBool(vavoo-items)</onclick>
+						<onclick condition="System.HasAddon(plugin.video.vavooto)">Skin.SetBool(vavoo-items)</onclick>
 						<selected>System.HasAddon(plugin.video.vavooto)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2324,11 +2412,10 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.fontsvr)">InstallAddon(repository.fontsvr)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.tacones)">InstallAddon(plugin.video.tacones)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.tacones) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.tacones)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.tacones)">ActivateWindow(10040,&quot;addons://plugin.video.tacones/?url=%24doregex%5Bindex%5D&amp;mode=17&amp;regexs=%7B%27index%27%3A%20%7B%27name%27%3A%20%27index%27%2C%20%27listrepeat%27%3A%20%27%5Cn%3Ctitle%3E%5BB%5D%5BCOLOR%20red%5D%E2%80%A2%5B/COLOR%5D%20%5BCOLOR%20white%5D%5Bindex.param1%5D%5B/COLOR%5D%5BCOLOR%20red%5D%20%28%5Bindex.param8%5D%20%7C%20%5Bindex.param9%5D%29%5B/COLOR%5D%5B/B%5D%3C/title%3E%5Cn%3Clink%3E%24doregex%5Bgestor%5D%3C/link%3E%5Cn%3Cyear%3E%5Bindex.param8%5D%3C/year%3E%5Cn%3Cgenre%3E%5Bindex.param9%5D%3C/genre%3E%5Cn%3Cinfo%3E%5Bindex.param11%5D%3C/info%3E%5Cn%3Cthumbnail%3E%5Bindex.param6%5D%3C/thumbnail%3E%5Cn%3Cfanart%3E%5Bindex.param7%5D%3C/fanart%3E%5Cn%27%2C%20%27expres%27%3A%20%27title.%28.%2A%29..title.%5C%5Cs%2A.microhd.%28%5B%5ENA%5D%2B%29..microhd.%5C%5Cs%2A.fullhd.%28.%2A%29..fullhd.%5C%5Cs%2A.tresd.%28.%2A%29..tresd.%5C%5Cs%2A.cuatrok.%28.%2A%29..cuatrok.%5C%5Cs%2A.thumbnail.%28.%2A%29..thumbnail.%5C%5Cs%2A.fanart.%28.%2A%29..fanart.%5C%5Cs%2A.date.%28.%2A%29..date.%5C%5Cs%2A.genre.%28.%2A%29..genre.%5C%5Cs%2A.extra.%28.%2A%29..extra.%5C%5Cs%2A.info.%28.%2A%29..info.%27%2C%20%27page%27%3A%20%27https%3A//gitlab.com/stiletto1/s/-/raw/main/c%27%2C%20%27cookiejar%27%3A%20%27%27%7D%2C%20%27gestor%27%3A%20%7B%27name%27%3A%20%27gestor%27%2C%20%27expres%27%3A%20%22%23%24pyFunction%5Cndef%20GetLSProData%28page_data%2CCookie_Jar%2Cm%29%3A%5Cn%20calidad%20%3D%20%27%5Bindex.param2%5D%27%2C%20%27%5Bindex.param3%5D%27%2C%20%27%5Bindex.param4%5D%27%2C%20%27%5Bindex.param5%5D%27%5Cn%20for%20x%20in%20calidad%3A%5Cn%20%20%20%20if%20x%20%21%3D%20%27NA%27%3A%5Cn%20%20%20%20%20%20%20%20calidad%20%3D%3D%20x%5Cn%20%20%20%20%20%20%20%20break%5Cn%20%20%20%20else%3A%5Cn%20%20%20%20%20%20%20%20x%20%3D%20%27%27%5Cn%20return%20%27plugin%3A//plugin.video.elementum/play%3Furi%3Dmagnet%3A%3Fxt%3Durn%3Abtih%3A%5Bindex.param2%5D%27%5Cn%22%2C%20%27page%27%3A%20None%2C%20%27cookiejar%27%3A%20%27%27%7D%7D&amp;iconimage=https%3A%2F%2Fi.imgur.com%2FgdMxN0J.png&quot;,return)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.tacones)">Skin.SetBool(tacones-items)</onclick>
-						<!--<onclick condition="!System.HasAddon(plugin.video.tacones)">Skin.SetBool(buscador-tacones)</onclick>-->
+					<onclick condition="!System.HasAddon(plugin.video.tacones)">Skin.SetBool(buscador-tacones)</onclick>
 						<selected>System.HasAddon(plugin.video.tacones)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2345,33 +2432,11 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.fontsvr)">InstallAddon(repository.fontsvr)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.kodispaintv)">InstallAddon(plugin.video.kodispaintv)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.kodispaintv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.kodispaintv)</onclick>																		
 						<onclick condition="System.HasAddon(plugin.video.kodispaintv)">ActivateWindow(10040,&quot;addons://plugin.video.kodispaintv/&quot;,return)</onclick>
 						<onclick condition="System.HasAddon(plugin.video.kodispaintv)">Skin.SetBool(tacones-items)</onclick>
-						<!--<onclick condition="!System.HasAddon(plugin.video.kodispaintv)">Skin.SetBool(buscador-tacones)</onclick>-->
+					<onclick condition="!System.HasAddon(plugin.video.kodispaintv)">Skin.SetBool(buscador-tacones)</onclick>
 						<selected>System.HasAddon(plugin.video.kodispaintv)</selected>
-						<include>DefaultSettingButton</include>
-						<texturenofocus/>
-					</control>
-					     <!--KodiVerTido-->
-					<control type="radiobutton" id="337">
-						<radioposx>1200</radioposx>
-						<height>70</height>
-						<font>ctouch21</font>
-						<label>KodivertidoTVCine $INFO[System.AddonVersion(plugin.video.KovertidoTeamTvCine),(,)][COLOR grey] - Pelis y Series[/COLOR]</label>
-						<radiowidth>120</radiowidth>
-						<radioheight>120</radioheight>
-						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>	
-						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.KovertidoTeamTvCine)">InstallAddon(plugin.video.KovertidoTeamTvCine)</onclick>																		
-						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">ActivateWindow(10040,&quot;addons://plugin.video.KovertidoTeamTvCine/&quot;,return)</onclick>
-						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">Skin.SetBool(kodivertido-items)</onclick>
-						<!--<onclick condition="!System.HasAddon(plugin.video.kodispaintv)">Skin.SetBool(buscador-tacones)</onclick>-->
-						<selected>System.HasAddon(plugin.video.KovertidoTeamTvCine)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
 					</control>
@@ -2386,7 +2451,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(plugin.video.moestv)">InstallAddon(plugin.video.moestv)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.moestv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.moestv)</onclick>																		
 						<selected>System.HasAddon(plugin.video.moestv)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2402,7 +2467,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(plugin.video.winner)">InstallAddon(plugin.video.winner)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.winner) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.winner)</onclick>																		
 						<selected>System.HasAddon(plugin.video.winner)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2419,8 +2484,31 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.theblackghost)">InstallAddon(repository.theblackghost)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.blackghost)">InstallAddon(plugin.video.blackghost)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.blackghost) + System.HasAddon(repository.theblackghost)">InstallAddon(plugin.video.blackghost)</onclick>																		
+					<onclick condition="System.HasAddon(plugin.video.blackghost)">Skin.SetBool(blackghost-items)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.blackghost)">Skin.SetBool(buscador-blackghost)</onclick>
 						<selected>System.HasAddon(plugin.video.blackghost)</selected>
+						<include>DefaultSettingButton</include>
+						<texturenofocus/>
+					</control>
+					 <!--KodiVerTido-->
+					<control type="button" id="337">
+						<radioposx>1200</radioposx>
+						<height>70</height>
+						<font>ctouch21</font>
+						<label>KodivertidoTVCine $INFO[System.AddonVersion(plugin.video.KovertidoTeamTvCine),(,)][COLOR grey] - Pelis y Series[/COLOR]</label>
+						<radiowidth>120</radiowidth>
+						<radioheight>120</radioheight>
+						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>	
+						<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.KovertidoTeamTvCine) + System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(plugin.video.KovertidoTeamTvCine)</onclick>																		
+						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">ActivateWindow(10040,&quot;addons://plugin.video.KovertidoTeamTvCine/&quot;,return)</onclick>
+						<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">Skin.SetBool(kodivertido-items)</onclick>
+						<!--<onclick condition="!System.HasAddon(plugin.video.kodispaintv)">Skin.SetBool(buscador-tacones)</onclick>-->
+						<selected>System.HasAddon(plugin.video.KovertidoTeamTvCine)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
 					</control>
@@ -2436,7 +2524,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 					    <onclick condition="!System.HasAddon(repository.magellan)">InstallAddon(repository.magellan)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix) + System.HasAddon(repository.magellan)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
 					  <!--<onclick condition="System.HasAddon(plugin.video.Magellan_Matrix)">ActivateWindow(10040,&quot;addons://plugin.video.Magellan_Matrix/&quot;,return)</onclick>	
 					  <onclick condition="System.HasAddon(plugin.video.Magellan_Matrix)">Skin.SetBool(vavoo-items)</onclick>
 					  <selected>System.HasAddon(plugin.video.Magellan_Matrix)</selected>-->
@@ -2460,7 +2548,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(script.module.horus)">InstallAddon(script.module.horus)</onclick>
+						<onclick condition="!System.HasAddon(script.module.horus) + System.HasAddon(repository.rebase)">InstallAddon(script.module.horus)</onclick>
 						<onclick condition="System.HasAddon(script.module.horus)">RunAddon(script.module.horus)</onclick>
 						<selected>System.HasAddon(script.module.horus)</selected>
 						<include>DefaultSettingButton</include>
@@ -2477,7 +2565,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(script.stva)">InstallAddon(script.stva)</onclick>																		
+						<onclick condition="!System.HasAddon(script.stva) + System.HasAddon(repository.stva)">InstallAddon(script.stva)</onclick>																		
 						<selected>System.HasAddon(script.stva)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2496,7 +2584,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.jurialmunkey)">InstallAddon(repository.jurialmunkey)</onclick>																		
-						<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>																		
+						<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(repository.jurialmunkey)">InstallAddon(plugin.video.themoviedb.helper)</onclick>																		
 						<selected>System.HasAddon(plugin.video.themoviedb.helper)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2528,7 +2616,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(script.module.resolveurl)">InstallAddon(script.module.resolveurl)</onclick>
+						<onclick condition="!System.HasAddon(script.module.resolveurl) + System.HasAddon(repository.resolveurl)">InstallAddon(script.module.resolveurl)</onclick>
 						<selected>System.HasAddon(script.module.resolveurl)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2566,8 +2654,8 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.Luar)">InstallAddon(repository.Luar)</onclick>
-						<onclick condition="!System.HasAddon(script.luar)">InstallAddon(script.luar)</onclick>																		
+						<onclick condition="!System.HasAddon(repository.luar)">InstallAddon(repository.luar)</onclick>
+						<onclick condition="!System.HasAddon(script.luar) + System.HasAddon(repository.luar)">InstallAddon(script.luar)</onclick>																		
 						<selected>System.HasAddon(script.luar)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2584,7 +2672,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>
-						<onclick condition="!System.HasAddon(script.kelebek)">InstallAddon(script.kelebek)</onclick>																		
+						<onclick condition="!System.HasAddon(script.kelebek) + System.HasAddon(repository.rebase)">InstallAddon(script.kelebek)</onclick>																		
 						<selected>System.HasAddon(script.kelebek)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2649,7 +2737,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(repository.github)">InstallAddon(repository.github)</onclick>																		
+						<onclick condition="!System.HasAddon(repository.github) + System.HasAddon(repository.rebase)">InstallAddon(repository.github)</onclick>																		
 						<selected>System.HasAddon(repository.github)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2666,7 +2754,7 @@
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.github)">InstallAddon(repository.github)</onclick>
-						<onclick condition="!System.HasAddon(plugin.video.torrest)">InstallAddon(plugin.video.torrest)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.torrest) + System.HasAddon(repository.github)">InstallAddon(plugin.video.torrest)</onclick>
 						<selected>System.HasAddon(plugin.video.torrest)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
@@ -2683,7 +2771,7 @@
 						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
 						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
-						<onclick condition="!System.HasAddon(plugin.video.elementum)">InstallAddon(plugin.video.elementum)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.elementum) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.elementum)</onclick>
 						<selected>System.HasAddon(plugin.video.elementum)</selected>
 						<include>DefaultSettingButton</include>
 						<texturenofocus/>
