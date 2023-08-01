@@ -5,9 +5,9 @@
   </requires>
 	<extension point="xbmc.addon.repository" name="Repositorio FONTS">
         <dir>
-		<info>https://raw.githubusercontent.com/fontsvr/fonts/master/repo/zips/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/fontsvr/fonts/master/repo/zips/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/fonts/master/repo/zips/</datadir>
+		<info>https://raw.githubusercontent.com/fontsvr/fonts/main/repo/zips/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/fontsvr/fonts/main/repo/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/fonts/main/repo/zips/</datadir>
 		</dir>
     </extension>
     <extension point="xbmc.addon.metadata">
