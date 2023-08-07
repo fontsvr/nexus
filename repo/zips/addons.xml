@@ -447,6 +447,26 @@ plugin.program.[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR lime][B]MATRIX[/COLOR]
             <clearlogo>resources/media/clearlogo.png</clearlogo>
         </assets>
     </extension>
+</addon><addon id="plugin.program.iptv.merge" name="IPTV Merge" provider-name="SlyGuy" version="0.24.6">
+  <requires>
+    <import addon="script.module.slyguy" version="0.63.1" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="login" />
+  <extension point="xbmc.addon.metadata">
+    <description lang="en">Easily merge multiple IPTV playlists &amp; EPGs from remote, local or supported add-on sources.</description>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <license />
+    <language />
+    <website />
+    <news />
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
 </addon><addon id="plugin.video.KovertidoTeamTvCine" version="2.45" name="[B][COLOR white]Kodi[COLOR gold]verti[COLOR yellow]do[COLOR gold]Team[COLOR lightpink]Tv[COLOR lime]Cine[/COLOR][/B]" provider-name="equipo KODIvertiDO TEAM">
 <requires>
     <import addon="script.module.requests" optional="true" />
@@ -1931,6 +1951,27 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<screenshot>resources/art/ss/3.png</screenshot>
 		</assets>
 	</extension>
+</addon><addon id="script.autoruns" name="Autoruns" version="2.0.4" provider-name="fight night, Jon Bovi">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" /> 
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" />
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+		<source>https://github.com/fightnight/fightnight-addons/tree/master/script.autoruns</source>
+		<summary lang="en">Disable startup services on Kodi</summary>
+		<summary lang="pt">Desactive serviços do arranque no Kodi</summary>
+		<description lang="en">You can disable startup services, improving Kodi internal speed.</description>
+		<description lang="pt">Pode desactivar serviços do arranque, melhorando a velocidade interna do Kodi.</description>
+		<disclaimer lang="en">Opensource addon not endorsed with Team Kodi.</disclaimer>
+		<disclaimer lang="pt">Addon opensource não afliado com a Equipa Kodi.</disclaimer>
+		<assets>
+				<icon>icon.png</icon>
+		</assets>
+    </extension>
 </addon><addon id="script.elementum.burst" name="Elementum [COLOR FFFF6B00]Burst[/COLOR]" version="0.0.71" provider-name="elgatito">
     <requires>
         <import addon="xbmc.addon" version="16.0.0" />
@@ -2591,4 +2632,42 @@ Versión 3.4 - 15/5/23
 			<screenshot>resources/screenshot005.jpg</screenshot>
 		</assets>
 	</extension>
+</addon><addon id="slyguy.pluto.tv.provider" name="Pluto TV" provider-name="SlyGuy" version="0.6.2">
+  <requires>
+    <import addon="script.module.slyguy" version="0.63.1" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py" provides="video">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <description lang="en">Watch all your favourite Pluto TV channels live anywhere. No subscription required.</description>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <license />
+    <language />
+    <website />
+    <news>Channel fanart</news>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon><addon id="slyguy.samsung.tv.plus" name="Samsung TV Plus" provider-name="SlyGuy" version="0.1.9">
+  <requires>
+    <import addon="script.module.slyguy" version="0.63.1" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py" provides="video">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <description lang="en">Just free TV. Whether you're a news buff, sports fan, gamer, an aspiring chef, or need something for the kids, Samsung TV Plus offers TV that everyone can enjoy.</description>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <license />
+    <language />
+    <website />
+    <news>Move EPG url into Playlist</news>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
 </addon></addons>
