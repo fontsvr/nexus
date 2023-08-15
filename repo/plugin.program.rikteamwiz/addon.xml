@@ -10,23 +10,23 @@
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
     </extension>
-    <extension point="xbmc.addon.repository" name="Repo Rebase">		
-		<info>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xm</info>
-        <checksum>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
+    <extension point="xbmc.addon.repository" name="fontsVR">		
+		<info>https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/</datadir>
     </extension>
     <extension point="xbmc.service" library="startup.py" start="startup" />
     
     <extension point="xbmc.addon.metadata">
-        <summary lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR violet]NEXUS][/COLOR] tu Wizard para Kodi 20.x Nexus</summary>
-        <description lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR violet]NEXUS][/COLOR][COLOR lightpink] Complementos incluidos: Scripts,Elementum,Luar,Kelebek y fuentes para Kodi[/COLOR]
+        <summary lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR violet]NEXUS[/COLOR] tu Wizard para Kodi 20.x Nexus</summary>
+        <description lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR violet]NEXUS[/COLOR][COLOR lightpink] Complementos incluidos: Scripts, Elementum, Luar,Kelebek y fuentes para Kodi[/COLOR]
 		[B]• Developers:[/B] [COLOR gold]Rik Team[/COLOR]
 		</description>
         <platform>all</platform>
         <reuselanguageinvoker>false</reuselanguageinvoker>
-        <source>https://github.com/fontsvr/fontsvr/nexus/</source>
+        <source>https://github.com/fontsvr/fontsvr.github.io</source>
 		<news>
-• plugin.program [COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR violet]NEXUS[/B][/COLOR]
+• plugin.program [COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR violet][B]NEXUS[/B][/COLOR]
 		</news>
         <assets>
             <icon>icon.png</icon>

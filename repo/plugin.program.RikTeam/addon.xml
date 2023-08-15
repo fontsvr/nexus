@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.RikTeam" name="[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR lime][B]MATRIX[COLOR white]|[COLOR violet]NEXUS[/B][/COLOR]" version="3.3" provider-name="Rik Team">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0"/>
-		<import addon="script.module.requests"/>
-		<import addon="script.module.six"/>
-		<import addon="script.kodi.android.update" optional="true" version="1.1.7"/>
+<addon id="plugin.program.rikteam" name="[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0.0" provider-name="Rik Team">
+    <requires>
 		<import addon="script.speedtester" optional="true" version="1.1.2" />
-	</requires>
-	
-	<extension point="xbmc.python.pluginsource" debugging="true" library="default.py">
-		<provides>executable</provides>
-	</extension>
-  
-	<extension point="xbmc.service" library="startup.py" start="startup"/>
-  
-	<extension point="xbmc.addon.metadata">
-		<summary lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR lime]MATRIX[COLOR white]|[COLOR violet]NEXUS[/B][/COLOR] tu Wizard para KODI 19.x y 20.x</summary>
-		<description>
-[B]Developers:[/B] [COLOR gold]Rik Team[/COLOR]
-        </description>
-		<platform>all</platform>
-		<reuselanguageinvoker>false</reuselanguageinvoker>
-		<source>https://github.com/fontsvr/fontsvr.github.io</source>
+        <import addon="script.module.requests" optional="true" />
+        <import addon="script.module.six" optional="true" />
+        <import addon="script.kodi.android.update" optional="true" />     
+    </requires>
+    
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.repository" name="fontsVR">		
+		<info>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
+    </extension>
+    <extension point="xbmc.service" library="startup.py" start="startup" />
+    
+    <extension point="xbmc.addon.metadata">
+        <summary lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR violet]NEXUS[/COLOR] tu Wizard para Kodi 20.x Nexus</summary>
+        <description lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR violet]NEXUS[/COLOR][COLOR lightpink] Instalador de Addons, Scripts, Elementum, Luar, Kelebek y fuentes para Kodi[/COLOR][CR]
+		[B]• Developers:[/B] [COLOR gold]Rik Team[/COLOR]
+		</description>
+        <platform>all</platform>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+        <source>https://github.com/fontsvr/fontsvr.github.io</source>
 		<news>
-plugin.program.[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR lime][B]MATRIX[/COLOR][COLOR white] y [/COLOR][COLOR violet]NEXUS[/B][/COLOR]
+• Instalador de builds [COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR violet][B]NEXUS[/B][/COLOR]
 		</news>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.png</fanart>
+        </assets>
+    </extension>
 </addon>

@@ -43,21 +43,21 @@ def binaries():
     if os.path.exists(binarytxt):
         binaryids = tools.read_from_file(binarytxt).split(',')
 
-        logging.log("[Binario Detección] Reinstalación de Addons Binarios Elegibles")
+        logging.log("[Binary Detection] Reinstalling Eligible Binary Addons")
         dialog.ok(CONFIG.ADDONTITLE,
-                  '[COLOR {0}]La compilación restaurada contiene addons específicos de la plataforma, que ahora serán '
-                  'instalado automáticamente. Es posible que aparezcan varios cuadros de diálogo durante este proceso. Cancelarlos '
-                  'puede hacer que la compilación restaurada funcione incorrectamente.[/COLOR]'.format(
+                  '[COLOR {0}]La build restaurada contiene addons especificos de plataforma que ahora seran '
+                  'automaticamente instalados. Durante este proceso pueden aparecer varios dialogos. Cancelarlos '
+                  'puede hacer que la build restaurada funcione de forma incorrecta.[/COLOR]'.format(
                       CONFIG.COLOR2))
     else:
-        logging.log("[Binario Detección] No hay Addons Binarios Elegibles para Reinstalar")
+        logging.log("[Binary Detection] No Eligible Binary Addons to Reinstall")
         return True
 
     success = []
     fail = []
 
     if len(binaryids) == 0:
-        logging.log('No se seleccionaron addons para la instalación.')
+        logging.log('No addons selected for installation.')
         return
 
     from resources.libs.gui import addon_menu
@@ -65,18 +65,18 @@ def binaries():
     # finally, reinstall addons
     for addonid in binaryids:
         if addon_menu.install_from_kodi(addonid):
-            logging.log('{0} instalación correcta.'.format(addonid))
+            logging.log('{0} install succeeded.'.format(addonid))
             success.append(addonid)
         else:
-            logging.log('{0} instalación fallida.'.format(addonid))
+            logging.log('{0} install failed.'.format(addonid))
             fail.append(addonid)
 
     if not fail:
-        dialog.ok(CONFIG.ADDONTITLE, 'Todos los  addons seleccionados se instalaron correctamente.')
+        dialog.ok(CONFIG.ADDONTITLE, 'Los addons seleccionados se han instalado correctamente.')
         os.remove(binarytxt)
         return True
     else:
-        dialog.ok(CONFIG.ADDONTITLE, 'Los siguientes addons no se pudieron instalar:\n{0}'.format(', '.join(fail)))
+        dialog.ok(CONFIG.ADDONTITLE, 'Los siguientes addons no se han podido instalar:\n{0}'.format(', '.join(fail)))
         return False
 
 
@@ -91,9 +91,9 @@ class Restore:
     def _prompt_for_wipe(self):
         # Should we wipe first?
         wipe = self.dialog.yesno(CONFIG.ADDONTITLE,
-                                 "[COLOR {0}]Desea restaurar su".format(CONFIG.COLOR2) + '\n' + "configuración de Kodi a la configuración predeterminada" + '\n' + "Antes de instalar la Copia de Seguridad {0}?[/COLOR]".format('local' if not self.external else 'external'),
-                                 nolabel='[B][COLOR red]No[/COLOR][/B]',
-                                 yeslabel='[B][COLOR cyan]Si[/COLOR][/B]')
+                                 "[COLOR {0}]¿Desea restaurar su".format(CONFIG.COLOR2) + '\n' + "configuracion de Kodi a los valores predeterminados" + '\n' + "antes de instalar la {0} copia de seguridad?[/COLOR]".format('local' if not self.external else 'external'),
+                                 nolabel='[B][COLOR white]NO[/COLOR][/B]',
+                                 yeslabel='[B][COLOR white]SI[/COLOR][/B]')
 
         if wipe:
             from resources.libs import install
@@ -113,10 +113,10 @@ class Restore:
             except zipfile.BadZipFile as e:
                 from resources.libs.common import logging
                 logging.log(e, level=xbmc.LOGERROR)
-                self.progress_dialog.update(0, '[COLOR {0}]No se puede leer el archivo zip desde la ubicación actual.'.format(CONFIG.COLOR2) + '\n' + 'Copiando archivo a paquetes')
+                self.progress_dialog.update(0, '[COLOR {0}]No se puede leer el archivo zip desde la ubicacion actual.'.format(CONFIG.COLOR2) + '\n' + 'Copiando archivo a paquetes')
                 xbmcvfs.copy(file, packages)
                 file = xbmcvfs.translatePath(packages)
-                self.progress_dialog.update(0, '\n' + 'Copiar archivo a paquetes: Completo')
+                self.progress_dialog.update(0, '\n' + 'Copiando archivo a paquetes: Completo')
                 zipfile.ZipFile(file, 'r', allowZip64=True)
         else:
             from resources.libs.downloader import Downloader
@@ -124,7 +124,7 @@ class Restore:
 
         self._prompt_for_wipe()
 
-        self.progress_dialog.update(0, 'Instalación de una Copia de Seguridad Externa' + '\n' + 'Espere por Favor')
+        self.progress_dialog.update(0, 'Instalando Copia de Seguridad Externa' + '\n' + 'Por favor, espere')
         percent, errors, error = extract.all(file, loc)
         self._view_errors(percent, errors, error, file)
 
@@ -141,31 +141,31 @@ class Restore:
         db.force_check_updates(over=True)
 
         tools.kill_kodi(
-            msg='[COLOR {0}]Para guardar los cambios, es necesario Forzar el Cierre de Kodi. Te gustaría continuar?[/COLOR]'.format(
+            msg='[COLOR {0}]Para guardar los cambios, hay que forzar el cierre de Kodi. ¿Desea continuar?[/COLOR]'.format(
                 CONFIG.COLOR2))
 
     def _view_errors(self, percent, errors, error, file):
         if int(errors) >= 1:
-            if self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}][COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, file) + '\n' + 'Completado: [COLOR {0}]{1}{2}[/COLOR] [Errores: [COLOR {3}]{4}[/COLOR]]'.format(CONFIG.COLOR1, percent, '%',CONFIG.COLOR1, errors) + '\n' + 'Le gustaría ver los errores[/COLOR]',
-                                 nolabel='[B][COLOR red]No, Gracias[/COLOR][/B]',
-                                 yeslabel='[B][COLOR cyan]Ver Errores[/COLOR][/B]'):
+            if self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}][COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, file) + '\n' + 'Completado: [COLOR {0}]{1}{2}[/COLOR] [Errores: [COLOR {3}]{4}[/COLOR]]'.format(CONFIG.COLOR1, percent, '%',CONFIG.COLOR1, errors) + '\n' + '¿Quiere ver los errores?[/COLOR]',
+                                 nolabel='[B][COLOR white]NO[/COLOR][/B]',
+                                 yeslabel='[B][COLOR white]SI[/COLOR][/B]'):
 
                 from resources.libs.gui import window
-                window.show_text_box("Ver Errores", error.replace('\t', ''))
+                window.show_text_box("Visualizando Errores", error.replace('\t', ''))
 
     def choose(self, location):
         from resources.libs import skin
 
-        skin.look_and_feel_data('restaurar')
+        skin.look_and_feel_data('restore')
         external = 'External' if self.external else 'Local'
 
-        file = self.dialog.browseSingle(1, '[COLOR {0}]Seleccione el archivo de la Copia de Seguridad que desea restaurar[/COLOR]'.format(
-            CONFIG.COLOR2), '' if self.external else 'archivos', mask='.zip', useThumbs=True,
+        file = self.dialog.browseSingle(1, '[COLOR {0}]Seleccione el archivo de copia de seguridad que desea restaurar[/COLOR]'.format(
+            CONFIG.COLOR2), '' if self.external else 'files', mask='.zip', useThumbs=True,
                                         defaultt=None if self.external else CONFIG.MYBUILDS)
 
         if not file.endswith('.zip'):
             logging.log_notify(CONFIG.ADDONTITLE,
-                               "[COLOR {0}]{1} Restaurar: [COLOR gold]Cancelado[/COLOR]".format(
+                               "[COLOR {0}]{1} Restaurar: Cancelado[/COLOR]".format(
                                    CONFIG.COLOR2, external))
             return
 
@@ -175,11 +175,11 @@ class Restore:
 
             if not response:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   "[COLOR {0}]Restaurar Externa:[/COLOR] [COLOR gold]URL Inválida[/COLOR]".format(CONFIG.COLOR2))
+                                   "[COLOR {0}]Restauracion externa: URL no valida[/COLOR]".format(CONFIG.COLOR2))
                 return
 
         skin.skin_to_default("Restore")
-        self.progress_dialog.create(CONFIG.ADDONTITLE, '[COLOR {0}]Instalando {1} Backup'.format(CONFIG.COLOR2, external) + '\n' + 'Espere por Favor[/COLOR]')
+        self.progress_dialog.create(CONFIG.ADDONTITLE, '[COLOR {0}]Instalando {1} Backup'.format(CONFIG.COLOR2, external) + '\n' + 'Por favor, espere[/COLOR]')
 
         self._from_file(file, location)
 

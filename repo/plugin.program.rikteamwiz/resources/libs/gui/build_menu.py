@@ -43,7 +43,7 @@ class BuildMenu:
 
             if not kodiv or kodiv == int(float(kodi)):
                 menu = self.create_install_menu(name)
-                directory.add_dir('[{0}] [B][COLOR azure]•[/COLOR][COLOR aqua]{1} - v{2}[/COLOR][/B]'.format(float(kodi), name, version), {'mode': 'viewbuild', 'name': name}, description=description, fanart=fanart, icon=icon, menu=menu, themeit=CONFIG.THEME2)
+                directory.add_dir('[{0}] {1} (v{2})'.format(float(kodi), name, version), {'mode': 'viewbuild', 'name': name}, description=description, fanart=fanart, icon=icon, menu=menu, themeit=CONFIG.THEME2)
 
     def theme_count(self, name, count=True):
         from resources.libs import check
@@ -83,15 +83,15 @@ class BuildMenu:
         if response:
             link = tools.clean_text(response.text)
         else:
-            directory.add_file('[B]Version Kodi:[/B] {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS,
+            directory.add_file('Version Kodi: {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS,
                                themeit=CONFIG.THEME3)
-            directory.add_dir('[B]MENU GUARDAR DATOS[/B]', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+            directory.add_dir('Menu Guardar Datos', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
             directory.add_separator()
             directory.add_file('La URL del archivo txt no es valida', icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.BUILDFILE), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
             return
 
-        total, count19, adultcount, hidden = check.build_count()
+        total, count20, adultcount, hidden = check.build_count()
 
         match = re.compile('name="(.+?)".+?ersion="(.+?)".+?rl="(.+?)".+?ui="(.+?)".+?odi="(.+?)".+?heme="(.+?)".+?con="(.+?)".+?anart="(.+?)".+?dult="(.+?)".+?escription="(.+?)"').findall(link)
         
@@ -105,26 +105,26 @@ class BuildMenu:
                 self.view_build(match[0][0])
                 return
 
-        directory.add_file('[B]Version Kodi:[/B] {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
-        directory.add_dir('[B]MENU GUARDAR DATOS[/B]', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+        directory.add_file('Version Kodi: {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
+        directory.add_dir('Menu Guardar Datos', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
         directory.add_separator()
 
         if len(match) >= 1:
             if CONFIG.SEPARATE == 'true':
                 self._list_all(match)
             else:
-                if count19 > 0:
-                    state = '+' if CONFIG.SHOW19 == 'false' else '-'
-                    directory.add_file('[B]{0} Builds actuales ({1})[/B]'.format(state, count19), {'mode': 'togglesetting',
-                                       'name': 'show19'}, themeit=CONFIG.THEME3)
-                    if CONFIG.SHOW19 == 'true':
-                        self._list_all(match, kodiv=19)
+                if count20 > 0:
+                    state = '+' if CONFIG.SHOW20 == 'false' else '-'
+                    directory.add_file('[B]{0} Builds para Nexus ({1})[/B]'.format(state, count20), {'mode': 'togglesetting',
+                                       'name': 'show20'}, themeit=CONFIG.THEME3)
+                    if CONFIG.SHOW20 == 'true':
+                        self._list_all(match, kodiv=20)
 
         elif hidden > 0:
             if adultcount > 0:
                 directory.add_file('Actualmente solo hay builds para adultos', icon=CONFIG.ICONBUILDS,
                                    themeit=CONFIG.THEME3)
-                directory.add_file('Habilitar Mostrar Adultos en la Configuración del Addon > Misc', icon=CONFIG.ICONBUILDS,
+                directory.add_file('Habilitar Mostrar Adultos en la Configuracion del Addon > Misc', icon=CONFIG.ICONBUILDS,
                                    themeit=CONFIG.THEME3)
             else:
                 directory.add_file('Actualmente no hay builds de {0}'.format(CONFIG.ADDONTITLE),
@@ -167,8 +167,8 @@ class BuildMenu:
                 
             directory.add_file(build, description=description, fanart=fanart, icon=icon, themeit=CONFIG.THEME4)
             directory.add_separator()
-            directory.add_dir('[B]Menu Guardar datos[/B]', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
-            directory.add_file('[B]Build Info[/B]', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
+            directory.add_dir('Menu Guardar datos', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+            directory.add_file('Build Info', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
                                icon=icon, themeit=CONFIG.THEME3)
                                
             if previewcheck:
@@ -180,8 +180,8 @@ class BuildMenu:
                     '[I]Build construida para Kodi v{0} (instalada: v{1})[/I]'.format(str(kodi), str(CONFIG.KODIV)),
                     fanart=fanart, icon=icon, themeit=CONFIG.THEME3)
                     
-            directory.add_separator('[B]INSTALAR[/B]')
-            directory.add_file('[B][COLOR yellow]INSTALAR BUILD[/COLOR][/B]', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
+            directory.add_separator('INSTALAR')
+            directory.add_file('[COLOR yellow]Instalar[/COLOR]', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
                                icon=icon, themeit=CONFIG.THEME1)
                                
             if guicheck:
@@ -189,7 +189,7 @@ class BuildMenu:
                                    icon=icon, themeit=CONFIG.THEME1)
                                    
             if themecheck:
-                directory.add_separator('[B]PARCHES[/B]', fanart=fanart, icon=icon)
+                directory.add_separator('TEMAS', fanart=fanart, icon=icon)
 
                 response = tools.open_url(themefile)
                 theme = response.text

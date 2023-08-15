@@ -1,6 +1,6 @@
 name="RikTeam 19.4 Mod Build"
 version="1.0"
-url="https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/plugin.program.rikteamwiz/plugin.program.rikteamwiz-1.0.0.zip"
+url="https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/plugin.program.RikTeam/plugin.program.RikTeam-1.0.zip"
 minor="http://"
 gui="http://"
 kodi="19.4"

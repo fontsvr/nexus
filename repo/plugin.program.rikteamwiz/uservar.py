@@ -14,13 +14,15 @@ ART = os.path.join(PATH, 'resources', 'media')
 #        User Edit Variables                            #
 #########################################################
 ADDONTITLE = '[COLOR azure]RikTeam [COLOR white] [COLOR aqua]Wizard[COLOR violet] NEXUS[/COLOR]'
-BUILDERNAME = 'RikTeam Wizard'
+BUILDERNAME = 'RikTeamWiz'
 EXCLUDES = [ADDON_ID, 'plugin.program.rikteamwiz']
 # Enable/Disable the text file caching with 'Yes' or 'No' and age being how often it rechecks in minutes
 CACHETEXT      = 'Yes'
 CACHEAGE       = 30
 # Text File with build info in it. Please read https://github.com/a4k-openproject/plugin.program.openwizard/wiki/Installing-Builds
-BUILDFILE = 'https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/builds_nexus.txt'
+# https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/builds_nexus.txt (20 builds)
+# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt (19/20.x builds)
+BUILDFILE = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt'
 # How often you would like it to check for build updates in days
 # 0 being every startup of kodi
 UPDATECHECK = 0
@@ -113,7 +115,8 @@ REPOZIPURL = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons
 # Enable Notification screen Yes or No
 ENABLE = 'Yes'
 # Url to notification file
-NOTIFICATION = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/RV/Notify.txt'
+# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/RV/Notify.txt
+NOTIFICATION = 'http://'
 # Use either 'Text' or 'Image'
 HEADERTYPE = 'Text'
 # Font size of header

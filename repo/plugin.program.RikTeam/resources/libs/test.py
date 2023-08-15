@@ -66,14 +66,14 @@ def test_notify():
             id, msg = window.split_notify(CONFIG.NOTIFICATION)
             if not id:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   "[COLOR {0}]Notification: Not Formatted Correctly[/COLOR]".format(CONFIG.COLOR2))
+                                   "[COLOR {0}]Notificación: No tiene el formato correcto[/COLOR]".format(CONFIG.COLOR2))
                 return
             window.show_notification(msg, test=True)
         except Exception as e:
             logging.log("Error on Notifications Window: {0}".format(str(e)), level=xbmc.LOGERROR)
     else:
         logging.log_notify(CONFIG.ADDONTITLE,
-                           "[COLOR {0}]Invalid URL for Notification[/COLOR]".format(CONFIG.COLOR2))
+                           "[COLOR {0}]URL no valida para la notificacion[/COLOR]".format(CONFIG.COLOR2))
 
 
 def test_update():

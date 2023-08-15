@@ -54,7 +54,7 @@ class Router:
 
         # SETTINGS
         elif mode == 'settings':  # OpenWizard settings
-            CONFIG.open_settings(cat = name)
+            CONFIG.open_settings(name)
             xbmc.executebuiltin('Container.Refresh()')
         elif mode == 'opensettings':  # Open other addons' settings
             settings_id = eval(url.upper() + 'ID')[name]['plugin']
@@ -311,7 +311,7 @@ class Router:
             from resources.libs.common import tools
             tools.remove_file(CONFIG.WIZLOG)
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, CONFIG.ADDONTITLE),
-                               "[COLOR {0}]Wizard Log Borrado![/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]Wizard Log Cleared![/COLOR]".format(CONFIG.COLOR2))
 
         # ADVANCED SETTINGS
         elif mode == advanced_settings_mode:
