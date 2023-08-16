@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.RikTeam" name="[COLOR orchid][B]RikTeam Wizard[/B][/COLOR]" version="3.3" provider-name="Rik Team">
+<addon id="plugin.program.rikteam" name="[COLOR orchid][B]RikTeam Wizard[/B][/COLOR]" version="3.3" provider-name="Rik Team">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0"/>
 		<import addon="script.module.requests"/>
@@ -16,8 +16,7 @@
   
 	<extension point="xbmc.addon.metadata">
 		<summary lang="es">[COLOR orchid][B]RikTeam Wizard[/B][/COLOR] tu Wizard para Kodi 19.x y Kodi 20.x</summary>
-		<description>[CR][B]• Developers:[/B] [COLOR gold]Rik Team[/COLOR]
-        </description>
+		<description>[B]• Developers:[/B] [COLOR gold]Rik Team[/COLOR]</description>
 		<platform>all</platform>
 		<reuselanguageinvoker>false</reuselanguageinvoker>
 		<source>https://github.com/fontsvr/fontsvr.github.io</source>

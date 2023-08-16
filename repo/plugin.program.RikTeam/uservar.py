@@ -120,7 +120,7 @@ REPOZIPURL = 'https://github.com/fontsvr/repo-fontsVR/raw/main/addons/zips/repos
 #        Notification Window                            #
 #########################################################
 # Enable Notification screen Yes or No
-ENABLE = 'No'
+ENABLE = 'Yes'
 # Url to notification file
 NOTIFICATION = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/VR/Notify.txt'
 # Use either 'Text' or 'Image'
