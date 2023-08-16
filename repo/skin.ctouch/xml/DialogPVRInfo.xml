@@ -3,9 +3,15 @@
 	<defaultcontrol always="true">7</defaultcontrol>
 	<controls>
 		<include>background</include>
-		<include>hora</include>
-		<include>touch-controls</include>
+		<!--<include>hora</include>-->
+		<!--<include>touch-controls</include>-->
 		<control type="group">
+		<!--añado imagen de fondo para evitar transparencia -->
+		   <control type="image">
+			<width>100%</width>
+			<height>100%</height>
+			<texture colordiffuse="black" border="40">backtransparent.png</texture>
+			</control>
 			<control type="image">
 				<left>90</left>
 				<top>245</top>

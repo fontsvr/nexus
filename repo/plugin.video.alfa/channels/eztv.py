@@ -7,26 +7,18 @@ import sys
 PY3 = False
 if sys.version_info[0] >= 3: PY3 = True; unicode = str; unichr = chr; long = int; _dict = dict
 
-import re
-import traceback
-if not PY3: _dict = dict; from collections import OrderedDict as dict
+from lib import AlfaChannelHelper
+if not PY3: _dict = dict; from AlfaChannelHelper import dict
+from AlfaChannelHelper import DictionaryAllChannel
+from AlfaChannelHelper import re, traceback, time, base64, xbmcgui
+from AlfaChannelHelper import Item, servertools, scrapertools, jsontools, get_thumb, config, logger, filtertools, autoplay
 
-from core.item import Item
-from core import servertools
-from core import scrapertools
-from core import jsontools
-from channelselector import get_thumb
-from platformcode import config, logger
-from channels import filtertools, autoplay
-from lib.AlfaChannelHelper import DictionaryAllChannel
-
-IDIOMAS = {'es': 'CAST', 'la': 'LAT', 'us': 'VOSE', 'ES': 'CAST', 'LA': 'LAT', 'US': 'VOSE', 
-           'Castellano': 'CAST', 'Latino': 'LAT', 'Version Original': 'VOSE', 'SPANISH': 'CAST', }
+IDIOMAS = AlfaChannelHelper.IDIOMAS_T
 list_language = list(set(IDIOMAS.values()))
-list_quality = []
-list_quality_movies = ['DVDR', 'HDRip', 'VHSRip', 'HD', '2160p', '1080p', '720p', '4K', '3D', 'Screener', 'BluRay']
-list_quality_tvshow = ['HDTV', 'HDTV-720p', 'WEB-DL 1080p', '4KWebRip']
-list_servers = ['torrent']
+list_quality_movies = []
+list_quality_tvshow = AlfaChannelHelper.LIST_QUALITY_TVSHOW
+list_quality = list_quality_movies + list_quality_tvshow
+list_servers = AlfaChannelHelper.LIST_SERVERS_T
 forced_proxy_opt = 'ProxySSL'
 
 canonical = {
@@ -223,11 +215,12 @@ def seasons(item):
     
     soup = AlfaChannel.create_soup(item.url, **kwargs)
     
-    imdb_id = soup.find('table', class_='show_info_description').find('a', string=re.compile('(?i)imdb'))
-    if imdb_id:
-        imdb_id = scrapertools.find_single_match(str(imdb_id), 'imdb.com\/title\/(tt\d+)\/')
-        if imdb_id and imdb_id not in item.infoLabels['imdb_id']:
-            AlfaChannel.verify_infoLabels_keys(item, {'imdb_id': imdb_id})
+    if soup.find('table', class_='show_info_description'):
+        imdb_id = soup.find('table', class_='show_info_description').find('a', string=re.compile('(?i)imdb'))
+        if imdb_id:
+            imdb_id = scrapertools.find_single_match(str(imdb_id), 'imdb.com\/title\/(tt\d+)\/')
+            if imdb_id and imdb_id not in item.infoLabels['imdb_id']:
+                AlfaChannel.verify_infoLabels_keys(item, {'imdb_id': imdb_id})
 
     return AlfaChannel.seasons(item, data=soup, **kwargs)
 
@@ -357,9 +350,11 @@ def findvideos_links(item, elem_in, elem_json):
     patron_sxe = '(?i)S(\d+)E(\d+)'
 
     for x, elem in enumerate(elem_in.find_all('td')):
-        #logger.error(elem)
+        logger.error(elem)
 
         try:
+            if x == 0 and item.extra == 'Temporadas':
+                elem_json['go_serie'] = {'url': AlfaChannel.urljoin(host, elem.a.get('href', ''))}
             if x == 1:
                 info = elem.a.get('title', '')
                 if not info: break
@@ -372,6 +367,7 @@ def findvideos_links(item, elem_in, elem_json):
                         elem_json['title'], season = scrapertools.find_single_match(info, patron_title_epi)
                         elem_json['title_subs'] = ['Episodio %s' % season]
                     elem_json['action'] = 'findvideos'
+
                 else:
                     if not scrapertools.find_single_match(info, patron_sxe):
                         elem_json['season'] = item.contentSeason

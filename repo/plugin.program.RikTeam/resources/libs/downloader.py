@@ -1,5 +1,5 @@
 ################################################################################
-#      Copyright (C) 2015 Surfacingx                                           #
+#      Copyright (C) 2019 drinfernoo                                           #
 #                                                                              #
 #  This Program is free software; you can redistribute it and/or modify        #
 #  it under the terms of the GNU General Public License as published by        #
@@ -16,53 +16,83 @@
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.       #
 #  http://www.gnu.org/copyleft/gpl.html                                        #
 ################################################################################
-import sys, time, uservar
-          
-import xbmc, xbmcgui
-from resources.libs import wizard as wiz
-import urllib.request as urllib2
+
+import xbmc
+import xbmcgui
+
+import requests
+import sys
+import os
+import time
+
+from resources.libs.common import logging
+from resources.libs.common import tools
+from resources.libs.common.config import CONFIG
 
 
-ADDONTITLE     = uservar.ADDONTITLE
-COLOR1         = uservar.COLOR1
-COLOR2         = uservar.COLOR2
+class Downloader:
+    def __init__(self):
+        self.dialog = xbmcgui.Dialog()
+        self.progress_dialog = xbmcgui.DialogProgress()
 
-# urllib2.URLopener.version = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36 SE 2.X MetaSr 1.0'
-opener = urllib2.build_opener()
-opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-urllib2.install_opener(opener)
-def download(url, dest, dp = None, bname = None):
-    if not dp:
-        dp = xbmcgui.DialogProgress()
-        dp.create(ADDONTITLE ,"Downloading")
-    dp.update(0)
-    start_time=time.time()
-    bn = bname
-    urllib2.urlretrieve(url, dest, lambda nb, bs, fs: _pbhook(nb, bs, fs, dp, start_time, bn))
+    def download(self, url, dest): 
+        cancelled = False
+        self.progress_dialog.create(CONFIG.ADDONTITLE, "[B]Descargando Contenido...[/B]")
+        self.progress_dialog.update(0)
+        
+        path = os.path.split(dest)[0]
+        if not os.path.exists(path):
+            os.makedirs(path)
+        with open(dest, 'wb') as f:
+            response = tools.open_url(url, stream=True)
+            
+            if not response:
+                logging.log_notify(CONFIG.ADDONTITLE,
+                                   '[COLOR {0}][B]Instalar Build:[/B][/COLOR] [COLOR gold]Url Zip Invalido![/COLOR]'.format(CONFIG.COLOR2))
+                return
+            else:
+                total = response.headers.get('content-length')
 
-def _pbhook(numblocks, blocksize, filesize, dp, start_time, bn):
-    try: 
-        percent = min(numblocks * blocksize * 100 / filesize, 100) 
-        currently_downloaded = float(numblocks) * blocksize / (1024 * 1024) 
-        kbps_speed = numblocks * blocksize / (time.time() - start_time) 
-        if kbps_speed > 0 and not percent == 100: 
-            eta = (filesize - numblocks * blocksize) / kbps_speed 
-        else: 
-            eta = 0
-        kbps_speed = kbps_speed / 1024 
-        type_speed = 'KB'
-        if kbps_speed >= 1024:
-            kbps_speed = kbps_speed / 1024 
-            type_speed = 'MB'
-        total = float(filesize) / (1024 * 1024) 
-        mbs = '[COLOR %s][B]Size:[/B] [COLOR %s]%.02f[/COLOR] MB of [COLOR %s]%.02f[/COLOR] MB[/COLOR]]%s' % (COLOR2, COLOR1, currently_downloaded, COLOR1, total, msg) 
-        e   = '[COLOR %s][B]Speed:[/B] [COLOR %s]%.02f [/COLOR]%s/s ' % (COLOR2, COLOR1, kbps_speed, type_speed)
-        e  += '[B]ETA:[/B] [COLOR '+COLOR1+']%02d:%02d[/COLOR][/COLOR]' % divmod(eta, 60)
-        dp.update(int(percent), 'Downloading %s %s %s'% (bn, mbs, e))
-    except Exception as e:
-        wiz.log("ERROR Downloading: %s" % str(e), xbmc.LOGERROR)
-        pass
-    if dp.iscanceled(): 
-        dp.close()
-        wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Download Cancelled[/COLOR]" % COLOR2)
-        sys.exit()
+            if total is None:
+                f.write(response.content)
+            else:
+                downloaded = 0
+                total = int(total)
+                start_time = time.time()
+                mb = 1024*1024
+                
+                for chunk in response.iter_content(chunk_size=max(int(total/512), mb)):
+                    downloaded += len(chunk)
+                    f.write(chunk)
+                    
+                    done = int(100 * downloaded / total)
+                    kbps_speed = downloaded / (time.time() - start_time)
+                    
+                    if kbps_speed > 0 and not done >= 100:
+                        eta = (total - downloaded) / kbps_speed
+                    else:
+                        eta = 0
+                    
+                    kbps_speed = kbps_speed / 1024
+                    type_speed = 'KB'
+                    
+                    if kbps_speed >= 1024:
+                        kbps_speed = kbps_speed / 1024
+                        type_speed = 'MB'
+                        
+                    currently_downloaded = '[COLOR azure][B]Descargando: [COLOR violet]20.x Wizard...[/COLOR] [COLOR azure] -  Espere por Favor.[/B][/COLOR]'.format(CONFIG.ADDONTITLE)  + '\n' + '[COLOR %s][B]Tamaño:[/B] [COLOR %s]%.02f[/COLOR] MB de [COLOR %s]%.02f[/COLOR] MB' % (CONFIG.COLOR2, CONFIG.COLOR1, downloaded / mb, CONFIG.COLOR1, total / mb)
+                    speed = '[COLOR %s][B]Velocidad:[/B] [COLOR %s]%.02f [/COLOR]%s/s ' % (CONFIG.COLOR2, CONFIG.COLOR1, kbps_speed, type_speed)
+                    div = divmod(eta, 60)
+                    speed += '[B]ESTIMADO:[/B] [COLOR %s]%02d:%02d[/COLOR][/COLOR]' % (CONFIG.COLOR1, div[0], div[1])
+                    
+                    self.progress_dialog.update(done, '\n' + str(currently_downloaded) + '\n' + str(speed)) 
+                    if self.progress_dialog.iscanceled():
+                    	cancelled = True
+                    	break
+        if cancelled:
+        	xbmc.sleep(1000)
+        	os.unlink(dest)
+        	dialog = xbmcgui.Dialog()
+        	dialog.ok('[B][COLOR azure]RikTeam[/COLOR] [COLOR violet]NEXUS[/COLOR][/B]', '\n' + '[COLOR azure][B]Descarga Cancelada!![/B][/COLOR]')
+        	quit()
+        

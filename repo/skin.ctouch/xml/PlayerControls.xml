@@ -652,6 +652,18 @@
 				<include>focus-zoom</include>
 				<visible>MusicPlayer.Content(LiveTV) + RDS.HasRadiotextPlus</visible>
 			</control>
+			<!--experimental button epg -(guide)info channel-->
+			<!-- EPG Menu -->
+			<!--<control type="button" id="983">
+				
+				<width>48</width>
+				<height>48</height>
+				<texturefocus>osd-epg.png</texturefocus>
+				<texturenofocus>osd-epg.png</texturenofocus>
+				<onclick>ActivateWindow(tvguide)</onclick>
+				<include>focus-zoom</include>
+				<visible>VideoPlayer.HasEpg</visible>
+			</control>-->
 		</control>
 	</controls>
 </window>

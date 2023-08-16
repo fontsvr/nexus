@@ -472,6 +472,7 @@
 				<item>
 					<thumb>special://skin/extras/homeicons/liptv.png</thumb>
 					<label2>IPTV</label2>
+					<label>TDT</label>
 					<onclick>ActivateWindow(TVChannels)</onclick>
 					<visible>!Skin.HasSetting(iptv-v) + System.HasPVRAddon</visible>
 				</item>	

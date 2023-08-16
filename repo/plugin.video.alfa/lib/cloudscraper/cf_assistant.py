@@ -33,7 +33,7 @@ else:
 
 
 def get_cl(self, resp, timeout=20, debug=False, CF_testing = False, extraPostDelay=15, retry=False, blacklist=True, headers=None, 
-           retryIfTimeout=True, cache=True, clearWebCache=False, mute=True, alfa_s=True, elapsed=0, **kwargs):
+           retryIfTimeout=True, cache=True, clearWebCache=False, mute=True, alfa_s=True, elapsed=0, blacklist_ignore=False, **kwargs):
     from lib import alfa_assistant
     global httptools
     if not httptools: from core import httptools
@@ -59,7 +59,8 @@ def get_cl(self, resp, timeout=20, debug=False, CF_testing = False, extraPostDel
         return get_source(url, resp, timeout=timeout, debug=debug, 
                           extraPostDelay=extraPostDelay, retry=retry, blacklist=blacklist, 
                           retryIfTimeout=retryIfTimeout, headers=opt.get('headers', headers), 
-                          cache=cache, mute=mute, alfa_s=alfa_s, httptools_obj=httptools, from_get_cl=True, **kwargs)
+                          cache=cache, mute=mute, alfa_s=alfa_s, httptools_obj=httptools, from_get_cl=True, 
+                          blacklist_ignore=blacklist_ignore, **kwargs)
     
     if timeout < 15: timeout = 20
     if timeout + extraPostDelay > 35: timeout = 20
@@ -225,7 +226,8 @@ def get_cl(self, resp, timeout=20, debug=False, CF_testing = False, extraPostDel
                 return get_cl(self, resp, timeout=timeout-5, extraPostDelay=extraPostDelay, 
                             debug=debug, CF_testing=CF_testing, retry=True, blacklist=True, retryIfTimeout=False, 
                             cache=cache, clearWebCache=clearWebCache, 
-                            elapsed=elapsed, headers=headers, mute=mute, alfa_s=False, **kwargs)
+                            elapsed=elapsed, headers=headers, mute=mute, alfa_s=False, 
+                            blacklist_ignore=blacklist_ignore, **kwargs)
         elif host == 'a':
             help_window.show_info('cf_2_01')
         
@@ -242,7 +244,8 @@ def get_cl(self, resp, timeout=20, debug=False, CF_testing = False, extraPostDel
 
 
 def get_source(url, resp, timeout=5, debug=False, extraPostDelay=5, retry=False, blacklist=True, headers=None, from_get_cl=False, 
-               retryIfTimeout=True, cache=False, clearWebCache=False, mute=True, alfa_s=True, elapsed=0, httptools_obj=None, **kwargs):
+               retryIfTimeout=True, cache=False, clearWebCache=False, mute=True, alfa_s=True, elapsed=0, httptools_obj=None, 
+               blacklist_ignore=False, **kwargs):
     from lib import alfa_assistant
     global httptools
     httptools = httptools_obj or httptools
@@ -411,7 +414,8 @@ def get_source(url, resp, timeout=5, debug=False, extraPostDelay=5, retry=False,
                 return get_source(url, resp, timeout=timeout, debug=debug, extraPostDelay=extraPostDelay, 
                                   retry=True, blacklist=blacklist, retryIfTimeout=retryIfTimeout, 
                                   cache=cache, clearWebCache=clearWebCache, alfa_s=False, from_get_cl=from_get_cl, 
-                                  headers=headers, mute=mute, elapsed=elapsed, httptools_obj=httptools, **kwargs)
+                                  headers=headers, mute=mute, elapsed=elapsed, httptools_obj=httptools, 
+                                  blacklist_ignore=blacklist_ignore, **kwargs)
 
             domain_ = domain
             split_lst = domain.split(".")
@@ -475,7 +479,7 @@ def get_source(url, resp, timeout=5, debug=False, extraPostDelay=5, retry=False,
         
     freequency(freequent_data)
 
-    if blacklist_clear and (not source or time.time() - elapsed > elapsed_max):
+    if blacklist_clear and not blacklist_ignore and (not source or time.time() - elapsed > elapsed_max):
         if filetools.exists(PATH_BL):
             bl_data = jsontools.load(filetools.read(PATH_BL))
         else:

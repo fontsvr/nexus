@@ -187,6 +187,36 @@
 					<include>focus-zoom</include>
 					<visible>VideoPlayer.Content(livetv) + VideoPlayer.HasEPG</visible>
 				</control>
+				<!--2experimental button epg -(guide)info channel
+				aquí se muestra el png en los botones y muestra guia al click-->
+			<control type="button" id="983">
+				<!-- EPG Menu -->
+				<width>72</width>
+				<height>72</height>
+				<texturefocus>osdchannelguidefo.png</texturefocus>
+				<texturenofocus>osdchannelguidenf.png</texturenofocus>
+				<onclick>Dialog.Close(VideoOSD)</onclick>
+				<!--<onclick>ActivateWindow(tvguide)</onclick>-->
+				<onclick>ActivateWindow(pvrchannelguide)</onclick>
+			<!--<include>PVRChannelNumberInput</include>-->
+				<include>focus-zoom</include>
+				<visible>VideoPlayer.Content(livetv)</visible>
+			</control>
+			<!-- -->
+			<control type="button" id="984">
+				<!-- EPG Menu -->
+				<width>72</width>
+				<height>72</height>
+				<texturefocus>osdguidefo.png</texturefocus>
+				<texturenofocus>osdguidenf.png</texturenofocus>
+				<onclick>Dialog.Close(VideoOSD)</onclick>
+				<!--<onclick>ActivateWindow(tvguide)</onclick>-->
+				<onclick>ActivateWindow(tvguide)</onclick>
+			<!--<include>PVRChannelNumberInput</include>-->
+				<include>focus-zoom</include>
+				<visible>VideoPlayer.Content(livetv)</visible>
+			</control>
+			<!-- -->
 				<control type="button" id="675">
 					<!-- Channel Up -->
 					<width>72</width>

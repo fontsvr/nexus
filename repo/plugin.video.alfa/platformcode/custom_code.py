@@ -125,6 +125,9 @@ def init():
         if not filetools.exists(ADDON_CUSTOMCODE_JSON):
             help_window.clean_watched_new_version()
         
+        # Se resetean errores de BTDigg
+        config.set_setting('btdigg_status', False, server='torrent')
+        
         # Se realizan algunas funciones con cada nueva versión de Alfa
         if not filetools.exists(ADDON_CUSTOMCODE_JSON):
             config.set_setting('cf_assistant_ua', '')                           # Se limpia CF_UA. Mejora de rendimiento en httptools CF
@@ -404,7 +407,9 @@ def verify_script_alfa_update_helper(silent=True, emergency=False, github_url=''
     updated = bool(xbmc.getCondVisibility("System.HasAddon(%s)" % addonid))
     if updated:
         ADDON_VERSION_NUM = ADDON_VERSION.split('.')
-        ADDON_VERSION_NUM = (int(ADDON_VERSION_NUM[0]), int(ADDON_VERSION_NUM[1]), int(ADDON_VERSION_NUM[2]))
+        ADDON_VERSION_NUM = (int(scrapertools.find_single_match(ADDON_VERSION_NUM[0], '(\d+)')), 
+                             int(scrapertools.find_single_match(ADDON_VERSION_NUM[1], '(\d+)')), 
+                             int(scrapertools.find_single_match(ADDON_VERSION_NUM[2], '(\d+)')))
         new_version_num = new_version.split('.')
         new_version_num = (int(new_version_num[0]), int(new_version_num[1]), int(new_version_num[2]))
         if ADDON_VERSION_NUM < new_version_num or emergency:

@@ -55,7 +55,7 @@
 			</control>
 			<control type="textbox" id="9">
 				<left>45</left>
-				<top>88</top>
+				<top>100</top><!--<top>88</top>-->
 				<width>825</width>
 				<height>290</height>
 				<label />
@@ -71,7 +71,7 @@
 				<itemgap>5</itemgap>
 				<control type="button" id="11">
 					<description>Yes button</description>
-					<width>287</width>
+					<width>400</width><!--<width>287</width>-->
 					<height>60</height>
 					<label>107</label>
 					<font>font15_title</font>
@@ -79,27 +79,30 @@
 					<focusedcolor>white</focusedcolor>
 					<align>center</align>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texturefocus>
+					<texturenofocus colordiffuse="grey3" border="5">listselect_fo.png</texturenofocus>
 				</control>
 				<control type="button" id="10">
 					<description>No button</description>
-					<width>287</width>
+					<width>400</width><!--<width>287</width>-->
 					<height>60</height>
 					<label>106</label>
 					<font>font15_title</font>
 					<textcolor>grey2</textcolor>
-					<focusedcolor>white</focusedcolor>
+					<focusedcolor>red</focusedcolor>
 					<align>center</align>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texturefocus>
+					<texturenofocus colordiffuse="grey3" border="5">listselect_fo.png</texturenofocus>
 				</control>
 				<control type="button" id="12">
 					<description>Settings button</description>
-					<width>287</width>
+					<width>320</width><!--<width>287</width>-->
 					<height>60</height>
 					<font>font15_title</font>
 					<textcolor>grey2</textcolor>
 					<focusedcolor>white</focusedcolor>
 					<align>center</align>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texturefocus>
+					<texturenofocus colordiffuse="grey3" border="5">listselect_fo.png</texturenofocus>
 				</control>
 			</control>
 		</control>

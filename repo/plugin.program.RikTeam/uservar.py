@@ -1,39 +1,39 @@
-import os, xbmc, xbmcaddon
+import xbmcaddon
+
+import os
 
 #########################################################
-### Global Variables ####################################
+#         Global Variables - DON'T EDIT!!!              #
 #########################################################
-PATH           = xbmcaddon.Addon().getAddonInfo('path')
-ART            = os.path.join(PATH, 'resources', 'art')
+ADDON_ID = xbmcaddon.Addon().getAddonInfo('id')
+PATH = xbmcaddon.Addon().getAddonInfo('path')
+ART = os.path.join(PATH, 'resources', 'media')
 #########################################################
 
 #########################################################
-### User Edit Variables #################################
+#        User Edit Variables                            #
 #########################################################
-ADDON_ID       = xbmcaddon.Addon().getAddonInfo('id')
-ADDONTITLE     = '[COLOR orchid][B]RIKTEAM WIZARD[/B][/COLOR]'
-BUILDERNAME    = '[COLOR white][B]RikTeam[/B][/COLOR]'
-EXCLUDES       = [ADDON_ID, 'repository.fontsvr', 'script.module.kodi-six', 'script.module.six']
-# Enable/Disable the text file caching with 'Yes' or 'No' and age being how often it rechecks in minutes
-CACHETEXT      = 'Yes'
-CACHEAGE       = 30
-# Text File with build info in it. https://raw.githubusercontent.com/posadka/builds/main/builds/builds.txt
+ADDONTITLE = '[COLOR orchid]][B]RikTeam Wizard[/B][/COLOR]'
+BUILDERNAME = 'RikTeam Wizard'
+EXCLUDES = [ADDON_ID, 'repository.fontsVR']
+# Text File with build info in it.https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds.txt
 # https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/builds_nexus.txt (20 builds)
 # https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt (19/20.x builds)
-# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_all.txt
-BUILDFILE      = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_all.txt'
+BUILDFILE = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds.txt'
 # How often you would like it to check for build updates in days
 # 0 being every startup of kodi
-UPDATECHECK    = 0
-# Text File with apk info in it.  Leave as 'https://' to ignore https://raw.githubusercontent.com/posadka/builds/main/builds/builds.txt
-APKFILE        = 'https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/apks/apks.txt'
-# Text File with Youtube Videos urls.  Leave as 'https://' to ignore
-YOUTUBETITLE   = ''
-YOUTUBEFILE    = 'https://'
-# Text File for addon installer.  Leave as 'https://' to ignore
-ADDONFILE      = 'https://'
+UPDATECHECK = 30
+# Text File with apk info in it.  Leave as 'http://' to ignore
+APKFILE = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/apks.txt'
+# Text File with Youtube Videos urls.  Leave as 'http://' to ignore
+YOUTUBETITLE = 'DETALLE de Rik Team'
+# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/youtube.txt
+YOUTUBEFILE = 'http://'
+# Text File for addon installer.  Leave as 'http://' to ignore
+# https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard/xml/skins.json
+ADDONFILE = 'http://'
 # Text File for advanced settings.  Leave as 'http://' to ignore
-ADVANCEDFILE   = 'http://'
+ADVANCEDFILE = 'https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard/xml/Advanced.json'
 #########################################################
 
 #########################################################
@@ -60,42 +60,47 @@ ICONSETTINGS = os.path.join(ART, 'settings.png')
 # Hide the section separators 'Yes' or 'No'
 HIDESPACERS = 'No'
 # Character used in separator
+#SPACER = '♠'
 SPACER = '='
 
 # You can edit these however you want, just make sure that you have a %s in each of the
-# THEME's so it grabs the text from the menu item
-COLOR1         = 'orchid'
-COLOR2         = 'white'
-# Primary menu items   / %s is the menu item and is required
-THEME1         = '[COLOR '+COLOR1+']*[/COLOR]  [COLOR '+COLOR2+']%s[/COLOR]'
-# Build Names          / %s is the menu item and is required
-THEME2         = '[COLOR '+COLOR2+']%s[/COLOR]'
-# Alternate items      / %s is the menu item and is required
-THEME3         = '[COLOR '+COLOR1+']%s[/COLOR]'
-# Current Build Header / %s is the menu item and is required
-THEME4         = '[COLOR '+COLOR1+']Current Build:[/COLOR] [COLOR '+COLOR2+']%s[/COLOR]'
-# Current Theme Header / %s is the menu item and is required
-THEME5         = '[COLOR '+COLOR1+']Current Theme:[/COLOR] [COLOR '+COLOR2+']%s[/COLOR]'
+# THEME's so it grabs the text from the menu item //limegreen, mediumblue
+COLOR1 = 'orchid'
+COLOR2 = 'white'
+COLOR3 = 'dodgerblue'
+COLOR4 = 'turquoise'
+# Primary menu items   / {0} is the menu item and is required
+THEME1 = u'[COLOR {color1}][COLOR {color1}][B]-[/B][/COLOR][COLOR {color2}][B][/B][COLOR {color1}][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2, color3=COLOR3, color4=COLOR4)
+# Build Names          / {0} is the menu item and is required
+THEME2 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR3)
+# Alternate items      / {0} is the menu item and is required
+THEME3 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
+# Current Build Header / {0} is the menu item and is required
+THEME4 = u'[COLOR {color1}][B]Build Actual:[/B][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2, color3=COLOR3, color4=COLOR4)
+# Current Theme Header / {0} is the menu item and is required
+THEME5 = u'[COLOR {color1}][B]Parche Actual:[/B][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2, color3=COLOR3, color4=COLOR4)
+# Current Theme Header / {0} is the menu item and is required
+THEME6 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR4)
 
 # Message for Contact Page
 # Enable 'Contact' menu item 'Yes' hide or 'No' dont hide
-HIDECONTACT    = 'No'
+HIDECONTACT = 'No'
 # You can add \n to do line breaks
-CONTACT        = 'RIKTEAM\n\nrikteam/me'
-#Images used for the contact window.  https:// for default icon and fanart
-CONTACTICON    = os.path.join(ART, 'qricon.png')
-CONTACTFANART  = 'https://'
+CONTACT = 'Gracias por elegir [COLOR azure]BuildRik.[/COLOR]\n\n'
+# Images used for the contact window.  http:// for default icon and fanart
+CONTACTICON = os.path.join(ART, 'qricon.png')
+CONTACTFANART = 'http://'
 #########################################################
 
 #########################################################
-### Auto Update                   #######################
-###        For Those With No Repo #######################
+#        Auto Update For Those With No Repo             #
 #########################################################
 # Enable Auto Update 'Yes' or 'No'
-AUTOUPDATE     = 'no'
+AUTOUPDATE = 'Yes'
 # Url to wizard version
-WIZARDFILE     = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_all.txt'
-###################
+# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds.txt
+WIZARDFILE = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds.txt' 
+#########################################################
 
 #########################################################
 #        Auto Install Repo If Not Installed             #
@@ -107,7 +112,8 @@ REPOID = 'repository.fontsvr'
 # Url to Addons.xml file in your repo folder(this is so we can get the latest version)
 REPOADDONXML = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml'
 # Url to folder zip is located in
-REPOZIPURL = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/'
+# REPOZIPURL = 'https://github.com/fontsvr/repo-fontsVR/tree/main/addons/zips/repository.fontsvr/repository.fontsvr-1.0.zip?raw=true'
+REPOZIPURL = 'https://github.com/fontsvr/repo-fontsVR/raw/main/addons/zips/repository.fontsvr/repository.fontsvr-1.0.zip'
 #########################################################
 
 #########################################################
@@ -116,17 +122,16 @@ REPOZIPURL = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons
 # Enable Notification screen Yes or No
 ENABLE = 'No'
 # Url to notification file
-# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/VR/Notify.txt
 NOTIFICATION = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/VR/Notify.txt'
 # Use either 'Text' or 'Image'
-HEADERTYPE = 'Text'
-# Font size of header
-FONTHEADER = 'Font14'
-HEADERMESSAGE = '[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard [COLOR orchid]NEXUS[/B][/COLOR]'
+HEADERTYPE = 'Image'
+# Font size of header #'Font14' 
+FONTHEADER = ''  
+HEADERMESSAGE = '[COLOR orchid]][B]RikTeam Wizard[/B][/COLOR]'
 # url to image if using Image 424x180
 HEADERIMAGE = 'https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640913/build/banner.png'
-# Font for Notification Window #13
-FONTSETTINGS = 'Font14'
+# Font for Notification Window #'Font13' 
+FONTSETTINGS = ''
 # Background for Notification Window
 BACKGROUND = 'https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640927/build/fandrart.png'
 #########################################################

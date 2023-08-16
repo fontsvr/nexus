@@ -7,29 +7,21 @@ import sys
 PY3 = False
 if sys.version_info[0] >= 3: PY3 = True; unicode = str; unichr = chr; long = int; _dict = dict
 
-import re
-import traceback
-import base64
+from lib import AlfaChannelHelper
+if not PY3: _dict = dict; from AlfaChannelHelper import dict
+from AlfaChannelHelper import DictionaryAllChannel
+from AlfaChannelHelper import re, traceback, time, base64, xbmcgui
+from AlfaChannelHelper import Item, servertools, scrapertools, jsontools, get_thumb, config, logger, filtertools, autoplay
+
 import ast
-if not PY3: _dict = dict; from collections import OrderedDict as dict
-
-from core.item import Item
-from core import servertools
-from core import scrapertools
-from core import jsontools
-from channelselector import get_thumb
-from platformcode import config, logger
-from channels import filtertools, autoplay
-from lib.AlfaChannelHelper import DictionaryAllChannel
-
 from platformcode.platformtools import dialog_notification, dialog_ok, itemlist_refresh, show_channel_settings
 
-IDIOMAS = {'lat': 'LAT', 'spa': 'CAST', 'esp': 'CAST', 'sub': 'VOSE', 'espsub': 'VOSE', 'engsub': 'VOS', 'eng': 'VO'}
+IDIOMAS = AlfaChannelHelper.IDIOMAS_T
 list_language = list(set(IDIOMAS.values()))
-list_quality = []
-list_quality_movies = ['HD1080', 'HD720', 'HDTV', 'DVDRIP', 'RHDTV', 'DVDSCR']
-list_quality_tvshow = ['HDTV', 'HDTV-720p', 'WEB-DL 1080p', '4KWebRip']
-list_servers = ['clipwatching', 'gamovideo', 'vidoza', 'vidtodo', 'openload', 'uptobox']
+list_quality_movies = AlfaChannelHelper.LIST_QUALITY_MOVIES
+list_quality_tvshow = AlfaChannelHelper.LIST_QUALITY_TVSHOW
+list_quality = list_quality_movies + list_quality_tvshow
+list_servers = AlfaChannelHelper.LIST_SERVERS
 forced_proxy_opt = ''
 assistant = False
 
@@ -38,9 +30,9 @@ assistant = False
 canonical = {
              'channel': 'hdfull', 
              'host': config.get_setting("current_host", 'hdfull', default=''), 
-             'host_alt': ["https://hdfull.today/"], 
+             'host_alt': ["https://hdfull.quest/"], 
              'host_verification': '%slogin', 
-             'host_black_list': ['https://hdfull.sbs/', 'https://hdfull.org/', 
+             'host_black_list': ["https://hdfull.today/", 'https://hdfull.sbs/', 'https://hdfull.org/', 
                                  'https://hdfull.store/', 
                                  'https://hdfull.life/', 'https://hdfull.digital/', 'https://hdfull.work/', 
                                  'https://hdfull.video/', 'https://hdfull.cloud/', 'https://hdfull.wtf/', 
@@ -142,7 +134,6 @@ data_js_url = AlfaChannel.urljoin(host, "js/providers.js")
 patron_sid = "<input\s*type='hidden'\s*name='__csrf_magic'\s*value=\"([^\"]+)\"\s*\/>"
 
 try:
-    import xbmcgui
     window = None
     window = xbmcgui.Window(10000)
     user_status = jsontools.load(window.getProperty("AH_hdfull_user_status"), silence=True)
@@ -565,6 +556,10 @@ def list_all_matches(item, matches_int, **AHkwargs):
                 elem_json['url'] = AlfaChannel.urljoin(host, '%s/' % path + (elem.get('permalink', '') or elem.get('perma', '')))
                 elem_json['url'] += '/temporada-%s/episodio-%s' % (elem.get('season', '1'), elem.get('episode', '00').zfill(2))
                 elem_json['info'] = {elem.get('id', '0'): elem.get('show', {}).get('id', '0')}
+
+                if elem_json['url']:
+                    elem_json['go_serie'] = {'url': re.sub('\/temp\w*-?\d*\/epi\w*-?\d*\/?', '', elem_json['url']),
+                                             'info': {elem.get('show', {}).get('id', '0'): elem.get('show', {}).get('id', '0')}}
 
             elif not item.extra or item.extra in ['fichas', 'Género', 'Alfabético', 'listas_res'] or item.c_type == 'search':
                 if item.extra in ['Alfabético'] and AlfaChannel.last_page in [9999, 99999]:
