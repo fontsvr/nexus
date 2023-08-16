@@ -436,33 +436,26 @@
       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.rikteam" name="[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR orchid][B]NEXUS[/B][/COLOR]" version="1.0.0" provider-name="Rik Team">
-    <requires>
-		<import addon="script.speedtester" optional="true" version="1.1.2" />
-        <import addon="script.module.requests" optional="true" />
-        <import addon="script.module.six" optional="true" />
-        <import addon="script.kodi.android.update" optional="true" />     
-    </requires>
-    
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-    </extension>
-    <extension point="xbmc.addon.repository" name="fontsVR">		
-		<info>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/</datadir>
-    </extension>
-    <extension point="xbmc.service" library="startup.py" start="startup" />
-    
+</addon><addon id="plugin.program.rikteam" name="[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR orchid][B]NEXUS[/B][/COLOR]" version="1.2" provider-name="Rik Team">
+ <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.six" />
+        <import addon="script.module.kodi-six" />
+		<import addon="script.kodi.android.update" optional="true" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="startup.py" start="startup" />
     <extension point="xbmc.addon.metadata">
         <summary lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR orchid]NEXUS[/COLOR] tu Wizard para Kodi 20.x Nexus</summary>
         <description lang="es">[COLOR azure]RikTeam[/COLOR] [COLOR white]Wizard [COLOR orchid]NEXUS[/COLOR][COLOR lightpink] Instalador de Addons, Scripts, Elementum, Luar, Kelebek y fuentes para Kodi[/COLOR][CR]
 		[B]• Developers:[/B] [COLOR gold]Rik Team[/COLOR]
 		</description>
         <platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-        <source>https://github.com/fontsvr/fontsvr.github.io</source>
-		<news>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+        <news>
 • Instalador de builds [COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR orchid][B]NEXUS[/B][/COLOR]
 		</news>
         <assets>
