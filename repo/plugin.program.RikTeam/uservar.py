@@ -1,36 +1,40 @@
-import os, xbmc, xbmcaddon
+import xbmcaddon
+
+import os
 
 #########################################################
-### Global Variables ####################################
+#         Global Variables - DON'T EDIT!!!              #
 #########################################################
-PATH           = xbmcaddon.Addon().getAddonInfo('path')
-ART            = os.path.join(PATH, 'resources', 'art')
+ADDON_ID = xbmcaddon.Addon().getAddonInfo('id')
+PATH = xbmcaddon.Addon().getAddonInfo('path')
+ART = os.path.join(PATH, 'resources', 'media')
 #########################################################
 
 #########################################################
-### User Edit Variables #################################
+#        User Edit Variables                            #
 #########################################################
-ADDON_ID       = xbmcaddon.Addon().getAddonInfo('id')
-ADDONTITLE     = '[COLOR orchid][B]RIKTEAM WIZARD[/B][/COLOR]'
-BUILDERNAME    = '[COLOR white][B]RikTeam[/B][/COLOR]'
-EXCLUDES       = [ADDON_ID, 'repository.fontsvr', 'script.module.kodi-six', 'script.module.six']
+ADDONTITLE = '[COLOR orchid]RikTeam Wizard Nexus[/COLOR]'
+BUILDERNAME = 'RikTeam'
+EXCLUDES = [ADDON_ID, 'plugin.program.rikteam']
 # Enable/Disable the text file caching with 'Yes' or 'No' and age being how often it rechecks in minutes
 CACHETEXT      = 'Yes'
 CACHEAGE       = 30
-# Text File with build info in it. https://raw.githubusercontent.com/posadka/builds/main/builds/builds.txt
-BUILDFILE      = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt'
+# Text File with build info in it. Please read https://github.com/a4k-openproject/plugin.program.openwizard/wiki/Installing-Builds
+# https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/builds_nexus.txt (20 builds)
+# https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt (19/20.x builds)
+BUILDFILE = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt'
 # How often you would like it to check for build updates in days
 # 0 being every startup of kodi
-UPDATECHECK    = 0
-# Text File with apk info in it.  Leave as 'https://' to ignore https://raw.githubusercontent.com/posadka/builds/main/builds/builds.txt
-APKFILE        = 'https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/apks/apks.txt'
-# Text File with Youtube Videos urls.  Leave as 'https://' to ignore
-YOUTUBETITLE   = ''
-YOUTUBEFILE    = 'https://'
-# Text File for addon installer.  Leave as 'https://' to ignore
-ADDONFILE      = 'https://'
+UPDATECHECK = 0
+# Text File with apk info in it.  Leave as 'http://' to ignore
+APKFILE = 'https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/apks/apks.txt'
+# Text File with Youtube Videos urls.  Leave as 'http://' to ignore
+YOUTUBETITLE = ''
+YOUTUBEFILE = 'http://'
+# Text File for addon installer.  Leave as 'http://' to ignore
+ADDONFILE = 'http://'
 # Text File for advanced settings.  Leave as 'http://' to ignore
-ADVANCEDFILE   = 'http://'
+ADVANCEDFILE = 'http://'
 #########################################################
 
 #########################################################
@@ -61,38 +65,36 @@ SPACER = '='
 
 # You can edit these however you want, just make sure that you have a %s in each of the
 # THEME's so it grabs the text from the menu item
-COLOR1         = 'orchid'
-COLOR2         = 'white'
-# Primary menu items   / %s is the menu item and is required
-THEME1         = '[COLOR '+COLOR1+']*[/COLOR]  [COLOR '+COLOR2+']%s[/COLOR]'
-# Build Names          / %s is the menu item and is required
-THEME2         = '[COLOR '+COLOR2+']%s[/COLOR]'
-# Alternate items      / %s is the menu item and is required
-THEME3         = '[COLOR '+COLOR1+']%s[/COLOR]'
-# Current Build Header / %s is the menu item and is required
-THEME4         = '[COLOR '+COLOR1+']Current Build:[/COLOR] [COLOR '+COLOR2+']%s[/COLOR]'
-# Current Theme Header / %s is the menu item and is required
-THEME5         = '[COLOR '+COLOR1+']Current Theme:[/COLOR] [COLOR '+COLOR2+']%s[/COLOR]'
+COLOR1 = 'orchid'
+COLOR2 = 'white'
+# Primary menu items   / {0} is the menu item and is required
+THEME1 = u'[COLOR {color1}][I]([COLOR {color1}][B]RikTeam [/B][/COLOR][COLOR {color2}]Wizard NEXUS[COLOR {color1}])[/I][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
+# Build Names          / {0} is the menu item and is required
+THEME2 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
+# Alternate items      / {0} is the menu item and is required
+THEME3 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
+# Current Build Header / {0} is the menu item and is required
+THEME4 = u'[COLOR {color1}][B]Build Actual:[/B][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
+# Current Theme Header / {0} is the menu item and is required
+THEME5 = u'[COLOR {color1}][B]Parche Actual:[/B][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
 
 # Message for Contact Page
 # Enable 'Contact' menu item 'Yes' hide or 'No' dont hide
-HIDECONTACT    = 'No'
+HIDECONTACT = 'No'
 # You can add \n to do line breaks
-CONTACT        = 'KEEP CALM and EXPECT US\n\nWhitehat...\n\nGreyhat...\n\nBlackhat\n\nBluehat...\n\nGreenhat...'
-#Images used for the contact window.  https:// for default icon and fanart
-CONTACTICON    = os.path.join(ART, 'qricon.png')
-CONTACTFANART  = 'https://'
+CONTACT = '[B][LOWERCASE][CAPITALIZE][COLOR aqua]\r\n\r\nGracias por elegir RikTeam Wizard.\r\n\r\n[COLOR yellow] Rik Team[/COLOR][/CAPITALIZE][/LOWERCASE][/B]'
+# Images used for the contact window.  http:// for default icon and fanart
+CONTACTICON = os.path.join(ART, 'qricon.png')
+CONTACTFANART = 'http://'
 #########################################################
 
 #########################################################
-### Auto Update                   #######################
-###        For Those With No Repo #######################
+#        Auto Update For Those With No Repo             #
 #########################################################
 # Enable Auto Update 'Yes' or 'No'
-AUTOUPDATE     = 'no'
-# Url to wizard version
-WIZARDFILE     = BUILDFILE
-###################
+AUTOUPDATE = 'Yes'
+WIZARDFILE = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt'
+#########################################################
 
 #########################################################
 #        Auto Install Repo If Not Installed             #
@@ -122,8 +124,8 @@ FONTHEADER = 'Font14'
 HEADERMESSAGE = '[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard [COLOR orchid]NEXUS[/B][/COLOR]'
 # url to image if using Image 424x180
 HEADERIMAGE = 'https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640913/build/banner.png'
-# Font for Notification Window #13
-FONTSETTINGS = 'Font14'
+# Font for Notification Window
+FONTSETTINGS = 'Font13'
 # Background for Notification Window
 BACKGROUND = 'https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640927/build/fandrart.png'
 #########################################################
