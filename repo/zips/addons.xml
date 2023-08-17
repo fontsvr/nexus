@@ -26,7 +26,7 @@
         <fanart>fanart.jpg</fanart>
     </assets>        
 		<language>es</language>
-	</extension> 
+	</extension>
 </addon><addon id="plugin.program.autocompletion" name="AutoCompletion for virtual keyboard" version="2.1.2" provider-name="henryjfry">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />

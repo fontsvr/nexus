@@ -115,7 +115,7 @@ class BuildMenu:
             else:
                 if count19 > 0:
                     state = '[COLOR azure]+[/COLOR]' if CONFIG.SHOW19 == 'false' else '[COLOR azure]-[/COLOR]'
-                    directory.add_file('[B][COLOR dodgerblue]{0} BUILDS:[/COLOR][/B][B][COLOR azure] RIKTEAM[/COLOR][/B]'.format(state, count19), {'mode': 'togglesetting',
+                    directory.add_file('[B][COLOR dodgerblue]{0} BUILDS:[/COLOR][/B][B][COLOR orchid] RIKTEAM[/COLOR][/B]'.format(state, count19), {'mode': 'togglesetting',
                                        'name': 'show19'}, themeit=CONFIG.THEME3)
                     if CONFIG.SHOW19 == 'true':
                         self._list_all(match, kodiv=19)
@@ -179,7 +179,7 @@ class BuildMenu:
                     '[I][COLOR powderblue]Build diseñado para Kodi v{0}[/COLOR] [COLOR azure]( instalado: [COLOR gold]v{1}[/COLOR] )[/COLOR][/I]'.format(str(kodi), str(CONFIG.KODIV)),
                     fanart=fanart, icon=icon, themeit=CONFIG.THEME3)
                 directory.add_file(
-                    '[I][COLOR azure]Soporte[/COLOR] [COLOR dodgerblue]TELEGRAM:[/COLOR] [I][COLOR azure]https://t.me/beelinkking[/COLOR][/I]'.format(str(kodi), str(CONFIG.KODIV)),
+                    '[I][COLOR azure]Soporte[/COLOR] [COLOR dodgerblue]TELEGRAM:[/COLOR] [I][COLOR azure]https://t.me/rikteam[/COLOR][/I]'.format(str(kodi), str(CONFIG.KODIV)),
                     fanart=fanart, icon=icon, themeit=CONFIG.THEME3)    
                     
             directory.add_separator('[B]INSTALACION BUILD[/B]', fanart=fanart, icon=icon, themeit=CONFIG.THEME3)

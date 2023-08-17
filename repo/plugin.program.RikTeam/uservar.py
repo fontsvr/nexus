@@ -13,9 +13,9 @@ ART = os.path.join(PATH, 'resources', 'media')
 #########################################################
 #        User Edit Variables                            #
 #########################################################
-ADDONTITLE = '[COLOR orchid]][B]RikTeam Wizard[/B][/COLOR]'
+ADDONTITLE = '[COLOR orchid][B]RikTeam Wizard[/B][/COLOR]'
 BUILDERNAME = 'RikTeam Wizard'
-EXCLUDES = [ADDON_ID, 'repository.fontsVR']
+EXCLUDES = [ADDON_ID, 'repository.fontsVR', 'script.module.kodi-six', 'script.module.six']
 # Text File with build info in it.https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds.txt
 # https://raw.githubusercontent.com/fontsvr/fontsvr.github.io/master/wizard_nexus/builds_nexus.txt (20 builds)
 # https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wizardfiles/builds_nexus.txt (19/20.x builds)
@@ -86,7 +86,7 @@ THEME6 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR4)
 # Enable 'Contact' menu item 'Yes' hide or 'No' dont hide
 HIDECONTACT = 'No'
 # You can add \n to do line breaks
-CONTACT = 'Gracias por elegir [COLOR azure]BuildRik.[/COLOR]\n\n'
+CONTACT = 'Gracias por elegir la build [COLOR orchid]RikTeam.[/COLOR]\n\n'
 # Images used for the contact window.  http:// for default icon and fanart
 CONTACTICON = os.path.join(ART, 'qricon.png')
 CONTACTFANART = 'http://'

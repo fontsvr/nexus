@@ -213,7 +213,7 @@ class Config:
         self.EXTRACT = self.get_setting('extract')
         self.EXTERROR = self.get_setting('errors')
         
-        # View variables
+        # View variables self.SHOW20 = self.get_setting('show20')
         self.SHOW17 = self.get_setting('show17')
         self.SHOW18 = self.get_setting('show18')
         self.SHOW19 = self.get_setting('show19')
