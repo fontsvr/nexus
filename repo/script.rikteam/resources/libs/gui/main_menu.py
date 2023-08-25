@@ -54,16 +54,16 @@ class MainMenu:
             version = check.check_build(CONFIG.BUILDNAME, 'version')
             build = '{0}'.format(CONFIG.BUILDNAME)
             if version > CONFIG.BUILDVERSION:
-                build = 'Packs Ajustes [COLOR orange]- Nueva versión disponible[/COLOR]'.format(build)
+                build = 'Ajustes [COLOR yellow]- Nueva versión disponible[/COLOR]'.format(build)
             directory.add_dir(build, {'mode': 'builds', 'name': CONFIG.BUILDNAME}, themeit=CONFIG.THEME1)
 
         else:
-            directory.add_dir('Packs Ajustes', {'mode': 'builds'}, icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME1)
+            directory.add_dir('Ajustes', {'mode': 'builds'}, icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME1)
         directory.add_dir('Skins', {'mode': 'addons'}, icon=CONFIG.ICONAPK, themeit=CONFIG.THEME1)
         directory.add_file('Limpiar Aplicación', {'mode': 'fullclean'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME1)
         directory.add_dir('Copias de Seguridad', {'mode': 'maint', 'name': 'copias'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME1)
         directory.add_dir('Herramientas', {'mode': 'maint'}, icon=CONFIG.ICONTOOLS, themeit=CONFIG.THEME1)
-        directory.add_dir('Ajustes del Complemento', {'mode': 'settings', 'name': CONFIG.ADDON_ID}, icon=CONFIG.ICONSETTINGS, themeit=CONFIG.THEME1)
-        directory.add_file('Telegram: [COLOR orange]@stvabuild[/COLOR]', {'mode': 'saveda'}, icon=CONFIG.ICONCONTACT, themeit=CONFIG.THEME1)
+        directory.add_dir('Ajustes del Addon', {'mode': 'settings', 'name': CONFIG.ADDON_ID}, icon=CONFIG.ICONSETTINGS, themeit=CONFIG.THEME1)
+        directory.add_file('Telegram: [COLOR blue]@fontsvr[/COLOR]', {'mode': 'saveda'}, icon=CONFIG.ICONCONTACT, themeit=CONFIG.THEME1)
 
         

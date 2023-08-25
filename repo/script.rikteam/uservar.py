@@ -67,17 +67,17 @@ SPACER = ''
 
 # You can edit these however you want, just make sure that you have a %s in each of the
 # THEME's so it grabs the text from the menu item
-COLOR1 = 'orange'
+COLOR1 = 'goldenrod'
 COLOR2 = 'white'
-# Primary menu items   / {0} is the menu item and is requigold
+# Primary menu items   / {0} is the menu item and is required
 THEME1 = u'[COLOR {color1}][COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
-# Build Names          / {0} is the menu item and is requigold
+# Build Names          / {0} is the menu item and is required
 THEME2 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
-# Alternate items      / {0} is the menu item and is requigold
+# Alternate items      / {0} is the menu item and is required
 THEME3 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
-# Current Build Header / {0} is the menu item and is requigold
-THEME4 = u'[COLOR {color1}]Pack Instalado: [/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
-# Current Theme Header / {0} is the menu item and is requigold
+# Current Build Header / {0} is the menu item and is required
+THEME4 = u'[COLOR {color1}]Ajuste Instalado: [/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
+# Current Theme Header / {0} is the menu item and is required
 THEME5 = u'[COLOR {color1}]Tema actual: [/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
 
 # Message for Contact Page
@@ -121,7 +121,7 @@ NOTIFICATION = 'https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/wiza
 HEADERTYPE = 'Text'
 # Font size of header
 FONTHEADER = 'Font14'
-HEADERMESSAGE = '[COLOR white][B]Complemento[/B][/COLOR] [COLOR orange]STVA[/COLOR]'
+HEADERMESSAGE = '[COLOR white][B]Script[/B][/COLOR] [COLOR orange]RikTeam[/COLOR]'
 # url to image if using Image 424x180
 HEADERIMAGE = 'https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640913/build/banner.png'
 # Font for Notification Window
