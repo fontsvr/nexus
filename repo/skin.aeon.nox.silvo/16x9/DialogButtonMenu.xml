@@ -203,8 +203,25 @@
 				<font>font14</font>
 				<label>13018</label>
 				<visible>System.HasShutdown + System.IsInhibit</visible>
-			</control>
+			</control><!--restablecer ajustes del skin-->
 			<control type="button" id="14">
+				<description>Setup</description>
+				<width>510</width>
+				<height>60</height>
+				<textcolor>grey2</textcolor>
+				<focusedcolor>white</focusedcolor>
+				<textwidth>435</textwidth>
+				<textoffsetx>45</textoffsetx>
+				<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="35,2,35,2">button_shutdown_focus.png</texturefocus>
+				<texturenofocus border="35,2,35,2">button_shutdown_nofocus.png</texturenofocus>
+				<onclick>Dialog.Close(all,true)</onclick>
+				<!--<onclick>ActivateWindow(1151)</onclick>-->
+				<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes",return)</onclick>
+				<onclick>Skin.SetBool(preguntado_ajustes,true)</onclick>
+				<font>font14</font>
+				<label>Restablecer el skin [COLOR hotpink]VR20Aeon[/COLOR]</label>
+			</control>
+			<control type="button" id="15">
 				<description>Settings</description>
 				<width>510</width>
 				<height>60</height>
@@ -219,7 +236,7 @@
 				<font>font14</font>
 				<label>$LOCALIZE[5]</label>
 			</control><!--Ajustes Iniciales-Setup-->
-			<control type="button" id="15">
+			<control type="button" id="16">
 				<description>Setup</description>
 				<width>510</width>
 				<height>60</height>
@@ -237,7 +254,7 @@
 				<font>font14</font>
 				<label>Ajustes Iniciales [COLOR hotpink]RikTeam[/COLOR]</label>
 			</control>
-			<control type="button" id="16">
+			<control type="button" id="17">
 				<description>Skin Settings</description>
 				<width>510</width>
 				<height>60</height>
@@ -252,7 +269,7 @@
 				<font>font14</font>
 				<label>20077</label>
 			</control>
-			<control type="button" id="17">
+			<control type="button" id="18">
 				<description>Favorites</description>
 				<width>510</width>
 				<height>60</height>
@@ -266,7 +283,7 @@
 				<font>font14</font>
 				<label>1036</label>
 			</control>
-			<control type="button" id="18">
+			<control type="button" id="19">
 				<description>Reload Skin button</description>
 				<width>510</width>
 				<height>60</height>
@@ -281,7 +298,22 @@
 				<font>font14</font>
 				<label>20183</label>
 			</control>
-			<control type="image" id="19"><!--18-->
+			<control type="button" id="21">
+				<description>Force Close Skin button</description>
+				<width>510</width>
+				<height>60</height>
+				<textcolor>grey2</textcolor>
+				<focusedcolor>white</focusedcolor>
+				<textwidth>435</textwidth>
+				<textoffsetx>45</textoffsetx>
+				<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="35,2,35,2">button_shutdown_focus.png</texturefocus>
+				<texturenofocus border="35,2,35,2">button_shutdown_nofocus.png</texturenofocus>
+				<onclick>Dialog.Close(all,true)</onclick>
+                <onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=forceclose",return)</onclick>
+				<font>font14</font>
+				<label>[COLOR hotpink]Forzar Cierre[/COLOR]</label>
+			</control>
+			<control type="image" id="22">
 				<width>510</width>
 				<height>34</height>
 				<texture border="30,2,30,20">dialog_bottom2.png</texture>

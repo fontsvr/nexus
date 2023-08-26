@@ -7,8 +7,8 @@
 			<icon>DefaultVideo.png</icon>
 			<thumb />
 			<property name="translatedPath">ActivateWindow(Videos,library://video/,return)</property>
-			<property name="background">special://home/media/backgrounds/videoteca/</property>
-			<property name="backgroundName">special://home/media/backgrounds/videoteca/</property>
+			<property name="background">special://skin/extras/backgrounds/Vixen-legends_of_tomorrow.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/Vixen-legends_of_tomorrow.jpg</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Favourites)</onclick>
 			<property name="path">ActivateWindow(Favourites)</property>
@@ -23,8 +23,8 @@
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://%2fstorage%2femulated%2f0%2fAndroid%2fdata%2fthe.team.rik%2ffiles%2f.kodi%2faddons%2fplugin.video.balandro%2fresources%2fmedia%2fthemes%2fdefault%2fclapboard.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uYmFsYW5kcm8vcmVzb3VyY2VzL21lZGlhL3RoZW1lcy9kZWZhdWx0L2NsYXBib2FyZC5wbmciLAogICAgInRpdGxlIjogIltDT0xPUiBkZWVwc2t5Ymx1ZV0gLSBQZWzDrWN1bGFzWy9DT0xPUl0iCn0%3D",return)</property>
-			<property name="background">special://home/media/backgrounds/movies/</property>
-			<property name="backgroundName">special://home/media/backgrounds/movies/</property>
+			<property name="background">special://skin/extras/backgrounds/peliculas.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/peliculas.jpg</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uYmFsYW5kcm8vcmVzb3VyY2VzL21lZGlhL3RoZW1lcy9kZWZhdWx0L2NsYXBib2FyZC5wbmciLAogICAgInRpdGxlIjogIltDT0xPUiBkZWVwc2t5Ymx1ZV0gLSBQZWzDrWN1bGFzWy9DT0xPUl0iCn0%3D",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uYmFsYW5kcm8vcmVzb3VyY2VzL21lZGlhL3RoZW1lcy9kZWZhdWx0L2NsYXBib2FyZC5wbmciLAogICAgInRpdGxlIjogIltDT0xPUiBkZWVwc2t5Ymx1ZV0gLSBQZWzDrWN1bGFzWy9DT0xPUl0iCn0%3D",return)</property>
@@ -39,8 +39,8 @@
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://https%3a%2f%2fgithub.com%2fPalantiraddon%2fPalantir%2fraw%2fmaster%2fmedia%2fnekko%2fseries.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR",return)</property>
-			<property name="background">special://home/media/backgrounds/tvshows/</property>
-			<property name="backgroundName">special://home/media/backgrounds/tvshows/</property>
+			<property name="background">special://skin/extras/backgrounds/series.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/series.jpg</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR",return)</property>
@@ -54,8 +54,8 @@
 			<label2>Ítem Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>special://skin/extras/icons/soccer.png</thumb>
-			<property name="background">special://home/media/backgrounds/sports/</property>
-			<property name="backgroundName">special://home/media/backgrounds/sports/</property>
+			<property name="background">special://skin/extras/backgrounds/sports.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/sports.jpg</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.winner/?yckJXZulGZvtmL0VmbvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIscybP90bw8EMwk2bnAiOi42bpR3YhJye9diZpdmLlZXas9SYpRWZt9yclNmc192clJ3LyVmbul2du8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2LwITak92au4WZ2FWbuMHZyVmbpR2br5Cdl52LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojIyVGdz9GciACLn0lQvsVYk5WZnFEIyVmVdJ0WnAiOiwWZiFGbiACLncGcq5CdyFmbhZ2LhlGZl12LzV2YyV3bzVmcvIXZu5Wa35yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvAjMpR2br5iblZXYt5",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.winner/?yckJXZulGZvtmL0VmbvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIscybP90bw8EMwk2bnAiOi42bpR3YhJye9diZpdmLlZXas9SYpRWZt9yclNmc192clJ3LyVmbul2du8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2LwITak92au4WZ2FWbuMHZyVmbpR2br5Cdl52LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojIyVGdz9GciACLn0lQvsVYk5WZnFEIyVmVdJ0WnAiOiwWZiFGbiACLncGcq5CdyFmbhZ2LhlGZl12LzV2YyV3bzVmcvIXZu5Wa35yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvAjMpR2br5iblZXYt5",return)</property>
@@ -69,11 +69,8 @@
 			<label2>Add-on de Vídeo</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>thumb</thumb>
-			<property name="widgetName">VAVOO.TO - Live</property>
-			<property name="widgetType">videos</property>
-			<property name="widgetStyle">List</property>
-			<property name="background">special://home/media/backgrounds/livetv/</property>
-			<property name="backgroundName">special://home/media/backgrounds/livetv/</property>
+			<property name="background">special://skin/extras/backgrounds/tvpremium.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/tvpremium.jpg</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</property>
@@ -87,8 +84,8 @@
 			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="background">special://home/media/backgrounds/addons/</property>
-			<property name="backgroundName">special://home/media/backgrounds/addons/</property>
+			<property name="background">special://skin/extras/backgrounds/addons.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/addons.jpg</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(AddonBrowser,addons://user/all,return)</onclick>
 			<property name="path">ActivateWindow(AddonBrowser,addons://user/all,return)</property>
@@ -152,8 +149,8 @@
 			<thumb />
 			<property name="widgetPanelInfo">true</property>
 			<property name="widgetPanelInfo.2">true</property>
-			<property name="background">special://home/media/backgrounds/apagado/</property>
-			<property name="backgroundName">special://home/media/backgrounds/apagado/</property>
+			<property name="background">special://skin/extras/backgrounds/sistema.jpg</property>
+			<property name="backgroundName">special://skin/extras/backgrounds/sistema.jpg</property>
 			<property name="translatedPath">ActivateWindow(shutdownmenu)</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(shutdownmenu)</onclick>
@@ -991,11 +988,11 @@
 			<property name="id">$NUMBER[1]</property>
 			<property name="mainmenuid">9</property>
 			<label>Builds[COLOR hotpink] RikTeam[/COLOR]</label>
-			<label2>Programa</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>special://skin/extras/icons/builds.png</thumb>
-			<onclick>ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=builds",return)</onclick>
-			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=builds",return)</property>
+			<onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=builds",return)</onclick>
+			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=builds",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorhotpink-sistema-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -1051,11 +1048,11 @@
 			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">9</property>
 			<label>[COLOR hotpink]Mantenimiento[/COLOR]</label>
-			<label2>Programa</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>special://skin/extras/icons/mantenimiento.png</thumb>
-			<onclick>ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=maint",return)</onclick>
-			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=maint",return)</property>
+			<onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=maint",return)</onclick>
+			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=maint",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorhotpink-sistema-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -1063,11 +1060,11 @@
 			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">9</property>
 			<label>[COLOR hotpink]Buffer[/COLOR]</label>
-			<label2>Programa</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>special://skin/extras/icons/hourglass3.png</thumb>
-			<onclick>ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=advanced_settings&amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Ffontsvr%2Ffontsvr.github.io%2Fmain%2Fwizard%2Fxml%2FAdvance-Matrix.json",return)</onclick>
-			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=advanced_settings&amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Ffontsvr%2Ffontsvr.github.io%2Fmain%2Fwizard%2Fxml%2FAdvance-Matrix.json",return)</property>
+			<onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=advanced_settings&amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Ffontsvr%2Ffontsvr.github.io%2Fmaster%2Fwizard%2Fxml%2FAdvance-Matrix.json",return)</onclick>
+			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=advanced_settings&amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Ffontsvr%2Ffontsvr.github.io%2Fmaster%2Fwizard%2Fxml%2FAdvance-Matrix.json",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorhotpink-sistema-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -1075,11 +1072,11 @@
 			<property name="id">$NUMBER[8]</property>
 			<property name="mainmenuid">9</property>
 			<label>Archivos - Log</label>
-			<label2>Ítem de menú Común</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>special://skin/extras/icons/log.png</thumb>
-			<onclick>ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=maint&amp;name=logging",return)</onclick>
-			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=maint&amp;name=logging",return)</property>
+			<onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=maint&amp;name=logging",return)</onclick>
+			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=maint&amp;name=logging",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorhotpink-sistema-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -1150,12 +1147,12 @@
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">10</property>
 			<label>[COLOR violet]Forzar Cierre Kodi[/COLOR]</label>
-			<label2>Programa</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://%2fstorage%2femulated%2f0%2fAndroid%2fdata%2fthe.team.rik%2ffiles%2f.kodi%2faddons%2fplugin.program.RikTeam%2fresources%2fmedia%2fmaintenance.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=forceclose",return)</property>
-			<onclick>ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=forceclose",return)</onclick>
-			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=forceclose",return)</property>
+			<onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=forceclose",return)</onclick>
+			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=forceclose",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),num-33060)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -1189,333 +1186,4 @@
 	<include name="skinshortcuts-submenu-1" />
 	<include />
 	<include name="skinshortcuts-submenu-2" />
-	<include name="skinshortcuts-template-widget1">
-		<include condition="String.IsEqual(System.ProfileName,Master user)">skinshortcuts-template-widget1-Master user</include>
-		</include>
-	<include name="skinshortcuts-template-widget1-Master user">
-		<control type="group">
-			<visible>String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorff990000-tvpremium-color)</visible>
-			<top>449</top>
-			<left>245</left>
-			<control type="group">
-				<visible>Integer.IsGreater(Container(80115).NumItems,0)</visible>
-				<control type="group">
-					<visible>ControlGroup(90010).HasFocus</visible>
-					<animation effect="slide" end="-410,0" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + ControlGroup(90010).HasFocus">Conditional</animation>
-					<control type="group">
-						<animation effect="fade" end="0">WindowClose</animation>
-						<control type="image">
-							<top>-40</top>
-							<width>1470</width>
-							<height>391</height>
-							<texture>homewidgets/list_shadow.png</texture>
-							</control>
-						<control type="group">
-							<include condition="!false">InfoPosterContent</include>
-							<include content="InfoTextContent" condition="!false">
-								<param name="left">226</param>
-								<param name="width">879</param>
-								</include>
-							</control>
-						<control type="group">
-							<include condition="false">InfoSquareContent</include>
-							<include content="InfoTextContent" condition="false">
-								<param name="left">330</param>
-								<param name="width">774</param>
-								</include>
-							</control>
-						</control>
-					</control>
-				<control type="group">
-					<left>1130</left>
-					<animation effect="slide" end="-410,0" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended)">Conditional</animation>
-					<control type="group">
-						<left>-21</left>
-						<top>-16</top>
-						<animation effect="rotatey" start="0" end="180" center="150" time="400" tween="sine" easing="inout" condition="Control.HasFocus(80115) + true">Conditional</animation>
-						<include condition="!String.IsEmpty(Skin.String(Widget.Trans))">HomeWidgetFade</include>
-						<control type="image">
-							<width>342</width>
-							<height>342</height>
-							<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
-							<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-							</control>
-						<control type="image">
-							<width>342</width>
-							<height>342</height>
-							<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
-							<texture colordiffuse="FF0B0B0B" border="40">None</texture>
-							</control>
-						</control>
-					<control type="group">
-						<width>300</width>
-						<height>300</height>
-						<animation type="Conditional" condition="Control.HasFocus(80115) + true">
-							<effect type="rotatey" start="0" end="180" center="150" time="400" tween="sine" easing="inout" />
-							<effect type="fade" start="100" end="0" time="300" tween="sine" easing="inout" />
-							</animation>
-						<visible>String.IsEmpty(Container(80115).ListItem.Property(isSystemInfo))</visible>
-						<control type="label">
-							<width>300</width>
-							<top>9</top>
-							<height>20</height>
-							<align>center</align>
-							<font>font12_title</font>
-							<textcolor>grey</textcolor>
-							<shadowcolor>shadow</shadowcolor>
-							<label>VAVOO.TO - Live</label>
-							</control>
-						<control type="label">
-							<width>300</width>
-							<top>254</top>
-							<height>40</height>
-							<align>center</align>
-							<font>font12_title</font>
-							<textcolor>grey</textcolor>
-							<shadowcolor>shadow</shadowcolor>
-							<wrapmultiline>true</wrapmultiline>
-							<label>$VAR[HomeWidget80115TitleVar]</label>
-							</control>
-						<include content="ListPortraitArt">
-							<param name="id">80115</param>
-							<param name="Texture">$VAR[HomeWidget80115PosterVar]</param>
-							<param name="Title2">$VAR[HomeWidget80115Title2Var]</param>
-							<param name="leftArt">83</param>
-							<param name="topArt">40</param>
-							<param name="widthArt">134</param>
-							<param name="heightArt">200</param>
-							<param name="topFakeDiscArt">40</param>
-							<param name="leftCase">83</param>
-							<param name="topCase">40</param>
-							<param name="widthCase">134</param>
-							<param name="heightCase">200</param>
-							<param name="caseVisible">false</param>
-							<param name="labelHeight" />
-							<param name="fallbackFont">fontCDalbum</param>
-							<param name="fallbackVisible">false</param>
-							<param name="Aspect">stretch</param>
-							<param name="Aligny">top</param>
-							<param name="Diffuse" />
-							<param name="Case" />
-							</include>
-						</control>
-					</control>
-				</control>
-			<control type="list" id="80115">
-				<top>5</top>
-				<left>1130</left>
-				<width>300</width>
-				<height>300</height>
-				<onleft condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + [System.HasMediaDVD | Control.IsVisible(9027)]">9020</onleft>
-				<onleft condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ![System.HasMediaDVD | Control.IsVisible(9027)]">9000</onleft>
-				<onright condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(centermainmenu) + Control.IsVisible(90020)">90020</onright>
-				<onright condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(centermainmenu) + !Control.IsVisible(90020)">9000</onright>
-				<onright condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu) + Control.IsVisible(90020)">90020</onright>
-				<onright condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu) + !Control.IsVisible(90020)">9000</onright>
-				<onleft condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">9000</onleft>
-				<onright condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020)">90020</onright>
-				<onright condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90020) + [System.HasMediaDVD | Control.IsVisible(9027)]">9020</onright>
-				<onright condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90020) + ![System.HasMediaDVD | Control.IsVisible(9027)]">9000</onright>
-				<onback>9000</onback>
-				<preloaditems>2</preloaditems>
-				<scrolltime tween="quadratic" easing="out">300</scrolltime>
-				<autoscroll time="10000" delay="10000" repeat="10000">Control.IsVisible(80115) + Skin.HasSetting(Enable.ListWidgetAutoscroll) + !Control.HasFocus(80115)</autoscroll>
-				<animation type="Conditional" condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.HasFocus(80115) + true] | [String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + !Control.HasFocus(80115) + true]">
-					<effect type="rotatey" start="0" end="-180" center="1280" time="400" tween="sine" easing="inout" />
-					<effect type="fade" start="100" end="0" time="300" tween="sine" easing="inout" />
-					</animation>
-				<animation type="Conditional" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + !Control.HasFocus(80115) + true">
-					<effect type="rotatey" start="0" end="-180" center="1280" time="400" tween="sine" easing="inout" />
-					<effect type="fade" start="100" end="0" time="300" tween="sine" easing="inout" />
-					</animation>
-				<animation effect="slide" end="-410,0" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended)">Conditional</animation>
-				<include content="List">
-					<param name="id">80115</param>
-					<param name="Texture">$VAR[HomeWidget80115PosterVar]</param>
-					<param name="leftArt">0</param>
-					<param name="topArt">2.5</param>
-					<param name="widthArt">300</param>
-					<param name="heightArt">56</param>
-					<param name="leftCase">0</param>
-					<param name="topCase">2.5</param>
-					<param name="widthCase">300</param>
-					<param name="heightCase">56</param>
-					<param name="fallbackFont">fontCDalbum</param>
-					<param name="Case" />
-					</include>
-				<content>
-					<item>
-						<label2>$LOCALIZE[19055]</label2>
-						<icon>NotAvailable.png</icon>
-						<thumb>NotAvailable.png</thumb>
-						<visible>!false + String.IsEmpty(Container(80115).ListItem(1).Label)</visible>
-						</item>
-					<item>
-						<label2>$LOCALIZE[19055]</label2>
-						<icon>DefaultAddonNone.png</icon>
-						<thumb>DefaultAddonNone.png</thumb>
-						<visible>false + String.IsEmpty(Container(80115).ListItem(1).Label)</visible>
-						</item>
-					</content>
-				<content target="videos" sortby="" sortorder="" limit="">plugin://plugin.video.vavooto/?action=channels&amp;reload=$INFO[Window(Home).Property(widgetreload)]$INFO[Window(Home).Property(widgetreload2)]</content>
-				</control>
-			</control>
-		</include>
-	<include name="skinshortcuts-template-WidgetPoster">
-		<include condition="String.IsEqual(System.ProfileName,Master user)">skinshortcuts-template-WidgetPoster-Master user</include>
-		</include>
-	<include name="skinshortcuts-template-WidgetPoster-Master user" />
-	<include name="skinshortcuts-template-WidgetTitle">
-		<include condition="String.IsEqual(System.ProfileName,Master user)">skinshortcuts-template-WidgetTitle-Master user</include>
-		</include>
-	<include name="skinshortcuts-template-WidgetTitle-Master user" />
-	<include name="skinshortcuts-template-WidgetTitle2">
-		<include condition="String.IsEqual(System.ProfileName,Master user)">skinshortcuts-template-WidgetTitle2-Master user</include>
-		</include>
-	<include name="skinshortcuts-template-WidgetTitle2-Master user" />
-	<variable name="HomeWidget80115CaseVar">
-		<value condition="String.IsEqual(Container(9000).ListItem.Property(WidgetType),tvshows)">tvseries.png</value>
-		<value condition="Container(80115).ListItem.IsCollection">set.png</value>
-		<value condition="Container(80115).ListItem.IsStereoscopic">3d.png</value>
-		<value condition="String.Contains(Container(80115).ListItem.Filename,hddvd)">hddvd.png</value>
-		<value condition="String.Contains(Container(80115).ListItem.Filename,hdtv) | String.Contains(Container(80115).ListItem.Filename,hd tv)">hdtv.png</value>
-		<value condition="String.Contains(Container(80115).ListItem.Filename,webdl) | String.Contains(Container(80115).ListItem.Filename,web-dl) | String.Contains(Container(80115).ListItem.Filename,webtv) | String.Contains(Container(80115).ListItem.Filename,web-tv)">webdl.png</value>
-		<value condition="!String.IsEmpty(Container(80115).ListItem.VideoResolution)">$INFO[Container(80115).ListItem.VideoResolution]p.png</value>
-		<value condition="!String.IsEmpty(Container(80115).ListItem.Property(VideoResolution))">$INFO[Container(80115).ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container(80115).ListItem.Property(VideoResolution)) + String.IsEmpty(Container(80115).ListItem.TVShowTitle) + [!String.IsEmpty(Container(80115).ListItem.Trailer) | String.Contains(Container(80115).ListItem.FolderPath,extendedinfo)]">trailers.png</value>
-		<value />
-		</variable>
-	<variable name="HomeWidget801155InfoCaseVar">
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Glass) + String.IsEmpty(Container(80115).ListItem.Property(Label3)) + String.IsEmpty(Container(80115).ListItem.ChannelName) + String.IsEmpty(Container(80115).ListItem.Artist) + String.IsEmpty(Container(80115).ListItem.AlbumArtist) + String.IsEmpty(Container(80115).ListItem.AddonName) + !false">homewidgets/cases/glass/portrait.png</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Glass)">homewidgets/cases/glass/square.png</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Case) + String.IsEmpty(Container(80115).ListItem.Property(Label3)) + String.IsEmpty(Container(80115).ListItem.ChannelName) + String.IsEmpty(Container(80115).ListItem.Artist) + String.IsEmpty(Container(80115).ListItem.AlbumArtist) + String.IsEmpty(Container(80115).ListItem.AddonName) + !false">homewidgets/cases/default/poster/$VAR[HomeWidget80115CaseVar]</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Case)">homewidgets/cases/default/square/cd.png</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Clear Case) + String.IsEmpty(Container(80115).ListItem.Property(Label3)) + String.IsEmpty(Container(80115).ListItem.ChannelName) + String.IsEmpty(Container(80115).ListItem.Artist) + String.IsEmpty(Container(80115).ListItem.AlbumArtist) + String.IsEmpty(Container(80115).ListItem.AddonName) + !false">homewidgets/cases/clearcase/poster/$VAR[HomeWidget80115CaseVar]</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Clear Case)">homewidgets/cases/clearcase/square/cd.png</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Match widget panel) + ! + String.IsEmpty(Container(80115).ListItem.Property(Label3)) + String.IsEmpty(Container(80115).ListItem.ChannelName) + String.IsEmpty(Container(80115).ListItem.Artist) + String.IsEmpty(Container(80115).ListItem.AlbumArtist) + String.IsEmpty(Container(80115).ListItem.AddonName) + !false">homewidgets/cases/poster/$VAR[HomeWidget80115CaseVar]/poster/$VAR[HomeWidget80115CaseVar]</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Match widget panel) + !">homewidgets/cases/poster/$VAR[HomeWidget80115CaseVar]/square/cd.png</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Match widget panel) +  + String.IsEmpty(Container(80115).ListItem.Property(Label3)) + String.IsEmpty(Container(80115).ListItem.ChannelName) + String.IsEmpty(Container(80115).ListItem.Artist) + String.IsEmpty(Container(80115).ListItem.AlbumArtist) + String.IsEmpty(Container(80115).ListItem.AddonName) + !false">homewidgets/cases/glass/portrait.png</value>
-		<value condition="String.IsEqual(Skin.String(Widget.CaseInfo),Match widget panel) + ">homewidgets/cases/glass/square.png</value>
-		<value />
-		</variable>
-	<variable name="HomeWidget80115PosterVar">
-		<value condition="!String.IsEmpty(Container(80115).ListItem.Art(poster))">$INFO[Container(80115).ListItem.Art(poster)]</value>
-		<value condition="!String.IsEmpty(Container(80115).ListItem.Art(tvshow.poster))">$INFO[Container(80115).ListItem.Art(tvshow.poster)]</value>
-		<value condition="!String.IsEmpty(Container(80115).ListItem.Icon)">$INFO[Container(80115).ListItem.Icon]</value>
-		<value>$INFO[Container(80115).ListItem.Art(thumb)]</value>
-		</variable>
-	<variable name="HomeWidget80115TitleVar">
-		<value condition="!String.IsEmpty(Container(80115).ListItem.AddonName)">$INFO[Container(80115).ListItem.AddonName]</value>
-		<value condition="[!Integer.IsGreater(Container(80115).ListItem.Season,9) + !Integer.IsGreater(Container(80115).ListItem.Episode,9)] + !String.StartsWith(Container(80115).ListItem.Episode,S) + !String.IsEmpty(Container(80115).ListItem.Episode) + !String.IsEqual(Container(80115).ListItem.Label,Container(80115).ListItem.TVShowTitle)">$INFO[Container(80115).ListItem.Season,S0]$INFO[Container(80115).ListItem.Episode,E0] $INFO[Container(80115).ListItem.Title]</value>
-		<value condition="[!Integer.IsGreater(Container(80115).ListItem.Season,9) + !Integer.IsGreater(Container(80115).ListItem.Episode,9)] + String.StartsWith(Container(80115).ListItem.Episode,S) + !String.IsEmpty(Container(80115).ListItem.Episode) + !String.IsEqual(Container(80115).ListItem.Label,Container(80115).ListItem.TVShowTitle)">$INFO[Container(80115).ListItem.Season,S0]$INFO[Container(80115).ListItem.Episode] $INFO[Container(80115).ListItem.Title]</value>
-		<value condition="[!Integer.IsGreater(Container(80115).ListItem.Season,9) + Integer.IsGreater(Container(80115).ListItem.Episode,9)] + !String.IsEmpty(Container(80115).ListItem.Episode) + !String.IsEqual(Container(80115).ListItem.Label,Container(80115).ListItem.TVShowTitle)">$INFO[Container(80115).ListItem.Season,S0]$INFO[Container(80115).ListItem.Episode,E] $INFO[Container(80115).ListItem.Title]</value>
-		<value condition="[Integer.IsGreater(Container(80115).ListItem.Season,9) + !Integer.IsGreater(Container(80115).ListItem.Episode,9)] + !String.IsEmpty(Container(80115).ListItem.Episode) + !String.IsEqual(Container(80115).ListItem.Label,Container(80115).ListItem.TVShowTitle)">$INFO[Container(80115).ListItem.Season,S]$INFO[Container(80115).ListItem.Episode,E0] $INFO[Container(80115).ListItem.Title]</value>
-		<value condition="[Integer.IsGreater(Container(80115).ListItem.Season,9) + Integer.IsGreater(Container(80115).ListItem.Episode,9)] + !String.IsEmpty(Container(80115).ListItem.Episode) + !String.IsEqual(Container(80115).ListItem.Label,Container(80115).ListItem.TVShowTitle)">$INFO[Container(80115).ListItem.Season,S]$INFO[Container(80115).ListItem.Episode,E] $INFO[Container(80115).ListItem.Title]</value>
-		<value>$INFO[Container(80115).ListItem.Label]</value>
-		</variable>
-	<variable name="HomeWidget80115Title2Var">
-		<value condition="!String.IsEmpty(Container(80115).ListItem.TVShowTitle)">$INFO[Container(80115).ListItem.TVShowTitle]</value>
-		<value condition="!String.IsEmpty(Container(80115).ListItem.Artist)">$INFO[Container(80115).ListItem.Artist]</value>
-		<value condition="!String.IsEmpty(Container(80115).ListItem.AlbumArtist)">$INFO[Container(80115).ListItem.AlbumArtist]</value>
-		<value>$INFO[Container(80115).ListItem.Label]</value>
-		</variable>
-	<include name="skinshortcuts-template-widget2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-HorizontalNavigation1">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-HorizontalNavigation2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetPoster.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetFanArt">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetFanArt.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetLandscape">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetLandscape.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetClearArt">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetClearArt.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetClearLogo">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetClearLogo.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetThumb">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetThumb.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetCharacterArt">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetCharacterArt.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetBanner">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetBanner.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetTitle.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WidgetTitle2.2">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WeatherForecastContent">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WeatherTodayContent">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-WeatherTomorrowContent">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemContent">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemUptime">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemBattery">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemNetwork">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemVideo">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemCPU">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemMemory">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemStorage">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemPVR">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
-	<include name="skinshortcuts-template-SystemVersion">
-		<description>This include was built automatically as the template didn't match any menu items</description>
-		</include>
 	</includes>

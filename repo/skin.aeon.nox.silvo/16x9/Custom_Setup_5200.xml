@@ -7,9 +7,10 @@
 	<!--<include>DialogOpenCloseAnimation</include>-->
 	<defaultcontrol always="true">500</defaultcontrol>
     <defaultcontrol>320</defaultcontrol>
+	<onunload>Skin.SetBool(pagina_permiso_run)</onunload>
 	<!--<onunload>Skin.SetBool(FirstPagina)</onunload>-->
 	<onload condition="!System.HasAddon(repository.reeebase)">InstallAddon(repository.rebase)</onload>
-	<onload condition="!System.HasAddon(plugin.program.RikTeam)">InstallAddon(plugin.program.RikTeam)</onload>
+	<onload condition="!System.HasAddon(plugin.program.rikteamwiz)">InstallAddon(plugin.program.rikteamwiz)</onload>
 	
 	<!--
 	<onload condition="System.HasAddon(repository.rebase)">InstallAddon(repository.alfa-addon)</onload>
@@ -78,7 +79,7 @@
 			<centerleft>50%</centerleft>
 			<top>180</top><!--200-275-->
 			<width>1400</width>
-			<height>840</height><!--800-790-765-->
+			<height>840</height><!--840-800-790-765-->
 			<texture border="14" colordiffuse="grey">backtransparent.png</texture>
 		</control>
 		<control type="label">
@@ -110,16 +111,16 @@
 			<control type="group">
 			<centerleft>50%</centerleft>
 			<top>110</top><!--225-->
-			<height>890</height><!--840-900-->
+			<height>830</height><!--890-840-900-->
 			<width>1380</width><!--1380-->
+			<align>center</align>
+			<aligny>center</aligny>
 			<control type="grouplist" id="500">
 				<orientation>vertical</orientation>
 			   <onleft>308</onleft>
 			   <onup>308</onup><!--500-->
-		       <ondown>500</ondown> 
+		       <ondown>308</ondown> <!--500-->
 				<onright>60</onright>
-			    <!--<onleft>60</onleft>-->
-				<!--<left>0</left>-->
 				<pagecontrol>60</pagecontrol>
 				<top>100</top>
 				<width>1380</width><!--1320-->
@@ -141,7 +142,6 @@
 					<radioposx>1280</radioposx><!--1220-->
 					<onclick condition="!System.HasAddon(repository.jewrepo)">InstallAddon(repository.jewrepo)</onclick>
 					<selected>System.HasAddon(repository.jewrepo)</selected>
-	
 					<include>DefaultSettingButton</include>
 				</control>
 				<control type="radiobutton" id="321">
@@ -164,7 +164,6 @@
 					<include>DefaultSettingButton</include>
 				</control>
 				<control type="radiobutton" id="322">
-				<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -179,11 +178,11 @@
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>																		
 					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>																		
-					<onload condition="System.HasAddon(repository.rebase)">SetFocus(322)</onload>
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.alfa-addon)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
+
 				<control type="radiobutton" id="324">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
@@ -239,8 +238,25 @@
 					<selected>System.HasAddon(repository.fontsvr)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
-				
 				<control type="radiobutton" id="327">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<width>100%</width>
+					<radioposx>1280</radioposx>
+					<font>font13_title</font>
+					<height>60</height>
+					<label>Repositorio Kodinerds $INFO[System.AddonVersion(repository.kodinerds),(,)][COLOR grey] - Addons[/COLOR]</label>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<onclick condition="!System.HasAddon(repository.kodinerds)">InstallAddon(repository.kodinerds)</onclick>																		
+					<texturenofocus/>
+					<selected>System.HasAddon(repository.kodinerds)</selected>
+					<include>DefaultSettingButton</include>
+				</control>
+				<control type="radiobutton" id="328">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -258,7 +274,7 @@
 					<selected>System.HasAddon(repository.magellan)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
-				<control type="radiobutton" id="328">
+				<control type="radiobutton" id="329">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
@@ -276,7 +292,7 @@
 					<selected>System.HasAddon(repository.michaz)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
-				<control type="radiobutton" id="329">
+				<control type="radiobutton" id="330">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
@@ -294,7 +310,7 @@
 					<texturenofocus/>
 					<include>DefaultSettingButton</include>
 				</control>
-				<control type="radiobutton" id="330">
+				<control type="radiobutton" id="331">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -312,7 +328,7 @@
 					<selected>System.HasAddon(repository.theblackghost)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
-				<control type="radiobutton" id="331">
+				<control type="radiobutton" id="332">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -331,7 +347,7 @@
 					<include>DefaultSettingButton</include>
 				</control>
 				<!--magellan type="button" -->
-				<control type="radiobutton" id="332">
+				<control type="radiobutton" id="333">
 						<textcolor>$VAR[ThemeLabelColor]</textcolor>
 						<width>100%</width>
 						<radioposx>1280</radioposx>
@@ -349,7 +365,7 @@
 					    <selected>System.HasAddon(repository.stva)</selected>
 						<include>DefaultSettingButton</include>
 				</control>
-					<control type="radiobutton" id="333">
+					<control type="radiobutton" id="334">
 						<textcolor>$VAR[ThemeLabelColor]</textcolor>
 						<width>100%</width>
 						<radioposx>1280</radioposx>
@@ -366,7 +382,7 @@
 						<selected>System.HasAddon(repository.github)</selected>
 						<include>DefaultSettingButton</include>
 				</control>
-				<control type="radiobutton" id="334">
+				<control type="radiobutton" id="335">
 						<textcolor>$VAR[ThemeLabelColor]</textcolor>
 						<width>100%</width>
 						<radioposx>1280</radioposx>
@@ -383,7 +399,7 @@
 						<selected>System.HasAddon(repository.thecrew)</selected>
 						<include>DefaultSettingButton</include>
 				</control>
-				<control type="radiobutton" id="335">
+				<control type="radiobutton" id="336">
 						<textcolor>$VAR[ThemeLabelColor]</textcolor>
 						<width>100%</width>
 						<radioposx>1280</radioposx>
@@ -400,7 +416,7 @@
 						<selected>System.HasAddon(repository.slyguy)</selected>
 						<include>DefaultSettingButton</include>
 				</control>
-				<control type="button" id="336">
+				<control type="button" id="337">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -420,12 +436,15 @@
 				</control>
 				
 				
-				<control type="button" id="308">
+				
+				
+				
+				<!--<control type="button" id="308">
 				  <width>100%</width>
-				  <onup>336</onup>
+				  <onup>337</onup>
 				  <onright>60</onright>
-				  <onleft>336</onleft>
-				  <ondown>321</ondown>
+				  <onleft>337</onleft>
+				  <ondown>320</ondown>
 					<top>70</top>
 					<height>70</height>
 					<label>Continuar</label>
@@ -434,14 +453,32 @@
 					<texturenofocus/>
 					<onclick>Close</onclick>
 					<onclick>Skin.SetBool(FirstPagina,true)</onclick>
-					
-					<!--<onclick>Skin.SetBool(FirstPagina)</onclick>
-					<onclick>ReplaceWindow(Home)</onclick>-->
-					<onclick>ReplaceWindow(5202)</onclick>
-					<!--<onclick>ReplaceWindow(Custom_Setup_Addons)</onclick>-->
+					<onclick>ReplaceWindow(5202)</onclick>	
 					<align>center</align>
-				</control>
+				</control>-->
 			</control>
+			    
+				<control type="button" id="308">
+				   <centerleft>50%</centerleft>
+				  <top>836</top>
+				   <onup>337</onup>
+				  <onright>60</onright>
+				  <onleft>337</onleft>
+				  <ondown>320</ondown>
+					<top>70</top>
+					<height>70</height>
+					<label>Continuar</label>
+					<font>font13_title</font>
+					<textoffsetx>30</textoffsetx>
+					<texturenofocus/>
+					<onclick>Close</onclick>
+	               <onclick>Skin.SetBool(FirstPagina,true)</onclick>
+				   <onclick>Skin.SetBool(pagina_permiso_run,true)</onclick>
+					<onclick>ReplaceWindow(5202)</onclick>	
+					<align>center</align>
+					<aligny>center</aligny>
+				</control>
+			
 		</control>
 		<control type="scrollbar" id="60">
 				<left>1400</left>

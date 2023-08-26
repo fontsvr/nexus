@@ -52,7 +52,7 @@ class MainMenu:
                                    themeit=CONFIG.THEME2)
         if len(CONFIG.BUILDNAME) > 0:
             version = check.check_build(CONFIG.BUILDNAME, 'version')
-            build = '{0}'.format(CONFIG.BUILDNAME)
+            build = 'Ajuste Actual: {0}'.format(CONFIG.BUILDNAME)
             if version > CONFIG.BUILDVERSION:
                 build = 'Ajustes [COLOR yellow]- Nueva versión disponible[/COLOR]'.format(build)
             directory.add_dir(build, {'mode': 'builds', 'name': CONFIG.BUILDNAME}, themeit=CONFIG.THEME1)

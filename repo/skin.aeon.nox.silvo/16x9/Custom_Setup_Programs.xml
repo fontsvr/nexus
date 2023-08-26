@@ -14,7 +14,7 @@
 	<!--<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.stva)">InstallAddon(script.stva)</onload>-->
 	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(plugin.video.cristalazul) + !System.HasAddon(repository.resolveurl)">InstallAddon(repository.resolveurl)</onload>
 	<onload condition="System.HasAddon(pvr.iptvsimple) + !System.HasAddon(slyguy.pluto.tv.provider) + System.HasAddon(repository.slyguy)">InstallAddon(slyguy.pluto.tv.provider)</onload>																		
-					
+	<onload condition="System.HasAddon(pvr.iptvsimple) + System.HasAddon(slyguy.pluto.tv.provider) + System.HasAddon(repository.slyguy)">InstallAddon(plugin.program.iptv.merge)</onload>			
     <controls>
 		<include>background</include>
 		<control type="group">
@@ -22,7 +22,6 @@
 			<width>100%</width>
 			<top>0</top>
 			<height>100%</height>
-			<!--<visible>Control.HasFocus(303) | Control.HasFocus(304)</visible>-->
 			<visible>Control.HasFocus(320)</visible>
 			<control type="image">
 			<aspectratio scalediffuse="false">keep</aspectratio>
@@ -97,6 +96,44 @@
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
 					<height>60</height>
+					<label>Script RikTeam $INFO[System.AddonVersion(script.rikteam),(,)] [COLOR grey]- Instalador de Ajustes para Skins[/COLOR]</label>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>
+					<onclick condition="!System.HasAddon(script.rikteam) + System.HasAddon(repository.rebase)">InstallAddon(script.rikteam)</onclick>																		
+					<selected>System.HasAddon(script.rikteam)</selected>
+					<texturenofocus/>
+				</control>
+				<control type="radiobutton" id="321">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<width>100%</width>
+					<radioposx>1280</radioposx>
+					<font>roboto30</font>
+					<height>60</height>
+					<label>[COLOR 80FFFFFF][B] ∟ Ajustes del Skin[/B][/COLOR][COLOR grey][B] - Ajustes del skin para: Alfa, PVR, Vavoo, Cristal Azul...[/B][/COLOR]</label>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<onclick>Close</onclick>
+					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes",return)</onclick>
+					<onclick condition="!System.HasAddon(script.rikteam) + System.HasAddon(repository.rebase)">InstallAddon(script.rikteam)</onclick>	
+					<!--<onclick condition="Skin.HasSetting(preguntado_ajustes">Skin.SetBool(preguntado_ajustes,false)</onclick>-->														
+					<selected>Skin.HasSetting(preguntado_ajustes)</selected>
+					<texturenofocus/>
+				</control>
+				<control type="radiobutton" id="322">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<width>100%</width>
+					<radioposx>1280</radioposx>
+					<font>font13_title</font>
+					<height>60</height>
 					<label>RikTeam_fonts $INFO[System.AddonVersion(plugin.RikTeam_fonts),(,)][COLOR grey] - * Para añadir las fuentes más actuales a Kodi[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
@@ -109,11 +146,11 @@
 					<selected>System.HasAddon(plugin.video.plugin.RikTeam_fonts)</selected>
 					<texturenofocus/>
 				</control>	
-				<control type="radiobutton" id="321">
+				<control type="radiobutton" id="323">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
-					<label>Builds RikTeam $INFO[System.AddonVersion(plugin.program.RikTeam),(,)][COLOR grey] - * Ajustes, parches, herramientas, Skins y Builds[/COLOR]</label>
+					<label>Builds RikTeamWiz $INFO[System.AddonVersion(plugin.program.rikteamwiz),(,)][COLOR grey] - * Ajustes, parches, herramientas y Builds[/COLOR]</label>
                     <radioposx>1280</radioposx>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
@@ -123,11 +160,11 @@
 					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>																	
-					<onclick condition="!System.HasAddon(plugin.program.RikTeam) + System.HasAddon(repository.rebase)">InstallAddon(plugin.program.RikTeam)</onclick>																		
+					<onclick condition="!System.HasAddon(plugin.program.rikteamwiz) + System.HasAddon(repository.rebase)">InstallAddon(plugin.program.rikteamwiz)</onclick>																		
 					<texturenofocus/>
-					<selected>System.HasAddon(plugin.program.RikTeam)</selected>
+					<selected>System.HasAddon(plugin.program.rikteamwiz)</selected>
 				</control>
-				<control type="radiobutton" id="322">
+				<control type="radiobutton" id="324">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -145,7 +182,7 @@
 					<selected>System.HasAddon(script.luar)</selected>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="323">
+				<control type="radiobutton" id="325">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
@@ -164,7 +201,7 @@
 					<include>DefaultSettingButton</include>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="324">
+				<control type="radiobutton" id="326">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
@@ -182,7 +219,7 @@
 					<selected>System.HasAddon(script.module.horus)</selected>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="325">
+				<control type="radiobutton" id="327">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -198,11 +235,29 @@
 					<onclick condition="!System.HasAddon(script.module.resolveurl) + System.HasAddon(repository.resolveurl)">InstallAddon(script.module.resolveurl)</onclick>
 					<selected>System.HasAddon(script.module.resolveurl)</selected>
 				</control>
-				<control type="radiobutton" id="326">
+				<control type="radiobutton" id="328">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
-					<label>PVR IPTV Simple Client $INFO[System.AddonVersion(pvr.iptvsimple),(,)] [COLOR grey]- Cliente IPTV[/COLOR]</label>
+					<label>Iptv Merge $INFO[System.AddonVersion(plugin.program.iptv.merge),(,)] [COLOR grey]- Enlazar varias listas iptv en una (TDTChannels y Pluto TV)[/COLOR]</label>
+					<radioposx>1280</radioposx>
+					<height>60</height>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<onclick condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(plugin.program.iptv.merge)</onclick>																		
+					<selected>System.HasAddon(plugin.program.iptv.merge)</selected>
+					<texturenofocus/>
+				</control>
+				
+				<control type="radiobutton" id="329">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<width>100%</width>
+					<font>font13_title</font>
+					<label>PVR IPTV Simple Client $INFO[System.AddonVersion(pvr.iptvsimple),(,)] [COLOR grey]- Cliente IPTV para TDTChannels y Pluto TV[/COLOR]</label>
 					<radioposx>1280</radioposx>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
@@ -215,10 +270,10 @@
 					<selected>System.HasAddon(pvr.iptvsimple)</selected>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="327">
+				<control type="radiobutton" id="330">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<font>roboto30</font>
-					<label>[COLOR 80FFFFFF][B] ∟ Pluto TV $INFO[System.AddonVersion(slyguy.pluto.tv.provider),(,)][/B][/COLOR][COLOR grey][B] - Televisión[/B][/COLOR]</label>
+					<label>[COLOR 80FFFFFF][B] ∟ Pluto TV $INFO[System.AddonVersion(slyguy.pluto.tv.provider),(,)][/B][/COLOR][COLOR grey][B] - Televisión para PVR IPTV Simple Client[/B][/COLOR]</label>
 					<width>100%</width>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
@@ -233,7 +288,26 @@
 					<selected>System.HasAddon(slyguy.pluto.tv.provider)</selected>
 					<texturenofocus/>					
 				</control>
-				<control type="radiobutton" id="328">
+				<control type="radiobutton" id="321">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<width>100%</width>
+					<radioposx>1280</radioposx>
+					<font>roboto30</font>
+					<height>60</height>
+					<label>[COLOR 80FFFFFF][B] ∟ TV Channels[/B][/COLOR][COLOR grey][B] - Ajuste establecido de canales para PVR IPTV Simple Client[/B][/COLOR]</label>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<onclick condition="!Skin.HasSetting(preguntado_ajustes">Close</onclick>
+					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes",return)</onclick>	
+					<onclick condition="!System.HasAddon(script.rikteam) + System.HasAddon(repository.rebase)">InstallAddon(script.rikteam)</onclick>													
+					<selected>Skin.HasSetting(preguntado_ajustes)</selected>
+					<texturenofocus/>
+				</control>
+				<control type="radiobutton" id="331">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -251,7 +325,7 @@
 					<include>DefaultSettingButton</include>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="329">
+				<control type="radiobutton" id="332">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
@@ -270,7 +344,7 @@
 					<include>DefaultSettingButton</include>
 					<texturenofocus/>
 				</control>
-					<control type="radiobutton" id="330">
+					<control type="radiobutton" id="333">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
@@ -287,7 +361,7 @@
 					<selected>System.HasAddon(plugin.video.elementum)</selected>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="331">
+				<control type="radiobutton" id="334">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -304,7 +378,7 @@
 					<selected>System.HasAddon(script.limpiarkodi)</selected>
 					<texturenofocus/>
 				</control>
-				<control type="radiobutton" id="333">
+				<control type="radiobutton" id="335">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -322,7 +396,7 @@
 					<selected>System.HasAddon(resource.images.studios.coloured)</selected>
 				</control>
 				
-				<control type="radiobutton" id="334">
+				<control type="radiobutton" id="336">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
@@ -339,14 +413,12 @@
 					<selected>System.HasAddon(script.embuary.info)</selected>
 					<texturenofocus/>
 				</control>
-		
-				</control>
-				
+			</control>
 				
 				<control type="button" id="308">
 				  <centerleft>35%</centerleft>
 				  <top>836</top>
-				  <onup>334</onup>
+				  <onup>336</onup>
 				  <onright>309</onright>
 				  <onleft>334</onleft>
 				  <ondown>320</ondown>
@@ -363,7 +435,7 @@
 				<control type="button" id="309">
 				  <centerleft>65%</centerleft>
 				  <top>836</top>
-				  <onup>334</onup>
+				  <onup>336</onup>
 				  <onright>60</onright>
 				  <onleft>308</onleft>
 				  <ondown>320</ondown>
@@ -375,11 +447,10 @@
 					<texturenofocus/>
 					<onclick>Close</onclick>
 	                <onclick>Skin.SetBool(3RunSetup,true)</onclick>
-					<!--<onclick>Skin.SetBool(FirstPagina)</onclick>
-					<onclick>ReplaceWindow(Home)</onclick>-->
+					 <onclick>Skin.SetBool(pagina_permiso_run,true)</onclick>
+					<onclick>ReplaceWindow(Home)</onclick>
 					<align>center</align>
 				</control>
-		
 		</control>
 		<control type="scrollbar" id="60">
 				<left>1400</left>

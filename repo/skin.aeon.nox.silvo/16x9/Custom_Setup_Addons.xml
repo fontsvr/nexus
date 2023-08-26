@@ -391,7 +391,7 @@
 					<texturenofocus/>
 					<onclick>Close</onclick>
 	                <onclick>Skin.SetBool(FirstRunSetup,true)</onclick>
-					<!--<onclick>Skin.SetBool(FirstPagina)</onclick>-->
+					<onclick>Skin.SetBool(pagina_permiso_run,true)</onclick>
 					<onclick>ReplaceWindow(5203)</onclick>
 					<align>center</align>
 				</control>

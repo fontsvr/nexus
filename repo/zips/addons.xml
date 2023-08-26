@@ -436,33 +436,6 @@
       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.rikteam" name="[COLOR orchid][B]RikTeam Wizard[/B][/COLOR]" version="3.3" provider-name="Rik Team">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="script.module.requests" />
-		<import addon="script.module.six" />
-		<import addon="script.kodi.android.update" optional="true" version="1.1.7" />
-		<import addon="script.speedtester" optional="true" version="1.1.2" />
-	</requires>
-	
-	<extension point="xbmc.python.pluginsource" debugging="true" library="default.py">
-		<provides>executable</provides>
-	</extension>
-  
-	<extension point="xbmc.service" library="startup.py" start="startup" />
-  
-	<extension point="xbmc.addon.metadata">
-		<summary lang="es">[COLOR orchid][B]RikTeam Wizard[/B][/COLOR] tu Wizard para Kodi 19.x y Kodi 20.x</summary>
-		<description>[B]• Developers:[/B] [COLOR gold]Rik Team[/COLOR]</description>
-		<platform>all</platform>
-		<reuselanguageinvoker>false</reuselanguageinvoker>
-		<source>https://github.com/fontsvr/fontsvr.github.io</source>
-		<news>[COLOR orchid][B]RikTeam Wizard[/B][/COLOR]</news>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
 </addon><addon id="plugin.program.rikteamwiz" name="[COLOR azure][B]RikTeam[/B][/COLOR] [COLOR white][B]Wizard[/B][/COLOR] [COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0.0" provider-name="Rik Team">
     <requires>
 		<import addon="script.speedtester" optional="true" version="1.1.2" />
@@ -2336,6 +2309,9 @@ No se acepta ninguna responsabilidad por el uso de este addon.
     <description lang="en">Utilidades para Skins RikTeam. Ajustes y herramientas para addons.</description>
         <platform>all</platform>
         <reuselanguageinvoker>false</reuselanguageinvoker>
+		<assets>
+            <icon>icon.png</icon>
+        </assets>
     </extension>
 </addon><addon id="script.skinshortcuts" name="Skin Shortcuts" version="2.0.3" provider-name="BigNoid, marcelveldt, SiLVO, anxdpanic">
     <requires>

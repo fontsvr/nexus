@@ -71,7 +71,7 @@
 				<itemgap>5</itemgap>
 				<control type="button" id="11">
 					<description>Yes button</description>
-					<width>400</width><!--<width>287</width>-->
+					<width>287</width><!--<width>287</width>-->
 					<height>60</height>
 					<label>107</label>
 					<font>font15_title</font>
@@ -83,7 +83,7 @@
 				</control>
 				<control type="button" id="10">
 					<description>No button</description>
-					<width>400</width><!--<width>287</width>-->
+					<width>287</width><!--<width>287</width>-->
 					<height>60</height>
 					<label>106</label>
 					<font>font15_title</font>
@@ -95,7 +95,7 @@
 				</control>
 				<control type="button" id="12">
 					<description>Settings button</description>
-					<width>320</width><!--<width>287</width>-->
+					<width>287</width><!--<width>287</width>-->
 					<height>60</height>
 					<font>font15_title</font>
 					<textcolor>grey2</textcolor>

@@ -114,11 +114,27 @@
 					<top>46</top><!--<top>46</top>-->
 					<width>780</width>
 					<height>40</height>
-					<label>RIKTEAM v3.3</label>
+					<label>RIKTEAMWIZ $INFO[System.AddonVersion(plugin.program.rikteamwiz),,]</label>
 					<textoffsetx>15</textoffsetx>
 					<font>font12</font>
-					<textcolor>snow</textcolor><!--<textcolor>snow</textcolor>-->
+					<textcolor>hotpink</textcolor><!--<textcolor>$VAR[ThemeLabelColor]snow</textcolor>-->
 					<shadowcolor>shadow</shadowcolor>
+					<visible>System.AddonIsEnabled(plugin.program.rikteamwiz)</visible>
+				</control>
+				<control type="button">
+					<left>0</left>
+					<top>46</top><!--<top>46</top>-->
+					<width>780</width>
+					<height>40</height>
+					<label>RIKTEAMWIZ $INFO[System.AddonVersion(plugin.program.rikteamwiz),,]</label>
+					<textoffsetx>15</textoffsetx>
+					<font>font12</font>
+					<textcolor>grey3</textcolor><!--<textcolor>snow</textcolor>-->
+					<shadowcolor>shadow</shadowcolor>
+					<onclick condition="System.HasAddon(plugin.program.rikteamwiz) + !System.AddonIsEnabled(plugin.program.rikteamwiz)">EnableAddon(plugin.program.rikteamwiz)</onclick>
+					<texturefocus />
+					<texturenofocus />
+					<visible>!System.AddonIsEnabled(plugin.program.rikteamwiz)</visible>
 				</control>
 				<include condition="System.AddonIsEnabled(service.library.data.provider)">PlayListStatsList</include>
 				<control type="label">
