@@ -50,8 +50,6 @@
 	<color name="black 25%">41000000</color>
 	<color name="black 50%">81000000</color>
 	<color name="black 75%">c0000000</color>
-	<color name="lemonz">41000000</color>
-	<color name="lemon 50%">ffff0050</color>
 	<color name="blanched almond">ffffebcd</color>
 	<color name="bleu de france">ff318ce7</color>
 	<color name="blizzard blue">fface5ee</color>
@@ -459,9 +457,6 @@
 	<color name="lawn green">ff7cfc00</color>
 	<color name="lemon chiffon">fffffacd</color>
 	<color name="lemon">fffff700</color>
-	<color name="lemon2">fffff750</color>
-	<color name="lemon3">fffff720</color>
-	<color name="lemon4">fffff100</color>
 	<color name="light apricot">fffdd5b1</color>
 	<color name="light blue">ffadd8e6</color>
 	<color name="light brown">ffb5651d</color>

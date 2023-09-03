@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<includes> 
+<includes>
 	<!-- Horizontal -->
 	<include name="HorizontalSubMenu">
 		<control type="fixedlist" id="9010">
-			<left>66</left><!--<left>100</left>-->
-<top>12</top>
-			<width>1788</width><!--<width>1720</width>-->
+		<left>73</left><!--<left>66-100</left>-->
+		 <top>12</top><!---->
+			<width>1775</width><!--<width>1788-1720</width>-->
 			<height>100</height><!--<height>150-50</height>-->
 			<onup>9000</onup>
 			<onback>9000</onback>
@@ -16,11 +16,11 @@
 			<focusposition>2</focusposition>
 			<movement>2</movement>
 			<orientation>horizontal</orientation>
-			<itemlayout height="84" width="358"><!--width="349"-->
+			<itemlayout height="87" width="355"><!--width="358-344-349" height="87-84"-->
 				<control type="label">
-					<top>2</top><!--<top>2</top>-->
-					<width>358</width><!--<width>344</width>-->
-					<height>57</height><!--41 alt txt submenu-->
+					<top>2</top>
+					<width>355</width><!--<width>344</width>-->
+					<height>57</height><!--57-41 alt txt submenu-->
 					<font>font14_title</font>
 					<textcolor>$VAR[UnfocusedSubMenuColor]</textcolor>
 					<shadowcolor>shadow</shadowcolor>
@@ -28,18 +28,20 @@
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</itemlayout>
-			<focusedlayout height="84" width="358">
+			<focusedlayout height="87" width="355">
 				<control type="group">
 					<visible>Control.HasFocus(9010)</visible>
 					<control type="image">
 						<top>1</top>
-						<width>358</width>
-						<height>57</height><!--44-->
-						<texture colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texture>
+						<width>355</width>
+						<height>57</height><!--57-->
+						<texture colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texture><!--button-nofocus.png--->
 					</control>
+				
+					
 					<control type="label">
 						<top>2</top>
-						<width>358</width>
+						<width>355</width>
 						<height>57</height><!--41-->
 						<font>font14_title</font>
 						<textcolor>$VAR[FocusedSubMenuColor]</textcolor>
@@ -52,7 +54,7 @@
 					<visible>!Control.HasFocus(9010)</visible>
 					<control type="label">
 						<top>2</top>
-						<width>358</width>
+						<width>355</width>
 						<height>57</height><!--41-->
 						<font>font14_title</font>
 						<textcolor>$VAR[UnfocusedSubMenuColor]</textcolor>
@@ -67,20 +69,20 @@
 			</content>
 		</control>
 		<control type="button">
-			<left>20</left><!--<left>50</left>arrow-->
-<top>25</top>
+		   <left>20</left><!--<left>50</left>arrow-->
+		   <top>27</top><!--<top>10</top>-->
 			<width>30</width>
-			<height>30</height><!--30-->
+			<height>30</height>
 			<texturefocus flipx="true" colordiffuse="white">arrowright.png</texturefocus>
 			<texturenofocus flipx="true">arrowright.png</texturenofocus>
 			<visible>Container(9010).HasPrevious</visible>
 			<onclick>Control.Move(9010,-1)</onclick>
 		</control>
 		<control type="button">
-			<left>1870</left><!--<left>1840</left>-->
-<top>25</top>
+		   <left>1870</left><!--<left>1840</left>-->
+		   <top>27</top><!--<top>10</top>-->
 			<width>30</width>
-			<height>30</height><!--30-->
+			<height>30</height>
 			<texturefocus colordiffuse="white">arrowright.png</texturefocus>
 			<texturenofocus>arrowright.png</texturenofocus>
 			<visible>Container(9010).HasNext</visible>
@@ -89,7 +91,7 @@
 	</include>
 	<include name="HorizontalMenuSystemBars">
 		<control type="group">
-			<top>427</top><!--<top>474-427</top>--><!--varia posició de barra superior-->
+			<top>427</top>
 			<control type="group">
 				<animation effect="slide" end="0,338" time="320" tween="cubic" easing="inout" condition="!Skin.HasSetting(centermainmenu)">Conditional</animation>
 				<animation effect="slide" end="0,-812" time="320" tween="cubic" easing="inout" condition="![System.GetBool(lookandfeel.enablerssfeeds) + String.IsEqual(Skin.String(HorizontalRSSPosition),high)] + [System.GetBool(lookandfeel.enablerssfeeds) + !String.IsEqual(Skin.String(HorizontalRSSPosition),high) + Skin.HasSetting(SystemBarOnTop) + !Skin.HasSetting(centermainmenu)] | [!System.GetBool(lookandfeel.enablerssfeeds) + Skin.HasSetting(SystemBarOnTop) + !Skin.HasSetting(centermainmenu)]">Conditional</animation>
@@ -99,17 +101,17 @@
 				<animation effect="slide" end="0,-90" start="0,0" time="300" condition="[System.GetBool(lookandfeel.enablerssfeeds) + [String.IsEmpty(Skin.String(HorizontalRSSPosition)) | String.IsEqual(Skin.String(HorizontalRSSPosition),low)] + !String.IsEqual(Skin.String(HorizontalRSSPosition),high) + Skin.HasSetting(SystemBarOnTop)] | [!System.GetBool(lookandfeel.enablerssfeeds) + Skin.HasSetting(SystemBarOnTop)]">WindowClose</animation>
 				<control type="image">
 					<width>100%</width>
-					<height>87</height><!--<height>87</height>--><!--*barra superior bg?-->
+					<height>87</height>
 					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]" flipy="true">submenu_bar.png</texture>
 					<visible>[String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) | String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] + [String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) | String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
 				</control>
 				<control type="image">
 					<width>100%</width>
-					<height>87</height><!--<height>87</height>--><!--barra superior bg-->
+					<height>87</height>
 					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]" flipy="true">submenu_bar_white.png</texture>
 					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
 				</control>
-				 <control type="label">
+				<control type="label">
 					<left>0</left>
 					<top>46</top><!--<top>46</top>-->
 					<width>780</width>
@@ -117,7 +119,7 @@
 					<label>RIKTEAMWIZ $INFO[System.AddonVersion(plugin.program.rikteamwiz),,]</label>
 					<textoffsetx>15</textoffsetx>
 					<font>font12</font>
-					<textcolor>hotpink</textcolor><!--<textcolor>$VAR[ThemeLabelColor]snow</textcolor>-->
+					<textcolor>$VAR[FocusedMainMenuColor]</textcolor><!--<textcolor>hotpink-$VAR[ThemeLabelColor]snow</textcolor>-->
 					<shadowcolor>shadow</shadowcolor>
 					<visible>System.AddonIsEnabled(plugin.program.rikteamwiz)</visible>
 				</control>
@@ -129,28 +131,29 @@
 					<label>RIKTEAMWIZ $INFO[System.AddonVersion(plugin.program.rikteamwiz),,]</label>
 					<textoffsetx>15</textoffsetx>
 					<font>font12</font>
-					<textcolor>grey3</textcolor><!--<textcolor>snow</textcolor>-->
+					<textcolor>$VAR[UnfocusedMainMenuColor]</textcolor><!--<textcolor>grey3-snow</textcolor>-->
 					<shadowcolor>shadow</shadowcolor>
 					<onclick condition="System.HasAddon(plugin.program.rikteamwiz) + !System.AddonIsEnabled(plugin.program.rikteamwiz)">EnableAddon(plugin.program.rikteamwiz)</onclick>
+					<onclick condition="!System.AddonIsEnabled(plugin.program.rikteamwiz)">InstallAddon(plugin.program.rikteamwiz)</onclick>
 					<texturefocus />
 					<texturenofocus />
 					<visible>!System.AddonIsEnabled(plugin.program.rikteamwiz)</visible>
 				</control>
 				<include condition="System.AddonIsEnabled(service.library.data.provider)">PlayListStatsList</include>
 				<control type="label">
-					<top>46</top> <!--<top>46</top> -->
+					<top>46</top>
 					<width>1080</width>
 					<height>40</height>
 					<label>$VAR[LibraryStatsVar]</label>
 					<textoffsetx>20</textoffsetx>
-					<font>font13</font><!--font13_title-->
+					<font>font13_title</font>
 					<textcolor>$VAR[ThemeHomeLabelColor]</textcolor>
 					<shadowcolor>shadow</shadowcolor>
 				</control>
 				<control type="grouplist" id="9020">
 					<visible>!String.IsEmpty(Container(9000).ListItem.Property(InfoLine)) | !Skin.HasSetting(CenteredInfoLine)</visible>
 					<left>1100</left>
-					<top>44</top><!--<top>46</top>--><!--lletra dreta dalt-->
+					<top>46</top>
 					<width>800</width>
 					<height>41</height>
 					<align>right</align>
@@ -189,7 +192,7 @@
 					<control type="label" id="9025">
 						<width>auto</width>
 						<height>41</height>
-						<label>$INFO[System.Date,[COLOR white], • [/COLOR]]$INFO[System.Time,[COLOR yellow],[/COLOR]]</label><!--gray-->
+						<label>$INFO[System.Date,[COLOR white], • [/COLOR]]$INFO[System.Time,,]</label><!--gray-->
 						<font>font13</font><!--font13_title-->
 						<textcolor>$VAR[ThemeHomeLabelColor]</textcolor>
 						<shadowcolor>shadow</shadowcolor>
@@ -209,7 +212,7 @@
 					<include condition="System.AddonIsEnabled(script.globalsearch) + !Skin.HasSetting(Disable.SearchButton)">HomeSearchButton</include>
 					<control type="label" id="9026">
 						<width>5</width>
-						<height>41</height><!--<height>41</height>-->
+						<height>41</height>
 						<label />
 						<font>font13_title</font>
 						<textcolor>$VAR[ThemeHomeLabelColor]</textcolor>
@@ -242,7 +245,7 @@
 						<shadowcolor>shadow</shadowcolor>
 					</control>
 				</control>
-				<control type="image">
+				<control type="image"><!--barra brillante superior-->
 					<width>100%</width>
 					<top>45</top>
 					<height>2</height>
@@ -255,7 +258,7 @@
 	</include>
 	<include name="HorizontalMenu">
 		<control type="group">
-			<top>453</top><!--<top>500-453</top>-->
+			<top>453</top>
 			<animation effect="slide" end="0,338" time="320" tween="cubic" easing="inout" condition="!Skin.HasSetting(centermainmenu)">Conditional</animation>
 			<include>WindowOpenCloseAnimation</include>
 			<include condition="system.getbool(input.enablemouse)">SubmenuMouseButton</include>
@@ -272,66 +275,43 @@
 				<texture colordiffuse="$VAR[ThemeHomeMenuBarColor]">homemenu_back_white.png</texture>
 				<visible>!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)</visible>
 			</control>
-			<!--nou lloc barres prim primeradalt-->
-			<control type="image">
-				<width>100%</width>
-				<top>60</top><!--<top>115-58-60 barres primes</top>-->
-				<height>95</height><!--<height>50-3</height>-->
-				<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.png</texture>
-			</control>
-			<control type="image">
-				<width>100%</width>
-				<top>174</top><!--<top>155-59 barres primes</top>-->
-				<height>58</height><!--<height>3</height>-->
-				<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.png</texture>
-			</control>
-			
-			<control type="image"><!--canviat de lloc per mostrar dif sota txt-->
-				<top>176</top> <!--<top>114-176-90</top>2a capa fons barra principal oval-->
-				<width>100%</width>
-				<height>55</height><!--<height>44-60-72</height>-->
-				<texture border="1">gradient_floor.png</texture>
-				<visible>!String.IsEqual(Skin.String(MainMenu.Layout),icons)</visible>
-			</control>
-			<control type="image"><!--REPE canviat de lloc per mostrar dif sota txt-->
-				<top>83</top> <!--<top>114-176-90</top>2a capa fons barra principal oval-->
-				<width>100%</width>
-				<height>70</height><!--<height>44-60-72</height>-->
-				<texture border="1">gradient_floor.png</texture>
-				<visible>!String.IsEqual(Skin.String(MainMenu.Layout),icons)</visible>
-			</control>
 			<!-- Horizontal Menu Content -->
 			<include condition="Skin.HasSetting(HomeMenuNavVar) + !String.IsEqual(Skin.String(MainMenu.Layout),1)">MainMenuListFixed</include>
 			<include condition="!Skin.HasSetting(HomeMenuNavVar) | String.IsEqual(Skin.String(MainMenu.Layout),1)">MainMenuListWrapped</include>
 			<control type="image">
-				<top>150</top> <!--<top>150- 61</top>-->
-				<width>275</width><!--<width>275- 100</width>-->
-				<height>325</height><!--<height>325- 101</height>-->
+				<top>61</top>
+				<width>100</width>
+				<height>101</height>
 				<texture border="1">side_fade.png</texture>
 			</control>
 			<control type="image">
-				<left>1600</left><!--<left>1600-1820</left>-->
-				<top>-200</top><!--<top>-200- 61</top>-->
-				<width>375</width><!--<width>375- 100</width>-->
-				<height>475</height><!--<height>475-101</height>--><!---->
+				<left>1820</left>
+				<top>61</top>
+				<width>100</width>
+				<height>101</height>
 				<texture flipx="true" border="1">side_fade.png</texture>
 			</control>
-			
-			<!--<control type="image">
+			<control type="image">
+				<top>90</top>
 				<width>100%</width>
-				<top>58</top>--><!--<top>58-60 barres primes</top>-->
-				<!--<height>40</height>--><!--<height>3</height>-->
-				<!--<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.png</texture>
+				<height>72</height>
+				<texture border="1">gradient_floor.png</texture>
+				<visible>!String.IsEqual(Skin.String(MainMenu.Layout),icons)</visible>
 			</control>
 			<control type="image">
-				<width>100%</width>
-				<top>100</top>--><!--<top>155-59 barres primes</top>-->
-				<!--<height>42</height>--><!--<height>3</height>-->
-				<!--<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.png</texture>
-			</control>-->
+				<width>100%</width><!--difuminado barra menu-->
+				<top>60</top>
+				<height>3</height><!--3-->
+				<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.png</texture>
+			</control>
+			<control type="image">
+				<width>100%</width><!--difuminado2 barra menu-->
+				<top>159</top><!--159-->
+				<height>85</height><!--3-->
+				<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.png</texture>
+			</control>
 			<control type="group" id="9001">
-			<!--espai aquí-->
-				<top>162</top><!--162 --><!--grup submenu text i fons!-->
+				<top>162</top>
 				<include condition="[String.IsEmpty(Skin.String(HorizontalRSSPosition)) | !String.IsEmpty(Skin.String(HorizontalRSSPosition)) + !Skin.HasSetting(Enable.VisibleSubmenu)] + system.getbool(lookandfeel.enablerssfeeds) | [!system.getbool(lookandfeel.enablerssfeeds) + !Skin.HasSetting(Enable.VisibleSubmenu)]">SubMenuAnimation</include>
 				<control type="image">
 					<width>100%</width>
@@ -341,18 +321,17 @@
 				</control>
 				<control type="image">
 					<width>100%</width>
-					<height>180</height><!--<height>180-97</height>--><!--bg barra Submenus!-->
+					<height>180</height><!--<height>180-97</height>--><!--bg barra Submenus?-->
 					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar_white.png</texture>
 					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
 				</control>
-				<!--<include>HorizontalSubMenu</include>-->
-				<control type="image">
-					<width>100%</width>
-					<top>0</top><!--<top>2-75-45</top>--><!--prima brill. sota barra principal o ara baix de tot-->
-					<height>180</height><!--<height>166-10-2</height>-->
-					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">submenu_bar_white.png</texture>
-				</control><!--separator_horizontal.png-->
 				<include>HorizontalSubMenu</include>
+				<control type="image"><!--barra brillante inferior!-->
+					<width>100%</width>
+					<top>82</top><!--45-->
+					<height>2</height><!--2-->
+					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
+				</control>
 			</control>
 		</control>
 	</include>
@@ -603,6 +582,31 @@
 			</control>
 		</itemlayout>
 		<focusedlayout height="100" width="500" condition="String.IsEmpty(Skin.String(MainMenu.Layout))">
+			<!--seleccionado-focused-->
+			<control type="button">
+				<width>500</width>
+				<height>100</height>
+				<!--<font>font_MainMenu</font>-->
+				<!--<textcolor>$VAR[HighlightBarColor]</textcolor>-->
+				<texturefocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturefocus><!--button-nofocus.png-->
+				<!--<align>center</align>
+				<label>__________</label>-->
+			   </control>
+			   <control type="button">
+				<width>500</width>
+				<height>100</height>
+				<texturefocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturefocus>
+			   </control>
+			<!--fi2--->
+			<control type="button">
+			<!-- background image2 -->	
+			<width>500</width>
+			<height>100</height><!--840-800-790-765--><!--listselect_fo.png side_fade.png-->
+			<texturefocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturefocus>
+			<!--<texture colordiffuse="CCD6DFED">backtransparent.png</texture>-->
+			<texturenofocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturenofocus>
+		    </control>
+			
 			<control type="label">
 				<width>500</width>
 				<height>90</height>
@@ -614,7 +618,7 @@
 			<control type="label">
 				<width>500</width>
 				<height>90</height>
-				<font>font_MainMenu</font>
+				<font>font_MainMenu2</font>
 				<textcolor>$VAR[FocusedMainMenuColor]</textcolor>
 				<align>center</align>
 				<label>$INFO[ListItem.Label]</label>
@@ -624,7 +628,7 @@
 		</focusedlayout>
 		<itemlayout height="100" width="640" condition="String.IsEqual(Skin.String(MainMenu.Layout),3)">
 			<control type="label">
-<top>10</top>	<width>640</width>
+				<width>640</width>
 				<height>90</height>
 				<font>font_MainMenu</font>
 				<textcolor>$VAR[UnfocusedMainMenuColor]</textcolor>
@@ -633,8 +637,34 @@
 			</control>
 		</itemlayout>
 		<focusedlayout height="100" width="640" condition="String.IsEqual(Skin.String(MainMenu.Layout),3)">
+			
+			<!--seleccionado-focused-->
+			<control type="button">
+				<width>640</width>
+				<height>100</height>
+				<!--<font>font_MainMenu</font>-->
+				<!--<textcolor>$VAR[HighlightBarColor]</textcolor>-->
+				<texturefocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturefocus>
+				<!--<align>center</align>
+				<label>__________</label>-->
+			   </control>
+			   <control type="button">
+				<width>640</width>
+				<height>100</height>
+				<texturefocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturefocus>
+			   </control>
+			<!--fi2--->
+			<control type="button">
+			<!-- background image2 -->	
+			<width>640</width>
+			<height>100</height><!--840-800-790-765--><!--listselect_fo.png side_fade.png-->
+			<texturefocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturefocus>
+			<!--<texture colordiffuse="CCD6DFED">backtransparent.png</texture>-->
+			<texturenofocus colordiffuse="$VAR[HighlightBarColor]">special://skin/extras/buttons/button-nofocus.png</texturenofocus>
+		    </control>
+			
 			<control type="label">
-<top>10</top>		<width>640</width>
+				<width>640</width>
 				<height>90</height>
 				<font>font_MainMenu</font>
 				<textcolor>$VAR[UnfocusedMainMenuColor]</textcolor>
@@ -644,7 +674,7 @@
 			<control type="label">
 				<width>640</width>
 				<height>90</height>
-				<font>font_MainMenu</font>
+				<font>font_MainMenu2</font>
 				<textcolor>$VAR[FocusedMainMenuColor]</textcolor>
 				<align>center</align>
 				<label>$INFO[ListItem.Label]</label>
@@ -1393,7 +1423,7 @@
 				<headlinecolor>$VAR[RSSFeedColor]</headlinecolor>
 				<shadowcolor>shadow</shadowcolor>
 			</control>
-			<control type="image">
+			<control type="image"><!--barra difuminada menu superior-->
 				<top>2</top>
 				<width>100%</width>
 				<height>2</height>
@@ -1446,9 +1476,9 @@
 					<shadowcolor>shadow</shadowcolor>
 				</control>
 			</control>
-			<control type="image">
+			<control type="image"><!--barra difuminada menu principal inferior1-->
 				<width>100%</width>
-				<top>-6</top>
+				<top>-6</top><!---6-->
 				<height>2</height>
 				<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
 			</control>

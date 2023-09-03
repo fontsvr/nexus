@@ -140,18 +140,18 @@
 						<onclick>ActivateWindow(GameSettings)</onclick>
 						<icon>views/settings/games.png</icon>
 					</item>
-					<item>
-						<label>Ajustes VR20Aeon $INFO[System.Addon(skin.aeon.nox.silvo),,] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,]</label>
+					<item><!--ajustes disponibles para skins-->
+						<label>Ajustes $INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,]</label>
 						<property name="description">Ajustes especificos para este Skin</property><!--3159-->
 						<onclick>ReplaceWindow(Programs,"plugin://script.rikteam/?mode=builds&amp;action=viewbuild",return)</onclick>
-						<!--<onclick>ActivateWindow(SkinSettings)</onclick>-->
+						
 						<icon>views/settings/skin.png</icon>
 					</item>
-					<item>
+					<item><!--builds-->
 						<label>Builds RikTeam</label>
 						<property name="description">Builds</property>
 						<onclick>ReplaceWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=builds",return)</onclick>
-						<icon>views/settings/builds.png</icon>
+						<icon>views/settings/addons.png</icon>
 					</item>
 					<item>
 						<label>14036</label>

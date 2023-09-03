@@ -55,11 +55,9 @@
 				<top>402</top>
 				<width>856</width>
 				<align>center</align>
-				<orientation>horizontal</orientation>
-				<control type="button" id="901001">
-					<description>Yes button</description>
-					<width>257</width><!--421-->
-					<label>Ok</label><!--<label>$VAR[CustomConfirmYesLabelVar]</label>-->
+				<orientation>horizontal</orientation><!--horizontal-->
+				<!--<control type="button" id="3">
+					<label>Si. Ajustes Basic</label>
 					<font>font15_title</font>
 					<textcolor>grey2</textcolor>
 					<focusedcolor>white</focusedcolor>
@@ -71,7 +69,26 @@
 					<onclick>Dialog.Close(1151)</onclick>
 					<onclick>Dialog.Close(1152)</onclick>
 					<onclick>Skin.SetBool(preguntado_ajustes)</onclick>
-					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes",return)</onclick>
+					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustesbasic",return)</onclick>
+					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texturefocus>
+					<visible>String.IsEmpty(Window(Home).Property(Notify))</visible>
+				</control>-->
+				<control type="button" id="901001">
+					<description>Yes button</description>
+					<width>257</width><!--421-->
+					<label>OK</label><!--<label>$VAR[CustomConfirmYesLabelVar]</label>-->
+					<font>font15_title</font>
+					<textcolor>grey2</textcolor>
+					<focusedcolor>white</focusedcolor>
+					<align>center</align>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onup>noop</onup>
+					<ondown>noop</ondown>
+					<onclick>Dialog.Close(1151)</onclick>
+					<onclick>Dialog.Close(1152)</onclick>
+					<onclick>Skin.SetBool(preguntado_ajustes)</onclick>
+					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes+basic",return)</onclick>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texturefocus>
 					<visible>String.IsEmpty(Window(Home).Property(Notify))</visible>
 				</control>

@@ -69,10 +69,11 @@
 		</control>
 		<control type="image">
 			<right>30</right>
-			<top>10</top>
-			<width>200</width>
-			<height>60</height>
-			<texture background="true">aeon-nox-logo.png</texture>
+			<top>30</top>
+			<aspectratio>keep</aspectratio>
+			<width>192</width>
+			<height>56</height>
+			<texture background="true">special://xbmc/media/vendor_logo.png</texture>
 		</control>	
 		<control type="image">
 			<!-- Dialog background image -->
@@ -80,7 +81,7 @@
 			<top>180</top><!--200-275-->
 			<width>1400</width>
 			<height>840</height><!--840-800-790-765-->
-			<texture border="14" colordiffuse="grey">backtransparent.png</texture>
+			<texture border="14" colordiffuse="grey">button-nofocus.png</texture><!--backtransparent.png-->
 		</control>
 		<control type="label">
 			<centerleft>50%</centerleft>
@@ -91,7 +92,7 @@
 			<font>font15_title</font>
 			<align>center</align>
 			<label>Personaliza el Skin</label>
-			<textcolor>$VAR[HighlightBarColor]</textcolor>
+			<textcolor>$VAR[ThemeHomeLabelColor]</textcolor>
 		</control>
 		<control type="group">
 			<centerleft>50%</centerleft>
@@ -134,10 +135,10 @@
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<texturenofocus/>
 					<radioposx>1280</radioposx><!--1220-->
 					<onclick condition="!System.HasAddon(repository.jewrepo)">InstallAddon(repository.jewrepo)</onclick>
@@ -153,10 +154,10 @@
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<radioposx>1280</radioposx><!--1220-->
 					<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onclick>
 					<texturenofocus/>
@@ -173,10 +174,10 @@
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="3">listselect_fo.png</texturefocus>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>																		
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>																		
 					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.alfa-addon)</selected>
@@ -192,10 +193,10 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>																		
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>																		
 					<onclick condition="!System.HasAddon(repository.palantir2)">InstallAddon(repository.palantir2)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.palantir2)</selected>
@@ -211,10 +212,10 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.balandro)">InstallAddon(repository.balandro)</onclick>																																			
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.balandro)</selected>
@@ -229,10 +230,10 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.fontsvr)">InstallAddon(repository.fontsvr)</onclick>																																			
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.fontsvr)</selected>
@@ -247,10 +248,10 @@
 					<label>Repositorio Kodinerds $INFO[System.AddonVersion(repository.kodinerds),(,)][COLOR grey] - Addons[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.kodinerds)">InstallAddon(repository.kodinerds)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.kodinerds)</selected>
@@ -265,10 +266,10 @@
 					<label>Repositorio Magellan $INFO[System.AddonVersion(repository.magellan),(,)][COLOR grey] - TV Premium[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.magellan)">InstallAddon(repository.magellan)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.magellan)</selected>
@@ -283,10 +284,10 @@
 					<label>Repositorio Michaz $INFO[System.AddonVersion(repository.michaz),(,)][COLOR grey] - TV Premium VAVOO[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>																																	
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.michaz)</selected>
@@ -301,10 +302,10 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.luar)">InstallAddon(repository.luar)</onclick>																																				
 					<selected>System.HasAddon(repository.luar)</selected>
 					<texturenofocus/>
@@ -319,10 +320,10 @@
 					<label>Repositorio Theblackghost $INFO[System.AddonVersion(repository.theblackghost),(,)][COLOR lightgrey] - Pelis y Series[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.theblackghost)">InstallAddon(repository.theblackghost)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.theblackghost)</selected>
@@ -337,10 +338,10 @@
 					<label>Repositorio Resolveurl $INFO[System.AddonVersion(repository.resolveurl),(,)][COLOR lightgrey] - Para Cristal[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.resolveurl)">InstallAddon(repository.resolveurl)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.resolveurl)</selected>
@@ -356,10 +357,10 @@
 						<height>60</height>
 					    <radiowidth>100</radiowidth>
 					    <radioheight>100</radioheight>
-						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.stva)">InstallAddon(repository.stva)</onclick>
 					    <texturenofocus/>
 					    <selected>System.HasAddon(repository.stva)</selected>
@@ -374,10 +375,10 @@
 						<height>60</height>
 					    <radiowidth>100</radiowidth>
 					    <radioheight>100</radioheight>
-						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.github) + System.HasAddon(repository.rebase)">InstallAddon(repository.github)</onclick>																		
 						<selected>System.HasAddon(repository.github)</selected>
 						<include>DefaultSettingButton</include>
@@ -391,10 +392,10 @@
 						<height>60</height>
 					    <radiowidth>100</radiowidth>
 					    <radioheight>100</radioheight>
-						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.thecrew) + System.HasAddon(repository.rebase)">InstallAddon(repository.thecrew)</onclick>																		
 						<selected>System.HasAddon(repository.thecrew)</selected>
 						<include>DefaultSettingButton</include>
@@ -408,10 +409,10 @@
 						<height>60</height>
 					    <radiowidth>100</radiowidth>
 					    <radioheight>100</radioheight>
-						<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-						<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-						<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-						<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+						<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+						<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+						<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+						<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 						<onclick condition="!System.HasAddon(repository.slyguy) + System.HasAddon(repository.rebase)">InstallAddon(repository.slyguy)</onclick>																		
 						<selected>System.HasAddon(repository.slyguy)</selected>
 						<include>DefaultSettingButton</include>
@@ -425,10 +426,10 @@
 					<label>Repositorio.KODIvertiDO_TEAM $INFO[System.AddonVersion(repository.KODIvertiDO_TEAM),(,)][COLOR grey] - Pelis - Deportes (Acestream Necesario)[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">buttons/status-on.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="fff02222">buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">buttons/status-off.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>																		
 					<texturenofocus/>
 					<selected>System.HasAddon(repository.KODIvertiDO_TEAM)</selected>
@@ -458,6 +459,15 @@
 				</control>-->
 			</control>
 			    
+				<control type="image">
+			<!-- background image -->
+			<centerleft>50%</centerleft>
+			<top>836</top>
+			<width>1400</width>
+			<height>70</height>
+			<texture border="14" colordiffuse="blue">special://skin/extras/buttons/button-nofocus.png</texture>
+		        </control>
+				
 				<control type="button" id="308">
 				   <centerleft>50%</centerleft>
 				  <top>836</top>

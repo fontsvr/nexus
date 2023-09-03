@@ -248,7 +248,67 @@
 						<control type="button" id="1013">
 							<include>SettingsButtonCommonValues</include>
 							<label>31978</label>
-							<onclick>RunScript(script.skinshortcuts,type=resetall)</onclick>
+							<onclick>RunScript(script.skinshortcuts,type=resetal)</onclick>
+							<onclick>Skin.SetString(highlightbarcolor,)</onclick>
+							<onclick>Skin.SetString(focusedsubmenucolor,)</onclick>
+							<onclick>Skin.SetString(themehomemenubarcolor,)</onclick>
+							<onclick>Skin.SetString(unfocusedmainmenucolor,)</onclick>
+							<onclick>Skin.SetString(themehomemenuglowbarcolor,)</onclick>
+							 <onclick>Skin.SetString(themehomesystemglowbarscolor,)</onclick>
+							<onclick>Skin.SetString(focusedmainmenucolor,)</onclick>
+							<onclick>Skin.SetString(widgetbackgroundcolor,)</onclick>
+							<onclick>Skin.SetString(themehomesystembarscolor,)</onclick>
+							<onclick>Skin.SetString(themehomelabelcolor,)</onclick>
+							<onclick>Skin.SetString(themelabelcolor,)</onclick>
+							<onclick>Skin.SetString(widgethighlightbarcolor,)</onclick>
+							<onclick>Skin.SetBool(Disable.SearchButton,true)</onclick>
+							<!--<onclick>Skin.SetBool(systembarontop,)</onclick>
+							<onclick>Skin.SetBool(enable.visiblesubmenu,)</onclick>-->
+							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/fallback_movies.jpg)</onclick>
+						</control>
+						<control type="button" id="1020">
+							<include>SettingsButtonCommonValues</include>
+							<label>Volver a los ajustes anteriores del Skin $INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,]</label>
+							<onclick>Skin.SetString(highlightbarcolor,FFFF1744)</onclick>
+							<onclick>Skin.SetString(focusedsubmenucolor,FFFFF700)</onclick>
+							<onclick>Skin.SetString(themehomemenubarcolor,81000000)</onclick>
+							<onclick>Skin.SetString(unfocusedmainmenucolor,FFC0C0C0)</onclick>
+							<onclick>Skin.SetString(themehomemenuglowbarcolor,41000000)</onclick>
+							 <onclick>Skin.SetString(themehomesystemglowbarscolor,00FFFFFF)</onclick>
+							<onclick>Skin.SetString(focusedmainmenucolor,)</onclick>
+							<onclick>Skin.SetString(widgetbackgroundcolor,)</onclick>
+							<onclick>Skin.SetString(themehomesystembarscolor,41000000)</onclick>
+							<onclick>Skin.SetString(themehomelabelcolor,FFFF1744)</onclick>
+							<!--<onclick>Skin.SetString(themelabelcolor,FFFF1744)</onclick>-->
+							<onclick>Skin.SetString(themelabelcolor,)</onclick>
+							<onclick>Skin.SetString(widgethighlightbarcolor,)</onclick>
+							
+							<onclick>Skin.SetBool(Disable.SearchButton,false)</onclick>
+							<onclick>Skin.SetBool(systembarontop,true)</onclick>
+							<onclick>Skin.SetBool(enable.visiblesubmenu,true)</onclick>
+							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/default_bg.jpg)</onclick>
+						</control>
+					<control type="button" id="1021">
+							<include>SettingsButtonCommonValues</include>
+							<label>Sombreado azul original $INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,]</label>
+							<onclick>Skin.SetString(highlightbarcolor,)</onclick>
+							<onclick>Skin.SetString(focusedsubmenucolor,)</onclick>
+							<onclick>Skin.SetString(themehomemenubarcolor,81000000)</onclick>
+							<onclick>Skin.SetString(unfocusedmainmenucolor,FFC0C0C0)</onclick>
+							<onclick>Skin.SetString(themehomemenuglowbarcolor,41000000)</onclick>
+							 <onclick>Skin.SetString(themehomesystemglowbarscolor,00FFFFFF)</onclick>
+							<onclick>Skin.SetString(focusedmainmenucolor,)</onclick>
+							<onclick>Skin.SetString(widgetbackgroundcolor,)</onclick>
+							<onclick>Skin.SetString(themehomesystembarscolor,41000000)</onclick>
+							<onclick>Skin.SetString(themehomelabelcolor,FFFFDF00)</onclick>
+							<!--<onclick>Skin.SetString(themelabelcolor,FFFF1744)</onclick>-->
+							<onclick>Skin.SetString(themelabelcolor,)</onclick>
+							<onclick>Skin.SetString(widgethighlightbarcolor,)</onclick>
+							
+							<onclick>Skin.SetBool(Disable.SearchButton,false)</onclick>
+							<onclick>Skin.SetBool(systembarontop,true)</onclick>
+							<onclick>Skin.SetBool(enable.visiblesubmenu,true)</onclick>
+							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/default_bg.jpg)</onclick>
 						</control>
 					</control>
 					<control type="grouplist" id="9001">

@@ -129,6 +129,7 @@
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 				</itemlayout>
+
 				<focusedlayout height="60" width="628">
 					<control type="image">
 						<width>629</width>
@@ -232,3 +233,5 @@
 		</control>
 	</controls>
 </window>
+
+

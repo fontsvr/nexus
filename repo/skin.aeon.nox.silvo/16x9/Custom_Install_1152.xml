@@ -39,20 +39,21 @@
 			<visible>Control.HasFocus(655)</visible>
 			<control type="image">
 			<aspectratio scalediffuse="false">keep</aspectratio>
-			<texture background="true" border="40">dialogs/default/bg.png</texture><!-- border="40">dialogs/default/bg.png-->
+			<texture background="true" border="40">dialogs/default/bg.png</texture>
 		</control>
 		</control>
 		<control type="image">
 			<include>fullscreenimage</include>
-			<texture colordiffuse="mask-background-black">dialogs/default_bg.jpg</texture><!--dialogs/embuary_info/bg.jpg-->
+			<texture colordiffuse="mask-background-black">special://skin/extras/backgrounds/default_bg.jpg</texture><!--dialogs/embuary_info/bg.jpg-->
 			<aspectratio>scale</aspectratio>
 		</control>
 		<control type="image">
 			<right>30</right>
-			<top>10</top>
-			<width>200</width>
-			<height>60</height>
-			<texture background="true">aeon-nox-logo.png</texture>
+			<top>30</top>
+			<aspectratio>keep</aspectratio>
+			<width>192</width>
+			<height>56</height>
+			<texture background="true">special://xbmc/media/vendor_logo.png</texture>
 		</control>	
 		<control type="image">
 			<!-- Dialog background image -->

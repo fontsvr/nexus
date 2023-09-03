@@ -7,8 +7,8 @@
 			<icon>DefaultVideo.png</icon>
 			<thumb />
 			<property name="translatedPath">ActivateWindow(Videos,library://video/,return)</property>
-			<property name="background">special://skin/extras/backgrounds/Vixen-legends_of_tomorrow.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/Vixen-legends_of_tomorrow.jpg</property>
+			<property name="background">special://home/media/backgrounds/videoteca/</property>
+			<property name="backgroundName">special://home/media/backgrounds/videoteca/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Favourites)</onclick>
 			<property name="path">ActivateWindow(Favourites)</property>
@@ -23,8 +23,8 @@
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://%2fstorage%2femulated%2f0%2fAndroid%2fdata%2fthe.team.rik%2ffiles%2f.kodi%2faddons%2fplugin.video.balandro%2fresources%2fmedia%2fthemes%2fdefault%2fclapboard.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uYmFsYW5kcm8vcmVzb3VyY2VzL21lZGlhL3RoZW1lcy9kZWZhdWx0L2NsYXBib2FyZC5wbmciLAogICAgInRpdGxlIjogIltDT0xPUiBkZWVwc2t5Ymx1ZV0gLSBQZWzDrWN1bGFzWy9DT0xPUl0iCn0%3D",return)</property>
-			<property name="background">special://skin/extras/backgrounds/peliculas.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/peliculas.jpg</property>
+			<property name="background">special://home/media/backgrounds/movies/</property>
+			<property name="backgroundName">special://home/media/backgrounds/movies/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uYmFsYW5kcm8vcmVzb3VyY2VzL21lZGlhL3RoZW1lcy9kZWZhdWx0L2NsYXBib2FyZC5wbmciLAogICAgInRpdGxlIjogIltDT0xPUiBkZWVwc2t5Ymx1ZV0gLSBQZWzDrWN1bGFzWy9DT0xPUl0iCn0%3D",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJjaGFubmVscyIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAibWFpbm1lbnUiLAogICAgImV4dHJhIjogIm1vdmllcyIsCiAgICAiaW5mb0xhYmVscyI6IHt9LAogICAgInRodW1ibmFpbCI6ICIvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uYmFsYW5kcm8vcmVzb3VyY2VzL21lZGlhL3RoZW1lcy9kZWZhdWx0L2NsYXBib2FyZC5wbmciLAogICAgInRpdGxlIjogIltDT0xPUiBkZWVwc2t5Ymx1ZV0gLSBQZWzDrWN1bGFzWy9DT0xPUl0iCn0%3D",return)</property>
@@ -39,8 +39,8 @@
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://https%3a%2f%2fgithub.com%2fPalantiraddon%2fPalantir%2fraw%2fmaster%2fmedia%2fnekko%2fseries.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR",return)</property>
-			<property name="background">special://skin/extras/backgrounds/series.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/series.jpg</property>
+			<property name="background">special://home/media/backgrounds/tvshows/</property>
+			<property name="backgroundName">special://home/media/backgrounds/tvshows/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR",return)</property>
@@ -54,8 +54,8 @@
 			<label2>Ítem Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>special://skin/extras/icons/soccer.png</thumb>
-			<property name="background">special://skin/extras/backgrounds/sports.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/sports.jpg</property>
+			<property name="background">special://home/media/backgrounds/sports/</property>
+			<property name="backgroundName">special://home/media/backgrounds/sports/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.winner/?yckJXZulGZvtmL0VmbvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIscybP90bw8EMwk2bnAiOi42bpR3YhJye9diZpdmLlZXas9SYpRWZt9yclNmc192clJ3LyVmbul2du8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2LwITak92au4WZ2FWbuMHZyVmbpR2br5Cdl52LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojIyVGdz9GciACLn0lQvsVYk5WZnFEIyVmVdJ0WnAiOiwWZiFGbiACLncGcq5CdyFmbhZ2LhlGZl12LzV2YyV3bzVmcvIXZu5Wa35yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvAjMpR2br5iblZXYt5",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.winner/?yckJXZulGZvtmL0VmbvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIscybP90bw8EMwk2bnAiOi42bpR3YhJye9diZpdmLlZXas9SYpRWZt9yclNmc192clJ3LyVmbul2du8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2LwITak92au4WZ2FWbuMHZyVmbpR2br5Cdl52LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojIyVGdz9GciACLn0lQvsVYk5WZnFEIyVmVdJ0WnAiOiwWZiFGbiACLncGcq5CdyFmbhZ2LhlGZl12LzV2YyV3bzVmcvIXZu5Wa35yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvAjMpR2br5iblZXYt5",return)</property>
@@ -69,8 +69,8 @@
 			<label2>Add-on de Vídeo</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>thumb</thumb>
-			<property name="background">special://skin/extras/backgrounds/tvpremium.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/tvpremium.jpg</property>
+			<property name="background">special://home/media/backgrounds/livetv/</property>
+			<property name="backgroundName">special://home/media/backgrounds/livetv/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</property>
@@ -84,8 +84,8 @@
 			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="background">special://skin/extras/backgrounds/addons.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/addons.jpg</property>
+			<property name="background">special://home/media/backgrounds/addons/</property>
+			<property name="backgroundName">special://home/media/backgrounds/addons/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(AddonBrowser,addons://user/all,return)</onclick>
 			<property name="path">ActivateWindow(AddonBrowser,addons://user/all,return)</property>
@@ -100,8 +100,8 @@
 			<icon>DefaultTVShows.png</icon>
 			<thumb />
 			<property name="translatedPath">ActivateWindow(TVGuide)</property>
-			<property name="background">special://skin/extras/backgrounds/livetv.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/livetv.jpg</property>
+			<property name="background">special://home/media/backgrounds/pvr/</property>
+			<property name="backgroundName">special://home/media/backgrounds/pvr/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick condition="System.HasPVRAddon">ActivateWindow(TVChannels)</onclick>
 			<property name="path">ActivateWindow(TVChannels)</property>
@@ -113,15 +113,15 @@
 		<item id="8">
 			<property name="id">$NUMBER[8]</property>
 			<label>[COLOR cc76ff003]Buscar[/COLOR]</label>
-			<label2>Add-on de Vídeo</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://%2fstorage%2femulated%2f0%2fAndroid%2fdata%2fthe.team.rik%2ffiles%2f.kodi%2faddons%2fplugin.video.balandro%2fresources%2fmedia%2fthemes%2fdefault%2fmagnifyingglass.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJtYWlubGlzdCIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAic2VhcmNoIiwKICAgICJpbmZvTGFiZWxzIjoge30sCiAgICAidGh1bWJuYWlsIjogIi9zdG9yYWdlL2VtdWxhdGVkLzAvQW5kcm9pZC9kYXRhL3RoZS50ZWFtLmtkdnQvZmlsZXMvLmtvZGkvYWRkb25zL3BsdWdpbi52aWRlby5iYWxhbmRyby9yZXNvdXJjZXMvbWVkaWEvdGhlbWVzL2RlZmF1bHQvbWFnbmlmeWluZ2dsYXNzLnBuZyIsCiAgICAidGl0bGUiOiAiW0NPTE9SIHllbGxvd11bQl1CdXNjYXJbL0JdWy9DT0xPUl0iCn0%3D",return)</property>
-			<property name="background">special://skin/extras/backgrounds/buscador.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/buscador.jpg</property>
+			<property name="background">special://home/media/backgrounds/buscador/</property>
+			<property name="backgroundName">special://home/media/backgrounds/buscador/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJtYWlubGlzdCIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAic2VhcmNoIiwKICAgICJpbmZvTGFiZWxzIjoge30sCiAgICAidGh1bWJuYWlsIjogIi9zdG9yYWdlL2VtdWxhdGVkLzAvQW5kcm9pZC9kYXRhL3RoZS50ZWFtLmtkdnQvZmlsZXMvLmtvZGkvYWRkb25zL3BsdWdpbi52aWRlby5iYWxhbmRyby9yZXNvdXJjZXMvbWVkaWEvdGhlbWVzL2RlZmF1bHQvbWFnbmlmeWluZ2dsYXNzLnBuZyIsCiAgICAidGl0bGUiOiAiW0NPTE9SIHllbGxvd11bQl1CdXNjYXJbL0JdWy9DT0xPUl0iCn0%3D",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJtYWlubGlzdCIsCiAgICAiY2F0ZWdvcnkiOiAiQmFsYW5kcm8iLAogICAgImNoYW5uZWwiOiAic2VhcmNoIiwKICAgICJpbmZvTGFiZWxzIjoge30sCiAgICAidGh1bWJuYWlsIjogIi9zdG9yYWdlL2VtdWxhdGVkLzAvQW5kcm9pZC9kYXRhL3RoZS50ZWFtLmtkdnQvZmlsZXMvLmtvZGkvYWRkb25zL3BsdWdpbi52aWRlby5iYWxhbmRyby9yZXNvdXJjZXMvbWVkaWEvdGhlbWVzL2RlZmF1bHQvbWFnbmlmeWluZ2dsYXNzLnBuZyIsCiAgICAidGl0bGUiOiAiW0NPTE9SIHllbGxvd11bQl1CdXNjYXJbL0JdWy9DT0xPUl0iCn0%3D",return)</property>
+			<onclick>ActivateWindow(1153)</onclick>
+			<property name="path">ActivateWindow(1153)</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="submenuVisibility">colorcc76ff003-buscar-color</property>
 			<property name="hasSubmenu">True</property>
@@ -132,8 +132,8 @@
 			<label2>Common Shortcut</label2>
 			<icon>special://skin/extras/icons/settings.png</icon>
 			<thumb />
-			<property name="background">special://skin/extras/backgrounds/sistema2.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/sistema2.jpg</property>
+			<property name="background">special://home/media/backgrounds/tools/</property>
+			<property name="backgroundName">special://home/media/backgrounds/tools/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(Settings)</onclick>
 			<property name="path">ActivateWindow(Settings)</property>
@@ -149,8 +149,8 @@
 			<thumb />
 			<property name="widgetPanelInfo">true</property>
 			<property name="widgetPanelInfo.2">true</property>
-			<property name="background">special://skin/extras/backgrounds/sistema.jpg</property>
-			<property name="backgroundName">special://skin/extras/backgrounds/sistema.jpg</property>
+			<property name="background">special://home/media/backgrounds/apagado/</property>
+			<property name="backgroundName">special://home/media/backgrounds/apagado/</property>
 			<property name="translatedPath">ActivateWindow(shutdownmenu)</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
 			<onclick>ActivateWindow(shutdownmenu)</onclick>

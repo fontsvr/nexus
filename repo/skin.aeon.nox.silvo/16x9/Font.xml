@@ -377,6 +377,13 @@
 			<size>87</size><!--112-->
 		</font>
 		<font>
+			<name>font_MainMenu2</name>
+			<filename>BebasNeue.ttf</filename><!--BebasNeue.ttf Exo2-Bold.ttf menu principal-->
+			<linespacing>0</linespacing>
+			<style>bold</style>
+			<size>88</size><!--112-->
+		</font>
+		<font>
 			<name>font_VerticalMainMenu</name>
 			<filename>BebasNeue.ttf</filename>
 			<size>75</size>
