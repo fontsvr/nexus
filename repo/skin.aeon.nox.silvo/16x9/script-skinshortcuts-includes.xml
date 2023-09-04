@@ -66,14 +66,14 @@
 		<item id="5">
 			<property name="id">$NUMBER[5]</property>
 			<label>[COLOR ff990000]TV PREMIUM[/COLOR]</label>
-			<label2>Add-on de Vídeo</label2>
+			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="background">special://home/media/backgrounds/livetv/</property>
 			<property name="backgroundName">special://home/media/backgrounds/livetv/</property>
 			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelectSearch,True,Home)</onclick>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</property>
+			<onclick>ActivateWindow(1154)</onclick>
+			<property name="path">ActivateWindow(1154)</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="submenuVisibility">colorff990000-tvpremium-color</property>
 			<property name="hasSubmenu">True</property>

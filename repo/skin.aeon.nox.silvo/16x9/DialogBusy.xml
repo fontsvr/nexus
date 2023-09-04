@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+<onload condition="Window.IsActive(1154)">AlarmClock(Close1154,Dialog.Close(1154),00:03,silent)</onload>
 	<controls>
 		<control type="group">
 			<visible>!Window.IsVisible(startup) + String.IsEmpty(Window(Home).Property(script.cinemavision.running))</visible>

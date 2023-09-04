@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1154">
+	<!--<onload condition="!Skin.HasSetting(Close1154)">AlarmClock(Close1154,Dialog.Close(1154),00:10,silent)</onload>-->
+	
+	<!--<onload>ActivateWindow(Videos,"plugin://plugin.video.vavooto/?action=channels",return)</onload>-->
+	<onload condition="String.IsEmpty(Window(Home).Property(CustomSelectGameOSDSettings))">SetFocus(90100)</onload>
+	<onload condition="!String.IsEmpty(Window(Home).Property(CustomSelectGameOSDSettings))">SetFocus(90100)</onload>
+	<controls>
+		<control type="group">
+			<include>DialogOpenCloseAnimation</include>
+			<left>457</left>
+			<top>240</top>
+			<animation effect="slide" end="0,-100" time="0" condition="!String.IsEmpty(Window(Home).Property(CustomSelectSearch)) + Skin.HasSetting(centermainmenu)">Conditional</animation>
+			<animation effect="slide" end="0,100" time="0" condition="!String.IsEmpty(Window(Home).Property(CustomSelectSearch)) + !Skin.HasSetting(centermainmenu)">Conditional</animation>
+			<visible>![Window.IsActive(gamestretchmode) | Window.IsActive(gamevideofilter) | Window.IsActive(gamevideorotation) | Window.IsActive(gamevolume) | Window.IsActive(InGameSaves)]</visible>
+			<include>VisibleFadeAnimation</include>
+			<control type="group">
+				<visible>String.IsEmpty(Window(Home).Property(CustomSelectGameOSDSettings))</visible>
+				<control type="group">
+					<visible>String.IsEmpty(Window(Home).Property(CustomSelectSearch))</visible>
+					<control type="image">
+						<left>157</left>
+						<width>692</width>
+						<height>600</height>
+						<texture border="40">dialogs/default/bg.png</texture>
+					</control>
+					<control type="image">
+						<left>187</left>
+						<top>86</top>
+						<width>632</width>
+						<height>482</height>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="5">dialogs/default/inner.png</texture>
+					</control>
+				</control>
+				<control type="group">
+					<visible>!String.IsEmpty(Window(Home).Property(CustomSelectSearch))</visible>
+					<control type="image">
+						<left>157</left>
+						<width>692</width>
+						<height>360</height>
+						<texture border="40">dialogs/default/bg.png</texture>
+					</control>
+					<control type="image">
+						<left>187</left>
+						<top>86</top>
+						<width>632</width>
+						<height>242</height>
+						<texture border="5">dialogs/default/inner.png</texture>
+					</control>
+				</control>
+				<control type="label" id="1">
+					<left>30</left>
+					<top>32</top><!--32-->
+					<width>940</width><!--32-->
+					<height>40</height>
+					<font>font15_title</font>
+					<label>$VAR[CustomSelectLabelVar] Canal Premium</label>
+					<align>center</align>
+					<textcolor>dialogheader</textcolor>
+				</control>
+			<control type="panel" id="90100">
+			<left>244</left><!--189-->
+				<top>88</top><!--88-->
+				<width>680</width><!--628-->
+				<height>480</height><!--480-->
+				<onup>90100</onup><!--90100-->
+				<ondown>90100</ondown><!--90100-->
+				<onleft>Dialog.Close(1154)</onleft><!--90100-->
+				<onright>Dialog.Close(1154)</onright><!--60-->
+				<pagecontrol>60</pagecontrol><!--60-->
+				<scrolltime tween="quadratic" easing="out">200</scrolltime>
+			<itemlayout width="628" height="65"><!--<itemlayout width="520" height="75">-->
+				<control type="image">
+					<centerleft>5%</centerleft>
+					<top>5</top><!--16-->
+					<left>10</left>
+					<width>50</width>
+					<height>50</height>
+					<texture diffuse="listselect_fo.png">$INFO[ListItem.Art(thumb)]</texture>
+					<aspectratio>scale</aspectratio>
+				</control>	
+				<control type="label">
+					<centerleft>50%</centerleft>
+					<align>left</align>
+					<left>100</left>
+					<top>12</top><!--16-->
+					<width>628</width>
+					<height>36</height>
+					<font>font13_title</font>
+					<textcolor>$VAR[UnfocusedMainMenuColor]</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+			</itemlayout>
+			<focusedlayout width="628" height="65">
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>520</width><!--520-->
+					<height>60</height><!--75-->
+					<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
+				</control>
+				<control type="image">
+					<centerleft>5%</centerleft>
+					<top>5</top>
+					<left>10</left>
+					<aligny>center</aligny>
+					<width>50</width>
+					<height>50</height>
+					<texture>$INFO[ListItem.Art(thumb)]</texture>
+					<aspectratio>scale</aspectratio>
+				</control>	
+				<control type="label">
+					<centerleft>50%</centerleft>
+					<align>left</align>
+					<left>100</left>
+					<top>12</top><!---->
+					<width>628</width>
+					<height>36</height>
+					<font>font13_title</font>
+					<textcolor>$VAR[FocusedMainMenuColor]</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+			</focusedlayout>
+				
+					<content>
+					<item>
+				       <thumb>special://skin/extras/buscadores/icons/vavoo.png</thumb>
+				       <label>VAVOO.TO - [COLOR pink]TV Favoritos[/COLOR]</label>
+				       <onclick>Dialog.Close(all)</onclick>
+				       <onclick condition="System.HasAddon(plugin.video.vavooto)">ActivateWindow(Videos,&quot;plugin://plugin.video.vavooto/?action=favchannels&quot;,return)</onclick>
+				       <onclick condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onclick>
+			        </item>
+					</content>
+     <content target="videos" sortby="" sortorder="" limit="">plugin://plugin.video.vavooto/?action=favchannels&amp;reload=$INFO[Window(Home).Property(widgetreload)]$INFO[Window(Home).Property(widgetreload2)]</content>
+					<content>
+					<item>
+				       <thumb>special://skin/extras/buscadores/icons/vavoo.png</thumb>
+				       <label>Canales Vavoo [COLOR yellow](Live)[/COLOR]</label>
+				       <onclick>Dialog.Close(all)</onclick>
+				       <onclick condition="System.HasAddon(plugin.video.vavooto)">ActivateWindow(Videos,&quot;plugin://plugin.video.vavooto/?action=channels&quot;,return)</onclick>
+				       <onclick condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onclick>
+			        </item>
+					<!--<item>
+						<label2>$LOCALIZE[19055]</label2>
+						<icon>NotAvailable.png</icon>
+						<thumb>NotAvailable.png</thumb>
+						<visible>!false + String.IsEmpty(Container(80115).ListItem(1).Label)</visible>
+						</item>-->
+					</content>
+	<content target="videos" sortby="" sortorder="" limit="">plugin://plugin.video.vavooto/?action=channels&amp;reload=$INFO[Window(Home).Property(widgetreload)]$INFO[Window(Home).Property(widgetreload2)]</content>	
+		           <content>
+		             <item>
+				       <thumb>special://skin/extras/buscadores/icons/magellan.png</thumb>
+				       <label>Canales [COLOR lime]Magellan[/COLOR] [COLOR yellow](Live)[/COLOR]</label>
+				       <onclick>Dialog.Close(all)</onclick>
+				       <onclick condition="System.HasAddon(plugin.video.Magellan_Matrix)">ActivateWindow(Videos,&quot;plugin://plugin.video.Magellan_Matrix/?url=https%3A%2F%2Fpastebin.com%2Fraw%2F5jZTyKZP&amp;mode=1&amp;name=%5BCOLOR+lime%5D+%3E+%5BCOLOR+yellow%5DESPANHA%2FLATINOS+%5B%2FCOLOR%5D&amp;fanart=https%3A%2F%2Fcdn.wallpapersafari.com%2F36%2F28%2FTzvSKW.jpeg&quot;,return)</onclick>
+				       <onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
+			        </item>
+		           </content>
+		</control>
+
+			</control>
+		</control>
+	</controls>
+</window>
+
+

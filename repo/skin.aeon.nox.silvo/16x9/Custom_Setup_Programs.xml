@@ -306,7 +306,7 @@
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!Skin.HasSetting(preguntado_ajustes">Close</onclick>
-					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustesbasic",return)</onclick>	
+					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes+basic",return)</onclick>	
 					<onclick condition="!System.HasAddon(script.rikteam) + System.HasAddon(repository.rebase)">InstallAddon(script.rikteam)</onclick>													
 					<selected>Skin.HasSetting(preguntado_ajustes)</selected>
 					<texturenofocus/>
