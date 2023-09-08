@@ -192,6 +192,17 @@
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">1</property>
+			<label>Fav 1155</label>
+			<label2>Elemento Personalizado</label2>
+			<icon>DefaultAddonsInstalled.png</icon>
+			<thumb />
+			<visible>[False] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
+			<onclick>noop</onclick>
+			<property name="isSubmenu">True</property>
+			</item>
+		<item id="4">
+			<property name="id">$NUMBER[4]</property>
+			<property name="mainmenuid">1</property>
 			<label>[COLOR violet]Balandro[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -202,8 +213,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="4">
-			<property name="id">$NUMBER[4]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>[COLOR gold]Palantir 2[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -215,8 +226,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>ACTUALIZAR VIDEOTECA</label>
 			<label2>Ítem Personalizado</label2>
@@ -227,8 +238,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
+		<item id="7">
+			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">1</property>
 			<label>LIMPIAR VIDEOTECA</label>
 			<label2>Ítem Personalizado</label2>
