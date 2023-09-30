@@ -428,6 +428,10 @@ def get_seasons(item):
             dict_temp) == 1:  # Sólo si hay una temporada
         return get_episodes(item)
     else:
+        # En ocasiones llega informacion del episodio en el item, lo que confunde a tmdb
+        # y crea una lista de episodios en vez de temporadas, borremosla
+        if "episode" in item.infoLabels:
+            del item.infoLabels["episode"]
 
         # TODO mostrar los episodios de la unica temporada "no vista", en vez de mostrar el Item "temporada X" previo
         # si está marcado "ocultar los vistos" en el skin, se ejecutaria esto
@@ -662,9 +666,9 @@ def findvideos(item):
             
         # Importamos el canal de la parte seleccionada
         channel = None
-        for nom_canal in [nom_canal, 'url']:
+        for nom_canal, folder in [[nom_canal, 'channels'], ['url', 'modules']]:
             try:
-                channel = __import__('channels.%s' % nom_canal, fromlist=["channels.%s" % nom_canal])
+                channel = __import__('%s.%s' % (folder, nom_canal), fromlist=['%s.%s' % (folder, nom_canal)])
             except ImportError:
                 pass
             if channel: 

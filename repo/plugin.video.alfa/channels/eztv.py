@@ -350,7 +350,7 @@ def findvideos_links(item, elem_in, elem_json):
     patron_sxe = '(?i)S(\d+)E(\d+)'
 
     for x, elem in enumerate(elem_in.find_all('td')):
-        logger.error(elem)
+        #logger.error(elem)
 
         try:
             if x == 0 and item.extra == 'Temporadas':

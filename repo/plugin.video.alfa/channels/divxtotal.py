@@ -24,8 +24,9 @@ forced_proxy_opt = 'ProxySSL'
 canonical = {
              'channel': 'divxtotal', 
              'host': config.get_setting("current_host", 'divxtotal', default=''), 
-             'host_alt': ["https://www.divxtotal.win/"], 
-             'host_black_list': ["https://www.divxtotal.wf/", "https://www.divxtotal.pl/", "https://www.divxtotal.cat/", 
+             'host_alt': ["https://www1.divxtotal.zip/"], 
+             'host_black_list': ["https://www.divxtotal.win/", 
+                                 "https://www.divxtotal.wf/", "https://www.divxtotal.pl/", "https://www.divxtotal.cat/", 
                                  "https://www.divxtotal.fi/", "https://www.divxtotal.dev/", "https://www.divxtotal.ac/", 
                                  "https://www.divxtotal.re/", "https://www.divxtotal.pm/", "https://www.divxtotal.nl/"], 
              'pattern': '<li>\s*<a\s*href="([^"]+)"\s*>\S*\/a><\/li>', 
