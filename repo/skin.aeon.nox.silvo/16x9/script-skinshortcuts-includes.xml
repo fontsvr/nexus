@@ -95,7 +95,7 @@
 			</item>
 		<item id="7">
 			<property name="id">$NUMBER[7]</property>
-			<label>[COLOR ffb30101]t[/COLOR][COLOR cc76ff03]d[/COLOR][COLOR deepskyblue]t[/COLOR] / [COLOR fuchsia]Pluto[/COLOR]TV</label>
+			<label>[COLOR ffb30101]T[COLOR cc76ff03]D[COLOR deepskyblue]T [COLOR lightskyblue]M+ [COLOR fuchsia]Pluto[COLOR snow]TV[/COLOR]</label>
 			<label2>Elemento Personalizado</label2>
 			<icon>DefaultTVShows.png</icon>
 			<thumb />
@@ -107,7 +107,7 @@
 			<property name="path">ActivateWindow(TVChannels)</property>
 			<onclick condition="![System.HasPVRAddon]">ActivateWindow(addonbrowser,addons://repository.xbmc.org/xbmc.pvrclient,return)</onclick>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">colorffb30101-t-color-colorcc76ff03-d-color-colordeepskyblue-t-color-colorfuchsia-pluto-color-tv</property>
+			<property name="submenuVisibility">colorffb30101-t-colorcc76ff03-d-colordeepskyblue-t-colorlightskyblue-m-colorfuchsia-pluto-colorsnow-tv-color</property>
 			<property name="hasSubmenu">True</property>
 			</item>
 		<item id="8">
@@ -192,17 +192,6 @@
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">1</property>
-			<label>Fav 1155</label>
-			<label2>Elemento Personalizado</label2>
-			<icon>DefaultAddonsInstalled.png</icon>
-			<thumb />
-			<visible>[False] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
-			<onclick>noop</onclick>
-			<property name="isSubmenu">True</property>
-			</item>
-		<item id="4">
-			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">1</property>
 			<label>[COLOR violet]Balandro[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -213,21 +202,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
-			<property name="mainmenuid">1</property>
-			<label>[COLOR gold]Palantir 2[/COLOR]</label>
-			<label2>Add-on de Vídeo</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb>thumb</thumb>
-			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.palantir2",return)</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.palantir2",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.palantir2",return)</property>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
-			<property name="isSubmenu">True</property>
-			</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
+		<item id="4">
+			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>ACTUALIZAR VIDEOTECA</label>
 			<label2>Ítem Personalizado</label2>
@@ -238,8 +214,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorccff335c-favoritos-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>LIMPIAR VIDEOTECA</label>
 			<label2>Ítem Personalizado</label2>
@@ -303,18 +279,6 @@
 		<item id="5">
 			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">2</property>
-			<label>[COLOR gold]PALANTIR 2[/COLOR]</label>
-			<label2>Add-on de Vídeo</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb>image://https%3a%2f%2fgithub.com%2fPalantiraddon%2fPalantir%2fraw%2fmaster%2fmedia%2fnekko%2fpeliculas.png/</thumb>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.palantir2/?ZNN0dnlkbOxGZGljMhdlVzkkavdmVIpUMahFMllnSol1MSBnYyQTaPlWQuJ2VWVHZTN2cJNkSqJmM1AjWXVDMJp2bnpkMaBnYHZleKl3dnlUbahmYtZUekNUS2k0QjZ3YzIldj1mRup1U5wmYYZ1cZhlUsp1Q/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgAjM9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXYsV3YtOMblBVXkx2bnBiUPx0TDt1JgojIsVmYhxmIgwyJn5GcuMXYsV3YpxWZw9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHanAiOi42bjlmIgwyJml2ZuQnch5WYm9iMylGduFGbhBnLvVGZpZnLul2Z1xGcvMnbvRGZh9Sak92au8yclxWam9yapJnLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATLyIDIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpgzdMBjR1pFSKZXYXFldadkRwk1U5ATYHVVdkdkVoJ2U1kXYXNnda1GbzpFWNZHTtRndad0a2l1VStmYyUjeMNjQzR2VkBnYpVjMhdlUsJWe1cXWXhHai5mUwNmaJZnWtZUdZhlSwwUbkBnWpN2cJNkSwllM5UXSq92ZKJDawQGSCp3TphjdaJDbwEGSWlGTt5kdiNVORl1V4hmYuJFcj1mRrp1R5UHTxIEaidkR1R2RslHTzoEaklXO0lFWOBjWYlkdidlVrF2VFZnYtZlchJDO2N2RWNXYX5UMidkR6xkbCVnW5N2cJNkS3l1VkxWSq92",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?ZNN0dnlkbOxGZGljMhdlVzkkavdmVIpUMahFMllnSol1MSBnYyQTaPlWQuJ2VWVHZTN2cJNkSqJmM1AjWXVDMJp2bnpkMaBnYHZleKl3dnlUbahmYtZUekNUS2k0QjZ3YzIldj1mRup1U5wmYYZ1cZhlUsp1Q/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgAjM9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXYsV3YtOMblBVXkx2bnBiUPx0TDt1JgojIsVmYhxmIgwyJn5GcuMXYsV3YpxWZw9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHanAiOi42bjlmIgwyJml2ZuQnch5WYm9iMylGduFGbhBnLvVGZpZnLul2Z1xGcvMnbvRGZh9Sak92au8yclxWam9yapJnLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATLyIDIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpgzdMBjR1pFSKZXYXFldadkRwk1U5ATYHVVdkdkVoJ2U1kXYXNnda1GbzpFWNZHTtRndad0a2l1VStmYyUjeMNjQzR2VkBnYpVjMhdlUsJWe1cXWXhHai5mUwNmaJZnWtZUdZhlSwwUbkBnWpN2cJNkSwllM5UXSq92ZKJDawQGSCp3TphjdaJDbwEGSWlGTt5kdiNVORl1V4hmYuJFcj1mRrp1R5UHTxIEaidkR1R2RslHTzoEaklXO0lFWOBjWYlkdidlVrF2VFZnYtZlchJDO2N2RWNXYX5UMidkR6xkbCVnW5N2cJNkS3l1VkxWSq92",return)</property>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
-			<property name="isSubmenu">True</property>
-			</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
-			<property name="mainmenuid">2</property>
 			<label>[COLOR ffb30101]TACONES [COLOR white]HD[/COLOR]</label>
 			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -324,8 +288,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR red]homelander[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -337,8 +301,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="8">
-			<property name="id">$NUMBER[8]</property>
+		<item id="7">
+			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR orchid]THE CREW[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -350,8 +314,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="9">
-			<property name="id">$NUMBER[9]</property>
+		<item id="8">
+			<property name="id">$NUMBER[8]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR orange]Scrubs V2[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -363,8 +327,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="10">
-			<property name="id">$NUMBER[10]</property>
+		<item id="9">
+			<property name="id">$NUMBER[9]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR moccasin]Netflix[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -375,8 +339,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="11">
-			<property name="id">$NUMBER[11]</property>
+		<item id="10">
+			<property name="id">$NUMBER[10]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR moccasin]Marvel[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -387,8 +351,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="12">
-			<property name="id">$NUMBER[12]</property>
+		<item id="11">
+			<property name="id">$NUMBER[11]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR moccasin]D.C.[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -399,8 +363,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="13">
-			<property name="id">$NUMBER[13]</property>
+		<item id="12">
+			<property name="id">$NUMBER[12]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR moccasin]Star wars[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -411,8 +375,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="14">
-			<property name="id">$NUMBER[14]</property>
+		<item id="13">
+			<property name="id">$NUMBER[13]</property>
 			<property name="mainmenuid">2</property>
 			<label>Info [COLOR green]TMDB[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -424,8 +388,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="15">
-			<property name="id">$NUMBER[15]</property>
+		<item id="14">
+			<property name="id">$NUMBER[14]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR red]Trakt[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -437,8 +401,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colordeepskyblue-peliculas-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="16">
-			<property name="id">$NUMBER[16]</property>
+		<item id="15">
+			<property name="id">$NUMBER[15]</property>
 			<property name="mainmenuid">2</property>
 			<label>[COLOR violet]GÉNEROS[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -488,18 +452,6 @@
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">3</property>
-			<label>[COLOR gold]PALANTIR 2[/COLOR]</label>
-			<label2>Add-on de Vídeo</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb>image://https%3a%2f%2fgithub.com%2fPalantiraddon%2fPalantir%2fraw%2fmaster%2fmedia%2fnekko%2fseries.png/</thumb>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.palantir2/?Q3dWSu5EbkZUOyE2VWNTSq92ZWhkSxoFWwUWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye9dyYzFGIkl2XtVGdpBSeiBiUFRkUPBCIwQTPkl2X15WZtBSZyVGa3Byc15WZtBSbvJnZgQnch5WYmxCbxNHLu92YpxibvlGdjFGLsVmYhxGI0NWZsV2cnAiOiwWczJCIsADI6ISZnFGciACLn0lUPx0TD9yWzVWayV2UdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5ycllmclN3Lvt2al52LhlGZl12LyVGdzFWbvcXYy9icpRnbhxWYQ9ibvRGZhJXa05WYsFGUv02bj5iY1hGdpd2LvozcwRHdodCI6IibvNWaiACLnYWan5CdyFmbhZ2LyIXa05WYsFGcu8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2Lrlmcu0WYlRnLlhGdvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIs0VKnkyZuBnLu92Yp9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHasADMwATMgwyMyAjMtYDMtIjMg42sDn2YhpXasFWd0NWYgEWbpRHbaOMLz4yMuIjL2BiMgIXa05WYsFGUo42bpRXYjlmZpR3bOdCIsciMgIXa05WYsFGUgUmci92cg42sDn2Yh1mcvZmbJdCKgwSKnkyQ4cHTwYUdahkS2F2VRZnWHZEMZNVOwE2RVVHZHZFaiNVN5F2VzZnWtx2cahVT2xUb0ZnWHtmdZdlUrJmM1oHTzI0ckdFZwJWa1ITYXJFbilXN3l1V4hmYuJFcjpWS2pVbGVXWYpEMM1GZwpVajNXSDpEcZJTO1lkavdmSygGMkhkQ69Ua4YnWywGMhhkVpxUbOZnYTlTUZdFeoJmbSB3YtZ0aadUO1xUMChmYHZUdkdEb5x0MKhGZ5lDdZhlTwoFWJZnYXZ1ahdVR2JWbWJXYygjdjJjV5F2VWpHTuJUdal3Yzl0QKdXWXRGbJp2bn10",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?Q3dWSu5EbkZUOyE2VWNTSq92ZWhkSxoFWwUWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye9dyYzFGIkl2XtVGdpBSeiBiUFRkUPBCIwQTPkl2X15WZtBSZyVGa3Byc15WZtBSbvJnZgQnch5WYmxCbxNHLu92YpxibvlGdjFGLsVmYhxGI0NWZsV2cnAiOiwWczJCIsADI6ISZnFGciACLn0lUPx0TD9yWzVWayV2UdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5ycllmclN3Lvt2al52LhlGZl12LyVGdzFWbvcXYy9icpRnbhxWYQ9ibvRGZhJXa05WYsFGUv02bj5iY1hGdpd2LvozcwRHdodCI6IibvNWaiACLnYWan5CdyFmbhZ2LyIXa05WYsFGcu8WZklmdu4WanVHbw9ycu9GZkF2LpR2br5yLzVGbpZ2Lrlmcu0WYlRnLlhGdvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIs0VKnkyZuBnLu92Yp9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHasADMwATMgwyMyAjMtYDMtIjMg42sDn2YhpXasFWd0NWYgEWbpRHbaOMLz4yMuIjL2BiMgIXa05WYsFGUo42bpRXYjlmZpR3bOdCIsciMgIXa05WYsFGUgUmci92cg42sDn2Yh1mcvZmbJdCKgwSKnkyQ4cHTwYUdahkS2F2VRZnWHZEMZNVOwE2RVVHZHZFaiNVN5F2VzZnWtx2cahVT2xUb0ZnWHtmdZdlUrJmM1oHTzI0ckdFZwJWa1ITYXJFbilXN3l1V4hmYuJFcjpWS2pVbGVXWYpEMM1GZwpVajNXSDpEcZJTO1lkavdmSygGMkhkQ69Ua4YnWywGMhhkVpxUbOZnYTlTUZdFeoJmbSB3YtZ0aadUO1xUMChmYHZUdkdEb5x0MKhGZ5lDdZhlTwoFWJZnYXZ1ahdVR2JWbWJXYygjdjJjV5F2VWpHTuJUdal3Yzl0QKdXWXRGbJp2bn10",return)</property>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorgold-series-color)</visible>
-			<property name="isSubmenu">True</property>
-			</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
-			<property name="mainmenuid">3</property>
 			<label>[COLOR violet]BALANDRO[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -509,8 +461,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorgold-series-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">3</property>
 			<label>[COLOR orchid]THE CREW[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -522,8 +474,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorgold-series-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">3</property>
 			<label>Info [COLOR green]TMDB[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -535,8 +487,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorgold-series-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="8">
-			<property name="id">$NUMBER[8]</property>
+		<item id="7">
+			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">3</property>
 			<label>[COLOR red]Trakt[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -702,12 +654,13 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">5</property>
-			<label>[COLOR fuchsia]PLUTO [COLOR white]TV[/COLOR]</label>
-			<label2>Elemento Personalizado</label2>
+			<label>[COLOR white]kodi[COLOR aqua]tv[/COLOR]</label>
+			<label2>Add-on de Vídeo</label2>
 			<icon>DefaultShortcut.png</icon>
-			<thumb>special://skin/extras/icons/Addons/Pluto.png</thumb>
-			<onclick>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=es",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=es",return)</property>
+			<thumb>thumb</thumb>
+			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.koditv",return)</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.koditv",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.koditv",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorff990000-tvpremium-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -783,6 +736,18 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorff990000-tvpremium-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
+		<item id="9">
+			<property name="id">$NUMBER[9]</property>
+			<property name="mainmenuid">5</property>
+			<label>[COLOR fuchsia]PLUTO [COLOR white]TV[/COLOR]</label>
+			<label2>Elemento Personalizado</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb>special://skin/extras/icons/Addons/Pluto.png</thumb>
+			<onclick>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=es",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=es",return)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorff990000-tvpremium-color)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
 			<property name="mainmenuid">6</property>
@@ -854,7 +819,7 @@
 			<onclick condition="System.HasPVRAddon">ActivateWindow(TVChannels)</onclick>
 			<property name="path">ActivateWindow(TVChannels)</property>
 			<onclick condition="![System.HasPVRAddon]">ActivateWindow(addonbrowser,addons://repository.xbmc.org/xbmc.pvrclient,return)</onclick>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-color-colorcc76ff03-d-color-colordeepskyblue-t-color-colorfuchsia-pluto-color-tv)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-colorcc76ff03-d-colordeepskyblue-t-colorlightskyblue-m-colorfuchsia-pluto-colorsnow-tv-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
 		<item id="2">
@@ -868,7 +833,7 @@
 			<onclick condition="System.HasPVRAddon">ActivateWindow(TVSearch)</onclick>
 			<property name="path">ActivateWindow(TVSearch)</property>
 			<onclick condition="![System.HasPVRAddon]">ActivateWindow(addonbrowser,addons://repository.xbmc.org/xbmc.pvrclient,return)</onclick>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-color-colorcc76ff03-d-color-colordeepskyblue-t-color-colorfuchsia-pluto-color-tv)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-colorcc76ff03-d-colordeepskyblue-t-colorlightskyblue-m-colorfuchsia-pluto-colorsnow-tv-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
 		<item id="3">
@@ -881,7 +846,7 @@
 			<onclick condition="System.HasPVRAddon">ActivateWindow(TVGuide)</onclick>
 			<property name="path">ActivateWindow(TVGuide)</property>
 			<onclick condition="![System.HasPVRAddon]">ActivateWindow(addonbrowser,addons://repository.xbmc.org/xbmc.pvrclient,return)</onclick>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-color-colorcc76ff03-d-color-colordeepskyblue-t-color-colorfuchsia-pluto-color-tv)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-colorcc76ff03-d-colordeepskyblue-t-colorlightskyblue-m-colorfuchsia-pluto-colorsnow-tv-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
 		<item id="4">
@@ -894,7 +859,7 @@
 			<onclick condition="System.HasPVRAddon">ActivateWindow(RadioChannels)</onclick>
 			<property name="path">ActivateWindow(RadioChannels)</property>
 			<onclick condition="![System.HasPVRAddon]">ActivateWindow(addonbrowser,addons://repository.xbmc.org/xbmc.pvrclient,return)</onclick>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-color-colorcc76ff03-d-color-colordeepskyblue-t-color-colorfuchsia-pluto-color-tv)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-colorcc76ff03-d-colordeepskyblue-t-colorlightskyblue-m-colorfuchsia-pluto-colorsnow-tv-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
 		<item id="5">
@@ -907,7 +872,7 @@
 			<onclick condition="System.HasPVRAddon">ActivateWindow(RadioGuide)</onclick>
 			<property name="path">ActivateWindow(RadioGuide)</property>
 			<onclick condition="![System.HasPVRAddon]">ActivateWindow(addonbrowser,addons://repository.xbmc.org/xbmc.pvrclient,return)</onclick>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-color-colorcc76ff03-d-color-colordeepskyblue-t-color-colorfuchsia-pluto-color-tv)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorffb30101-t-colorcc76ff03-d-colordeepskyblue-t-colorlightskyblue-m-colorfuchsia-pluto-colorsnow-tv-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
 		<item id="1">
@@ -949,18 +914,6 @@
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">8</property>
-			<label>[COLOR gold]PALANTIR 2[/COLOR]</label>
-			<label2>Elemento Personalizado</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb>special://skin/extras/icons/Addons/Palantir.png</thumb>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.palantir2/?bkZUOyE2VWNTSq92ZWhkSxoFWwUWeKhWWzIFciJDNp9UaB5WWuZleZJjR51UajNXSDpkaiJTNwo1V1ATSq92ZKJjWwJ2RWpnS5d3ZJ1mWoJWbGlHZDlkNJN0Y2N2MSZ3YtZkbaNVOsJGWWNXWYJFb/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIsciMyF2YzVnYnAiOi42bpR3YhJyeQfisTMulGdhxGIFRVQMx0TDBSZyJWbv5GI5JGISVERS9kbclSZyJWbv5GIscyclcCKgAFWFdURSlGIk5WYgcychxWZ29mT8N3bqVnYpREfl1WauFEfsFGduVWb1N2bEdCIQhVRHVkUgQ3buBSey92ZlRXYjBCZuFGIwAiPgUmdpR3YhBSZyVGa35GXgMXZpJXZzBSbvJnZuxFduVGdu92YfNXYoBCLr5WMsBCLiRWb0BCLvlGZ1FGIsQWafVWayV2cgwiclR3cvBHLhxWd0FmchNGIsMXazB3bul2cgwybu5WYgwSZyJWbv5GI0NWZsV2UiAiOiwWczJCIsADI6ISZnFGciACLn0lUPx0TD9yWvxWd016w0BicvBFIgACIdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5SYmxWYfNXZpJXZz9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHanAiOi42bjlmIgwyJml2ZuQnch5WYm9iMylGduFGbhBnLvVGZpZnLul2Z1xGcvMnbvRGZh9Sak92au8yclxWam9Sak92auMWbihnLnJ3bvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIs0VKnkiWDhzdMBjR1pFSKZXYXFldadkRwk1U5Y3YtNWdldkS0lVe1InYyIFcMJjWwJ2RWpHT5VjciJjUwxkMGtmWHlTdjlXO3JGSW5WYXRTdk1Gbrp1V4U3YHZ0cZdVNwEGWJlHTyoFai1mR5R2Q14WYXllbMNUQpF2VOZnYplkNJNEZvRGSSd3Y69mdMJDZwR2RoFTWpVjaiJDM2V1RGNXWXVDMhhlSop1RSZnYplTUZdFeoJmbSB3YplTeZh1Y2J2VGpHZHZVeMJTMsp1RshGTyUDbhJDd2x0MOx2YtxGbjFTOoJ2RahGTuJUdal3Yzl0QKdXWXRGbJp2bn10Q3dWSu5E",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.palantir2/?bkZUOyE2VWNTSq92ZWhkSxoFWwUWeKhWWzIFciJDNp9UaB5WWuZleZJjR51UajNXSDpkaiJTNwo1V1ATSq92ZKJjWwJ2RWpnS5d3ZJ1mWoJWbGlHZDlkNJN0Y2N2MSZ3YtZkbaNVOsJGWWNXWYJFb/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIsciMyF2YzVnYnAiOi42bpR3YhJyeQfisTMulGdhxGIFRVQMx0TDBSZyJWbv5GI5JGISVERS9kbclSZyJWbv5GIscyclcCKgAFWFdURSlGIk5WYgcychxWZ29mT8N3bqVnYpREfl1WauFEfsFGduVWb1N2bEdCIQhVRHVkUgQ3buBSey92ZlRXYjBCZuFGIwAiPgUmdpR3YhBSZyVGa35GXgMXZpJXZzBSbvJnZuxFduVGdu92YfNXYoBCLr5WMsBCLiRWb0BCLvlGZ1FGIsQWafVWayV2cgwiclR3cvBHLhxWd0FmchNGIsMXazB3bul2cgwybu5WYgwSZyJWbv5GI0NWZsV2UiAiOiwWczJCIsADI6ISZnFGciACLn0lUPx0TD9yWvxWd016w0BicvBFIgACIdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5SYmxWYfNXZpJXZz9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHanAiOi42bjlmIgwyJml2ZuQnch5WYm9iMylGduFGbhBnLvVGZpZnLul2Z1xGcvMnbvRGZh9Sak92au8yclxWam9Sak92auMWbihnLnJ3bvEGdhR2Lkl2byRmbB9CMvQWZ0FGb11WZvU2ZhJ3b0N3LnAiOiQnch5WYmJCIs0VKnkiWDhzdMBjR1pFSKZXYXFldadkRwk1U5Y3YtNWdldkS0lVe1InYyIFcMJjWwJ2RWpHT5VjciJjUwxkMGtmWHlTdjlXO3JGSW5WYXRTdk1Gbrp1V4U3YHZ0cZdVNwEGWJlHTyoFai1mR5R2Q14WYXllbMNUQpF2VOZnYplkNJNEZvRGSSd3Y69mdMJDZwR2RoFTWpVjaiJDM2V1RGNXWXVDMhhlSop1RSZnYplTUZdFeoJmbSB3YplTeZh1Y2J2VGpHZHZVeMJTMsp1RshGTyUDbhJDd2x0MOx2YtxGbjFTOoJ2RahGTuJUdal3Yzl0QKdXWXRGbJp2bn10Q3dWSu5E",return)</property>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorcc76ff003-buscar-color)</visible>
-			<property name="isSubmenu">True</property>
-			</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
-			<property name="mainmenuid">8</property>
 			<label>[COLOR aqua]CRISTAL AZUL[/COLOR]</label>
 			<label2>Elemento Personalizado</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -970,8 +923,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorcc76ff003-buscar-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">8</property>
 			<label>[COLOR dodgerblue]blackgost[/COLOR]</label>
 			<label2>Add-on de Vídeo</label2>
@@ -983,8 +936,8 @@
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),colorcc76ff003-buscar-color)</visible>
 			<property name="isSubmenu">True</property>
 			</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">8</property>
 			<label>[COLOR red]YOUTUBE[/COLOR]</label>
 			<label2>Elemento Personalizado</label2>
@@ -1162,8 +1115,8 @@
 			<icon>DefaultShortcut.png</icon>
 			<thumb>image://%2fstorage%2femulated%2f0%2fAndroid%2fdata%2fthe.team.rik%2ffiles%2f.kodi%2faddons%2fplugin.program.RikTeam%2fresources%2fmedia%2fmaintenance.png/</thumb>
 			<property name="translatedPath">ActivateWindow(Programs,"plugin://plugin.program.RikTeam/?mode=forceclose",return)</property>
-			<onclick>ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=forceclose",return)</onclick>
-			<property name="path">ActivateWindow(Programs,"plugin://plugin.program.rikteamwiz/?mode=forceclose",return)</property>
+			<onclick>ActivateWindow(Programs,"plugin://script.rikteam/?mode=forceclose",return)</onclick>
+			<property name="path">ActivateWindow(Programs,"plugin://script.rikteam/?mode=forceclose",return)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),num-33060)</visible>
 			<property name="isSubmenu">True</property>
 			</item>

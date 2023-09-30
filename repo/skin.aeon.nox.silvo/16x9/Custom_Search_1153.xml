@@ -122,14 +122,6 @@
 			</focusedlayout>
 			<content>
 				<item>
-					<thumb>special://skin/extras/buscadores/icons/palantir.png</thumb>
-					<label>Buscador Palantir</label>
-					<onclick>Dialog.Close(all)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.palantir2)">ActivateWindow(10025,&quot;plugin://plugin.video.palantir2/?oFWwUWeKhWWzIFciJDNp9UaB5WWuZleZJjR51UajNXSDpkaiJTNwo1V1ATSq92ZKJjWwJ2RWpnS5d3ZJ1mWoJWbGlHZDlkNJNEZE9Eb4NmVY5Ebj5mTjhFS%2f8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIsciMyF2YzVnYnAiOi42bpR3YhJyeQfnMXJnAiOiwWczJCIsADI6ISZnFGciACLn0lUPx0TD9yWvxWd016w0BicvBHIyF2YzVnQdRGbvdGIS9ETPN0WnAiOiwWZiFGbiACLncmbw5ichN2c1JWZy9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHanAiOi42bjlmIgwyJml2ZuQnch5WYmxFXyIXa05WYsFGcu8WZklmdu4WanVHbwxFXz52bkRWYcxVak92Scx1ZulWbh9mUcxVY0FGRwBXQcxVbhdWZ2xFXzJXZzVFXcpzQnAiOiQnch5WYmJCIs0VKnkyZuBnLu92Yp9ybrtWZu9SYpRWZt9iclR3ch12L3FmcvIXa05WYsFGUv42bkRWYylGduFGbhB1Lt92YuIWdoRXan9yL6MHc0RHasADMwATMgwiMyAjMtYDMtIjMg42sDn2YhpXasFWd0NWYgEWbpRHbaOML04iMuIjL2BiMgIXa05WYsFGUo42bpRXYjlmZpR3bOdCIsciMgIXa05WYsFGUgUmci92cg42sDn2Yh1mcvZmbJdCKgwSKnkiWsplMGRHWGhnQjhkQFlFWShGWGh3UiJjR0F2V14GWGhHTiJjUwhlR4hmWHJldi5mTjhFSCNHZXRGcilWNyE2VSxmY5VzdZdFeoJmbSB3Yqp0YYdkWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTzoEbZ5mV6llMGlHTuJUdal3Yzl0QKdXWXRGbJp2bn10Q3dWSu5EbkZUOyE2VWNTSq92ZWhkSx&quot;,return)</onclick>
-					<onclick condition="!System.HasAddon(plugin.video.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>
-					
-				</item>
-				<item>
 					<thumb>special://skin/extras/buscadores/icons/cristalazul.png</thumb>
 					<label>Buscador Cristal Azul</label>
 					<onclick>Dialog.Close(all)</onclick>

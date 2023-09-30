@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1152">
 	<defaultcontrol>655</defaultcontrol>
-	
+	<onload condition="System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(repository.slyguy) + System.HasAddon(repository.slyguy) + System.HasAddon(plugin.program.iptv.merge)">ReplaceWindow(1151)</onload>
+
 	<!--<onload condition="!System.HasAddon(script.skinshortcuts)">SetProperty(RunSkinShortcutsAfterInstall,True,Home)</onload>-->
     <onload condition="!System.HasAddon(script.skinshortcuts)">InstallAddon(script.skinshortcuts)</onload>
 	<onload condition="!System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onload>
+	<onload condition="!System.HasAddon(repository.slyguy)">InstallAddon(repository.slyguy)</onload>
+	<onload condition="!System.HasAddon(plugin.program.iptv.merge)">InstallAddon(plugin.program.iptv.merge)</onload>
+	<onload condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(pvr.iptvsimple)</onload>
+	<!--<onload condition="!System.HasAddon(slyguy.pluto.tv.provider)">InstallAddon(slyguy.pluto.tv.provider)</onload>-->
+	
+	
 	<!--<onunload>ClearProperty(MissingDependency,Home)</onunload>-->
 	<!--<onload condition="!Skin.HasSetting(preguntado_ajustes)">Dialog.Close(1152)</onload>-->
-	<onload condition="!Skin.HasSetting(preguntado_ajustes)">ReplaceWindow(1151)</onload>
+<!--<onload condition="!Skin.HasSetting(preguntado_ajustes)">ReplaceWindow(1151)</onload>-->
 	<backgroundcolor>background</backgroundcolor>
 	<controls>
 		<!--<include>DefaultBackground</include>
@@ -64,17 +71,18 @@
 			<texture border="14" colordiffuse="grey">backtransparent.png</texture>
 		</control>
 		
-		
-		
 		<control type="group">
 			<animation effect="fade" start="100" end="0" time="200" tween="sine" condition="$EXP[infodialog_active]">Conditional</animation>
-				<!--<control type="image">
-					<left>0</left>
-					<top>880</top>
-					<width>100%</width>
-					<height>95</height>
+				<control type="image">
+					<centerleft>50%</centerleft>
+					<top>380</top>
+					<height>455</height>
+					<width>850</width>
+					<aligny>center</aligny>
+					<align>center</align>
 					<texture colordiffuse="66FFFFFF">colors/black.png</texture>
-				</control>-->
+				<visible>System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(repository.slyguy) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple)</visible>
+				</control>
 				<control type="textbox">
 					<centerleft>50%</centerleft>
 					<top>380</top><!--550-->
@@ -83,7 +91,9 @@
 					<aligny>center</aligny>
 					<align>center</align>
 					<font>font15</font>
-					<label>[COLOR grey]Pulsa el botón para descargar los ajustes para el skin. Tambien disponibles en el menú Apagado/Restablecer Ajustes y en Apagado/Ajustes Iniciales (3r.paso-Instalación de Programas-Ajustes)[/COLOR]</label>
+					<label>[COLOR lime]intalados ok![/COLOR] script.skinshortcuts, script.rikteam, repository.slyguy, plugin.program.iptv.merge, pvr.iptvsimple  [COLOR snow][CR][B]Finaliza descargando los ajustes para el skin. Tambien disponibles en el menú Apagado/Restablecer Ajustes y en Apagado/Ajustes Iniciales (3r.paso-Instalación de Programas-Ajustes)[/B][/COLOR]</label>
+				    <texture colordiffuse="66FFFFFF">colors/black.png</texture>
+					<visible>System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(repository.slyguy) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple)</visible>
 				</control>
 				<control type="button" id="655">
 					<onleft>700</onleft>
@@ -98,9 +108,15 @@
 					<align>center</align>
 					<font>font14_title</font>
 					<label>INSTALACIÓN DE AJUSTES</label>
-					<onclick condition="!Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.rikteam)">ReplaceWindow(1151)</onclick>
-					<onclick condition="!Skin.HasSetting(preguntado_ajustes) + !System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onclick>
-					<onclick condition="Skin.HasSetting(preguntado_ajustes) + !System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onclick>
+					<onclick condition="!Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple) + System.HasAddon(slyguy.pluto.tv.provider)">ReplaceWindow(1151)</onclick>
+					<onclick condition="Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple) + System.HasAddon(slyguy.pluto.tv.provider)">ReplaceWindow(1151)</onclick>
+					<onclick condition="!System.HasAddon(script.skinshortcuts)">InstallAddon(script.skinshortcuts)</onclick>
+					<onclick condition="!System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onclick>
+					<onclick condition="!System.HasAddon(repository.slyguy)">InstallAddon(repository.slyguy)</onclick>
+					<onclick condition="!System.HasAddon(plugin.program.iptv.merge)">InstallAddon(plugin.program.iptv.merge)</onclick>
+				    <onclick condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(pvr.iptvsimple)</onclick>
+				    <!--<onclick condition="!System.HasAddon(slyguy.pluto.tv.provider)">InstallAddon(slyguy.pluto.tv.provider)</onclick>-->
+				   <!--<onclick condition="!Skin.HasSetting(preguntado_ajustes)">ReplaceWindow(1151)</onclick> -->
 				</control>
 				
 				<control type="button" id="700">

@@ -4,7 +4,7 @@
 	<onload condition="String.IsEmpty(Window(Home).Property(Notify))">SetFocus(901001)</onload>
 	<onload condition="!String.IsEmpty(Window(Home).Property(Notify))">SetFocus(901002)</onload>
 	
-	<onclick condition="Skin.HasSetting(preguntado_ajustes) + !System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onclick>
+	<onload condition="Skin.HasSetting(preguntado_ajustes) + !System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onload>
 	<onunload>Skin.SetBool(preguntado_ajustes,false)</onunload>
 	<include>DialogOpenCloseAnimation</include>
 	<controls>
@@ -76,7 +76,26 @@
 				<control type="button" id="901001">
 					<description>Yes button</description>
 					<width>257</width><!--421-->
-					<label>OK</label><!--<label>$VAR[CustomConfirmYesLabelVar]</label>-->
+					<label>OK (PVR)</label><!--<label>$VAR[CustomConfirmYesLabelVar]</label>-->
+					<font>font15_title</font>
+					<textcolor>grey2</textcolor>
+					<focusedcolor>white</focusedcolor>
+					<align>center</align>
+					<onleft>noop</onleft>
+					<onright>noop</onright>
+					<onup>noop</onup>
+					<ondown>noop</ondown>
+					<onclick>Dialog.Close(1151)</onclick>
+					<onclick>Dialog.Close(1152)</onclick>
+					<onclick>Skin.SetBool(preguntado_ajustes)</onclick>
+					<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes+pvr",return)</onclick>
+					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texturefocus>
+					<visible>String.IsEmpty(Window(Home).Property(Notify))</visible>
+				</control>
+				<control type="button" id="901002">
+					<description>Yes button</description>
+					<width>257</width><!--421-->
+					<label>OK (PVR+MEDIA)</label><!--<label>$VAR[CustomConfirmYesLabelVar]</label>-->
 					<font>font15_title</font>
 					<textcolor>grey2</textcolor>
 					<focusedcolor>white</focusedcolor>

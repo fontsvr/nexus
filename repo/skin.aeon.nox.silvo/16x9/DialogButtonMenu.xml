@@ -216,10 +216,10 @@
 				<texturenofocus border="35,2,35,2">button_shutdown_nofocus.png</texturenofocus>
 				<onclick>Dialog.Close(all,true)</onclick>
 				<!--<onclick>ActivateWindow(1151)</onclick>-->
-				<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes+basic",return)</onclick>
+				<onclick condition="System.HasAddon(script.rikteam)">ReplaceWindow(Programs,"plugin://script.rikteam/?mode=install&amp;action=build&amp;name=ajustes+pvr",return)</onclick>
 				<onclick>Skin.SetBool(preguntado_ajustes,true)</onclick>
 				<font>font14</font>
-				<label>Restablecer el skin [COLOR hotpink]$INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,][/COLOR]</label>
+				<label>Restablecer ajuste [COLOR hotpink]$INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,][/COLOR]</label>
 			</control>
 			<control type="button" id="15">
 				<description>Settings</description>

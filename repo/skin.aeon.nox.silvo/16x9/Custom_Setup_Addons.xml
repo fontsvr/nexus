@@ -101,8 +101,8 @@
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<texturenofocus/>
@@ -123,8 +123,8 @@
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<radioposx>1280</radioposx>
@@ -140,23 +140,20 @@
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
 					<height>60</height>
-					<label>Palantir2 $INFO[System.AddonVersion(plugin.video.palantir2),(,)][COLOR grey] - Películas, Series, Documentales, Dibujos y Novelas[/COLOR]</label>
+					<label>KodiTV $INFO[System.AddonVersion(plugin.video.koditv),(,)][COLOR grey] - TV, Deportes[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="3">listselect_fo.png</texturefocus>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>																		
-					<!--<onclick condition="!System.HasAddon(repository.palantir2)">InstallAddon(repository.palantir2)</onclick>-->																	
-					<onclick condition="!System.HasAddon(repository.palantir2)">InstallAddon(repository.palantir2)</onclick>
-					<onclick condition="!System.HasAddon(plugin.video.palantir2) + System.HasAddon(repository.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>																		
-					<onclick condition="!System.HasAddon(plugin.video.palantir2)">InstallAddon(plugin.video.palantir2)</onclick>	
-					<onclick condition="System.HasAddon(plugin.video.palantir2)">Dialog.Close(5202)</onclick>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>																																			
+					<onclick condition="!System.HasAddon(plugin.video.koditv)">InstallAddon(plugin.video.koditv)</onclick>	
+					<onclick condition="System.HasAddon(plugin.video.koditv)">Dialog.Close(5202)</onclick>
 					<!--<onclick condition="System.HasAddon(plugin.video.palantir2)">ActivateWindow(10040,&quot;addons://plugin.video.palantir2/&quot;,return)</onclick>-->
-					<onclick condition="System.HasAddon(plugin.video.palantir2)">ActivateWindow(Videos,\"plugin://plugin.video.palantir2/?UQzl0QKpnWYJlZk1GbsRWeJZTSGJVekdlV5UWeKhWWzIFciJDNp9UaB5mYXZVdkN1Yzl0QKpmYyUDMadVNwkkavdmSyoFcidkV6pUe3dWStpFai1mR5R2QJZTSDNmdjNjU2NWbG5mWTlDbihlVzlFWSxmW/8iMylGduFGbhBnLvVGZpZnLul2Z1xGcv8iOul2Z1xGcoUGdhRGc15icl5WahRnbvN0JgwyJzp7wuVWbgEmchBHIhR3cpZHIhR3clBiclNWZsJWY0NXRngyWgojI15WZNRHelRnbvNmIgwyJzVGbpZ2JgojI05WZ052bjJCIscSduVWbnAiOi42bpR3YhJye03JjNXYgQWaf1WZ0lGI5JGISVERS9EIgADN9QWafVnbl1GIlJXZodHIzVnbl1GIt9mcmBCdyFmbhZGLsF3cs42bjlGLu9Wa0NWYswWZiFGbgQ3YlxWZzdCI6ICbxNnIgwCMgojIldWYwJCIscSXS9ETPN0LbNXZpJXZT1FZs92ZgI1TM90QbdCI6ICblJWYsJCIscyZuBnLzVWayV2cv82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0h2JgojIu92YpJCIsciZpdmL0JXYuFmZvIjcpRnbhxWYw5yblRWa25ibpdWdsB3Lz52bkRWYvkGZvtmLvMXZslmZvQndktmLtFWZ05SZoR3LhRXYk9CZp9mck5WQvAzLkVGdhxWdtV2LldWYy9Gdz9yJgojI0JXYuFmZiACLdlyJpcmbw5ibvNWav82arVmbvEWakVWbvIXZ0NXYt9ydhJ3LylGduFGbhB1Lu9GZkFmcpRnbhxWYQ9SbvNmLiVHa0l2Zv8iOzBHd0hGLwADMwEDIsMjMwITL2ATL3ADIuN7wpNWY6lGbhVHdjFGIh1Wa0xmmDzyMuMjLy4idgIDIylGduFGbhBFKu9Wa0F2YpZWa09mTnACLnIDIylGduFGbhBFIlJnYvNHIuN7wpNWYtJ3bm5WSngCIskyJpMEO3xEMGVnWIpkdhdVU2p1RGBTWTlDMhdUV1R2RWhmYTVjcahkWwwkMaBnYHZleMlXNyJmMSBHTyY0aadUO1NWe5cnYIZlbhdFN1RWbstmWXhTdjdkRzl1V1ATYYlUeMJjWoJWbGlHZDVjbhdVWux0QBlWYX5kdilWS2k0Qk9GZIJ1djp3b2xkMkBHZHhWMZlWNqJmMwYXVHZ0cZdVNwEGWKhmWHJldilWORl1V4hmYuJFcjlWO5lFWjZnYXZkekdkV5xkMxwmWHxGaMJTNsFmM0ZHTz4Ebj1GbsNWe1cnYtNmbMNUQpN2RG5mWTlkNJR\",return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.koditv)">ActivateWindow(Videos,\"plugin://plugin.video.koditv/\",return)</onclick>
 					<texturenofocus/>
-					<selected>System.HasAddon(plugin.video.palantir2)</selected>
+					<selected>System.HasAddon(plugin.video.koditv)</selected>
 					
 				</control>
 				<control type="radiobutton" id="323">
@@ -168,8 +165,8 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>																		
 					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>																
@@ -190,8 +187,8 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 	                <onclick condition="!System.HasAddon(repository.balandro)">InstallAddon(repository.balandro)</onclick>																
@@ -211,8 +208,8 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>																
@@ -231,8 +228,8 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.tacones) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.tacones)</onclick>																		
@@ -250,8 +247,8 @@
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.kodispaintv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.kodispaintv)</onclick>																		
@@ -269,8 +266,8 @@
 					<label>Moe's TV $INFO[System.AddonVersion(plugin.video.moestv),(,)][COLOR grey] - Plataformas TV[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.moestv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.moestv)</onclick>																		
@@ -289,8 +286,8 @@
 					<label>Winner $INFO[System.AddonVersion(plugin.video.winner),(,)][COLOR grey] - Deportes (Acestream Necesario)[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.winner) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.winner)</onclick>																		
@@ -308,8 +305,8 @@
 					<label>The Blackgost $INFO[System.AddonVersion(plugin.video.blackghost),(,)] [COLOR grey]- Cine y Series[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.theblackghost)">InstallAddon(repository.theblackghost)</onclick>
@@ -328,8 +325,8 @@
 					<label>DuffYou $INFO[System.AddonVersion(plugin.video.duffyou),(,)] [COLOR grey]- Videos de YouTube sin cuenta[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.duffyou)">InstallAddon(plugin.video.duffyou)</onclick>	
@@ -347,8 +344,8 @@
 					<label>The Movie Database Helper $INFO[System.AddonVersion(plugin.video.themoviedb.helper),(,)][COLOR grey] - Arte e info de Películas y Series[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.jurialmunkey)">InstallAddon(repository.jurialmunkey)</onclick>																		
@@ -368,13 +365,15 @@
 					<height>60</height>
 				    <radiowidth>100</radiowidth>
 				    <radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
+					<!--<onclick condition="!System.HasAddon(repository.magellan)">InstallAddon(repository.magellan)</onclick>-->
+					<!--<onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix) + System.HasAddon(repository.magellan)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>-->
+				    <onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
 					<onclick condition="!System.HasAddon(repository.magellan)">InstallAddon(repository.magellan)</onclick>
-					<onclick condition="!System.HasAddon(plugin.video.Magellan_Matrix) + System.HasAddon(repository.magellan)">InstallAddon(plugin.video.Magellan_Matrix)</onclick>
-				    <onclick condition="System.HasAddon(plugin.video.Magellan_Matrix)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.Magellan_Matrix)">Dialog.Close(5202)</onclick>
 					<onclick condition="System.HasAddon(plugin.video.Magellan_Matrix)">ActivateWindow(Videos,&quot;plugin://plugin.video.Magellan_Matrix/&quot;,return)</onclick>
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.Magellan_Matrix)</selected>
@@ -389,8 +388,8 @@
 					<label>KodivertidoTVCine $INFO[System.AddonVersion(plugin.video.KovertidoTeamTvCine),(,)][COLOR grey] - Pelis y Series[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
-					<textureradioonfocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="ffffffff">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
                     <onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>
