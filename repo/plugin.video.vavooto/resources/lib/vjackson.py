@@ -52,22 +52,22 @@ def createListItem(params):
 
 def _list(params):
 	data = cachedcall("list", params)
-	next=data["next"]
+	content, next = "seasons", data["next"]
 	data = [i for i in data["data"] if i.get("description")]
-	content, isFolder, action = "tvshows", True, "seasons"
 	cat = "Beliebte Serien" if "popular" in params["id"] else "Angesagte Serien"
 	if params["id"].startswith("movie"):
 		cat = cat.replace("Serien", "Filme")
-		content, isFolder, action = "movies", False, "get"
+		content = "movies"
 	utils.set_content(content)
 	utils.set_category(cat)
-	paramslist = [{"action": action,"id":e["id"]} for e in data]
+	paramslist = [{"action": "get" if e["id"].startswith("movie") else "seasons" ,"id":e["id"]} for e in data]
 	with ThreadPoolExecutor(len(paramslist)) as executor:
 		future_to_url = {executor.submit(createListItem, urlparams):urlparams for urlparams in paramslist}
 		for future in as_completed(future_to_url):
 			urlparams = future_to_url[future]
 			o = future.result()
 			if o:
+				isFolder = False if o.getProperty("IsPlayable") == "true" else True
 				if not isFolder: o.addContextMenuItems([("Manuelle Stream Auswahl", "RunPlugin(%s&manual=true)" % utils.url_for(urlparams))])
 				utils.add(urlparams, o, isFolder)
 	if next: addDir(">>> Weiter", {"action": "list", "id": next})
@@ -142,8 +142,9 @@ def resolve(mirror):
 	elif resolveurl.relevant_resolvers(utils.urlparse(mirror["url"]).hostname):
 		try: return resolveurl.resolve(mirror["url"])
 		except Exception as e: utils.log(e)
-	try: return callApi2("open", {"link": mirror["url"]})[-1]["url"]
-	except Exception as e: utils.log(e)
+	#try: return callApi2("open", {"link": mirror["url"]})[-1]["url"]
+	#except Exception as e: utils.log(e)
+	return
 
 def checkstream(url):
 	try:
@@ -158,9 +159,10 @@ def checkstream(url):
 		res = session.get(newurl, headers=headers, params=params, stream=True)
 		res.raise_for_status()
 		if "text" in res.headers.get("Content-Type","text"): raise Exception("Keine Videodatei")
-	except Exception as e: print(e)
+	except Exception as e: utils.log(e)
 	else: return url
 
+"""
 def _get(params):
 	manual = True if params.get("manual") == "true" else False
 	if params.get("e"): params["id"] = "%s.%s.%s" % (params["id"], params["s"], params["e"])
@@ -210,6 +212,71 @@ def _get(params):
 		from resources.lib.player import cPlayer
 		xbmc.Player().play(url, o)
 		return cPlayer().startPlayer()
+"""
+
+def _get(params):
+	manual = True if params.get("manual") == "true" else False
+	b = utils.get_meta(params)
+	_data='{"token":"26fY7-FIvyz_UA5t9T_ndXB02KgaCT-jDx0uA9CE7iRAO_V2lCSGkAzzTXOpjHZHBvOoKcuq1OVCnbYX035d8698U0OYDaLo-7p8BJJIJNj7d1z-7byaQDuDFdEHPbnZAKAxG_fskVIrE0XkBV7_HbBnlIBDQ_EgxA","reason":"app-focus","locale":"de","theme":"light","metadata":{"device":{"type":"Handset","brand":"Xiaomi","model":"21081111RG","name":"21081111RG","uniqueId":"33267ca74bec24c7"},"os":{"name":"android","version":"7.1.2","abis":["arm64-v8a","armeabi-v7a","armeabi"],"host":"non-pangu-pod-sbcp6"},"app":{"platform":"android","version":"1.1.2","buildId":"97245000","engine":"jsc","signatures":["7c8c6b5030a8fa447078231e0f2c0d9ee4f24bb91f1bf9599790a1fafbeef7e0"],"installer":"com.android.secex"},"version":{"package":"net.dezor.browser","binary":"1.1.2","js":"1.2.9"}},"appFocusTime":1589,"playerActive":false,"playDuration":0,"devMode":false,"hasMhub":false,"castConnected":false,"package":"net.dezor.browser","version":"1.2.9","process":"app","firstAppStart":1681125328576,"lastAppStart":1681125328576,"ipLocation":null,"adblockEnabled":true,"proxy":{"supported":true,"enabled":true}}'
+	signed = requests.post("https://www.dezor.net/api/app/ping", data=_data).json()["mhub"]
+	_headers={"user-agent": "MediaHubMX/2", "accept": "application/json", "content-type": "application/json; charset=utf-8", "content-length": "158", "accept-encoding": "gzip", "Host": "www.kool.to", "mediahubmx-signature":signed}
+	if params.get("e"):
+		for episode in b["episodes"]:
+			if episode["episode_number"] == int(params["e"]):
+				airdate = episode["air_date"]
+				tmdb_episode_id = episode["id"]
+		_data={"language":"de","region":"AT","type":"series","ids":{"tmdb_id": b["ids"]["tmdb"],"imdb_id":b["ids"]["imdb"]},"name":b["infos"]["tvshowtitle"],"nameTranslations":{},"originalName":b["infos"]["originaltitle"],"releaseDate":b["infos"]["premiered"],"episode":{"ids":{"tmdb_episode_id":tmdb_episode_id},"name":b["infos"]["title"],"releaseDate":airdate,"season":params["s"],"episode":params["e"]},"clientVersion":"1.1.3"}
+	else: _data={"language":"de","region":"AT","type":"movie","ids":{"tmdb_id": b["ids"]["tmdb"],"imdb_id":b["ids"]["imdb"]},"name":b["infos"]["title"],"nameTranslations":{},"originalName":b["infos"]["originaltitle"],"releaseDate":b["infos"]["premiered"],"episode":{},"clientVersion":"1.1.3"}
+	url = "https://www.kool.to/kool-cluster/mediahubmx-source.json"
+	mirrors = requests.post(url, data=json.dumps(_data), headers=_headers).json()
+	if not mirrors: return showFailedNotification()
+	else:
+		newurllist, url =[], None
+		for i ,a in enumerate(mirrors, 1):
+			del(a["type"])
+			del(a["id"])
+			a["hoster"] = utils.urlparse(a["url"]).netloc
+			if "streamz" in a["hoster"]: continue # den hoster kann man vergessen
+			if "languages" in a:
+				if "de" in a["languages"] :
+					if "1080p" in a["name"]:
+						if int(utils.addon.getSetting("stream_quali")) > 0: continue
+						a["name"], a["weight"] = "%s %s" %(a["hoster"], "1080p"), 1080+i
+					elif "720p" in a["name"]:
+						if int(utils.addon.getSetting("stream_quali")) > 1: continue
+						a["name"], a["weight"] = "%s %s" %(a["hoster"], "720p"), 720+i
+					elif "480p" in a["name"]: a["name"], a["weight"] = "%s %s" %(a["hoster"], "480p"), 480+i
+					elif "360p" in a["name"]: a["name"], a["weight"] = "%s %s" %(a["hoster"], "360p"), 360+i
+					else: a["name"], a["weight"] = a["hoster"], i
+					newurllist.append(a)
+			else:
+				a["name"], a["weight"] = a["hoster"], i
+				newurllist.append(a)
+		mirrors = list(sorted(newurllist, key=lambda x: x["weight"], reverse=True))
+		for i, a in enumerate(mirrors, 1): a["name"] = "%s. %s" % (i, a["name"])
+		if utils.addon.getSetting("stream_select") == "0" or manual:
+			index = Dialog().select("VAVOO", [ mirror["name"] for mirror in mirrors ])
+			if index == -1: return
+			if utils.addon.getSetting("auto_try_next_stream") !="true": mirrors = [mirrors[index]]
+			else: mirrors = mirrors[index:]
+		for mirror in mirrors:
+			url = checkstream(resolve(mirror))
+			if url: break
+		if not url: return showFailedNotification()
+		utils.log("Spiele :%s" % url)
+		o = ListItem(xbmc.getInfoLabel("ListItem.Title"))
+		o.setPath(url)
+		o.setProperty("IsPlayable", "true")
+		if ".m3u8" in url:
+			o.setMimeType("application/vnd.apple.mpegurl")
+			if utils.PY2: o.setProperty("inputstreamaddon", "inputstream.adaptive")
+			else: o.setProperty("inputstream", "inputstream.adaptive")
+			o.setProperty("inputstream.adaptive.manifest_type", "hls")
+		if int(sys.argv[1]) > 0: utils.set_resolved(o)
+		else: 
+			from resources.lib.player import cPlayer
+			xbmc.Player().play(url, o)
+			return cPlayer().startPlayer()
 
 def addDir(name, params, iconimage="DefaultFolder.png", isFolder=True):
 	liz = ListItem(name)
