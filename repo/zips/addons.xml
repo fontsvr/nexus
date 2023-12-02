@@ -1086,19 +1086,21 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         </assets>
         <reuselanguageinvoker>true</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.vavooto" name="VAVOO.TO" version="6.0.1" provider-name="kasi,michaz">
+</addon><addon id="plugin.video.vavooto" name="VAVOO.TO" version="6.0.2.8" provider-name="kasi,michaz">
 	<requires>
-		<import addon="script.module.vavoo" />
+		<import addon="script.module.vavoo" version="0.1.3.2" />
 		<import addon="script.module.requests" />
 		<import addon="script.module.resolveurl" />
 		<import addon="inputstream.ffmpegdirect" optional="true" /> 
 		<import addon="script.module.futures" optional="true" />
+		<import addon="script.module.infotagger" optional="true" />
 		
 		<import addon="script.module.pydevd" optional="true" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="main.py">
 		<provides>video</provides>
 	</extension>
+	<extension point="xbmc.python.module" library="resources" />
 	<extension point="xbmc.addon.metadata">
 		<assets>
 			<icon>icon.png</icon>
@@ -2369,7 +2371,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<screenshot>resources/screen2.jpg</screenshot>
 		</assets>
 	</extension>
-</addon><addon id="script.module.vavoo" name="Vavoosign" version="0.1.3.1" provider-name="michaz1988">
+</addon><addon id="script.module.vavoo" name="Vavoosign" version="0.1.3.2" provider-name="michaz1988">
 	<requires>
 		<import addon="script.module.requests" />
 	</requires>
