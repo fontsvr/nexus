@@ -1,4 +1,4 @@
-Version 5.1.102 (Jul 08, 2023)
+Version 5.1.111 (Oct 1, 2023)
 - Code Base Changes:
     - None
 
@@ -6,8 +6,8 @@ Version 5.1.102 (Jul 08, 2023)
     - None
 
 - Resolvers Fixed/Updated:
-    - neohd
-    - vembx
+    - filemoon
+    - waaw
 
 - Resolvers Removed
     - None

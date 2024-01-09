@@ -744,12 +744,12 @@
         <news>- Añadida opción de reproducción externa de playlists[CR]- Correcciones menores
         </news>
     </extension>
-</addon><addon id="plugin.video.elementum" name="Elementum" version="0.1.87" provider-name="elgatito">
+</addon><addon id="plugin.video.elementum" name="Elementum" version="0.1.99" provider-name="elgatito">
     <requires>
         <import addon="xbmc.addon" version="16.0.0" />
-        <import addon="repository.elementum" optional="true" />
+        <import addon="repository.elementumorg" optional="true" />
         <import addon="script.module.kodi-six" />
-        <import addon="script.module.requests" />
+        <import addon="script.module.requests" version="2.9.1" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="navigation.py">
         <provides>video</provides>
@@ -985,7 +985,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <screenshot>resources/screen5.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.palantir3" name="[COLOR gold]Palantir 3[/COLOR]" version="3.0.9" provider-name="TierraMedia">
+</addon><addon id="plugin.video.palantir3" name="[COLOR gold]Palantir 3[/COLOR]" version="3.0.10" provider-name="TierraMedia">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.inputstreamhelper" version="0.5.0" />
@@ -1703,7 +1703,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <fanart>icon.png</fanart>
         </assets>
     </extension>
-</addon><addon id="repository.jurialmunkey" name="jurialmunkey Alpha Repository" version="3.3" provider-name="jurialmunkey">
+</addon><addon id="repository.jurialmunkey" name="jurialmunkey Alpha Repository" version="3.4" provider-name="jurialmunkey">
     <extension point="xbmc.addon.repository" name="jurialmunkey Alpha Repository">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/repo/zips/addons.xml</info>
@@ -1720,10 +1720,15 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <checksum>https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/matrix/zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/matrix/zips/</datadir>
         </dir>
-        <dir minversion="19.9.1">
+        <dir minversion="19.9.1" maxversion="20.9.0">
             <info compressed="false">https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/nexusrepo/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/nexusrepo/zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/nexusrepo/zips/</datadir>
+        </dir>
+        <dir minversion="20.9.1">
+            <info compressed="false">https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/omega/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/omega/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jurialmunkey/repository.jurialmunkey/master/omega/zips/</datadir>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
@@ -2349,6 +2354,22 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
+</addon><addon id="script.module.inputstreamhelper" name="InputStream Helper (Slyguy Wrapper)" provider-name="SlyGuy" version="99.0.12">
+	<requires>
+		<import addon="repository.slyguy.inputstreamhelper" />
+	</requires>
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <description lang="en">Replaces Inputstream Helper with Slyguy DRM Helper</description>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <news />
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
 </addon><addon id="script.module.requests" name="requests" version="2.22.0+matrix.1" provider-name="kennethreitz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
@@ -2372,7 +2393,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <icon>resources/icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.module.resolveurl" name="ResolveURL" version="5.1.102" provider-name="gujal">
+</addon><addon id="script.module.resolveurl" name="ResolveURL" version="5.1.111" provider-name="gujal">
     <requires>
         
         <import addon="script.module.six" />
