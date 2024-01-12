@@ -47,8 +47,6 @@ from lib.alfa_assistant import execute_binary_from_alfa_assistant, open_alfa_ass
 
 
 def init():
-    logger.info()
-
     """
     Todo el código añadido al add-on se borra con cada actualización.  Esta función permite restaurarlo automáticamente con cada actualización.  Esto permite al usuario tener su propio código, bajo su responsabilidad, y restaurarlo al add-on cada vez que se actualiza.
     
@@ -83,6 +81,7 @@ def init():
         
     Tiempos:    Copiando 7 archivos de prueba, el proceso ha tardado una décima de segundo.
     """
+    logger.info()
 
     try:
         # TORREST: Modificaciones temporales
@@ -93,9 +92,6 @@ def init():
         
         # Se verifica si están bien las rutas a la videoteca
         config.verify_directories_created()
-        
-        # Se fuerzan los títulos inteligentes si no existen
-        force_intelligent_titles()
         
         # Se actualiza el Fanart de Alfa en función del calendario de holidays
         set_season_holidays()
@@ -297,8 +293,8 @@ def verify_script_alfa_update_helper(silent=True, emergency=False, github_url=''
     repos_dir = 'downloads/repos/'
     alfa_repo = ['repository.alfa-addon', '1.0.8', '*', '']
     alfa_helper = ['script.alfa-update-helper', '0.0.7', '*', '']
-    torrest_repo = ['repository.github', '0.0.7', '*', 'V']
-    torrest_addon = ['plugin.video.torrest', '0.0.16', '*', '']
+    torrest_repo = ['repository.github', '0.0.8', '*', 'V']
+    torrest_addon = ['plugin.video.torrest', '0.0.17', '*', '']
     futures_script = ['%sscript.module.futures' % repos_dir, '2.2.1', 'PY2', '']
     if emergency:
         alfa_repo[3] = 'F'
@@ -415,7 +411,8 @@ def verify_script_alfa_update_helper(silent=True, emergency=False, github_url=''
                     if ADDON_VERSION_NUM == new_version_num: break
                     if monitor: monitor.waitForAbort(2)
                     else: time.sleep(2)
-                if ADDON_VERSION_NUM < new_version_num or emergency:
+                if config.get_setting('addon_outdated_message', default=True) and \
+                        ADDON_VERSION_NUM < new_version_num or emergency:
                     logger.info("Notifying obsolete version %s ==> %s" % (str(ADDON_VERSION_NUM), str(new_version_num)), force=True)
                     platformtools.dialog_notification("Alfa: versión oficial: [COLOR hotpink][B]%s[/B][/COLOR]" % str(new_version_num), \
                             "[COLOR yellow]Tienes una versión obsoleta: [B]%s[/B][/COLOR]" % str(ADDON_VERSION_NUM))
@@ -1068,8 +1065,8 @@ def reset_videolibrary_by_channel(inactive=True):
     ###### LISTA DE CANALES PARA SOBRESCRIBIR SU VIDEOTECA, o "*" PARA TODOS
     channels_list = []
 
-    if not channels_list or not config.get_setting("update", "videolibrary") or \
-                    config.get_setting("videolibrary_backup_scan", "videolibrary"):
+    if not channels_list or not config.get_setting("videolibrary_update") or \
+                    config.get_setting("videolibrary_scan_after_backup"):
         return
 
     try:
@@ -1166,8 +1163,8 @@ def clean_videolibrary_unused_channels():
     ###### LISTA DE CANALES PARA LIMPIAR SU VIDEOTECA, o "*" PARA TODOS
     channels_list = []
 
-    if not channels_list or not config.get_setting("update", "videolibrary") or \
-                    config.get_setting("videolibrary_backup_scan", "videolibrary"):
+    if not channels_list or not config.get_setting("videolibrary_update") or \
+                    config.get_setting("videolibrary_scan_after_backup"):
         return
 
     try:

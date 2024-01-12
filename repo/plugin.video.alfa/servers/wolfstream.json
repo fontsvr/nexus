@@ -18,6 +18,14 @@
       {
         "pattern": "https://aparat.cam/([A-z0-9-_.]+(?:.html|))",
         "url": "https://wolfstream.tv/\\1"
+      },
+      {
+        "pattern": "https://wolfstream.tv/e/([A-z0-9]+)",
+        "url": "https://wolfstream.tv/embed-\\1.html"
+      },
+      {
+        "pattern": "(https://leakslove.net/e/[A-z0-9]+)",
+        "url": "\\1"
       }
     ]
   },

@@ -248,7 +248,7 @@
 						<control type="button" id="1013">
 							<include>SettingsButtonCommonValues</include>
 							<label>31978</label>
-							<onclick>RunScript(script.skinshortcuts,type=resetal)</onclick>
+							<onclick>RunScript(script.skinshortcuts,type=resetalls)</onclick>
 							<onclick>Skin.SetString(highlightbarcolor,)</onclick>
 							<onclick>Skin.SetString(focusedsubmenucolor,)</onclick>
 							<onclick>Skin.SetString(themehomemenubarcolor,)</onclick>
@@ -264,6 +264,7 @@
 							<onclick>Skin.SetBool(Disable.SearchButton,true)</onclick>
 							<!--<onclick>Skin.SetBool(systembarontop,)</onclick>
 							<onclick>Skin.SetBool(enable.visiblesubmenu,)</onclick>-->
+							<onclick>Skin.SetBool(preguntado_ajustes)</onclick><!--devuelve true !urgente-->
 							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/fallback_movies.jpg)</onclick>
 						</control>
 						<control type="button" id="1020">
@@ -282,7 +283,7 @@
 							<!--<onclick>Skin.SetString(themelabelcolor,FFFF1744)</onclick>-->
 							<onclick>Skin.SetString(themelabelcolor,)</onclick>
 							<onclick>Skin.SetString(widgethighlightbarcolor,)</onclick>
-							
+							<onclick>Skin.SetBool(preguntado_ajustes)</onclick><!--devuelve true !urgente-->
 							<onclick>Skin.SetBool(Disable.SearchButton,false)</onclick>
 							<onclick>Skin.SetBool(systembarontop,true)</onclick>
 							<onclick>Skin.SetBool(enable.visiblesubmenu,true)</onclick>
@@ -304,7 +305,7 @@
 							<!--<onclick>Skin.SetString(themelabelcolor,FFFF1744)</onclick>-->
 							<onclick>Skin.SetString(themelabelcolor,)</onclick>
 							<onclick>Skin.SetString(widgethighlightbarcolor,)</onclick>
-							
+						    <onclick>Skin.SetBool(preguntado_ajustes)</onclick><!--devuelve true !urgente-->
 							<onclick>Skin.SetBool(Disable.SearchButton,false)</onclick>
 							<onclick>Skin.SetBool(systembarontop,true)</onclick>
 							<onclick>Skin.SetBool(enable.visiblesubmenu,true)</onclick>

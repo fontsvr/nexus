@@ -122,6 +122,17 @@
 					<textcolor>$VAR[FocusedMainMenuColor]</textcolor><!--<textcolor>hotpink-$VAR[ThemeLabelColor]snow</textcolor>-->
 					<shadowcolor>shadow</shadowcolor>
 					<visible>System.AddonIsEnabled(plugin.program.rikteamwiz)</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[130])</visible>
+				    <visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31058])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31052])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31053])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31054])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[20088])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31085])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31097])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31098])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31099])</visible>					
+					<!--r puede haber info debajo-->
 				</control>
 				<control type="button">
 					<left>0</left>
@@ -138,6 +149,16 @@
 					<texturefocus />
 					<texturenofocus />
 					<visible>!System.AddonIsEnabled(plugin.program.rikteamwiz)</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[130])</visible>
+				    <visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31058])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31052])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31053])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31054])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[20088])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31085])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31097])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31098])</visible>
+					<visible>!String.IsEqual(Container(9000).ListItem.Property(InfoLine),$LOCALIZE[31099])</visible>
 				</control>
 				<include condition="System.AddonIsEnabled(service.library.data.provider)">PlayListStatsList</include>
 				<control type="label">

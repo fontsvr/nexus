@@ -37,7 +37,7 @@ ALFA_DEPENDENCIES = 'alfa_dependencies.json'
 
 ITEM = Item()
 last_fix_json = os.path.join(config.get_runtime_path(), 'last_fix.json')        # información de la versión fixeada del usuario
-timeout = 15
+timeout = (5, 15)
 command = ''
 last_id_old = 0
 
@@ -575,7 +575,6 @@ def check_update_to_others(verbose=False, app=True):
             if os.path.exists(os.path.join(out_folder, ALFA_DEPENDENCIES)):
                 os.remove(os.path.join(out_folder, ALFA_DEPENDENCIES))
 
-        config.verify_settings_integrity()
         from platformcode.custom_code import set_season_holidays
         set_season_holidays()
 
@@ -737,11 +736,15 @@ def get_ua_list():
     logger.info()
     
     try:
-        url = "http://omahaproxy.appspot.com/all?csv=1"
+        # url = "http://omahaproxy.appspot.com/all?csv=1"
+        url = "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Windows&num=6&offset=0"
         current_ver = config.get_setting("chrome_ua_version", default="").split(".")
         data = httptools.downloadpage(url, alfa_s=True, ignore_response_code=True).data
-        
-        new_ua_ver = scrapertools.find_single_match(data, "win64,stable,([^,]+),")
+
+        # new_ua_ver = scrapertools.find_single_match(data, "win64,stable,([^,]+),")
+        import ast
+        data = ast.literal_eval(data)
+        new_ua_ver = data[0].get('version', '') if data and isinstance(data, list) else ''
         if not new_ua_ver:
             return
 

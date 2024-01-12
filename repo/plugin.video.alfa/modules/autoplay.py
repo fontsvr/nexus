@@ -118,7 +118,7 @@ def start(itemlist, item, user_server_list=[], user_quality_list=[]):
     # Obtiene los ajustes de autoplay para este canal
     settings_node = channel_node.get('settings', {})
 
-    if get_setting('autoplay') or settings_node['active']:
+    if get_setting('autoplay') or settings_node.get('active'):
         url_list_valid = []
         autoplay_list = []
         autoplay_b = []
@@ -130,8 +130,9 @@ def start(itemlist, item, user_server_list=[], user_quality_list=[]):
         status_language = config.get_setting("filter_languages", channel_id)
 
         # Guarda el valor actual de "Accion y Player Mode" en preferencias
+        actions = ["Alta", "Media", "Baja"]
         user_config_setting_action = config.get_setting("default_action")
-        user_forced_action = config.get_setting("autoplay_qlty")
+        user_forced_action = actions[config.get_setting("autoplay_qlty")]
 
         user_config_setting_player = config.get_setting("player_mode")
         # Habilita la accion "Ver en calidad alta o baja"(si el servidor devuelve más de una calidad p.e. gdrive)
@@ -151,11 +152,11 @@ def start(itemlist, item, user_server_list=[], user_quality_list=[]):
         #       2: Solo servidores
         #       3: Solo calidades
         #       4: No ordenar
-        if (settings_node['custom_servers'] and settings_node['custom_quality']):
-            priority = settings_node['priority']  # 0: Servidores y calidades o 1: Calidades y servidores
-        elif settings_node['custom_servers']:
+        if (settings_node.get('custom_servers') and settings_node.get('custom_quality')):
+            priority = settings_node.get('custom_quality')  # 0: Servidores y calidades o 1: Calidades y servidores
+        elif settings_node.get('custom_servers'):
             priority = 2  # Solo servidores
-        elif settings_node['custom_quality']:
+        elif settings_node.get('custom_quality'):
             priority = 3  # Solo calidades
         else:
             priority = 4  # No ordenar
@@ -173,8 +174,10 @@ def start(itemlist, item, user_server_list=[], user_quality_list=[]):
         # Se guardan los textos de cada servidor y calidad en listas p.e. favorite_servers = ['openload',
         # 'streamcloud']
         for num in range(1, 4):
-            favorite_servers.append(channel_node['servers'][settings_node['server_%s' % num]].lower())
-            favorite_quality.append(channel_node['quality'][settings_node['quality_%s' % num]])
+            if channel_node.get('servers'):
+                favorite_servers.append(channel_node['servers'][settings_node['server_%s' % num]].lower())
+            if channel_node.get('quality'):
+                favorite_quality.append(channel_node['quality'][settings_node['quality_%s' % num]])
         favorite_servers += [s.lower() for s in user_server_list if s not in favorite_servers]
         favorite_quality += [s for s in user_quality_list if s not in favorite_quality]
         for s in favorite_quality[:]:
@@ -280,7 +283,7 @@ def start(itemlist, item, user_server_list=[], user_quality_list=[]):
 
         # Se prepara el plan b, en caso de estar activo se agregan los elementos no favoritos al final
         try:
-            plan_b = settings_node['plan_b']
+            plan_b = settings_node.get('plan_b')
         except:
             plan_b = True
         text_b = ''
@@ -491,7 +494,7 @@ def check_value(channel, itemlist):
         # Obtiene el nodo AUTOPLAY desde el json
         autoplay_node = jsontools.get_node_from_file('autoplay', 'AUTOPLAY')
 
-    channel_node = autoplay_node.get(channel)
+    channel_node = autoplay_node.get(channel, {})
 
     server_list = channel_node.get('servers')
     if not server_list:

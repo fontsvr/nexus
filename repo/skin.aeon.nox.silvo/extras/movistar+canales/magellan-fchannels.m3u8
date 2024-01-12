@@ -1,6 +1,6 @@
 #EXTM3U
 ## Premium Latino
-#EXTINF:-1 tvg-name="AMC Latinoamerica" tvg-id="AMC" tvg-logo="https://www.movistarplus.es/recorte/m-NEO/canal/AMC.png" tvg-chno="1" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]AMC HD[/B][/COLOR] [COLOR darkorange]OPC3[/I][/COLOR]
+#EXTINF:-1 tvg-name="AMC Latinoamerica" tvg-id="AMC" tvg-logo="https://www.movistarplus.es/recorte/m-NEO/canal/AMC.png" tvg-chno="1" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]AMC HD[/B][/COLOR] [COLOR darkorange][/I][/COLOR]
 https://amc-amcespanol-1-us.plex.wurl.tv/playlist.m3u8
 
 #EXTINF:-1tvg-name="AMC Latinoamerica" tvg-id="AMC" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s90653_dark_360w_270h.png" tvg-chno="1" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]AMC HD[/B][/COLOR] [COLOR darkorange]OPC3[/I][/COLOR]
@@ -88,19 +88,19 @@ https://scl.edge.grupoz.cl/movie/live/playlist.m3u8
 #EXTINF:-1 tvg-name="Claro Cinema" tvg-id="Claro Cinema" tvg-logo="http://descargas.podzone.net/logos/-claro-cinema.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Claro Cinema MEX[/COLOR]
 http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102360.ts
 
-#EXTINF:-1 tvg-name="HBO Mundi HD" tvg-id="HBO Mundi HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s70081_dark_360w_270h.png" tvg-chno="20" group-title="Premium Latino", catchup="vod",[COLOR darkorange][B][I]HBO Mundi HD[/I][/B] [COLOR orange][/COLOR]
+#EXTINF:-1 tvg-name="HBO Mundi HD" tvg-id="HBO Mundi HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s70081_dark_360w_270h.png" tvg-chno="19" group-title="Premium Latino", catchup="vod",[COLOR darkorange][B][I]HBO Mundi HD[/I][/B] [COLOR orange][/COLOR]
 http://200.24.204.242:6020/play/a0dg/index.m3u8
 
 #EXTINF:-1 tvg-name="HBO Mundi HD" tvg-id="HBO Mundi HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s70081_dark_360w_270h.png" tvg-chno="20" group-title="Premium Latino", catchup="vod",[COLOR darkorange][B][I]HBO Mundi MEX[/I][/B] [COLOR orange][/COLOR]
 http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102379.ts
 
-#EXTINF:-1 tvg-name="HBO Family Latinoamerica" tvg-id="HBO Family Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s34879_dark_360w_270h.png" tvg-chno="19" group-title="Premium Latino", catchup="vod",[COLOR orangered][B][I]HBO Family HD[/I][/B] [/COLOR]
+#EXTINF:-1 tvg-name="HBO Family Latinoamerica" tvg-id="HBO Family Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s34879_dark_360w_270h.png" tvg-chno="21" group-title="Premium Latino", catchup="vod",[COLOR orangered][B][I]HBO Family HD[/I][/B] [/COLOR]
 http://138.59.177.34:8000/play/a01p/index.m3u8
 
-#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="20" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]HBO HD[/I][/B][/COLOR]
+#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="22" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]HBO HD[/I][/B][/COLOR]
 http://138.59.177.34:8000/play/a01m/index.m3u8
 
-#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="20" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO MEXICO[/I][/B][/COLOR]
+#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="23" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO MEXICO[/I][/B][/COLOR]
 http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102374.ts
 
 #EXTINF:-1 tvg-name="HBO Plus LatinoAmerica HD" tvg-id="HBO" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="24" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]HBO+ HD[/B] [COLOR orange]+3H[/I][/COLOR]

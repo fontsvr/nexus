@@ -13,7 +13,7 @@
 	<!--<onload condition="System.HasAddon(repository.rebase)">InstallAddon(plugin.video.moestv)</onload>-->
 	<!--<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(repository.stva)">InstallAddon(script.stva)</onload>-->
 	<onload condition="System.HasAddon(repository.rebase) + System.HasAddon(plugin.video.cristalazul) + !System.HasAddon(repository.resolveurl)">InstallAddon(repository.resolveurl)</onload>
-	<onload condition="System.HasAddon(pvr.iptvsimple) + !System.HasAddon(slyguy.pluto.tv.provider) + System.HasAddon(repository.slyguy)">InstallAddon(slyguy.pluto.tv.provider)</onload>																		
+	<!--<onload condition="System.HasAddon(pvr.iptvsimple) + !System.HasAddon(slyguy.pluto.tv.provider) + System.HasAddon(repository.slyguy)">InstallAddon(slyguy.pluto.tv.provider)</onload>-->																		
 	<!--<onload condition="System.HasAddon(pvr.iptvsimple) + System.HasAddon(slyguy.pluto.tv.provider) + System.HasAddon(repository.slyguy)">InstallAddon(plugin.program.iptv.merge)</onload>-->		
     <controls>
 		<include>background</include>
@@ -406,7 +406,7 @@
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
 					<height>60</height>
-					<label>Embuary Info $INFO[System.AddonVersion(script.embuary.info),(,)] [COLOR grey]- Necesario para Palantir[/COLOR]</label>
+					<label>Embuary Info $INFO[System.AddonVersion(script.embuary.info),(,)] [COLOR grey]- Para info de Películas, Series (p.ej. Palantir, Balandro).[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>

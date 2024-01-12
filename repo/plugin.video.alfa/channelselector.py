@@ -4,10 +4,14 @@ from builtins import range
 
 import glob
 import os
+import traceback
 
 from core import channeltools
 from core.item import Item
 from platformcode import config, logger
+from platformcode.unify import thumb_dict, set_genre, simplify
+
+LANGUAGES = ['all', 'cast', 'lat']
 
 
 def getmainlist(view="thumb_"):
@@ -182,12 +186,11 @@ def getmainlist(view="thumb_"):
             viewmode = "list"
         )
     )
-                         
+
     try:
         versiones = config.get_versions_from_repo()
-    except:
+    except Exception:
         versiones = {}
-        import traceback
         logger.error(traceback.format_exc())
 
     if versiones and addon_version != versiones.get('plugin.video.alfa', ''):
@@ -204,21 +207,20 @@ def getmainlist(view="thumb_"):
 
     from lib import generictools
     browser, res = generictools.call_browser('', lookup=True)
-    browser_dict = {}
 
     if browser:
-        browser_dict['action'] = 'call_browser'
-        browser_dict['title'] = '{} [COLOR limegreen]{}[/COLOR]'.format(get_string(70758), get_string(70760) % browser)
+        browser_action = 'call_browser'
+        browser_description = '{} [COLOR limegreen]{}[/COLOR]'.format(get_string(70758), get_string(70760) % browser)
     else:
-        browser_dict['action'] = ''
-        browser_dict['title'] = '{} [COLOR gold]({}: Chrome, Firefox, Opera)[/COLOR]:'.format(get_string(70758), get_string(70759))
+        browser_action = ''
+        browser_description = '{} [COLOR gold]({}: Chrome, Firefox, Opera)[/COLOR]:'.format(get_string(70758), get_string(70759))
 
     itemlist.append(
         Item(
             module = "setting",
-            action = browser_dict['action'],
+            action = browser_action,
             url = 'https://alfa-addon.com/foros/tutoriales.11/', 
-            title = browser_dict['title'],
+            title = browser_description,
             thumbnail = get_thumb("help.png", view),
             unify = False,
             folder = False, 
@@ -230,7 +232,7 @@ def getmainlist(view="thumb_"):
     itemlist.append(
         Item(
             module = "setting",
-            action = browser_dict['action'],
+            action = browser_action,
             url = 'https://alfa-addon.com/threads/manual-de-alfa-assistant-herramienta-de-apoyo.3797/', 
             title = "-     [COLOR yellow]Usa [COLOR hotpink][B]Alfa ASSISTANT[/B][/COLOR] para desbloquear webs y torrents[/COLOR]   " + 
                     "https://alfa-addon.com/threads/manual-de-alfa-assistant-herramienta-de-apoyo.3797/",
@@ -255,7 +257,7 @@ def getchanneltypes(view="thumb_"):
     if config.get_setting("adult_mode") != 0:
         channel_types.append("adult")
 
-    channel_language = config.get_setting("channel_language", default="all")
+    channel_language = LANGUAGES[config.get_setting("channel_language", default=0)]
     logger.info("channel_language=%s" % channel_language)
 
     # Ahora construye el itemlist ordenadamente
@@ -339,7 +341,7 @@ def filterchannels(category, view="thumb_", alfa_s=True, settings=False):
         category = "all"
         appenddisabledchannels = True
 
-    channel_language = config.get_setting("channel_language", default="all")
+    channel_language = LANGUAGES[config.get_setting("channel_language", default=0)]
     logger.info("channel_language=%s" % channel_language)
 
     # Lee la lista de canales
@@ -430,7 +432,7 @@ def filterchannels(category, view="thumb_", alfa_s=True, settings=False):
             if channel_parameters["req_assistant"]:
                 channel_parameters["title"] = "{} [COLOR=yellow](requiere Assistant)[/COLOR]".format(channel_parameters["title"])
 
-            channel_info = set_channel_info(channel_parameters, alfa_s=alfa_s)
+            channel_info = set_channel_info(channel_parameters)
 
             # Si ha llegado hasta aquí, lo añade
             frequency = channeltools.get_channel_setting("frequency", channel_parameters["channel"], 0) \
@@ -454,7 +456,7 @@ def filterchannels(category, view="thumb_", alfa_s=True, settings=False):
                 )
             )
 
-        except:
+        except Exception:
             logger.error("Se ha producido un error al leer los datos del canal '%s'" % channel)
             import traceback
             logger.error(traceback.format_exc())
@@ -558,8 +560,6 @@ def filterchannels(category, view="thumb_", alfa_s=True, settings=False):
 
 
 def get_thumb(thumb_name, view="thumb_", auto=False):
-    from platformcode.unify import thumb_dict, set_genre, simplify
-
     if auto:
         thumbnail = ''
 
@@ -584,8 +584,8 @@ def get_thumb(thumb_name, view="thumb_", auto=False):
         return os.path.join(media_path, view + thumb_name)
 
 
-def set_channel_info(parameters, alfa_s=False):
-    if not alfa_s: logger.info()
+def set_channel_info(parameters):
+    # logger.info()
 
     info = ''
     language = ''

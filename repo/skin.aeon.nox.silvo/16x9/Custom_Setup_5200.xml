@@ -6,7 +6,7 @@
 	</coordinates>
 	<!--<include>DialogOpenCloseAnimation</include>-->
 	<defaultcontrol always="true">500</defaultcontrol>
-    <defaultcontrol>320</defaultcontrol>
+    <defaultcontrol>319</defaultcontrol>
 	<onunload>Skin.SetBool(pagina_permiso_run)</onunload>
 	<!--<onunload>Skin.SetBool(FirstPagina)</onunload>-->
 	<onload condition="!System.HasAddon(repository.reeebase)">InstallAddon(repository.rebase)</onload>
@@ -56,7 +56,7 @@
 			<top>0</top>
 			<height>100%</height>
 			<!--<visible>Control.HasFocus(303) | Control.HasFocus(304)</visible>-->
-			<visible>Control.HasFocus(320)</visible>
+			<visible>Control.HasFocus(319)</visible>
 			<control type="image">
 			<aspectratio scalediffuse="false">keep</aspectratio>
 			<texture background="true" border="40">dialogs/default/bg.png</texture>
@@ -118,15 +118,15 @@
 			<aligny>center</aligny>
 			<control type="grouplist" id="500">
 				<orientation>vertical</orientation>
-			   <onleft>308</onleft>
-			   <onup>308</onup><!--500-->
-		       <ondown>308</ondown> <!--500-->
+			   <onleft>309</onleft>
+			   <onup>309</onup><!--500-->
+		       <ondown>309</ondown> <!--500-->
 				<onright>60</onright>
 				<pagecontrol>60</pagecontrol>
 				<top>100</top>
 				<width>1380</width><!--1320-->
 				<align>center</align>
-				<control type="radiobutton" id="320">
+				<control type="radiobutton" id="319">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<font>font13_title</font>
 					<label>Repositorio Jewrepo $INFO[System.AddonVersion(repository.jewrepo),(,)][COLOR grey] - Películas, Series del Addon Scrubs V2[/COLOR]</label>
@@ -145,10 +145,29 @@
 					<selected>System.HasAddon(repository.jewrepo)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
+				<control type="radiobutton" id="320">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<font>font13_title</font>
+					<label>Repositorio Elementumorg $INFO[System.AddonVersion(repository.elementumorg),(,)][COLOR grey] - para cliente torrent Elementum[/COLOR]</label>
+					<width>100%</width>
+					<height>60</height>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
+					<radioposx>1280</radioposx><!--1220-->
+					<onclick condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.elementumorg)</onclick>
+					<texturenofocus/>
+					<selected>System.HasAddon(repository.elementumorg)</selected>
+					<include>DefaultSettingButton</include>
+				</control>
 				<control type="radiobutton" id="321">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<font>font13_title</font>
-					<label>Repositorio Rebase $INFO[System.AddonVersion(repository.rebase),(,)][COLOR grey] - Addons[/COLOR]</label>
+					<label>Repositorio Rebase $INFO[System.AddonVersion(repository.rebase),(,)][COLOR grey] - Addons, Repositorios, Scripts[/COLOR]</label>
 					<width>100%</width>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
@@ -183,7 +202,24 @@
 					<selected>System.HasAddon(repository.alfa-addon)</selected>
 					<include>DefaultSettingButton</include>
 				</control>
-
+				<control type="radiobutton" id="323">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<width>100%</width>
+					<radioposx>1280</radioposx>
+					<font>font13_title</font>
+					<label>Repositorio Palantir 2 $INFO[System.AddonVersion(repository.palantir2),(,)][COLOR grey] - Pelis, Series, Documentales[/COLOR]</label>
+					<height>60</height>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
+					<onclick condition="!System.HasAddon(repository.balandro)">InstallAddon(repository.palantir2)</onclick>																																			
+					<texturenofocus/>
+					<selected>System.HasAddon(repository.palantir2)</selected>
+					<include>DefaultSettingButton</include>
+				</control>
 				<!--Balandro-->
 				<control type="radiobutton" id="325">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
@@ -208,7 +244,7 @@
 						<width>100%</width>
 						<radioposx>1280</radioposx>
 					    <font>font13_title</font>
-					<label>Repositorio fontsVR $INFO[System.AddonVersion(repository.fontsvr),(,)][COLOR grey] - Addons[/COLOR]</label>
+					<label>Repositorio fontsVR $INFO[System.AddonVersion(repository.fontsvr),(,)][COLOR grey] - Addons y Repositorios[/COLOR]</label>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
@@ -279,7 +315,7 @@
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<font>font13_title</font>
-					<label>Repositorio Luar $INFO[System.AddonVersion(repository.luar),(,)][COLOR grey] - Addons de todo tipo[/COLOR]</label>
+					<label>Repositorio Luar $INFO[System.AddonVersion(repository.luar),(,)][COLOR grey] - Instalador i actualizador de Addons, Repos, Scripts...[/COLOR]</label>
 					<radioposx>1280</radioposx>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
@@ -387,7 +423,7 @@
 						<width>100%</width>
 						<radioposx>1280</radioposx>
 					    <font>font13_title</font>
-						<label>Repositorio Slyguy $INFO[System.AddonVersion(repository.slyguy),(,)] [COLOR grey]- Repositorio para PlutoTV[/COLOR]</label>
+						<label>Repositorio Slyguy $INFO[System.AddonVersion(repository.slyguy),(,)] [COLOR grey]- Repositorio para Iptv Merge, PVR Slyguy PlutoTV[/COLOR]</label>
 						<height>60</height>
 					    <radiowidth>100</radiowidth>
 					    <radioheight>100</radioheight>
@@ -405,7 +441,7 @@
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
 					<height>60</height>
-					<label>Repositorio.KODIvertiDO_TEAM $INFO[System.AddonVersion(repository.KODIvertiDO_TEAM),(,)][COLOR grey] - Pelis - Deportes (Acestream Necesario)[/COLOR]</label>
+					<label>Repositorio.KODIvertiDO_TEAM $INFO[System.AddonVersion(repository.KODIvertiDO_TEAM),(,)][COLOR grey] - Pelis, TV, Deportes (Acestream Necesario)[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
@@ -427,7 +463,7 @@
 				  <onup>337</onup>
 				  <onright>60</onright>
 				  <onleft>337</onleft>
-				  <ondown>320</ondown>
+				  <ondown>319</ondown>
 					<top>70</top>
 					<height>70</height>
 					<label>Continuar</label>
@@ -449,14 +485,32 @@
 			<height>70</height>
 			<texture border="14" colordiffuse="blue">special://skin/extras/buttons/button-nofocus.png</texture>
 		        </control>
-				
 				<control type="button" id="308">
-				   <centerleft>50%</centerleft>
+				  <centerleft>35%</centerleft>
+				  <top>836</top>
+				  <onup>337</onup>
+				  <onright>309</onright>
+				  <onleft>337</onleft>
+				  <ondown>319</ondown>
+					<top>70</top>
+					<height>70</height>
+					<label>Cerrar</label>
+					<font>font13_title</font>
+					<textoffsetx>30</textoffsetx>
+					<texturenofocus/>
+					<onclick>Close</onclick>
+	                <onclick>Skin.SetBool(3RunSetup,true)</onclick>
+					<onclick>Skin.SetBool(pagina_permiso_run,true)</onclick>
+					<onclick>ReplaceWindow(Home)</onclick>
+					<align>center</align>
+				</control>
+				<control type="button" id="309">
+				  <centerleft>65%</centerleft>
 				  <top>836</top>
 				   <onup>337</onup>
 				  <onright>60</onright>
-				  <onleft>337</onleft>
-				  <ondown>320</ondown>
+				  <onleft>308</onleft>
+				  <ondown>319</ondown>
 					<top>70</top>
 					<height>70</height>
 					<label>Continuar</label>
@@ -479,9 +533,9 @@
 				<height>838</height>
 				<onleft>500</onleft>
 			    <!--<onright>500</onright>-->
-				<ondown>308</ondown>
-				<onup>320</onup>
-				<onright>308</onright>
+				<ondown>309</ondown>
+				<onup>319</onup>
+				<onright>309</onright>
 				<texturesliderbar colordiffuse="80FFFFFF" border="1">scrollbar/texturesliderbar2.png</texturesliderbar>
 				<texturesliderbarfocus border="1">scrollbar/texturesliderbar2.png</texturesliderbarfocus>
 			</control>

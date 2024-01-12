@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window type="dialog" id="5202">
-    <defaultcontrol>320</defaultcontrol>
+    <defaultcontrol>319</defaultcontrol>
     <onload condition="!System.HasAddon(repository.reeebase)">InstallAddon(repository.rebase)</onload>
 	<!--<onload condition="System.HasAddon(repository.rebase) + !System.HasAddon(plugin.RikTeam_fonts)">InstallAddon(plugin.RikTeam_fonts)</onload>
 	<onload condition="System.HasAddon(repository.rebase) + !System.HasAddon(plugin.video.cristalazul)">InstallAddon(plugin.video.cristalazul)</onload>
@@ -22,7 +22,7 @@
 			<top>0</top>
 			<height>100%</height>
 			<!--<visible>Control.HasFocus(303) | Control.HasFocus(304)</visible>-->
-			<visible>Control.HasFocus(320)</visible>
+			<visible>Control.HasFocus(319)</visible>
 			<control type="image">
 			<aspectratio scalediffuse="false">keep</aspectratio>
 			<texture background="true" border="40">dialogs/default/bg.png</texture>
@@ -91,7 +91,26 @@
 				<top>100</top>
 				<width>1380</width><!--1320-->
 				<align>center</align>	
-				
+				<control type="radiobutton" id="319">
+					<textcolor>$VAR[ThemeLabelColor]</textcolor>
+					<font>font13_title</font>
+                    <label>Palantir 3 $INFO[System.AddonVersion(plugin.video.palantir3),(,)][COLOR grey] - Pelis y Series[/COLOR]</label>
+					<height>60</height>
+					<width>100%</width>
+					<radiowidth>100</radiowidth>
+					<radioheight>100</radioheight>
+					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
+					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
+					<texturenofocus/>
+					<radioposx>1280</radioposx><!--1220-->
+					<onclick condition="!System.HasAddon(plugin.video.palantir3) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.palantir3)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.palantir3)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.palantir3)">ActivateWindow(Videos,&quot;plugin://plugin.video.palantir3/&quot;,return)</onclick>
+					<selected>System.HasAddon(plugin.video.palantir3)</selected>
+				</control>	
 				<control type="radiobutton" id="320">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<font>font13_title</font>
@@ -140,7 +159,7 @@
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
 					<height>60</height>
-					<label>KodiTV $INFO[System.AddonVersion(plugin.video.koditv),(,)][COLOR grey] - TV, Deportes[/COLOR]</label>
+					<label>KodiTV $INFO[System.AddonVersion(plugin.video.koditv),(,)][COLOR grey] - TV Premium, Deportes[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="3">listselect_fo.png</texturefocus>
@@ -214,8 +233,8 @@
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>																
 					<onclick condition="!System.HasAddon(plugin.video.vavooto) + System.HasAddon(repository.michaz)">InstallAddon(plugin.video.vavooto)</onclick>																		
-					<onclick condition="System.HasAddon(plugin.video.vavooto)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.vavooto)">ActivateWindow(Videos,&quot;plugin://plugin.video.vavooto/?action=channels&quot;,return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.vavooto)+System.AddonIsEnabled(plugin.video.vavooto)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.vavooto)+System.AddonIsEnabled(plugin.video.vavooto)">ActivateWindow(Videos,&quot;plugin://plugin.video.vavooto/?action=channels&quot;,return)</onclick>
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.vavooto)</selected>
 				</control>
@@ -224,7 +243,7 @@
 					<width>100%</width>
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
-					<label>Tacones $INFO[System.AddonVersion(plugin.video.tacones),(,)][COLOR grey] - Cine[/COLOR]</label>
+					<label>Tacones $INFO[System.AddonVersion(plugin.video.tacones),(,)][COLOR grey] - Cine y Series (torrents)[/COLOR]</label>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
@@ -233,8 +252,8 @@
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.tacones) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.tacones)</onclick>																		
-					<onclick condition="System.HasAddon(plugin.video.tacones)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.tacones)">ActivateWindow(Videos,&quot;plugin://plugin.video.tacones/?url=%24doregex%5Bindex%5D&amp;mode=17&amp;regexs=%7B%27index%27%3A%20%7B%27name%27%3A%20%27index%27%2C%20%27listrepeat%27%3A%20%27%5Cn%3Ctitle%3E%5BB%5D%5BCOLOR%20red%5D%E2%80%A2%5B/COLOR%5D%20%5BCOLOR%20white%5D%5Bindex.param1%5D%5B/COLOR%5D%5BCOLOR%20red%5D%20%28%5Bindex.param8%5D%20%7C%20%5Bindex.param9%5D%29%5B/COLOR%5D%5B/B%5D%3C/title%3E%5Cn%3Clink%3E%24doregex%5Bgestor%5D%3C/link%3E%5Cn%3Cyear%3E%5Bindex.param8%5D%3C/year%3E%5Cn%3Cgenre%3E%5Bindex.param9%5D%3C/genre%3E%5Cn%3Cinfo%3E%5Bindex.param11%5D%3C/info%3E%5Cn%3Cthumbnail%3E%5Bindex.param6%5D%3C/thumbnail%3E%5Cn%3Cfanart%3E%5Bindex.param7%5D%3C/fanart%3E%5Cn%27%2C%20%27expres%27%3A%20%27title.%28.%2A%29..title.%5C%5Cs%2A.microhd.%28%5B%5ENA%5D%2B%29..microhd.%5C%5Cs%2A.fullhd.%28.%2A%29..fullhd.%5C%5Cs%2A.tresd.%28.%2A%29..tresd.%5C%5Cs%2A.cuatrok.%28.%2A%29..cuatrok.%5C%5Cs%2A.thumbnail.%28.%2A%29..thumbnail.%5C%5Cs%2A.fanart.%28.%2A%29..fanart.%5C%5Cs%2A.date.%28.%2A%29..date.%5C%5Cs%2A.genre.%28.%2A%29..genre.%5C%5Cs%2A.extra.%28.%2A%29..extra.%5C%5Cs%2A.info.%28.%2A%29..info.%27%2C%20%27page%27%3A%20%27https%3A//gitlab.com/stiletto1/s/-/raw/main/c%27%2C%20%27cookiejar%27%3A%20%27%27%7D%2C%20%27gestor%27%3A%20%7B%27name%27%3A%20%27gestor%27%2C%20%27expres%27%3A%20%22%23%24pyFunction%5Cndef%20GetLSProData%28page_data%2CCookie_Jar%2Cm%29%3A%5Cn%20calidad%20%3D%20%27%5Bindex.param2%5D%27%2C%20%27%5Bindex.param3%5D%27%2C%20%27%5Bindex.param4%5D%27%2C%20%27%5Bindex.param5%5D%27%5Cn%20for%20x%20in%20calidad%3A%5Cn%20%20%20%20if%20x%20%21%3D%20%27NA%27%3A%5Cn%20%20%20%20%20%20%20%20calidad%20%3D%3D%20x%5Cn%20%20%20%20%20%20%20%20break%5Cn%20%20%20%20else%3A%5Cn%20%20%20%20%20%20%20%20x%20%3D%20%27%27%5Cn%20return%20%27plugin%3A//plugin.video.elementum/play%3Furi%3Dmagnet%3A%3Fxt%3Durn%3Abtih%3A%5Bindex.param2%5D%27%5Cn%22%2C%20%27page%27%3A%20None%2C%20%27cookiejar%27%3A%20%27%27%7D%7D&amp;iconimage=https%3A%2F%2Fi.imgur.com%2FgdMxN0J.png&quot;,return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.tacones)+System.AddonIsEnabled(plugin.video.tacones)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.tacones)+System.AddonIsEnabled(plugin.video.tacones)">ActivateWindow(Videos,&quot;plugin://plugin.video.tacones/?url=%24doregex%5Bindex%5D&amp;mode=17&amp;regexs=%7B%27index%27%3A%20%7B%27name%27%3A%20%27index%27%2C%20%27listrepeat%27%3A%20%27%5Cn%3Ctitle%3E%5BB%5D%5BCOLOR%20red%5D%E2%80%A2%5B/COLOR%5D%20%5BCOLOR%20white%5D%5Bindex.param1%5D%5B/COLOR%5D%5BCOLOR%20red%5D%20%28%5Bindex.param8%5D%20%7C%20%5Bindex.param9%5D%29%5B/COLOR%5D%5B/B%5D%3C/title%3E%5Cn%3Clink%3E%24doregex%5Bgestor%5D%3C/link%3E%5Cn%3Cyear%3E%5Bindex.param8%5D%3C/year%3E%5Cn%3Cgenre%3E%5Bindex.param9%5D%3C/genre%3E%5Cn%3Cinfo%3E%5Bindex.param11%5D%3C/info%3E%5Cn%3Cthumbnail%3E%5Bindex.param6%5D%3C/thumbnail%3E%5Cn%3Cfanart%3E%5Bindex.param7%5D%3C/fanart%3E%5Cn%27%2C%20%27expres%27%3A%20%27title.%28.%2A%29..title.%5C%5Cs%2A.microhd.%28%5B%5ENA%5D%2B%29..microhd.%5C%5Cs%2A.fullhd.%28.%2A%29..fullhd.%5C%5Cs%2A.tresd.%28.%2A%29..tresd.%5C%5Cs%2A.cuatrok.%28.%2A%29..cuatrok.%5C%5Cs%2A.thumbnail.%28.%2A%29..thumbnail.%5C%5Cs%2A.fanart.%28.%2A%29..fanart.%5C%5Cs%2A.date.%28.%2A%29..date.%5C%5Cs%2A.genre.%28.%2A%29..genre.%5C%5Cs%2A.extra.%28.%2A%29..extra.%5C%5Cs%2A.info.%28.%2A%29..info.%27%2C%20%27page%27%3A%20%27https%3A//gitlab.com/stiletto1/s/-/raw/main/c%27%2C%20%27cookiejar%27%3A%20%27%27%7D%2C%20%27gestor%27%3A%20%7B%27name%27%3A%20%27gestor%27%2C%20%27expres%27%3A%20%22%23%24pyFunction%5Cndef%20GetLSProData%28page_data%2CCookie_Jar%2Cm%29%3A%5Cn%20calidad%20%3D%20%27%5Bindex.param2%5D%27%2C%20%27%5Bindex.param3%5D%27%2C%20%27%5Bindex.param4%5D%27%2C%20%27%5Bindex.param5%5D%27%5Cn%20for%20x%20in%20calidad%3A%5Cn%20%20%20%20if%20x%20%21%3D%20%27NA%27%3A%5Cn%20%20%20%20%20%20%20%20calidad%20%3D%3D%20x%5Cn%20%20%20%20%20%20%20%20break%5Cn%20%20%20%20else%3A%5Cn%20%20%20%20%20%20%20%20x%20%3D%20%27%27%5Cn%20return%20%27plugin%3A//plugin.video.elementum/play%3Furi%3Dmagnet%3A%3Fxt%3Durn%3Abtih%3A%5Bindex.param2%5D%27%5Cn%22%2C%20%27page%27%3A%20None%2C%20%27cookiejar%27%3A%20%27%27%7D%7D&amp;iconimage=https%3A%2F%2Fi.imgur.com%2FgdMxN0J.png&quot;,return)</onclick>
                     <selected>System.HasAddon(plugin.video.tacones)</selected>
 					<texturenofocus/>
 				</control>
@@ -243,7 +262,7 @@
 					<width>100%</width>
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
-					<label>Kodispain TV $INFO[System.AddonVersion(plugin.video.kodispaintv),(,)][COLOR grey] - TV Premium[/COLOR]</label>
+					<label>Kodispain TV $INFO[System.AddonVersion(plugin.video.kodispaintv),(,)][COLOR grey] - Deportes, IPTV, TdtChannels, PlutoTV, SamsungTV[/COLOR]</label>
 					<height>60</height>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
@@ -252,8 +271,8 @@
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.kodispaintv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.kodispaintv)</onclick>																		
-					<onclick condition="System.HasAddon(plugin.video.kodispaintv)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.kodispaintv)">ActivateWindow(Videos,&quot;plugin://plugin.video.kodispaintv/&quot;,return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.kodispaintv)+System.AddonIsEnabled(plugin.video.kodispaintv)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.kodispaintv)+System.AddonIsEnabled(plugin.video.kodispaintv)">ActivateWindow(Videos,&quot;plugin://plugin.video.kodispaintv/&quot;,return)</onclick>
 					<selected>System.HasAddon(plugin.video.kodispaintv)</selected>
 					<texturenofocus/>
 				</control>
@@ -263,7 +282,7 @@
 					<font>font13_title</font>
 					<radioposx>1280</radioposx>
 					<height>60</height>
-					<label>Moe's TV $INFO[System.AddonVersion(plugin.video.moestv),(,)][COLOR grey] - Plataformas TV[/COLOR]</label>
+					<label>Moe's TV $INFO[System.AddonVersion(plugin.video.moestv),(,)][COLOR grey] - Directos TV, Plataformas TV[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
@@ -272,8 +291,8 @@
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(plugin.video.moestv) + System.HasAddon(repository.rebase)">InstallAddon(plugin.video.moestv)</onclick>																		
 					<onclick condition="!System.HasAddon(plugin.video.moestv)">InstallAddon(plugin.video.moestv)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.moestv)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.moestv)">ActivateWindow(Videos,&quot;plugin://plugin.video.moestv/&quot;,return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.moestv)+System.AddonIsEnabled(plugin.video.moestv)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.moestv)+System.AddonIsEnabled(plugin.video.moestv)">ActivateWindow(Videos,&quot;plugin://plugin.video.moestv/&quot;,return)</onclick>
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.moestv)</selected>
 				</control>
@@ -311,8 +330,8 @@
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.theblackghost)">InstallAddon(repository.theblackghost)</onclick>
 					<onclick condition="!System.HasAddon(plugin.video.blackghost) + System.HasAddon(repository.theblackghost)">InstallAddon(plugin.video.blackghost)</onclick>																		
-					<onclick condition="System.HasAddon(plugin.video.blackghost)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.blackghost)">ActivateWindow(Videos,&quot;plugin://plugin.video.blackghost/&quot;,return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.blackghost)+System.AddonIsEnabled(plugin.video.blackghost)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.blackghost)+System.AddonIsEnabled(plugin.video.blackghost)">ActivateWindow(Videos,&quot;plugin://plugin.video.blackghost/&quot;,return)</onclick>
 					<selected>System.HasAddon(plugin.video.blackghost)</selected>
 					<texturenofocus/>	
 				</control>
@@ -350,8 +369,8 @@
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
 					<onclick condition="!System.HasAddon(repository.jurialmunkey)">InstallAddon(repository.jurialmunkey)</onclick>																		
 					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(repository.jurialmunkey)">InstallAddon(plugin.video.themoviedb.helper)</onclick>																		
-					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">ActivateWindow(1140,&quot;addons://plugin.video.themoviedb.helper/&quot;,return)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)+System.AddonIsEnabled(plugin.video.themoviedb.helper)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)+System.AddonIsEnabled(plugin.video.themoviedb.helper)">ActivateWindow(Videos,&quot;addons://plugin.video.themoviedb.helper/&quot;,return)</onclick>
 					<selected>System.HasAddon(plugin.video.themoviedb.helper)</selected>
 					<texturenofocus/>
 				</control>
@@ -378,14 +397,13 @@
 					<texturenofocus/>
 					<selected>System.HasAddon(plugin.video.Magellan_Matrix)</selected>
 				</control>
-				
 				<control type="button" id="334">
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<width>100%</width>
 					<radioposx>1280</radioposx>
 					<font>font13_title</font>
 					<height>60</height>
-					<label>KodivertidoTVCine $INFO[System.AddonVersion(plugin.video.KovertidoTeamTvCine),(,)][COLOR grey] - Pelis y Series[/COLOR]</label>
+					<label>plugin.video.KODIvertiDO $INFO[System.AddonVersion(plugin.video.KODIvertiDO),(,)][COLOR grey] - TV, Pelis y Series[/COLOR]</label>
 					<radiowidth>100</radiowidth>
 					<radioheight>100</radioheight>
 					<textureradioonfocus colordiffuse="CC76FF03">special://skin/extras/buttons/status-on.png</textureradioonfocus>
@@ -393,11 +411,11 @@
 					<textureradioofffocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradioofffocus>
 					<textureradiooffnofocus colordiffuse="fff02222">special://skin/extras/buttons/status-off.png</textureradiooffnofocus>
                     <onclick condition="!System.HasAddon(repository.KODIvertiDO_TEAM)">InstallAddon(repository.KODIvertiDO_TEAM)</onclick>
-					<onclick condition="!System.HasAddon(plugin.video.KovertidoTeamTvCine)">InstallAddon(plugin.video.KovertidoTeamTvCine)</onclick>							
-					<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">Dialog.Close(5202)</onclick>
-					<onclick condition="System.HasAddon(plugin.video.KovertidoTeamTvCine)">ActivateWindow(Videos,&quot;plugin://plugin.video.KovertidoTeamTvCine/&quot;,return)</onclick>
-					<selected>System.HasAddon(plugin.video.KovertidoTeamTvCine)</selected>			
-				</control>				
+					<onclick condition="!System.HasAddon(plugin.video.KODIvertiDO)">InstallAddon(plugin.video.KODIvertiDO)</onclick>							
+					<onclick condition="System.HasAddon(plugin.video.KODIvertiDO)">Dialog.Close(5202)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.KODIvertiDO)">ActivateWindow(Videos,&quot;plugin://plugin.video.KODIvertiDO/&quot;,return)</onclick>
+					<selected>System.HasAddon(plugin.video.KODIvertiDO)</selected>			
+				</control>		
 				</control>
             <control type="image">
 			<!-- background image -->
@@ -413,7 +431,7 @@
 				  <onup>334</onup>
 				  <onright>309</onright>
 				  <onleft>334</onleft>
-				  <ondown>320</ondown>
+				  <ondown>319</ondown>
 					<top>70</top>
 					<height>70</height>
 					<label>Volver</label>
@@ -430,7 +448,7 @@
 				  <onup>334</onup>
 				  <onright>60</onright>
 				  <onleft>308</onleft>
-				  <ondown>320</ondown>
+				  <ondown>319</ondown>
 					<top>70</top>
 					<height>70</height>
 					<label>Continuar</label>
@@ -454,7 +472,7 @@
 				<height>838</height>
 				<onleft>500</onleft>
 				<ondown>309</ondown>
-				<onup>320</onup>
+				<onup>319</onup>
 				<onright>308</onright>
 				<texturesliderbar colordiffuse="80FFFFFF" border="1">scrollbar/texturesliderbar2.png</texturesliderbar>
 				<texturesliderbarfocus border="1">scrollbar/texturesliderbar2.png</texturesliderbarfocus>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1152">
 	<defaultcontrol>655</defaultcontrol>
-	<onload condition="System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(repository.slyguy) + System.HasAddon(repository.slyguy) + System.HasAddon(plugin.program.iptv.merge)">ReplaceWindow(1151)</onload>
+	<onload condition="System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(repository.slyguy) + System.HasAddon(pvr.iptvsimple) + System.HasAddon(plugin.program.iptv.merge)">ReplaceWindow(1151)</onload>
 
 	<!--<onload condition="!System.HasAddon(script.skinshortcuts)">SetProperty(RunSkinShortcutsAfterInstall,True,Home)</onload>-->
     <onload condition="!System.HasAddon(script.skinshortcuts)">InstallAddon(script.skinshortcuts)</onload>
@@ -108,8 +108,8 @@
 					<align>center</align>
 					<font>font14_title</font>
 					<label>INSTALACIÓN DE AJUSTES</label>
-					<onclick condition="!Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple) + System.HasAddon(slyguy.pluto.tv.provider)">ReplaceWindow(1151)</onclick>
-					<onclick condition="Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple) + System.HasAddon(slyguy.pluto.tv.provider)">ReplaceWindow(1151)</onclick>
+					<onclick condition="!Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple)">ReplaceWindow(1151)</onclick>
+					<onclick condition="Skin.HasSetting(preguntado_ajustes) + System.HasAddon(script.skinshortcuts) + System.HasAddon(script.rikteam) + System.HasAddon(plugin.program.iptv.merge) + System.HasAddon(pvr.iptvsimple)">ReplaceWindow(1151)</onclick>
 					<onclick condition="!System.HasAddon(script.skinshortcuts)">InstallAddon(script.skinshortcuts)</onclick>
 					<onclick condition="!System.HasAddon(script.rikteam)">InstallAddon(script.rikteam)</onclick>
 					<onclick condition="!System.HasAddon(repository.slyguy)">InstallAddon(repository.slyguy)</onclick>

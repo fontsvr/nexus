@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
+	<!--<onload condition="System.AddonIsEnabled(script.dev.mtres)">RunAddon(script.dev.mtres)</onload>-->
+	
 	<!--<onload condition="String.IsEmpty(Window(Home).Property(customdefaultbackground))">Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/default_bg.jpg)</onload>-->
 	<onload condition="!String.IsEmpty(Window(Home).Property(askeddefaultbackground))">Skin.SetBool(askeddefaultbackground,true)</onload>
 	<onload>Skin.SetBool(askeddefaultbackground,true)</onload>

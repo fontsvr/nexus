@@ -169,7 +169,7 @@ def seasons(item):
 
     tmdb.set_infoLabels_itemlist(itemlist, True)
 
-    if config.get_videolibrary_support() and len(itemlist) > 0:
+    if config.get_videolibrary_support() and len(itemlist) > 0 and not item.add_videolibrary:
         itemlist.append(
             Item(channel=item.channel, title='[COLOR yellow]Añadir esta serie a la videoteca[/COLOR]', url=item.url,
                  action="add_serie_to_library", extra="episodios", contentSerieName=item.contentSerieName))
@@ -222,8 +222,16 @@ def findvideos(item):
         # url = "https://api.mycdn.moe/player/?id=%s" %url
         # soup = create_soup(url)
         # video_url = soup.iframe['src']
-        video_url = base64.b64decode(url).decode()
+        if url.startswith("http"):
+            video_url = url
+        elif url:
+            try:
+                video_url = base64.b64decode(url).decode()
+            except (ValueError, TypeError):
+                video_url = url
 
+        if "embedsito" in video_url:
+            continue
         if "plusvip.net" in video_url:
             continue
             try:
