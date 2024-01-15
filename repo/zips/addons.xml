@@ -1641,22 +1641,20 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="repository.fontsvr" name="[B]Repo[/B] [COLOR azure][B]FONTSVR[/B] [COLOR limegreen][B]MATRIX[/B][/COLOR]|[COLOR violet][B]NEXUS[/B][/COLOR]" version="1.0" provider-name="Rik Team">
-    <requires>
-        <import addon="xbmc.addon" version="12.0.0" />
-    </requires>
-	<extension point="xbmc.addon.repository" name="[COLOR white]Repo [B]FONTSVR[/B][/COLOR]">
+</addon><addon id="repository.fontsvr" name="[B]Repo[/B] [COLOR azure][B]FONTSVR[/B]" version="2.0" provider-name="Rik Team">
+    <extension point="xbmc.addon.repository" name="[B[COLOR white]Repo FONTSVR[/B][/COLOR]">
         <dir>
-		<info compressed="false">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/addons/zips/</datadir>
+		<info compressed="false">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/omega/zips/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/omega/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/omega/zips/</datadir>
 		</dir>
     </extension>
 	
     <extension point="xbmc.addon.metadata">
-        <summary>Repo [COLOR azure]FONTSVR[/COLOR] [COLOR limegreen]MATRIX[/COLOR][COLOR azure]|[/COLOR][COLOR violet]NEXUS[/COLOR]</summary>
-        <description>Repositorio de addons [COLOR azure]FONTSVR[/COLOR][CR][COLOR gold]Developers:[/COLOR][COLOR azure] Rik Team[/COLOR]</description>
-        <disclaimer>Repositorio de addons para Kodi 19.x MATRIX y 20.x NEXUS.</disclaimer>
+        <summary>Repo [COLOR azure]FONTSVR[/COLOR]</summary>
+        <description>Repositorio de addons [COLOR azure]FONTSVR[/COLOR]
+[COLOR gold]Developers:[/COLOR] Rik Team</description>
+        <disclaimer>Repositorio de addons para 20.x NEXUS y 21.x OMEGA.</disclaimer>
         <platform>all</platform>
         <assets>
             <icon>icon.png</icon>
