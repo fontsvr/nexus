@@ -72,10 +72,30 @@ def main_list(params):
         translatePath = xbmcvfs.translatePath
 
 
-    r = requests.get("https://pastebin.com/raw/kY3W2iRB")
+    site = "https://pastebin.com/raw/kY3W2iRB"
+    try:
+        r = requests.get(site,timeout=3)
+        r.raise_for_status()
+    except requests.exceptions.RequestException as err:
+        #print ("OOps: Something Else",err)
+        di='\n[COLOR red]Servidor caído[/COLOR]\n'+ str(err)
+        xbmcgui.Dialog().notification("[COLOR yellow]info[/COLOR]", di, xbmcgui.NOTIFICATION_INFO, 15000, False)
+        #xbmcgui.Dialog().textviewer("[COLOR yellow]info[/COLOR]", di)
+        r = requests.get("https://raw.githubusercontent.com/fontsvr/repo-fontsVR/main/sources/sources.xml")
+    except requests.exceptions.HTTPError as errh:
+        di='\n[COLOR red]Http Error:[/COLOR]\n'+ str(errh)
+        xbmcgui.Dialog().textviewer("[COLOR yellow]info[/COLOR]", di)
+    except requests.exceptions.ConnectionError as errc:
+        di='\n[COLOR red]Error Connecting:[/COLOR]\n'+ str(errc)
+        xbmcgui.Dialog().textviewer("[COLOR yellow]info[/COLOR]", di)
+    except requests.exceptions.Timeout as errt:
+        di='\n[COLOR red]Timeout Error:[/COLOR]\n'+ str(errt)
+        xbmcgui.Dialog().textviewer("[COLOR yellow]info[/COLOR]", di)
+    
+
     t = r.text
     sources = xbmcvfs.translatePath('special://profile/sources.xml')    
-    respuesta = xbmcgui.Dialog().yesno("[COLOR violet]"+"RikTeam"+"[/COLOR]", "[COLOR yellow]"+"Script "+"[COLOR violet]"+" Rik Team. "+"[COLOR yellow]"+"Pulsa Ok para borrar tus fuentes y añadir las pricipales"+" fuentes actualizadas."+"[COLOR lightpink]"+" Reiniciar Kodi para que coja los cambios."+"[/COLOR]", "No","Si")
+    respuesta = xbmcgui.Dialog().yesno("[COLOR violet]"+"RikTeam"+"[/COLOR]", "[COLOR yellow]"+"Script "+"[COLOR violet]"+" RikTeam. "+"[COLOR yellow]"+"Pulsa Ok para borrar tus fuentes y añadir las pricipales"+" fuentes actualizadas."+"[COLOR lightpink]"+" Reiniciar Kodi para que coja los cambios."+"[/COLOR]", "No","Si")
    
 
     if respuesta:       
@@ -98,7 +118,7 @@ def main_list(params):
                 file.write(linea)
             file.seek(0)    
             file.close()
-            xbmcgui.Dialog().notification('RikTeam', 'COPIA DE FUENTES REALIZADA EXITOSAMENTE.', xbmcgui.NOTIFICATION_INFO, 5000)
+            xbmcgui.Dialog().notification('[COLOR gold]RikTeam[/COLOR]', '[COLOR green]COPIA DE FUENTES REALIZADA EXITOSAMENTE.[/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
             
     else:
         xbmcgui.Dialog().notification('Info', 'CANCELADA LA COPIA DE FUENTES.', xbmcgui.NOTIFICATION_ERROR, 4000) 

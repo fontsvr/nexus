@@ -51,6 +51,7 @@ import socket
 from io import BytesIO
 import gzip
 import six
+import xbmcvfs
 from six.moves import urllib_request
 from six.moves.urllib.parse import unquote_plus, quote_plus, urlencode
 module_log_enabled = False
@@ -462,7 +463,8 @@ def get_runtime_path():
 def get_data_path():
     _log("get_data_path")
 
-    dev = xbmc.translatePath( __settings__.getAddonInfo('Profile') )
+    #dev = xbmc.translatePath( __settings__.getAddonInfo('Profile') )
+    dev = xbmcvfs.translatePath( __settings__.getAddonInfo('Profile') )
     
     # Parche para XBMC4XBOX
     if not os.path.exists(dev):
