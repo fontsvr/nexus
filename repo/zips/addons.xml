@@ -2408,6 +2408,43 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <icon>icon.png</icon>
     </assets>
   </extension>
+</addon><addon id="script.module.js2py" name="js2py" version="0.75" provider-name="Piotr Dabkowski">
+	<requires>
+		<import addon="script.module.tzlocal" version="1.2" />
+		<import addon="script.module.six" version="1.10" />
+		<import addon="script.module.pyjsparser" version="2.5.1" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">JavaScript to Python Translator &amp; JavaScript interpreter written in 100% pure Python.</summary>
+		<description lang="en_GB">Packed for KODI from https://pypi.org/project/js2py/</description>
+		<platform>all</platform>
+		<language />
+		<license>MIT</license>
+		<forum />
+		<website />
+		<source>https://github.com/PiotrDabkowski/Js2Py</source>
+		<email />
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="script.module.pyaes" name="PyAES" version="1.6.1+matrix.1" provider-name="ricmoo">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Pure-Python Implementation of the AES block-cipher and common modes of operation</summary>
+        <description lang="en_GB">A pure-Python implementation of the AES (FIPS-197) block-cipher algorithm and common modes of operation (CBC, CFB, CTR, ECB, OFB) with no dependencies beyond standard Python libraries. See README.md for API reference and details.</description>
+        <platform>all</platform>
+        <license>MIT</license>
+        <website>https://github.com/ricmoo/pyaes</website>
+        <source>https://github.com/ricmoo/pyaes</source>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+    </extension>
 </addon><addon id="script.module.requests" name="requests" version="2.22.0+matrix.1" provider-name="kennethreitz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
@@ -2431,6 +2468,25 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <icon>resources/icon.png</icon>
     </assets>
   </extension>
+</addon><addon id="script.module.requests-toolbelt" name="requests-toolbelt" version="1.0.0" provider-name="Ian Cordasco, Cory Benfield">
+	<requires>
+		<import addon="script.module.requests" version="2.0.1" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">A utility belt for advanced users of python-requests</summary>
+		<description lang="en_GB">Packed for KODI from https://pypi.org/project/requests-toolbelt/</description>
+		<platform>all</platform>
+		<language />
+		<license>Apache Software License (Apache 2.0)</license>
+		<forum />
+		<website />
+		<source>https://toolbelt.readthedocs.io/</source>
+		<email />
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
 </addon><addon id="script.module.resolveurl" name="ResolveURL" version="5.1.111" provider-name="gujal">
     <requires>
         
@@ -2458,6 +2514,23 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="script.module.rijndael" name="rijndael" version="0.1.1" provider-name="Moeen Zamani">
+	<requires />
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Rijndael AES encryption algorithm in pure python.</summary>
+		<description lang="en_GB">Packed for KODI from https://pypi.org/project/rijndael/</description>
+		<platform>all</platform>
+		<language />
+		<license>MIT</license>
+		<forum />
+		<website />
+		<source>https://github.com/moeenz/rijndael</source>
+		<email />
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
 </addon><addon id="script.module.slyguy" name="SlyGuy Common" provider-name="SlyGuy" version="0.70.6">
   <requires>
     <import addon="slyguy.dependencies" version="0.0.8" />
