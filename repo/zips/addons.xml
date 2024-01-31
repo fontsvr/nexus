@@ -2362,6 +2362,23 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <screenshot>resources/screenshot002.jpg</screenshot>
     </assets>
   </extension>
+</addon><addon id="script.module.brotlipython" name="brotlipython" version="0.0.1" provider-name="pothos">
+	<requires />
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Pure Python brotli decoder</summary>
+		<description lang="en_GB">Packed for KODI from https://github.com/pothos/brotlipython/</description>
+		<platform>all</platform>
+		<language />
+		<license>GPLv3</license>
+		<forum />
+		<website />
+		<source>https://github.com/pothos/brotlipython</source>
+		<email />
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
 </addon><addon id="script.module.horus" name="Horus" version="1.1.9" provider-name="Caperucitaferoz">
     <requires>
         <import addon="script.module.six" />
@@ -2445,6 +2462,23 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <icon>resources/icon.png</icon>
         </assets>
     </extension>
+</addon><addon id="script.module.pyjsparser" name="pyjsparser" version="2.7.1" provider-name="Piotr Dabkowski">
+	<requires />
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Fast javascript parser (based on esprima.js)</summary>
+		<description lang="en_GB">Packed for KODI from https://pypi.org/project/pyjsparser/</description>
+		<platform>all</platform>
+		<language />
+		<license>MIT</license>
+		<forum />
+		<website />
+		<source>https://github.com/PiotrDabkowski/pyjsparser</source>
+		<email />
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
 </addon><addon id="script.module.requests" name="requests" version="2.22.0+matrix.1" provider-name="kennethreitz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
