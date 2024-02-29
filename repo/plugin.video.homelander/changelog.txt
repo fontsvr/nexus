@@ -1,3 +1,9 @@
+[B][COLOR red]Homelander add-on v1.2.2[/COLOR][/B]
+Added more Lists.
+
+[B][COLOR red]Homelander add-on v1.2.1[/COLOR][/B]
+Fixed Some Lists.
+
 [B][COLOR red]Homelander add-on v1.0.9[/COLOR][/B]
 Flatten  TV Seasons.
 

@@ -96,15 +96,15 @@ msgid "[COLOR white]Networks[/COLOR]"
 msgstr ""
 
 msgctxt "#32017"
-msgid "[COLOR white]People Watching[/COLOR]"
+msgid "[COLOR white]Trending[/COLOR]"
 msgstr ""
 
 msgctxt "#32018"
-msgid "[COLOR white]Most Popular[/COLOR]"
+msgid "[COLOR white]Popular[/COLOR]"
 msgstr ""
 
 msgctxt "#32019"
-msgid "[COLOR white]Most Voted[/COLOR]"
+msgid "[COLOR white]Favorited[/COLOR]"
 msgstr ""
 
 msgctxt "#32020"
@@ -116,7 +116,7 @@ msgid "[COLOR white]Oscar Winners[/COLOR]"
 msgstr ""
 
 msgctxt "#32022"
-msgid "[COLOR white]In Theaters[/COLOR]"
+msgid "[COLOR white]Most Popular[/COLOR]"
 msgstr ""
 
 msgctxt "#32023"
@@ -132,7 +132,7 @@ msgid "[COLOR white]Returning TV Shows[/COLOR]"
 msgstr ""
 
 msgctxt "#32026"
-msgid "[COLOR white]New TV Shows[/COLOR]"
+msgid "[COLOR white]Featured[/COLOR]"
 msgstr ""
 
 msgctxt "#32027"
@@ -528,7 +528,7 @@ msgid "[COLOR white]IMDb keyword searches[/COLOR]"
 msgstr ""
 
 msgctxt "#32125"
-msgid "[COLOR white]Popular IMDb user lists[/COLOR]"
+msgid "[COLOR white]IMDb User lists[/COLOR]"
 msgstr ""
 
 msgctxt "#32126"
@@ -796,11 +796,11 @@ msgid "[COLOR white]Featured[/COLOR]"
 msgstr ""
 
 msgctxt "#32322"
-msgid "[COLOR white]People Watching[/COLOR]"
+msgid "[COLOR white]Trending[/COLOR]"
 msgstr ""
 
 msgctxt "#32323"
-msgid "[COLOR white]Most Popular[/COLOR]"
+msgid "[COLOR white]Popular[/COLOR]"
 msgstr ""
 
 msgctxt "#32324"
@@ -1236,7 +1236,7 @@ msgid "[COLOR white]Protected Link. Please enter account credentials in the sett
 msgstr ""
 
 msgctxt "#32580"
-msgid "[COLOR white]Recently Released[/COLOR]"
+msgid "[COLOR white]Now Playing[/COLOR]"
 msgstr ""
 
 msgctxt "#32581"
@@ -1425,4 +1425,20 @@ msgstr ""
 
 msgctxt "#32637"
 msgid "[COLOR white]Enable external providers (Homelanderscrapers)[/COLOR]"
+msgstr ""
+
+msgctxt "#32638"
+msgid "[COLOR white]Live TV[/COLOR]"
+msgstr ""
+
+msgctxt "#32639"
+msgid "[COLOR white]Mosts[/COLOR]"
+msgstr ""
+
+msgctxt "#32640"
+msgid "[COLOR white]More IMDb Keywords[/COLOR]"
+msgstr ""
+
+msgctxt "#32641"
+msgid "[COLOR white]Mosts[/COLOR]"
 msgstr ""

@@ -94,11 +94,11 @@ class movies:
         self.keyword_link = 'https://www.imdb.com/search/title?title_type=movie,short,tvMovie&release_date=,date[0]&keywords=%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', self.items_per_page)
         self.customlist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=list_order,asc&title_type=movie,tvMovie&start=1'
         self.oscars_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&groups=oscar_best_picture_winners&sort=year,desc&count=%s&start=1' % self.items_per_page
-        self.theaters_link = 'https://www.imdb.com/search/title?title_type=movie&release_date=date[120],date[0]&sort=moviemeter,asc&count=%s&start=1' % self.items_per_page
+        self.theaters_link = 'https://api.themoviedb.org/3/movie/popular?api_key=fb981e5ab89415bba616409d5eb5f05e&language=en-US&region=US&page=1'
         self.year_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&year=%s,%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', '%s', self.items_per_page)
         self.decade_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&year=%s,%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', '%s', self.items_per_page)
-        self.added_link  = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&languages=en&num_votes=500,&production_status=released&release_date=%s,%s&sort=release_date,desc&count=%s&start=1' % (self.year_date, self.today_date, self.items_per_page)
-        self.rating_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&num_votes=10000,&release_date=,date[0]&sort=user_rating,desc&count=%s&start=1' % self.items_per_page
+        self.added_link  = 'https://api.themoviedb.org/3/movie/now_playing?api_key=fb981e5ab89415bba616409d5eb5f05e&language=en-US&region=US&page=1'
+        self.rating_link = 'https://api.themoviedb.org/3/movie/top_rated?api_key=fb981e5ab89415bba616409d5eb5f05e&page=1'
 
         # if self.hidecinema == 'true':
             # self.popular_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&groups=top_1000&release_date=,date[90]&sort=moviemeter,asc&count=%s&start=1' % self.items_per_page
@@ -109,13 +109,13 @@ class movies:
             # self.certification_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&certificates=us:%s&sort=moviemeter,asc&release_date=,date[90]&count=%s&start=1' % ('%s', self.items_per_page)
             # self.boxoffice_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&sort=boxoffice_gross_us,desc&release_date=,date[90]&count=%s&start=1' % self.items_per_page
         # else:
-        self.popular_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&groups=top_1000&sort=moviemeter,asc&count=%s&start=1' % self.items_per_page
-        self.views_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&sort=num_votes,desc&count=%s&start=1' % self.items_per_page
-        self.featured_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&release_date=date[365],date[60]&sort=moviemeter,asc&count=%s&start=1' % self.items_per_page
+        self.popular_link = 'https://api.trakt.tv/movies/popular?limit=%s&page=1' % self.items_per_page
+        self.views_link = 'https://api.trakt.tv/movies/favorited?limit=%s&page=1' % self.items_per_page
+        self.featured_link = 'https://api.trakt.tv/movies/anticipated?limit=%s&page=1' % self.items_per_page
         self.genre_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie,documentary&release_date=,date[0]&genres=%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', self.items_per_page)
         self.language_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&primary_language=%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', self.items_per_page)
         self.certification_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&certificates=us:%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', self.items_per_page)
-        self.boxoffice_link = 'https://www.imdb.com/search/title?title_type=movie,tvMovie&production_status=released&sort=boxoffice_gross_us,desc&count=%s&start=1' % self.items_per_page
+        self.boxoffice_link = 'https://api.themoviedb.org/3/discover/movie?api_key=fb981e5ab89415bba616409d5eb5f05e&language=en-US&region=US&sort_by=revenue.desc&page=1%27'
 
         self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=modified&order=desc&filter=titles' % self.imdb_user
         self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=movie,short,tvMovie,video&start=1'
@@ -446,60 +446,47 @@ class movies:
 
 
     def custom_lists(self):
-        lists = [('ls004043006', 'Modern Horror: Top 150'),
-                 ('ls054656838', 'Horror Movie Series'),
-                 ('ls027849454', 'Horror Of The Skull Posters'),
-                 ('ls076464829', 'Top Satirical Movies'),
-                 ('ls009668082', 'Greatest Science Fiction'),
-                 ('ls057039446', 'Famous and Infamous Movie Couples'),
-                 ('ls003062015', 'Top Private Eye Movies'),
-                 ('ls027822154', 'Sleeper Hit Movies'),
-                 ('ls004943234', 'Cult Horror Movies'),
-                 ('ls020387857', 'Heist Caper Movies'),
-                 ('ls062392787', 'Artificial Intelligence'),
-                 ('ls051289348', 'Stephen King Movies and Adaptations'),
-                 ('ls063259747', 'Alien Invasion'),
-                 ('ls063204479', 'Contract Killers'),
-                 ('ls062247190', 'Heroic Bloodshed'),
-                 ('ls062218265', 'Conspiracy'),
-                 ('ls075582795', 'Top Kung Fu'),
-                 ('ls075785141', 'Movies Based In One Room'),
-                 ('ls058963815', 'Movies For Intelligent People'),
-                 ('ls069754038', 'Inspirational Movies'),
-                 ('ls070949682', 'Tech Geeks'),
-                 ('ls077141747', 'Movie Clones'),
-                 ('ls062760686', 'Obscure Underrated Movies'),
-                 ('ls020576693', 'Smut and Trash'),
-                 ('ls066797820', 'Revenge'),
-                 ('ls066222382', 'Motivational'),
-                 ('ls062746803', 'Disaster & Apocalyptic'),
-                 ('ls066191116', 'Music or Musical Movies'),
-                 ('ls066746282', 'Mental, Physical Illness and Disability Movies'),
-                 ('ls066370089', 'Best Twist Ending Movies'),
-                 ('ls066780524', 'Heists, Cons, Scams & Robbers'),
-                 ('ls066135354', 'Road Trip & Travel'),
-                 ('ls066367722', 'Spy - CIA - MI5 - MI6 - KGB'),
-                 ('ls066502835', 'Prison & Escape'),
-                 ('ls066198904', 'Courtroom'),
-                 ('ls068335911', 'Father - Son'),
-                 ('ls057631565', 'Based on a True Story'),
-                 ('ls064685738', 'Man Vs. Nature'),
-                 ('ls066176690', 'Gangster'),
-                 ('ls066113037', 'Teenage'),
-                 ('ls069248253', 'Old Age'),
-                 ('ls063841856', 'Serial Killers'),
-                 ('ls066788382', 'Addiction'),
-                 ('ls066184124', 'Time Travel'),
-                 ('ls021557769', 'Puff Puff Pass'),
-                 ('ls008462416', 'Artists'),
-                 ('ls057723258', 'Love'),
-                 ('ls057106830', 'Winter Is Here'),
-                 ('ls064085103', 'Suicide'),
-                 ('ls057104247', 'Alchoholic'),
-                 ('ls070389024', 'Video Games'),
-                 ('ls051708902', 'Shocking Movie Scenes'),
-                 ('ls057785252', 'Biographical'),
-                 ('ls051072059', 'Movies to Teach You a Thing or Two')
+        lists = [('ls087535652', 'NETFLIX Original Movies'),
+		         ('ls090918124', 'Must Watch Movies'),
+				 ('ls027328830', 'TOP ACTION MOVIES: 2000-2023'),
+				 ('ur23692152', 'TOP HORROR MOVIES: 2000-2023'),
+				 ('ls566259313', 'THE HORROR-MOVIE-FANATIC TOP 250'),
+				 ('ls000643238', 'Greatest Movies Of All Time'),
+				 ('ls027340130', 'TOP DOCUMENTARY MOVIES: 2000-2023'),
+				 ('ls027345204', 'EXISTENTIAL FILMS'),
+				 ('ls040040015', 'TOP COMEDY MOVIES'),
+				 ('ls027651515', 'THE HUMAN ODYSSEY'),
+                 ('ls043637852', 'THE MUBI TOP 1000'),
+				 ('ls043637259', 'New York Times Best 1,000 Movies Ever Made'),
+				 ('ls043637131', '21st Century Top 1000 Films'),
+				 ('ls043613761', '1001 Movies You Must See Before You Die'),
+				 ('ls043343615', 'Empires 500 Greatest Movies of All Time'),
+				 ('ls043343615', 'Oscar Best Picture Nom'),
+				 ('ls023206856', 'Best Original Screenplay'),
+				 ('ls000099643', 'Top 250 Greatest Martial Arts Movies'),
+				 ('ls000517549', 'Best Drama Movies'),
+				 ('ls069884715', 'Political Movies'),
+				 ('ls068075796', 'Surfing Movies'),
+				 ('ls041370406', 'Comedy Movies'),
+				 ('ls068070419', 'Music Movies'),
+				 ('ls068070901', 'Cars Movies'),
+				 ('ls027972331', 'Prison Movies'),
+				 ('ls068070904', 'Motorcycles Movies'),
+				 ('ls068070415', 'Sixties Movies'),
+				 ('ls027374442', 'Horror Movies'),
+				 ('ls020647013', 'Martial arts Movies'),
+				 ('ls068075554', 'Dystopian Movies'),
+				 ('ls020487515', 'Religion Movies'),
+				 ('ls043404082', 'Documentary Movies'),
+				 ('ls021266915', 'Classics Movies'),
+				 ('ls020424990', 'Westerns Movies'),
+				 ('ls068070932', 'Drugs Movies'),
+				 ('ls068075754', 'Blaxploitation Movies'),
+				 ('ls526543723', 'Movie Box Sets'),
+				 ('ls526756716', '...New Movies Must Watch'),
+				 
+				 
+
         ]
 
         for i in lists: self.list.append(
