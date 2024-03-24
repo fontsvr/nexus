@@ -88,7 +88,8 @@ def _search(params):
 	type = "SERIEN" if params["id"].startswith("serie") else "FILM"
 	history = utils.get_cache("seriesearch" if type == "SERIEN" else "moviesearch") or {}
 	if not history or params.get("newsearch"):
-		a = history[-1] if history else ""
+		try: a = history[-1]
+		except: a = ""
 		heading="VAVOO.TO - %s SUCHE" % type
 		kb = xbmc.Keyboard(a, heading, False)
 		kb.doModal()

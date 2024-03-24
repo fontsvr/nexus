@@ -30,6 +30,7 @@ from .language import _
 
 H264 = 'H.264'
 H265 = 'H.265'
+VP9 = 'VP9'
 HDR = 'H.265 HDR'
 DOLBY_VISION = 'H.265 Dolby Vision'
 
@@ -39,9 +40,14 @@ CODECS = [
     ['avc', H264],
     ['hvc', H265],
     ['hev', H265],
+    ['vp0?9', VP9],
+    ['av0?1', 'AV1'],
     ['hdr', HDR],
     ['dvh', DOLBY_VISION],
+    ['vp0?9\.0?2', 'VP9 HDR'],
+    ['av0?1.*09\.16\.09\.0', 'AV1 HDR'],
 ]
+CODECS = [[re.compile(x[0], re.IGNORECASE), x[1]] for x in CODECS]
 
 ATTRIBUTELISTPATTERN = re.compile(r'''((?:[^,"']|"[^"]*"|'[^']*')+)''')
 
@@ -106,9 +112,8 @@ def codec_rank(_codecs):
     highest = -1
 
     for codec in _codecs:
-        for _codec in CODECS:
-            if codec.lower().startswith(_codec[0].lower()):
-                rank = CODECS.index(_codec)
+        for rank, _codec in enumerate(CODECS):
+            if _codec[0].search(codec):
                 if not highest or rank > highest:
                     highest = rank
 
@@ -136,11 +141,14 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         self._headers = {}
         for header in self.headers:
-            if header.lower() == 'referer' and self.headers[header].startswith(self.proxy_path):
-                self.headers[header] = self.headers[header][len(self.proxy_path):]
+            key = header.lower()
+            value = self.headers[header]
 
-            if header.lower() not in REMOVE_IN_HEADERS:
-                self._headers[header.lower()] = self.headers[header]
+            if key == 'referer' and value.lower().startswith(self.proxy_path.lower()):
+                value = value[len(self.proxy_path):]
+
+            if key not in REMOVE_IN_HEADERS:
+                self._headers[key] = value
 
         session_type = self._headers.pop('session_type', DEFAULT_SESSION_NAME)
         session_addonid = self._headers.pop('session_addonid', None)
@@ -290,7 +298,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self._parse_m3u8(response)
 
             elif self._session.get('type') == 'mpd' and url == manifest:
-                self._session['manifest'] = None #unset manifest url so isn't parsed again
                 self._parse_dash(response)
         except Exception as e:
             log.exception(e)
@@ -392,7 +399,6 @@ class RequestHandler(BaseHTTPRequestHandler):
         quality_compare = cmp_to_key(compare)
         streams = sorted(qualities, key=quality_compare, reverse=True)
 
-
         ok_streams = [x for x in streams if x['compatible'] and x['res_ok']]
         not_compatible = [x for x in streams if not x['compatible']]
         not_res_ok = [x for x in streams if not x['res_ok'] and x not in not_compatible]
@@ -479,7 +485,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         data = data.replace('urn:mpeg:mpegB:cicp:ChannelConfiguration', 'urn:mpeg:dash:23003:3:audio_channel_configuration:2011')
         data = data.replace('dvb:', '') #showmax mpd has dvb: namespace without declaration
 
-        root = parseString(data.encode('utf8'))
+        try:
+            root = parseString(data.encode('utf8'))
+        except Exception as e:
+            log.error('Failed to parse dash: {}'.format(data))
+            raise
 
         if ADDON_DEV:
             pretty = root.toprettyxml(encoding='utf-8')
@@ -518,6 +528,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         audio_description = self._session.get('audio_description', True)
         remove_framerate = self._session.get('remove_framerate', False)
         h265_enabled = self._session.get('h265', False)
+        vp9_enabled = self._session.get('vp9', False)
+        av1_enabled = self._session.get('av1', False)
         hdr_enabled = self._session.get('hdr10', False)
         dolby_vision_enabled = self._session.get('dolby_vision', False)
         atmos_enabled = self._session.get('dolby_atmos', False)
@@ -639,28 +651,34 @@ class RequestHandler(BaseHTTPRequestHandler):
 
                         codecs = [x for x in attribs.get('codecs', '').split(',') if x]
 
-                        # disney+ uses hvc1.2 for non-hdr in HLS. HBO Max uses it for HDR
-                        # TODO: move this into HBO manifest proxy
-                        if any([x.lower().startswith(('hvc1.2', 'hev1.2')) for x in codecs]):
+                        if attribs.get('hdr') == 'true':
                             is_hdr = True
 
                         if is_hdr:
+                            codecs.append('hdr')
+
+                        index = codec_rank(codecs)
+                        codec_string = CODECS[index][1] if index >= 0 else ''
+                        if 'hdr' in codec_string.lower():
                             codecs.append('hdr')
 
                         stream_data = {'bandwidth': bandwidth, 'width': int(attribs.get('width','0')), 'height': int(attribs.get('height','0')), 'frame_rate': frame_rate, 'codecs': codecs, 'elem': stream, 'res_ok': True, 'compatible': True}
                         if stream_data['width'] > max_width or stream_data['height'] > max_height:
                             stream_data['res_ok'] = False
 
-                        index = codec_rank(stream_data['codecs'])
-                        codec_string = CODECS[index][1] if index >= 0 else ''
-
-                        if not dolby_vision_enabled and codec_string == DOLBY_VISION:
+                        if not dolby_vision_enabled and codec_string.lower().endswith('dolby vision'):
                             stream_data['compatible'] = False
 
-                        if not hdr_enabled and codec_string == HDR:
+                        if not hdr_enabled and codec_string.lower().endswith('hdr'):
                             stream_data['compatible'] = False
 
-                        if not h265_enabled and codec_string == H265:
+                        if not h265_enabled and codec_string.lower().startswith('h.265'):
+                            stream_data['compatible'] = False
+
+                        if not av1_enabled and codec_string.lower().startswith('av1'):
+                            stream_data['compatible'] = False
+
+                        if not vp9_enabled and codec_string.lower().startswith('vp9'):
                             stream_data['compatible'] = False
 
                         stream_data['codec'] = codec_string
@@ -868,14 +886,16 @@ class RequestHandler(BaseHTTPRequestHandler):
         ################
 
         ## Convert Location
+        # by default, wipe out the manifest so not parsed again
+        self._session['manifest'] = None
         for elem in root.getElementsByTagName('Location'):
             url = elem.firstChild.nodeValue
-
-            if url.startswith('/'):
+            if '://' not in url:
                 url = urljoin(response.url, url)
 
-            if '://' in url:
-                elem.firstChild.nodeValue = self.proxy_path + url
+            elem.firstChild.nodeValue = self.proxy_path + url
+            # update our manifest url to the location url
+            self._session['manifest'] = url
         ################
 
         ## Convert to proxy paths
@@ -1270,15 +1290,19 @@ class RequestHandler(BaseHTTPRequestHandler):
             response = Response()
             response.headers = {}
             response.stream = ResponseStream(response)
+            real_path = xbmc.translatePath(url)
 
-            if os.path.exists(url):
+            if os.path.exists(real_path):
+                log.debug('Reading response from local path: {}'.format(real_path))
                 response.status_code = 200
-                with open(url, 'rb') as f:
+                with open(real_path, 'rb') as f:
                     response.stream.content = f.read()
-                if not ADDON_DEV: remove_file(url)
+
+                if not ADDON_DEV:
+                    remove_file(real_path)
             else:
                 response.status_code = 500
-                response.stream.content = "File not found: {}".format(url).encode('utf-8')
+                response.stream.content = "File not found: {}".format(real_path).encode('utf-8')
 
             return response
 
@@ -1375,29 +1399,33 @@ class RequestHandler(BaseHTTPRequestHandler):
         response = self._proxy_request('HEAD', url)
         self._output_response(response)
 
-    def do_POST(self, retry=True):
+    def do_POST(self):
         url = self._get_url('POST')
 
-        if url == self._session.get('license_url'):
-            for i in range(3):
-                response = self._proxy_request('POST', url)
-                license_data = response.stream.content
-                if ADDON_DEV:
-                    with open(xbmc.translatePath('special://temp/license.data'), 'wb') as f:
-                        f.write(license_data)
-                if response.ok and license_data:
-                    break
-                time.sleep(0.5)
-            else:
-                if not self._session.get('license_init'):
-                    log.error(license_data)
-                    if not license_data:
-                        license_data = b'None'
-                    gui.text(_(_.CHECK_WV_CDM, error=license_data.decode('utf8')), heading=_.WV_FAILED)
-
-            self._session['license_init'] = True
-        else:
+        for i in range(3):
             response = self._proxy_request('POST', url)
+            if url != self._session.get('license_url'):
+                break
+
+            license_data = response.stream.content
+            if ADDON_DEV:
+                with open(xbmc.translatePath('special://temp/license.data'), 'wb') as f:
+                    f.write(license_data)
+
+            if response.ok and license_data:
+                log.info('WV License response OK and returned data')
+                self._session['license_init'] = True
+                break
+
+            if not license_data:
+                license_data = b'None'
+
+            log.error('WV License attempt: {}/3 failed: {}'.format(i+1, license_data.decode()))
+            time.sleep(0.5)
+        else:
+            # only show error on initial license fail
+            if not self._session.get('license_init'):
+                gui.notification(_.PLAYBACK_FAILED_CHECK_LOG, heading=_.WV_FAILED, icon=xbmc.getInfoLabel('Player.Icon'))
 
         self._output_response(response)
 
@@ -1439,7 +1467,8 @@ class ResponseStream(object):
         else:
             while True:
                 try:
-                    chunk = self._response.raw.read(CHUNK_SIZE)
+                    # 4096 best for shoutcast streams and quick playback start
+                    chunk = self._response.raw.read(4096)
                 except:
                     chunk = None
 
@@ -1471,21 +1500,12 @@ class Proxy(object):
         if self.started:
             return
 
-        settings.set('_proxy_path', '')
-
-        port = check_port(DEFAULT_PORT)
-        if not port:
-            port = check_port()
-
-        self._server = ThreadedHTTPServer((HOST, port), RequestHandler)
+        self._server = ThreadedHTTPServer((PROXY_HOST, PROXY_PORT), RequestHandler)
         self._server.allow_reuse_address = True
         self._httpd_thread = threading.Thread(target=self._server.serve_forever)
         self._httpd_thread.start()
         self.started = True
-
-        proxy_path = 'http://{}:{}/'.format(HOST, port)
-        settings.set('_proxy_path', proxy_path)
-        log.info("Proxy Started: {}".format(proxy_path))
+        log.info("Proxy Started: {}".format(PROXY_PATH))
 
     def stop(self):
         if not self.started:
@@ -1503,5 +1523,4 @@ class Proxy(object):
             log.error('Failed to save proxy session')
             log.exception(e)
 
-        settings.set('_proxy_path', '')
         log.debug("Proxy: Stopped")

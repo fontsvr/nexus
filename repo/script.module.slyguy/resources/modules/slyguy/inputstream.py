@@ -206,7 +206,7 @@ def install_widevine(reinstall=False):
 
     ia_addon = require_version(IA_WV_MIN_VER, required=True)
     system, arch = get_system_arch()
-    log.debug('Widevine - System: {} | Arch: {}'.format(system, arch))
+    log.info('Widevine - System: {} | Arch: {}'.format(system, arch))
 
     if system == 'Android':
         if KODI_VERSION > 18 and not is_wv_secure():
@@ -257,15 +257,14 @@ def install_widevine(reinstall=False):
     has_compatible = False
     for wv in wv_versions:
         wv['compatible'] = True
-        wv['label'] = str(wv['ver'])
+        wv['label'] = '{} {} - {}'.format(system, arch, str(wv['ver']))
         wv['confirm'] = None
 
         if wv.get('revoked'):
             wv['compatible'] = False
             wv['label'] = _(_.WV_REVOKED, label=wv['label'])
             wv['confirm'] = _.WV_REVOKED_CONFIRM
-
-        if wv.get('issues'):
+        elif wv.get('issues'):
             wv['compatible'] = False
             wv['label'] = _(_.WV_ISSUES, label=wv['label'])
             wv['confirm'] = _(_.WV_ISSUES_CONFIRM, issues=wv['issues'])
@@ -300,7 +299,7 @@ def install_widevine(reinstall=False):
                 continue
 
             if 'src' in selected:
-                url = widevine['base_url'] + selected['src']
+                url = os.path.dirname(IA_MODULES_URL) + '/widevine/' + selected['src']
                 if not _download(url, wv_path, selected['md5']):
                     continue
 

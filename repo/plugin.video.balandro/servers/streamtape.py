@@ -31,12 +31,12 @@ def get_aux(page_url):
     data = httptools.downloadpage(page_url, headers=referer).data
 
     if "Video not found" in data:
-        return  "El archivo no existe o ha sido borrado"
+        return  "Archivo inexistente ó eliminado"
 
     url_data = scrapertools.find_single_match(data, """getElementById\('\w+link'\).innerHTML = "[^"]+" .* \('.+?/([^']+)'\)""")
 
     if not url_data:
-        platformtools.dialog_notification('Cargando Streamtape', 'Espera requerida de %s segundos' % espera)
+        platformtools.dialog_notification('Cargando [COLOR cyan][B]Streamtape[/B][/COLOR]', 'Espera requerida de %s segundos' % espera)
         time.sleep(int(espera))
 
         data = httptools.downloadpage(page_url, headers={"Referer": page_url}).data

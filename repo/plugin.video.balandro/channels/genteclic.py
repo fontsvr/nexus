@@ -121,12 +121,17 @@ def findvideos(item):
 
         if not url.startswith('http'): url = 'https' + url
 
+        if '.bitchute.' in url: continue
+
         servidor = servertools.get_server_from_url(url)
         servidor = servertools.corregir_servidor(servidor)
 
         url = servertools.normalize_url(servidor, url)
 
-        itemlist.append(Item(channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = item.languages ))
+        lang = item.languages
+        if not lang: lang = 'Lat'
+
+        itemlist.append(Item(channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = lang ))
 
     if not itemlist:
         if not ses == 0:

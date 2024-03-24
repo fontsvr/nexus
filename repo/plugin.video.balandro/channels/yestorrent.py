@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import re
+import re, random
 
 from platformcode import config, logger, platformtools
 from core.item import Item
-from core import httptools, scrapertools, servertools, tmdb
+from core import httptools, scrapertools, servertools, jsontools, tmdb
 
 from lib import decrypters
 
@@ -12,23 +12,103 @@ from lib import decrypters
 host = 'https://yestorrent.org/'
 
 
+# ~ por si viene de enlaces guardados
+ant_hosts = ['https://yestorrent.cx/', 'http://yestorrent.org/']
+
+domain = config.get_setting('dominio', 'yestorrent', default='')
+
+if domain:
+    if domain == host: config.set_setting('dominio', '', 'yestorrent')
+    elif domain in str(ant_hosts): config.set_setting('dominio', '', 'yestorrent')
+    else: host = domain
+
+
+def item_configurar_proxies(item):
+    color_list_proxies = config.get_setting('channels_list_proxies_color', default='red')
+
+    color_avis = config.get_setting('notification_avis_color', default='yellow')
+    color_exec = config.get_setting('notification_exec_color', default='cyan')
+
+    context = []
+
+    tit = '[COLOR %s]Información proxies[/COLOR]' % color_avis
+    context.append({'title': tit, 'channel': 'helper', 'action': 'show_help_proxies'})
+
+    if config.get_setting('channel_yestorrent_proxies', default=''):
+        tit = '[COLOR %s][B]Quitar los proxies del canal[/B][/COLOR]' % color_list_proxies
+        context.append({'title': tit, 'channel': item.channel, 'action': 'quitar_proxies'})
+
+    tit = '[COLOR %s]Ajustes categoría proxies[/COLOR]' % color_exec
+    context.append({'title': tit, 'channel': 'actions', 'action': 'open_settings'})
+
+    plot = 'Es posible que para poder utilizar este canal necesites configurar algún proxy, ya que no es accesible desde algunos países/operadoras.'
+    plot += '[CR]Si desde un navegador web no te funciona el sitio ' + host + ' necesitarás un proxy.'
+    return item.clone( title = '[B]Configurar proxies a usar ...[/B]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
+
+def quitar_proxies(item):
+    from modules import submnuctext
+    submnuctext._quitar_proxies(item)
+    return True
+
+def configurar_proxies(item):
+    from core import proxytools
+    return proxytools.configurar_proxies_canal(item.channel, host)
+
+
 def do_downloadpage(url, post=None, raise_weberror=True):
     # ~ por si viene de enlaces guardados
-    ant_hosts = ['https://yestorrent.cx/', 'http://yestorrent.org/']
-
     for ant in ant_hosts:
         url = url.replace(ant, host)
 
     if '/years/' in url: raise_weberror = False
 
-    data = httptools.downloadpage(url, post=post, raise_weberror=raise_weberror).data
+    hay_proxies = False
+    if config.get_setting('channel_yestorrent_proxies', default=''): hay_proxies = True
+
+    if not url.startswith(host):
+        data = httptools.downloadpage(url, post=post, raise_weberror=raise_weberror).data
+    else:
+        if hay_proxies:
+            data = httptools.downloadpage_proxy('yestorrent', url, post=post, raise_weberror=raise_weberror).data
+        else:
+            data = httptools.downloadpage(url, post=post, raise_weberror=raise_weberror).data
 
     return data
+
+
+def acciones(item):
+    logger.info()
+    itemlist = []
+
+    domain_memo = config.get_setting('dominio', 'yestorrent', default='')
+
+    if domain_memo: url = domain_memo
+    else: url = host
+
+    itemlist.append(Item( channel='actions', action='show_latest_domains', title='[COLOR moccasin][B]Últimos Cambios de Dominios[/B][/COLOR]', thumbnail=config.get_thumb('pencil') ))
+
+    itemlist.append(Item( channel='helper', action='show_help_domains', title='[B]Información Dominios[/B]', thumbnail=config.get_thumb('help'), text_color='green' ))
+
+    itemlist.append(item.clone( channel='domains', action='test_domain_yestorrent', title='Test Web del canal [COLOR yellow][B] ' + url + '[/B][/COLOR]',
+                                from_channel='yestorrent', folder=False, text_color='chartreuse' ))
+
+    if domain_memo: title = '[B]Modificar/Eliminar el dominio memorizado[/B]'
+    else: title = '[B]Informar Nuevo Dominio manualmente[/B]'
+
+    itemlist.append(item.clone( channel='domains', action='manto_domain_yestorrent', title=title, desde_el_canal = True, folder=False, text_color='darkorange' ))
+
+    itemlist.append(item_configurar_proxies(item))
+
+    platformtools.itemlist_refresh()
+
+    return itemlist
 
 
 def mainlist(item):
     logger.info()
     itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar ...', action = 'search', search_type = 'all', text_color = 'yellow' ))
 
@@ -41,6 +121,8 @@ def mainlist(item):
 def mainlist_pelis(item):
     logger.info()
     itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar película ...', action = 'search', search_type = 'movie', text_color = 'deepskyblue' ))
 
@@ -58,6 +140,8 @@ def mainlist_pelis(item):
 def mainlist_series(item):
     logger.info()
     itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
@@ -81,14 +165,18 @@ def calidades(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item.clone( title='En Micro HD', url = host + 'quality/MicroHD-1080p/', action='list_all', text_color='moccasin' ))
-    itemlist.append(item.clone( title='En HD', url = host + 'quality/hd/', action='list_all', text_color='moccasin' ))
+    itemlist.append(item.clone( title='En 3D', url = host + 'quality/3d/', action='list_all', text_color='moccasin' ))
+    itemlist.append(item.clone( title='En 4K UHD', url = host + 'quality/4k-uhd/', action='list_all', text_color='moccasin' ))
+
     itemlist.append(item.clone( title='En BD Rip', url = host + 'quality/bdrip/', action='list_all', text_color='moccasin' ))
-    itemlist.append(item.clone( title='En Dual 1080', url = host + 'quality/dual-1080p/', action='list_all', text_color='moccasin' ))
     itemlist.append(item.clone( title='En BluRay 720', url = host + 'quality/bluRay-720p/', action='list_all', text_color='moccasin' ))
     itemlist.append(item.clone( title='En BluRay 1080', url = host + 'quality/bluRay-1080p/', action='list_all', text_color='moccasin' ))
-    itemlist.append(item.clone( title='En 4K UHD', url = host + 'quality/4k-uhd/', action='list_all', text_color='moccasin' ))
-    itemlist.append(item.clone( title='En 3D', url = host + 'quality/3d/', action='list_all', text_color='moccasin' ))
+
+    itemlist.append(item.clone( title='En Dual 1080', url = host + 'quality/dual-1080p/', action='list_all', text_color='moccasin' ))
+
+    itemlist.append(item.clone( title='En HD', url = host + 'quality/hd/', action='list_all', text_color='moccasin' ))
+
+    itemlist.append(item.clone( title='En Micro HD', url = host + 'quality/MicroHD-1080p/', action='list_all', text_color='moccasin' ))
 
     return itemlist
 
@@ -178,10 +266,10 @@ def list_all(item):
     tmdb.set_infoLabels(itemlist)
 
     if itemlist:
-        next_page_link = scrapertools.find_single_match(data, '<a class="next page-numbers" href="([^"]+)')
+        next_page = scrapertools.find_single_match(data, '<a class="next page-numbers" href="([^"]+)')
 
-        if next_page_link:
-            itemlist.append(item.clone( title='Siguientes ...', action='list_all', url=next_page_link, text_color='coral' ))
+        if next_page:
+            itemlist.append(item.clone( title='Siguientes ...', action='list_all', url=next_page, text_color='coral' ))
 
     return itemlist
 
@@ -198,7 +286,9 @@ def temporadas(item):
         numtempo = title.replace('Temporada ', '').strip()
 
         if len(matches) == 1:
-            platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+            if config.get_setting('channels_seasons', default=True):
+                platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+
             item.page = 0
             item.title = title
             item.contentType = 'season'
@@ -234,7 +324,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('YesTorrent', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -322,7 +413,7 @@ def findvideos(item):
             elif url.startswith('magnet:'): srv = 'magnet'
             else:
                 servidor = 'directo'
-                if '/acortalink.me/' in url: srv = 'acortalink'
+                if '/acortalink.me/' in url: srv = 'torrent'
                 elif '/mega.' in url: srv = 'mega'
                 else:
                     srv = servertools.get_server_from_url(url)
@@ -346,7 +437,7 @@ def findvideos(item):
            servidor = 'directo'
            if '/acortalink.me/' in item.url:
               url = item.url
-              other = 'acortalink'
+              other = 'torrent'
            elif '/mega.' in item.url:
               url = item.url
               other = 'mega'
@@ -393,11 +484,10 @@ def play(item):
                     get = '&n=' + file_id
                     post = {'a': 'f', 'c': 1, 'r': 0}
  
-                import random
                 nro = random.randint(0, 0xFFFFFFFF)
 
-                from core import jsontools
                 api = 'https://g.api.mega.co.nz/cs?id=%d%s' % (nro, get)
+
                 resp = httptools.downloadpage(api, post=jsontools.dump([post]), headers={'Referer': 'https://mega.nz/'})
 
                 url = scrapertools.find_single_match(resp.data, '.*?"g":"(.*?)"')

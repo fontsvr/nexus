@@ -24,24 +24,25 @@ def get_video_url(page_url, url_referer=''):
     resp = httptools.downloadpage(page_url)
 
     if resp.code == 404:
-        return 'El archivo no existe o ha sido borrado'
+        return 'Archivo inexistente ó eliminado'
 
     data = resp.data
 
     base_url = "https://www.burstcloud.co/file/play-request/"
     fileId = scrapertools.find_single_match(data, 'data-file-id="([^"]+)"')
 
-    post = {"fileId": fileId}
-    data = httptools.downloadpage(base_url, post=post, headers={"Referer": page_url}).data
+    if fileId:
+        post = {"fileId": fileId}
+        data = httptools.downloadpage(base_url, post=post, headers={"Referer": page_url}).data
 
-    url = scrapertools.find_single_match(data, '"cdnUrl".*?"([^"]+)"')
-
-    if url:
-        url = httptools.downloadpage(url, headers={'Referer': 'https://www.burstcloud.co/'}, follow_redirects=False).headers.get('location', '')
+        url = scrapertools.find_single_match(data, '"cdnUrl".*?"([^"]+)"')
 
         if url:
-            url = url + '|referer=https://www.burstcloud.co/'
+            url = httptools.downloadpage(url, headers={'Referer': 'https://www.burstcloud.co/'}, follow_redirects=False).headers.get('location', '')
 
-            video_urls.append(['mp4', url])
+            if url:
+                url = url + '|referer=https://www.burstcloud.co/'
+
+                video_urls.append(['mp4', url])
 
     return video_urls

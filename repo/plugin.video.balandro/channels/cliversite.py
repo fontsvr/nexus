@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
+PY3 = False
+if sys.version_info[0] >= 3: PY3 = True
+
 import re, time
 
 from platformcode import config, logger, platformtools
@@ -7,7 +12,51 @@ from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb
 
 
-host = 'https://www1.cliver.me'
+LINUX = False
+BR = False
+BR2 = False
+
+if PY3:
+    try:
+       import xbmc
+       if xbmc.getCondVisibility("system.platform.Linux.RaspberryPi") or xbmc.getCondVisibility("System.Platform.Linux"): LINUX = True
+    except: pass
+
+try:
+   if LINUX:
+       try:
+          from lib import balandroresolver2 as balandroresolver
+          BR2 = True
+       except: pass
+   else:
+       if PY3:
+           from lib import balandroresolver
+           BR = true
+       else:
+          try:
+             from lib import balandroresolver2 as balandroresolver
+             BR2 = True
+          except: pass
+except:
+   try:
+      from lib import balandroresolver2 as balandroresolver
+      BR2 = True
+   except: pass
+
+
+host = 'https://www2.cliver.me'
+
+
+# ~ por si viene de enlaces guardados
+ant_hosts = ['https://cliver.site', 'https://www1.cliver.me']
+
+
+domain = config.get_setting('dominio', 'cliversite', default='')
+
+if domain:
+    if domain == host: config.set_setting('dominio', '', 'cliversite')
+    elif domain in str(ant_hosts): config.set_setting('dominio', '', 'cliversite')
+    else: host = domain
 
 
 perpage = 30
@@ -33,7 +82,7 @@ def item_configurar_proxies(item):
 
     plot = 'Es posible que para poder utilizar este canal necesites configurar algún proxy, ya que no es accesible desde algunos países/operadoras.'
     plot += '[CR]Si desde un navegador web no te funciona el sitio ' + host + ' necesitarás un proxy.'
-    return item.clone( title = 'Configurar proxies a usar ... [COLOR plum](si no hay resultados)[/COLOR]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
+    return item.clone( title = '[B]Configurar proxies a usar ...[/B]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
 
 def quitar_proxies(item):
     from modules import submnuctext
@@ -47,38 +96,73 @@ def configurar_proxies(item):
 
 def do_downloadpage(url, post=None, headers=None):
     # ~ por si viene de enlaces guardados
-    ant_hosts = ['https://cliver.site']
-
     for ant in ant_hosts:
         url = url.replace(ant, host)
+
+    hay_proxies = False
+    if config.get_setting('channel_cliversite_proxies', default=''): hay_proxies = True
 
     if not url.startswith(host):
         data = httptools.downloadpage(url, post=post, headers=headers).data
     else:
-        data = httptools.downloadpage_proxy('cliversite', url, post=post, headers=headers).data
+        if hay_proxies:
+            data = httptools.downloadpage_proxy('cliversite', url, post=post, headers=headers).data
+        else:
+            data = httptools.downloadpage(url, post=post, headers=headers).data
 
-    if '<title>You are being redirected...</title>' in data:
-        try:
-            from lib import balandroresolver
-            ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
-            if ck_name and ck_value:
-                httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
+    if '<title>You are being redirected...</title>' in data or '<title>Just a moment...</title>' in data:
+        if BR or BR2:
+            try:
+                ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
+                if ck_name and ck_value:
+                    httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
 
                 if not url.startswith(host):
                     data = httptools.downloadpage(url, post=post, headers=headers).data
                 else:
-                    data = httptools.downloadpage_proxy('cliversite', url, post=post, headers=headers).data
-        except:
-            pass
+                    if hay_proxies:
+                        data = httptools.downloadpage_proxy('cliversite', url, post=post, headers=headers).data
+                    else:
+                        data = httptools.downloadpage(url, post=post, headers=headers).data
+            except:
+                pass
 
     return data
+
+
+def acciones(item):
+    logger.info()
+    itemlist = []
+
+    domain_memo = config.get_setting('dominio', 'cliversite', default='')
+
+    if domain_memo: url = domain_memo
+    else: url = host
+
+    itemlist.append(Item( channel='actions', action='show_latest_domains', title='[COLOR moccasin][B]Últimos Cambios de Dominios[/B][/COLOR]', thumbnail=config.get_thumb('pencil') ))
+
+    itemlist.append(Item( channel='helper', action='show_help_domains', title='[B]Información Dominios[/B]', thumbnail=config.get_thumb('help'), text_color='green' ))
+
+    itemlist.append(item.clone( channel='domains', action='test_domain_cliversite', title='Test Web del canal [COLOR yellow][B] ' + url + '[/B][/COLOR]',
+                                from_channel='cliversite', folder=False, text_color='chartreuse' ))
+
+    if domain_memo: title = '[B]Modificar/Eliminar el dominio memorizado[/B]'
+    else: title = '[B]Informar Nuevo Dominio manualmente[/B]'
+
+    itemlist.append(item.clone( channel='domains', action='manto_domain_cliversite', title=title, desde_el_canal = True, folder=False, text_color='darkorange' ))
+
+    itemlist.append(item_configurar_proxies(item))
+
+    platformtools.itemlist_refresh()
+
+    return itemlist
 
 
 def mainlist(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar ...', action = 'search', search_type = 'all', text_color = 'yellow' ))
 
@@ -92,13 +176,13 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar película ...', action = 'search', search_type = 'movie', text_color = 'deepskyblue' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + '/peliculas', search_type = 'movie', tipo = 'index', pagina = 1 ))
 
-    itemlist.append(item.clone( title = 'Estrenos', action = 'list_all', url = host + '/peliculas/estrenos', search_type = 'movie', tipo = 'estrenos', pagina = 1 ))
+    itemlist.append(item.clone( title = 'Estrenos', action = 'list_all', url = host + '/peliculas/estrenos', search_type = 'movie', tipo = 'estrenos', pagina = 1, text_color='cyan' ))
 
     itemlist.append(item.clone( title = 'Más Vistas', action = 'list_all', url = host + '/peliculas/mas-vistas', search_type = 'movie', page = 0, pagina = 1 ))  
 
@@ -109,17 +193,18 @@ def mainlist_pelis(item):
 
     return itemlist
 
+
 def mainlist_series(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + '/series', search_type = 'tvshow', tipo = 'index', pagina = 1 ))
 
-    itemlist.append(item.clone( title = 'Series con nuevos capítulos', action = 'list_all', url = host + '/series/tendencias', search_type = 'tvshow', pagina = 1, text_color = 'olive' ))
+    itemlist.append(item.clone( title = 'Series con nuevos capítulos', action = 'list_all', url = host + '/series/tendencias', search_type = 'tvshow', pagina = 1, text_color = 'moccasin' ))
 
     itemlist.append(item.clone( title = 'Más Vistas', action = 'list_all', url = host + '/series/mas-vistas', search_type = 'tvshow', page = 0, pagina = 1 ))
 
@@ -277,7 +362,9 @@ def temporadas(item):
         title = 'Temporada ' + numtempo
 
         if len(matches) == 1:
-            platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+            if config.get_setting('channels_seasons', default=True):
+                platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+				
             item.page = 0
             item.contentType = 'season'
             item.contentSeason = numtempo
@@ -320,7 +407,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('CliverSite', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -440,15 +528,17 @@ def findvideos(item):
 
             if url.startswith('//'): url = 'https:' + url
 
-            if '/netu.' in url or '/hqq.' in url or '/waaw.' in url: continue
+            if url.startswith('https://pelisplay.ioplay?'): url = url.replace('https://pelisplay.ioplay?', 'https://pelisplay.io/play?')
 
             servidor = servertools.get_server_from_url(url)
             servidor = servertools.corregir_servidor(servidor)
 
+            link_other = ''
+
             if servidor == 'directo':
                 link_other = normalize_other(srv)
                 if not link_other: continue
-            else: link_other = ''
+            elif servidor == 'various': link_other = servertools.corregir_other(url)
 
             itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = IDIOMAS.get(lang, lang), other = link_other ))
 
@@ -493,6 +583,11 @@ def play(item):
     logger.info()
     itemlist = []
 
+    domain_memo = config.get_setting('dominio', 'cliversite', default='')
+
+    if domain_memo: host_player = domain_memo
+    else: host_player = host
+
     servidor = item.server
 
     url = item.url
@@ -531,10 +626,7 @@ def play(item):
 
                     vid = item.url.replace('https://apialfa.tomatomatela.club/sc/index.php', 'https://apialfa.tomatomatela.club/sc/r.php')
 
-                    if not vid.startswith(host):
-                        data = httptools.downloadpage(vid, post=post).data
-                    else:
-                        data = httptools.downloadpage_proxy('cliversite', vid, post=post).data
+                    data = do_downloadpage(vid, post=post)
 
                     url = scrapertools.find_single_match(data, '<meta name="og:url" content="(.*?)"')
 
@@ -553,10 +645,13 @@ def play(item):
                 post = {'url': fid}
 
                 try:
-                    if not vid.startswith(host):
+                    if not vid.startswith(host_player):
                         new_url = httptools.downloadpage(vid, post=post, follow_redirects=False).headers['location']
                     else:
-                        new_url = httptools.downloadpage_proxy('cliversite', vid, post=post, follow_redirects=False).headers['location']
+                        if config.get_setting('channel_cliversite_proxies', default=''):
+                            new_url = httptools.downloadpage_proxy('cliversite', vid, post=post, follow_redirects=False).headers['location']
+                        else:
+                            new_url = httptools.downloadpage(vid, post=post, follow_redirects=False).headers['location']
                 except:
                     new_url = ''
 
@@ -568,10 +663,13 @@ def play(item):
 
                     if vid:
                         try:
-                            if not vid.startswith(host):
+                            if not vid.startswith(host_player):
                                 new_url = httptools.downloadpage(vid, post=post, follow_redirects=False).headers['location']
                             else:
-                                new_url = httptools.downloadpage_proxy('cliversite', vid, post=post, follow_redirects=False).headers['location']
+                                if config.get_setting('channel_cliversite_proxies', default=''):
+                                    new_url = httptools.downloadpage_proxy('cliversite', vid, post=post, follow_redirects=False).headers['location']
+                                else:
+                                    new_url = httptools.downloadpage(vid, post=post, follow_redirects=False).headers['location']
                         except:
                             new_url = ''
 
@@ -590,10 +688,13 @@ def play(item):
                     vid = 'https://apialfa.tomatomatela.club/ir/redirect_ddh.php'
 
                     try:
-                        if not vid.startswith(host):
+                        if not vid.startswith(host_player):
                             url = httptools.downloadpage(vid, post=post, follow_redirects=False).headers['location']
                         else:
-                            url = httptools.downloadpage_proxy('cliversite', vid, post=post, follow_redirects=False).headers['location']
+                            if config.get_setting('channel_cliversite_proxies', default=''):
+                                url = httptools.downloadpage_proxy('cliversite', vid, post=post, follow_redirects=False).headers['location']
+                            else:
+                                url = httptools.downloadpage(vid, post=post, follow_redirects=False).headers['location']
                     except:
                         url = ''
 
@@ -614,10 +715,13 @@ def play(item):
 
         elif item.other == 'super':
             if '/pelisplay.ccplay?' in item.url:
-                if not item.url.startswith(host):
+                if not item.url.startswith(host_player):
                     resp = httptools.downloadpage(item.url)
                 else:
-                    resp = httptools.downloadpage_proxy('cliversite', item.url)
+                    if config.get_setting('channel_cliversite_proxies', default=''):
+                        resp = httptools.downloadpage_proxy('cliversite', item.url)
+                    else:
+                        resp = httptools.downloadpage(item.url)
 
                 if not resp.data: return itemlist
             else:
@@ -655,7 +759,7 @@ def play(item):
                     return itemlist
 
     if url:
-        if '/hqq.' in url or '/waaw.' in url or '/netu.' in url or '/clonamesta' in url:
+        if '/clonamesta' in url:
             return 'Requiere verificación [COLOR red]reCAPTCHA[/COLOR]'
 
         itemlist.append(item.clone(url = url, server = servidor))

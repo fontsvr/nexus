@@ -48,7 +48,8 @@ def generos(item):
 
     bloque = scrapertools.find_single_match(data, '>Genero</a>(.*?)</ul>')
 
-    matches = scrapertools.find_multiple_matches(bloque, '<a href=(.*?)>(.*?)</a>')
+    matches = scrapertools.find_multiple_matches(bloque, '<a href="(.*?)">(.*?)</a>')
+    if not matches: matches = scrapertools.find_multiple_matches(bloque, '<a href=(.*?)>(.*?)</a>')
 
     for url, title in matches:
         if '/genero/' not in url: continue
@@ -70,7 +71,8 @@ def calidades(item):
 
     bloque = scrapertools.find_single_match(data, 'Calidad</a>(.*?)</ul>')
 
-    matches = scrapertools.find_multiple_matches(bloque, '<a href=(.*?)>(.*?)</a>')
+    matches = scrapertools.find_multiple_matches(bloque, '<a href="(.*?)">(.*?)</a>')
+    if not matches: matches = scrapertools.find_multiple_matches(bloque, '<a href=(.*?)>(.*?)</a>')
 
     for url, title in matches:
         itemlist.append(item.clone( action='list_all', title='En ' + title, url = url, text_color='moccasin' ))
@@ -93,6 +95,7 @@ def list_all(item):
         article = scrapertools.decodeHtmlentities(article)
 
         url = scrapertools.find_single_match(article, ' href="(.*?)"')
+        if not url: url = scrapertools.find_single_match(article, " href='(.*?)'")
         if not url: url = scrapertools.find_single_match(article, ' href=(.*?)>')
 
         title = scrapertools.find_single_match(article, ' alt="(.*?)"')
@@ -106,7 +109,7 @@ def list_all(item):
         if not year: year = scrapertools.find_single_match(article, '<span>.*?,(.*?)</span>').strip()
         if not year: year = scrapertools.find_single_match(article, '<span>(.*?)</span>').strip()
 
-        if year: title = title = title.replace(' ' + year, '').strip()
+        if year: title = title = title.replace(' ' + year, '').replace(' (' + year + ')', '').strip()
         else: year = '-'
 
         qlty = scrapertools.find_single_match(article, '<span class=quality>(.*?)</span>')
@@ -154,8 +157,8 @@ def findvideos(item):
 
         if '<th' in lin: continue
 
-        url = scrapertools.find_single_match(lin, "<a href='(.*?)'")
-        if not url: url = scrapertools.find_single_match(lin, "<a href=(.*?) ")
+        url = scrapertools.find_single_match(lin, '<a href="(.*?)"')
+        if not url: url = scrapertools.find_single_match(lin, "<a href='(.*?)'")
 
         server = servertools.corregir_servidor(scrapertools.find_single_match(lin, "domain=([^.']+)"))
 
@@ -226,6 +229,7 @@ def list_search(item):
         article = scrapertools.decodeHtmlentities(article)
 
         url = scrapertools.find_single_match(article, ' href="(.*?)"')
+        if not url: url = scrapertools.find_single_match(article, " href='(.*?)'")
         if not url: url = scrapertools.find_single_match(article, ' href=(.*?)>')
 
         title = scrapertools.find_single_match(article, ' alt="(.*?)"')
@@ -236,12 +240,13 @@ def list_search(item):
         if not thumb: thumb = scrapertools.find_single_match(article, ' data-src=(.*?) ')
 
         year = scrapertools.find_single_match(article, '<span class=year>(.*?)</span>')
+        if not year: year = scrapertools.find_single_match(article, '<span class="year">(.*?)</span>')
         if not year: year = scrapertools.find_single_match(article, '<span>.*?,(.*?)</span>').strip()
         if not year: year = scrapertools.find_single_match(article, '<span>(.*?)</span>').strip()
 
         plot = scrapertools.htmlclean(scrapertools.find_single_match(article, '<p>(.*?)</p>'))
 
-        if year: title = title = title.replace(' ' + year, '').strip()
+        if year: title = title = title.replace(' ' + year, '').replace(' (' + year + ')', '').strip()
         else: year = '-'
 
         itemlist.append(item.clone( action='findvideos', url=url, title=title, thumbnail=thumb, contentType='movie', contentTitle=title, infoLabels={'year': year, 'plot': plot} ))

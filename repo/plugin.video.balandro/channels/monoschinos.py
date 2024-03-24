@@ -18,19 +18,17 @@ def mainlist_animes(item):
     logger.info()
     itemlist = []
 
-    descartar_anime = config.get_setting('descartar_anime', default=False)
-
-    if descartar_anime: return itemlist
+    if config.get_setting('descartar_anime', default=False): return
 
     if config.get_setting('adults_password'):
         from modules import actions
-        if actions.adults_password(item) == False: return itemlist
+        if actions.adults_password(item) == False: return
 
     itemlist.append(item.clone( title = 'Buscar anime ...', action = 'search', search_type = 'tvshow', text_color='springgreen' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + '/animes/', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Últimos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'olive' ))
+    itemlist.append(item.clone( title = 'Últimos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
 
     itemlist.append(item.clone( title = 'En emisión', action = 'list_all', url = host + '/animes?genero=emision', search_type = 'tvshow' ))
 
@@ -38,6 +36,8 @@ def mainlist_animes(item):
     itemlist.append(item.clone( title = 'En latino', action = 'list_all', url = host + '/animes?categoria=false&genero=latino', search_type = 'tvshow' ))
 
     itemlist.append(item.clone( title = 'En blu-ray', action = 'list_all', url = host + '/animes?categoria=false&genero=blu-ray', search_type = 'tvshow' ))
+
+    itemlist.append(item.clone( title = 'Películas', action = 'list_all', url = host + '/animes?categoria=pelicula', search_type = 'movie', text_color = 'deepskyblue' ))
 
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias', search_type = 'tvshow' ))
 
@@ -132,6 +132,8 @@ def list_all(item):
 
         if not url or not title: continue
 
+        title = title.replace('&quot;', '').replace('&#039;', "'")
+
         SerieName = title
 
         if 'OVA' in title: SerieName = title.split("OVA")[0]
@@ -184,6 +186,8 @@ def last_epis(item):
 
         if not epis: epis = 1
 
+        title = title.replace('&quot;', '').replace('&#039;', "'")
+
         SerieName = title
 
         if 'OVA' in title: SerieName = title.split("OVA")[0]
@@ -194,6 +198,8 @@ def last_epis(item):
         if 'Latino' in title: SerieName = title.split("Latino")[0]
 
         SerieName = SerieName.strip()
+
+        title = title.replace('capitulo', '[COLOR goldenrod]capitulo[/COLOR]')
 
         itemlist.append(item.clone( action='findvideos', url = url, title = title, thumbnail=thumb,
                                     contentSerieName = SerieName, contentType = 'episode', contentSeason = 1, contentEpisodeNumber=epis ))
@@ -222,7 +228,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('MonosChinos', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -262,7 +269,9 @@ def episodios(item):
 
         title = title.replace('Sub Español', '').strip()
 
-        itemlist.append(item.clone( action='findvideos', url = url, title = title, thumbnail = thumb, contentType = 'episode', contentSeason = 1, contentEpisodeNumber=i ))
+        titulo = title + ' ' + item.contentSerieName
+
+        itemlist.append(item.clone( action='findvideos', url = url, title = titulo, thumbnail = thumb, contentType = 'episode', contentSeason = 1, contentEpisodeNumber=i ))
 
         if len(itemlist) >= item.perpage:
             break
@@ -292,20 +301,21 @@ def findvideos(item):
 
         servidor = servidor.lower()
 
-        if 'hqq' in servidor or 'waaw' in servidor or 'netu' in servidor: continue
+        other = ''
 
-        elif servidor == 'puj': continue
+        if servidor == 'puj': continue
 
         elif servidor == 'ok': servidor = 'okru'
         elif servidor == 'zeus': servidor = 'directo'
         elif servidor == 'anonfile': servidor = 'anonfiles'
         elif servidor == 'zippy': servidor = 'zippyshare'
         elif servidor == 'drive': servidor = 'gvideo'
+        elif servidor == 'pixel': servidor = 'pixeldrain'
         elif servidor == 'senvid2': servidor = 'sendvid'
+        else:
+             if servidor == 'vgembedcom': servidor = 'vembed'
 
-        elif servidor == 'sbanh' or servidor == 'sblanh' or servidor == 'sbspeed' or servidor == 'sbchill' or servidor == 'sblongvu' or servidor == 'sbrity' or servidor == 'sbhight': servidor = 'streamsb'
-
-        elif 'fembed' in servidor: servidor = 'fembed'
+             other = servertools.corregir_other(servidor)
 
         servidor = servertools.corregir_servidor(servidor)
 
@@ -314,7 +324,10 @@ def findvideos(item):
         else:
             if not config.get_setting('developer_mode', default=False): continue
 
-        itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', d_play = d_play, language = 'Vose' ))
+        if not servidor == 'directo':
+            if not servidor == 'various': other = ''
+
+        itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', d_play = d_play, language = 'Vose', other = other ))
 
     # download
     bloque = scrapertools.find_single_match(data, '<div class="downbtns">(.*?)</div>')
@@ -326,11 +339,17 @@ def findvideos(item):
 
         srv = srv.lower().strip()
 
+        if srv == '1fichier' or srv == '1ficher': continue
+
         if srv == 'anonfile': srv = 'anonfiles'
+        elif srv == 'bay': srv = 'bayfiles'
         elif srv == 'zippy': srv = 'zippyshare'
+        elif srv == 'pixel': srv = 'pixeldrain'
 
         elif srv == 'ok':
-          if '/mega.nz/' in url: srv = 'mega'
+          if '.fireload.com/' in url: continue
+
+          elif '/mega.nz/' in url: srv = 'mega'
 
         if not srv: srv = servertools.get_server_from_url(url)
 

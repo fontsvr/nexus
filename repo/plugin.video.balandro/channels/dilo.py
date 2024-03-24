@@ -1,10 +1,47 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
+PY3 = False
+if sys.version_info[0] >= 3: PY3 = True
+
 import re
 
 from platformcode import config, logger, platformtools
 from core.item import Item
 from core import httptools, scrapertools, tmdb, jsontools, servertools
+
+
+LINUX = False
+BR = False
+BR2 = False
+
+if PY3:
+    try:
+       import xbmc
+       if xbmc.getCondVisibility("system.platform.Linux.RaspberryPi") or xbmc.getCondVisibility("System.Platform.Linux"): LINUX = True
+    except: pass
+
+try:
+   if LINUX:
+       try:
+          from lib import balandroresolver2 as balandroresolver
+          BR2 = True
+       except: pass
+   else:
+       if PY3:
+           from lib import balandroresolver
+           BR = true
+       else:
+          try:
+             from lib import balandroresolver2 as balandroresolver
+             BR2 = True
+          except: pass
+except:
+   try:
+      from lib import balandroresolver2 as balandroresolver
+      BR2 = True
+   except: pass
 
 
 host = 'https://www.dilo.nu/'
@@ -36,7 +73,7 @@ def item_configurar_proxies(item):
 
     plot = 'Es posible que para poder utilizar este canal necesites configurar algún proxy, ya que no es accesible desde algunos países/operadoras.'
     plot += '[CR]Si desde un navegador web no te funciona el sitio ' + host + ' necesitarás un proxy.'
-    return item.clone( title = 'Configurar proxies a usar ... [COLOR plum](si no hay resultados)[/COLOR]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
+    return item.clone( title = '[B]Configurar proxies a usar ...[/B]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
 
 def quitar_proxies(item):
     from modules import submnuctext
@@ -48,29 +85,51 @@ def configurar_proxies(item):
     return proxytools.configurar_proxies_canal(item.channel, host)
 
 
-def do_downloadpage(url, post=None, headers=None, follow_redirects=True, only_headers=False, raise_weberror=True):
+def do_downloadpage(url, post=None, headers=None, follow_redirects=True, only_headers=False, raise_weberror=False):
     headers = {'Referer': host}
 
-    timeout = 30
+    hay_proxies = False
+    if config.get_setting('channel_dilo_proxies', default=''): hay_proxies = True
+
+    timeout = None
+    if host in url:
+        if hay_proxies: timeout = config.get_setting('channels_repeat', default=30)
 
     if not url.startswith(host):
         resp = httptools.downloadpage(url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
     else:
-        resp = httptools.downloadpage_proxy('dilo', url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
+        if hay_proxies:
+            resp = httptools.downloadpage_proxy('dilo', url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
+        else:
+            resp = httptools.downloadpage(url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
+
+        if not resp.data:
+            if not 'search?s=' in url:
+                if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('Dilo', '[COLOR cyan]Re-Intentanto acceso[/COLOR]')
+
+                timeout = config.get_setting('channels_repeat', default=30)
+
+                if hay_proxies:
+                    resp = httptools.downloadpage_proxy('dilo', url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
+                else:
+                    resp = httptools.downloadpage(url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
 
     if '<title>You are being redirected...</title>' in resp.data or '<title>Just a moment...</title>' in resp.data:
-        try:
-            from lib import balandroresolver
-            ck_name, ck_value = balandroresolver.get_sucuri_cookie(resp.data)
-            if ck_name and ck_value:
-                httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
+        if BR or BR2:
+            try:
+                ck_name, ck_value = balandroresolver.get_sucuri_cookie(resp.data)
+                if ck_name and ck_value:
+                    httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
 
                 if not url.startswith(host):
                     resp = httptools.downloadpage(url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
                 else:
-                    resp = httptools.downloadpage_proxy('dilo', url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
-        except:
-            pass
+                    if hay_proxies:
+                        resp = httptools.downloadpage_proxy('dilo', url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
+                    else:
+                        resp = httptools.downloadpage(url, post=post, headers=headers, follow_redirects=follow_redirects, only_headers=only_headers, raise_weberror=raise_weberror, timeout=timeout)
+            except:
+                pass
 
     if only_headers: return resp.headers
 
@@ -82,6 +141,22 @@ def do_downloadpage(url, post=None, headers=None, follow_redirects=True, only_he
     return resp.data
 
 
+def acciones(item):
+    logger.info()
+    itemlist = []
+
+    itemlist.append(item.clone( channel='submnuctext', action='_test_webs', title='Test Web del canal [COLOR yellow][B] ' + host + '[/B][/COLOR]',
+                                from_channel='dilo', folder=False, text_color='chartreuse' ))
+
+    itemlist.append(item_configurar_proxies(item))
+
+    itemlist.append(Item( channel='helper', action='show_help_dilo', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('help') ))
+
+    platformtools.itemlist_refresh()
+
+    return itemlist
+
+
 def mainlist(item):
     return mainlist_series(item)
 
@@ -90,17 +165,15 @@ def mainlist_series(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
-
-    itemlist.append(Item( channel='helper', action='show_help_dilo', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('help') ))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = h_catalogue, search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Nuevos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'olive' ))
+    itemlist.append(item.clone( title = 'Nuevos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
 
-    itemlist.append(item.clone( title = 'Las de la semana', action = 'list_all', url = h_catalogue+'?sort=mosts-week', search_type = 'tvshow' ))
+    itemlist.append(item.clone( title = 'Las de la semana', action = 'list_all', url = h_catalogue+'?sort=mosts-week', search_type = 'tvshow', text_color = 'moccasin' ))
     itemlist.append(item.clone( title = 'Actualizadas', action = 'list_all', url = h_catalogue+'?sort=latest', search_type = 'tvshow' ))
 
     itemlist.append(item.clone( title = 'En emisión', action = 'list_all', url = h_catalogue+'?status=0', search_type = 'tvshow' ))
@@ -119,8 +192,6 @@ def generos(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
-
     data = do_downloadpage(h_catalogue)
 
     patron = '<input type="checkbox" class="[^"]+" id="[^"]+" value="([^"]+)" name="genre\[\]">'
@@ -138,7 +209,7 @@ def generos(item):
 
         itemlist.append(item.clone( title = titulo.strip(), url = h_catalogue + '?genre[]=' + valor, action = 'list_all', text_color = 'hotpink' ))
 
-    if not descartar_xxx:
+    if not config.get_setting('descartar_xxx', default=False):
         if itemlist:
             itemlist.append(item.clone( action = 'list_all', title = 'xxx / adultos', url = host + 'search?s=adultos', text_color = 'hotpink' ))
             itemlist.append(item.clone( action = 'temporadas', title = 'xxx / adultos internacional', url = host + 'internacional-adultos/', text_color = 'hotpink' ))
@@ -248,8 +319,6 @@ def list_all(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
-
     data = do_downloadpage(item.url)
 
     matches = re.compile('<div class="col-lg-2 col-md-3 col-6 mb-3">\s*<a(.*?)</a>\s*</div>', re.DOTALL).findall(data)
@@ -261,7 +330,8 @@ def list_all(item):
 
         if not url or not title: continue
 
-        if descartar_xxx and ('/coleccion-adulto-espanol/' in url or '/internacional-adultos/' in url): continue
+        if config.get_setting('descartar_xxx', default=False):
+            if '/coleccion-adulto-espanol/' in url or '/internacional-adultos/' in url: continue
 
         year = scrapertools.find_single_match(article, '<div class="txt-gray-200 txt-size-\d+">(\d+)</div>')
         if year: title = title.replace('(' + year + ')', '').strip()
@@ -294,7 +364,7 @@ def last_epis(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
+    epis = []
 
     if not item.page: item.page = 0
 
@@ -307,17 +377,17 @@ def last_epis(item):
 
     matches = scrapertools.find_multiple_matches(bloque, '<a class="media"(.*?)</a>')
 
-    num_matches = len(matches)
 
-    for match in matches[item.page * perpage:]:
+    # ~ Reducir Matches
+    i = 0
+
+    for match in matches:
         url = scrapertools.find_single_match(match, ' href="([^"]+)"')
 
-        title = scrapertools.find_single_match(match, ' title="([^"]+)"')
-        title = title.replace(' Online sub español', '').strip()
+        if not url: continue
 
-        if not url or not title: continue
-
-        if descartar_xxx and ('/coleccion-adulto-espanol/' in url or '/internacional-adultos/' in url): continue
+        if config.get_setting('descartar_xxx', default=False):
+            if '/coleccion-adulto-espanol/' in url or '/internacional-adultos/' in url: continue
 
         if '/va-' in url: continue
         elif '/cocina-' in url: continue
@@ -336,6 +406,46 @@ def last_epis(item):
         elif '/gran-' in url: continue
         elif '/various-' in url: continue
         elif '/muy-interesante-' in url: continue
+        elif '/sport-' in url: continue
+        elif '/bad-' in url: continue
+        elif '/score-' in url: continue
+        elif '/thickncurvy-' in url: continue
+        elif '/bra-busters-' in url: continue
+        elif '/reposteria-' in url: continue
+        elif '/artistas-eternos-' in url: continue
+        elif '/secretos-y-sabores-' in url: continue
+        elif '/los-grandes-enigmas-del-mundo-' in url: continue
+        elif '/mens-health-' in url: continue
+        elif '/sucesos-de-la-historia-' in url: continue
+        elif '/voluptuous-' in url: continue
+        elif '/hustlers-taboo-' in url: continue
+        elif '/tortillas-crepes-y-rebozados-' in url: continue
+        elif '/mas-vegetales-menos-animales-' in url: continue
+        elif '/hustler-usa-' in url: continue
+        elif '/penthouse-usa-' in url: continue
+        elif '/fhm-south-africa-' in url: continue
+        elif '/pan-paso-a-paso-' in url: continue
+        elif '/larousse-gastronomique-' in url: continue
+        elif '/motociclismo-' in url: continue
+        elif '/barely-legal-' in url: continue
+        elif '/computadoras-que-aprenden-' in url: continue
+        elif '/accion-cine-video-' in url: continue
+        elif '/la-mitologia-templaria-' in url: continue
+        elif 'rico-rico-y-con-fundamento-' in url: continue
+        elif '/cocinar-sin-carbohidratos-' in url: continue
+        elif '/chocolate-' in url: continue
+        elif '/postres-' in url: continue
+        elif '/freidora-de-aire-' in url: continue
+        elif '/best-of-club-international-' in url: continue
+        elif '/escort-readers-wives-' in url: continue
+        elif '/anocero-' in url: continue
+        elif '/hoy-me-comere-la-vida-' in url: continue
+        elif '/razzle-extreme-' in url: continue
+        elif '/naughty-neighbors-' in url: continue
+        elif '/hobby-consolas-' in url: continue
+        elif '/pizzas-' in url: continue
+        elif '/best-of-men-only-' in url: continue
+        elif '/mayfair-lingerie-' in url: continue
 
         elif '-pc-' in url: continue
         elif '-magazine-' in url: continue
@@ -350,6 +460,29 @@ def last_epis(item):
         elif '-remix-' in url: continue
         elif '-dance-' in url: continue
         elif '-hits-' in url: continue
+        elif '-photo-' in url: continue
+        elif '-volume-' in url: continue
+        elif 'audiolibrovoz-' in url: continue
+        elif '-fotos-' in url: continue
+        elif '-espana-' in url: continue
+        elif '-national-geographic-' in url: continue
+        elif '-mayfair-' in url: continue
+
+        epis.append(match)
+
+        i +=1
+
+
+    matches = epis
+    num_matches = i
+
+    for match in matches[item.page * perpage:]:
+        url = scrapertools.find_single_match(match, ' href="([^"]+)"')
+
+        title = scrapertools.find_single_match(match, ' title="([^"]+)"')
+        title = title.replace(' Online sub español', '').strip()
+
+        if not url or not title: continue
 
         thumb = scrapertools.find_single_match(match, ' src="([^"]+)"')
 
@@ -378,24 +511,29 @@ def last_epis(item):
 
     tmdb.set_infoLabels(itemlist)
 
+    # ~ Peliculas
     for new_item in itemlist:
-        if not new_item.infoLabels['tmdb_id']:
-           if new_item.infoLabels['season'] == 1 and new_item.infoLabels['episode'] == 1:
-               new_item.title = new_item.title
+        if new_item.infoLabels['season'] == 1 and new_item.infoLabels['episode'] == 1:
+             if not new_item.infoLabels['tmdb_id']:
+                 tmdb.set_infoLabels_item(new_item)
 
-               new_item.contentType = 'movie'
-               new_item.contentTitle = new_item.title = new_item.contentSerieName
-               new_item.infoLabels['year'] = '-'
+                 if not new_item.infoLabels['tmdb_id']:
+                     new_item.contentType = 'movie'
+                     new_item.contentTitle = new_item.title = new_item.contentSerieName
+                     new_item.infoLabels['year'] = '-'
 
-               del new_item.contentSerieName
-               del new_item.contentSeason
-               del new_item.contentEpisodeNumber
+                     new_item.title = new_item.title + '[COLOR deepskyblue] Película[/COLOR]'
 
-               del new_item.infoLabels['season']
-               del new_item.infoLabels['episode']
-               del new_item.infoLabels['tvshowtitle']
+                     del new_item.contentSerieName
+                     del new_item.contentSeason
+                     del new_item.contentEpisodeNumber
 
-               tmdb.set_infoLabels_item(new_item)
+                     del new_item.infoLabels['season']
+                     del new_item.infoLabels['episode']
+                     del new_item.infoLabels['tvshowtitle']
+
+                     tmdb.set_infoLabels_item(new_item)
+
 
     if itemlist:
         if num_matches > ((item.page + 1) * perpage):
@@ -430,7 +568,8 @@ def temporadas(item):
 
         if tot_temp == 1:
             if not item.group == 'pelis':
-                platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+                if config.get_setting('channels_seasons', default=True):
+                    platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
 
             item.page = 0
             item.id = item_id
@@ -475,7 +614,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('Dilo', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -574,7 +714,7 @@ def play(item):
     logger.info()
     itemlist = []
 
-    data = do_downloadpage(item.url, raise_weberror=False)
+    data = do_downloadpage(item.url)
 
     url = scrapertools.find_single_match(data, 'iframe class="" src="([^"]+)')
     if not url: url = scrapertools.find_single_match(data, 'a href="([^"]+)" target="_blank" class="player"')

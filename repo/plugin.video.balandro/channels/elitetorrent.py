@@ -83,11 +83,12 @@ def mainlist_pelis(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'peliculas-16-1/', search_type = 'movie' ))
 
-    itemlist.append(item.clone( title = 'Estrenos', action = 'list_all', url = host + 'estrenos-23/', search_type = 'movie' ))
+    itemlist.append(item.clone( title = 'Últimas', action = 'list_all', url = host + 'estrenos/', search_type = 'movie', text_color='cyan' ))
 
     itemlist.append(item.clone( title = 'Por idioma', action = 'idiomas', search_type = 'movie' ))
     itemlist.append(item.clone( title = 'Por calidad', action = 'calidades',  search_type = 'movie' ))
     itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'movie' ))
+    itemlist.append(item.clone( title = 'Por año', action = 'anios', search_type = 'movie' ))
 
     return itemlist
 
@@ -102,7 +103,10 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'series-20-1/', search_type = 'tvshow' ))
 
+    itemlist.append(item.clone( title = 'Últimas', action = 'list_all', url = host + 'estrenos/', search_type = 'tvshow', text_color='cyan' ))
+
     return itemlist
+
 
 
 def idiomas(item):
@@ -125,7 +129,6 @@ def calidades(item):
     itemlist.append(item.clone( title = 'En 1080', action = 'list_all', url = host + 'calidad/1080p-10-1/', text_color='moccasin' ))
     itemlist.append(item.clone( title = 'En DVD Rip', action = 'list_all', url = host + 'calidad/dvdrip-1/', text_color='moccasin' ))
     itemlist.append(item.clone( title = 'En HD Rip', action = 'list_all', url = host + 'calidad/hdrip-1/', text_color='moccasin' ))
-
     itemlist.append(item.clone( title = 'En Micro HD', action = 'list_all', url = host + 'peliculas-microhd-9/', text_color='moccasin' ))
 
     return itemlist
@@ -149,6 +152,19 @@ def generos(item):
         itemlist.append(item.clone( action='list_all', title=title, url=url, text_color = 'deepskyblue' ))
 
     return sorted(itemlist,key=lambda x: x.title)
+
+
+def anios(item):
+    logger.info()
+    itemlist = []
+
+    from datetime import datetime
+    current_year = int(datetime.today().year)
+
+    for x in range(current_year, 1959, -1):
+        itemlist.append(item.clone( title=str(x), url= host + 'estreno/' + str(x) + '/', action='list_all', any = str(x), text_color = 'deepskyblue' ))
+
+    return itemlist
 
 
 def list_all(item):
@@ -179,6 +195,7 @@ def list_all(item):
         thumb = scrapertools.find_single_match(match, 'data-src="(.*?)"')
 
         qlty = scrapertools.find_single_match(match, 'style=.*?<i>(.*?)</i>')
+        if qlty == '---': qlty = ''
 
         lngs = []
         langs = scrapertools.find_multiple_matches(match, "data-src='.*?/images/(.*?).png'")
@@ -199,6 +216,8 @@ def list_all(item):
         tipo = 'movie' if '/peliculas/' in url else 'tvshow'
         sufijo = '' if item.search_type != 'all' else tipo
 
+        title = title.replace('&#8211;', '').replace('&amp;', '').replace('&#8215;', ' ').replace('&#215;', 'x')
+
         if tipo == 'movie':
             if not item.search_type == 'all':
                 if item.search_type == 'tvshow': continue
@@ -210,8 +229,6 @@ def list_all(item):
         if tipo == 'tvshow':
             if not item.search_type == 'all':
                 if item.search_type == 'movie': continue
-
-            title = title.replace('&#8211;', '').replace('&#215;', ' ')
 
             SerieName = url
 
@@ -278,11 +295,13 @@ def findvideos(item):
     links = scrapertools.find_multiple_matches(bloque, '<a href="(.*?)"')
 
     for link in links:
-           other = ''
-           if 'magnet' in link: other = 'Magnet'
+        if '/tienda/' in link: continue
 
-           itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = link, server = 'torrent',
-                                 language = item.languages, quality = item.qualities, other = other))
+        other = ''
+        if 'magnet' in link: other = 'Magnet'
+
+        itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = link, server = 'torrent',
+                              language = item.languages, quality = item.qualities, other = other))
 
     return itemlist
 
@@ -317,6 +336,11 @@ def play(item):
             itemlist.append(item.clone( url = url_base64, server = 'torrent' ))
 
         elif url_base64.endswith(".torrent"):
+            data = do_downloadpage(url_base64)
+
+            if not data or data == 'Fallo de consulta':
+               return 'Archivo [COLOR red]Corrupto[/COLOR]'
+
             itemlist.append(item.clone( url = url_base64, server = 'torrent' ))
 
     return itemlist

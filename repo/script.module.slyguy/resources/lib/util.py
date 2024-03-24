@@ -4,7 +4,7 @@ from distutils.version import LooseVersion
 
 from kodi_six import xbmc
 
-from slyguy import settings, gui
+from slyguy import settings
 from slyguy.log import log
 from slyguy.session import Session
 from slyguy.util import kodi_rpc, get_addon, safe_copy
@@ -47,6 +47,13 @@ def check_updates(force=False):
         cur_version = addon.getAddonInfo('version')
         new_version = slyguy_addons[addon_id]['version']
 
+        if (LooseVersion(new_version).version[0] - LooseVersion(cur_version).version[0]) > 5.0:
+            # if major version more than 5 ahead. ignore
+            log.debug('{}: New version {} major more than 5 versions ahead of current version {}. Ignoring update'.format(
+                addon_id, new_version, cur_version
+            ))
+            continue
+
         if LooseVersion(cur_version) < LooseVersion(new_version):
             pending_updates[addon_id] = {'name': name, 'cur': cur_version, 'new': new_version}
 
@@ -72,10 +79,10 @@ def check_repo():
 
     addon_path = xbmc.translatePath(addon.getAddonInfo('path'))
 
-    session = Session()
-    session.chunked_dl('{}/.repo/{}/addon.xml'.format(REPO_DOMAIN, REPO_ADDON_ID), os.path.join(addon_path, 'addon.xml.downloading'))
-    safe_copy(os.path.join(addon_path, 'addon.xml.downloading'), os.path.join(addon_path, 'addon.xml'), del_src=True)
-    session.chunked_dl('{}/.repo/{}/icon.png'.format(REPO_DOMAIN, REPO_ADDON_ID), os.path.join(addon_path, 'icon.png.downloading'))
-    safe_copy(os.path.join(addon_path, 'icon.png.downloading'), os.path.join(addon_path, 'icon.png'), del_src=True)
+    with Session(timeout=15) as session:
+        session.chunked_dl('{0}/.repo/{1}/{1}/addon.xml'.format(REPO_DOMAIN, REPO_ADDON_ID), os.path.join(addon_path, 'addon.xml.downloading'))
+        safe_copy(os.path.join(addon_path, 'addon.xml.downloading'), os.path.join(addon_path, 'addon.xml'), del_src=True)
+        session.chunked_dl('{0}/.repo/{1}/{1}/icon.png'.format(REPO_DOMAIN, REPO_ADDON_ID), os.path.join(addon_path, 'icon.png.downloading'))
+        safe_copy(os.path.join(addon_path, 'icon.png.downloading'), os.path.join(addon_path, 'icon.png'), del_src=True)
 
     xbmc.executebuiltin('UpdateLocalAddons')

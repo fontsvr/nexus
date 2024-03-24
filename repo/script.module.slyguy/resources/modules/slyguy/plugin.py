@@ -241,7 +241,7 @@ def resolve():
         return
 
     if '_play=1' in sys.argv[2]:
-        path = settings.common_settings.get('_proxy_path')+STOP_URL
+        path = PROXY_PATH+STOP_URL
         xbmcplugin.setResolvedUrl(handle, True, Item(path=path).get_li())
     else:
         xbmcplugin.endOfDirectory(handle, succeeded=False, updateListing=False, cacheToDisc=False)
@@ -538,7 +538,7 @@ default_fanart = ADDON_FANART
 
 def resume_from(seconds):
     if not seconds or seconds < 60:
-        return 0
+        return None
 
     minutes = seconds // 60
     hours = minutes // 60
@@ -578,7 +578,7 @@ class Item(gui.Item):
         #     url = url_for(ROUTE_CLEAR_CACHE, key=self.cache_key)
         #     self.context.append((_.PLUGIN_CONTEXT_CLEAR_CACHE, 'RunPlugin({})'.format(url)))
 
-        if settings.getBool('bookmarks') and self.bookmark:
+        if settings.getBool('bookmarks', True) and self.bookmark:
             url = url_for(ROUTE_ADD_BOOKMARK, path=self.path, label=self.label, thumb=self.art.get('thumb'), folder=int(self.is_folder), playable=int(self.playable))
             self.context.append((_.ADD_BOOKMARK, 'RunPlugin({})'.format(url)))
 
@@ -597,8 +597,6 @@ class Item(gui.Item):
         self.playable = True
 
         quality = kwargs.get(QUALITY_TAG, self.quality)
-        is_live = ROUTE_LIVE_TAG in kwargs
-
         if quality is None:
             quality = settings.getEnum('default_quality', QUALITY_TYPES, default=QUALITY_ASK)
             if quality == QUALITY_CUSTOM:
@@ -612,7 +610,7 @@ class Item(gui.Item):
             self.play_skips.append({'to': int(self.resume_from)})
             self.resume_from = 1
 
-        li = self.get_li()
+        li = self.get_li(playing=True)
         handle = _handle()
 
         play_data = {
@@ -639,7 +637,7 @@ class Item(gui.Item):
 
 #Plugin.Folder()
 class Folder(object):
-    def __init__(self, title=None, items=None, content='AUTO', updateListing=False, cacheToDisc=True, sort_methods=None, thumb=None, fanart=None, no_items_label=_.NO_ITEMS, no_items_method='dialog', show_news=True):
+    def __init__(self, title=None, items=None, content='AUTO', updateListing=False, cacheToDisc=True, sort_methods=None, thumb=None, fanart=None, art=None, no_items_label=_.NO_ITEMS, no_items_method='notification', show_news=True):
         self.title = title
         self.items = items or []
         self.content = content
@@ -648,6 +646,7 @@ class Folder(object):
         self.sort_methods = sort_methods
         self.thumb = thumb or default_thumb
         self.fanart = fanart or default_fanart
+        self.art = art or {}
         self.no_items_label = no_items_label
         self.no_items_method = no_items_method
         self.show_news = show_news
@@ -656,28 +655,34 @@ class Folder(object):
         if self.show_news:
             require_update()
 
-        handle = _handle()
         items = [i for i in self.items if i]
-
-        ep_sort = True
-        last_show_name = ''
-
-        item_types = {}
-
         if not items and self.no_items_label:
-            label = _(self.no_items_label, _label=True)
-
-            if self.no_items_method == 'dialog':
-                gui.ok(label, heading=self.title)
+            if self.no_items_method == 'notification':
+                gui.notification(self.no_items_label, heading=self.title)
+                return resolve()
+            elif self.no_items_method == 'dialog':
+                gui.ok(self.no_items_label, heading=self.title)
                 return resolve()
             else:
                 items.append(Item(
-                    label = label,
+                    label = _(self.no_items_label, _label=True),
                     is_folder = False,
                 ))
 
+        video_view_menus = settings.common_settings.getBool('video_view_menus', False)
+        video_view_media = settings.common_settings.getBool('video_view_media', False)
+        menu_view_shows_seasons = settings.common_settings.getBool('menu_view_shows_seasons', False)
+
+        handle = _handle()
         count = 0.0
+        item_types = {}
+        ep_sort = True
+        last_show_name = ''
         for item in items:
+            for key in self.art:
+                if self.art[key] and not item.art.get(key):
+                    item.art[key] = self.art[key]
+
             if self.thumb and not item.art.get('thumb'):
                 item.art['thumb'] = self.thumb
 
@@ -687,6 +692,13 @@ class Folder(object):
             if not item.specialsort:
                 media_type = item.info.get('mediatype')
                 show_name = item.info.get('tvshowtitle')
+
+                if not media_type and item.playable:
+                    item.info['mediatype'] = media_type = 'video'
+
+                if not (item.info.get('plot') or '').strip() and not item.info.get('mediatype') and video_view_menus:
+                    item.info['plot'] = '[B][/B]'
+
                 if media_type != 'episode' or not item.info.get('episode') or not show_name or (last_show_name and show_name != last_show_name):
                     ep_sort = False
 
@@ -719,9 +731,13 @@ class Folder(object):
                 content_type = 'seasons'
             elif top_type == 'episode':
                 content_type = 'episodes'
+            elif top_type == 'video':
+                content_type = 'videos'
 
-        if (content_type == 'menus' and settings.common_settings.getBool('video_view_menus', False)) or \
-            (content_type != 'menus' and settings.common_settings.getBool('video_view_media', False)):
+        if content_type in ('tvshows', 'seasons') and menu_view_shows_seasons:
+            content_type = 'menus'
+
+        if (content_type == 'menus' and video_view_menus) or (content_type != 'menus' and video_view_media):
             content_type = 'videos'
 
         # data = userdata.get('view_{}'.format(content_type))
@@ -754,11 +770,18 @@ class Folder(object):
             process_news()
 
     def add_item(self, *args, **kwargs):
+        condition = kwargs.pop('_condition', None)
         position = kwargs.pop('_position', None)
         kiosk = kwargs.pop('_kiosk', None)
 
         if kiosk == False and settings.getBool('kiosk', False):
             return False
+
+        if condition is not None:
+            if callable(condition):
+                condition = condition()
+            if not condition:
+                return False
 
         item = Item(*args, **kwargs)
 
@@ -831,7 +854,7 @@ def process_news():
             log.debug('news only for users with add-on: {} '.format(news['requires']))
             return
 
-        if news['type'] == 'message':
+        if news['type'] in ('message', 'donate'):
             gui.ok(news['message'], news.get('heading', _.NEWS_HEADING))
 
         elif news['type'] == 'addon_release':

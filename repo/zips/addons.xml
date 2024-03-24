@@ -470,12 +470,11 @@
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.KODIvertiDO" version="1.6" name="[B][COLOR white]KODI[COLOR gold]verti[COLOR yellow]DO[/COLOR][/B]" provider-name="equipo KODIvertiDO TEAM">
+</addon><addon id="plugin.video.KODIvertiDO" version="1.82" name="[B][COLOR white]KODI[COLOR gold]verti[COLOR yellow]DO[/COLOR][/B]" provider-name="equipo KODIvertiDO TEAM">
 <requires>
     <import addon="script.module.requests" optional="true" />
     <import addon="script.module.resolveurl" optional="true" />
 	<import addon="script.module.six" optional="true" />
-	<import addon="plugin.video.youtube" optional="true" />
   </requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>
@@ -565,7 +564,7 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="plugin.video.alfa" name="Alfa" version="3.9.21" provider-name="Alfa Addon">
+</addon><addon id="plugin.video.alfa" name="Alfa" version="3.9.22" provider-name="Alfa Addon">
     <requires>
         <import addon="script.module.requests" />
         <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -615,8 +614,9 @@
             [B]Estos son los cambios para esta versión:[/B]
 
             [B]Arreglos[/B]
-            • Don Torrent                                       • HDFull
-            • Pelitorrent                                          • +18</news>
+            • Divxtotal                                            • Don Torrent
+            • Entrepeliculasyseries                         • JKAnime
+            • +18</news>
         <assets>
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>
@@ -627,7 +627,7 @@
         </assets>
     </extension>
     <extension point="xbmc.service" library="videolibrary_service.py" start="login|startup" />
-</addon><addon id="plugin.video.balandro" name="Balandro" version="3.0.5" provider-name="Balandro Team">
+</addon><addon id="plugin.video.balandro" name="Balandro" version="4.0.01" provider-name="Team Balandro">
   <requires>
      <import addon="script.module.requests" />
   </requires>
@@ -642,17 +642,21 @@
       <icon>icon.png</icon>
     </assets>
     <news>
-    [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]3.0.5[/COLOR][COLOR red]  Mayo de 2023[/B][/COLOR]
+    [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]4.0.01[/COLOR][COLOR chartreuse]  Enero de 2024[/B][/COLOR]
 
-    [COLOR goldenrod][B]Media Centers Soportados[/COLOR][COLOR plum]  20.x,  19.x,  18.x  y  17.x[/B][/COLOR]
+    [COLOR goldenrod][B]Media Centers:[/B][/COLOR]
+        [COLOR tan][B]Kodi Versiones Oficiales Soportadas:[/B][/COLOR]
+        [COLOR plum][B]21.x Omega,  20.x Nexus,  19.x Matrix,[/B][/COLOR]
+        [COLOR plum][B]18.x Leia  y  17.x Krypton[/B][/COLOR]
 
-    [COLOR springgreen][B]Fuente:[/COLOR]  [COLOR cyan]https://balandro-tk.github.io/balandro/[/B][/COLOR]
+    [COLOR springgreen][B]Fuente[/COLOR]  [COLOR cyan]https://repobal.github.io/base/[/B][/COLOR]
 
-    [COLOR firebrick][B]Desarrollo:[/COLOR]  [COLOR orange]github.com/balandro-tk/balandro-addon[/B][/COLOR]
+    [COLOR firebrick][B]Team[/COLOR]  [COLOR orange]https://github.com/repobal[/B][/COLOR]
 
     [COLOR limegreen][B]Contacto:[/B][/COLOR]
-        Foro  mimediacenter.info/foro/
+        Foro  www.mimediacenter.info/foro/
         Telegram  t.me/balandro_asesor
+        Team  t.me/Balandro_team
 
     [COLOR blue][B]Agradecimientos:[/B][/COLOR]
         Cita destacada a los miembros de Balandro Team
@@ -660,20 +664,18 @@
 
     [COLOR cyan][B]Canales:[/B][/COLOR]
         Revisión Generalizada
-        Nuevos - Sin novedades
-        Anulados - Las webs cerradas
+        Sin Novedades
 
-    [COLOR springgreen][B]Servidores:[/B][/COLOR]
+    [COLOR fuchsia][B]Servidores:[/B][/COLOR]
         Revisión Generalizada
-        Nuevos - Sin novedades
-        Anulados - Las webs cerradas
+        Sin Novedades
     </news>
-    <summary>Balandro es un navegador de páginas webs</summary>
-    <description>[COLOR yellow][B]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] un MOD derivado de Pelisalacarta y Alfa,[COLOR mediumaquamarine] y tiene como objeto, permitir visualizar Películas, Series y Documentales, todo a través de Internet y directamente desde su sistema Media Center. [COLOR orchid]Este Add-On es tan solo un mero Ejercicio de Aprendizaje del Lenguaje de Programación Python y se distribuye sin Ningún Contenido Multimedia adjunto al mismo [COLOR lightgrey][I]En consecuencia solo las Webs son Plenamente Responsables de los contenidos que publiquen.[/I][/B][/COLOR]</description>
-    <disclaimer>[COLOR tan][B]Está Prohibida su distribución, solo ó junto con Contenidos Multimedia Protegidos por los Derechos de Autor. [COLOR chocolate]Si este tipo de contenido está Prohibido en su País, solamente Usted será el Responsable de su uso. [COLOR white]La vulneración de estas prohibiciones Exonerarán de cualquier Culpa a sus Autores, [COLOR red]Siendo el unico Responsable quien lo haya Distribuido ó Utilizado Ilegalmente.[/B][/COLOR]</disclaimer>
+    <summary>Balandro es un Navegador de Páginas Webs</summary>
+    <description>[COLOR moccasin][B]Navega con Kodi por Páginas Webs para poder ver sus contenidos de manera fácil. [COLOR yellow]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] un MOD derivado de [COLOR yellowgreen]Pelisalacarta y Alfa[COLOR yellow],[COLOR mediumaquamarine] y tiene como objeto, permitir visualizar [COLOR deepskyblue]Películas[COLOR mediumaquamarine], [COLOR hotpink]Series[COLOR mediumaquamarine], [COLOR darkcyan]Documentales[COLOR mediumaquamarine], etc., todo a través de Internet y directamente desde su sistema Media Center. [COLOR orchid]Este Add-On es tan solo un mero Ejercicio de Aprendizaje del Lenguaje de Programación Python y se distribuye sin Ningún Contenido Multimedia adjunto al mismo [COLOR lightgrey][I]En consecuencia solo las Webs son Plenamente Responsables de los contenidos que publiquen.[/I][/B][/COLOR]</description>
+    <disclaimer>[COLOR aqua][B]Los Propietarios y Distribuidores de este Add-On no Proveen ni Distribuyen Ningún Contenido Mostrado por el Add-On, ni Tienen Afiliación alguna con los Proveedores/Webs de contenidos. [COLOR tan]Está Prohibida su distribución, solo ó junto con Contenidos Multimedia Protegidos por los Derechos de Autor. [COLOR chocolate]Si este tipo de contenido está Prohibido en su País, solamente Usted será el Responsable de su uso. [COLOR white]La vulneración de estas prohibiciones Exonerarán de cualquier Culpa a sus Autores, [COLOR red]Siendo el unico Responsable quien lo haya Distribuido ó Utilizado Ilegalmente.[/B][/COLOR]</disclaimer>
     <platform>all</platform>
     <license>GNU GPL v3</license>
-    <source>https://balandro-tk.github.io/balandro/</source>
+    <source>https://repobal.github.io/base/</source>
     <forum>https://www.mimediacenter.info/foro/</forum>
   </extension>
 
@@ -785,7 +787,7 @@
             <screenshot>resources/screenshots/webui.png</screenshot>
         </assets>
     </extension>
-</addon><addon id="plugin.video.homelander" name="[COLOR red]Homelander[/COLOR]" provider-name="Ghost" version="1.2.2">
+</addon><addon id="plugin.video.homelander" name="[COLOR red]Homelander[/COLOR]" provider-name="Ghost" version="1.2.4">
     <requires>
         
         
@@ -873,11 +875,10 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 		</assets>
 		<news>Primera versión basada en LSP Mod by Someone Like You</news>
 	</extension>
-</addon><addon id="plugin.video.koditv" version="3" name="[B][COLOR white]kodi[COLOR aqua]tv[/COLOR][/B]" provider-name="equipo tvchopo">
+</addon><addon id="plugin.video.koditv" version="10" name="[B][COLOR white]kodi[COLOR aqua]tv[/COLOR][/B]" provider-name="equipo tvchopo">
 <requires>
-    <import addon="plugin.video.youtube" /> 
     <import addon="script.module.requests" />
-    <import addon="script.module.resolveurl" />
+    <import addon="script.module.resolveurl" optional="true" />
     <import addon="script.module.six" />
   </requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
@@ -888,6 +889,11 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         <info>https://raw.githubusercontent.com/elchocolate/repotvchopo/master/Repositorio/addons.xml</info>
         <checksum>https://raw.githubusercontent.com/elchocolate/repotvchopo/master/Repositorio/addons.xml.md5</checksum>
         <datadir zip="true">https://raw.githubusercontent.com/elchocolate/repotvchopo/master/Repositorio/</datadir>
+	    <dir>
+        <info compressed="false">https://raw.githubusercontent.com/elchocolate/repotvchopo/master/Repositorio/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/elchocolate/repotvchopo/master/Repositorio/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/elchocolate/repotvchopo/master/Repositorio/</datadir>
+        </dir>
     </extension>
 	
 	
@@ -1080,7 +1086,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 		</assets>
 		<news>Primera versión basada en LSP Mod by Someone Like You</news>
 	</extension>
-</addon><addon id="plugin.video.thecrew" version="2.0.5" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
+</addon><addon id="plugin.video.thecrew" version="2.0.6" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.thecrew" />
@@ -1144,7 +1150,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.torrest" name="Torrest" provider-name="i96751414" version="0.0.16">
+</addon><addon id="plugin.video.torrest" name="Torrest" provider-name="i96751414" version="0.0.17">
     <requires>
         
         <import addon="script.module.requests" version="2.22.0" />
@@ -1161,9 +1167,9 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         <summary lang="en">Torrest on Kodi</summary>
         <description lang="en">Torrest is a service with a rest API which allows torrent streaming.</description>
         <news>
-- Update for torrest 0.0.4 (https://github.com/i96751414/torrest-cpp/releases/tag/v0.0.4)
-- Allow forcing torrest binary
-- Allow custom user-agent definitions
+- Update for torrest 0.0.5 (https://github.com/i96751414/torrest-cpp/releases/tag/v0.0.5)
+- Add support for domain and https for torrest service
+- Allow deleting torrent without prompt
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -1174,7 +1180,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         </assets>
         <reuselanguageinvoker>true</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.vavooto" name="VAVOO.TO" version="6.0.2.8" provider-name="kasi,michaz">
+</addon><addon id="plugin.video.vavooto" name="VAVOO.TO" version="6.0.3.0" provider-name="kasi,michaz">
 	<requires>
 		<import addon="script.module.vavoo" version="0.1.3.2" />
 		<import addon="script.module.requests" />
@@ -1543,13 +1549,13 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <icon>icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="repository.balandro" name="Balandro Repo" version="3.0.0" provider-name="Balandro Team">
+</addon><addon id="repository.balandro" name="[COLOR aqua]Balandro[/COLOR] Repo" version="4.0.0" provider-name="Team Balandro">
 
     <extension point="xbmc.addon.repository" name="balandro repo">
         <dir>
-            <info>https://raw.githubusercontent.com/balandro-tk/balandro/main/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/balandro-tk/balandro/main/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/balandro-tk/balandro/main/</datadir>
+            <info>https://pastebin.com/raw/Lktm2YS0</info>
+            <checksum>https://pastebin.com/raw/asquZ060</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/repobal/base/main/</datadir>
         </dir>
     </extension>
 
@@ -1559,21 +1565,25 @@ No se acepta ninguna responsabilidad por el uso de este addon.
           <icon>icon.png</icon>
        </assets>
        <news>
-       [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]3.0.0[/COLOR][COLOR red]  Enero 2023[/B][/COLOR]
+       [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]4.0.0[/COLOR][COLOR red]  Enero 2024[/B][/COLOR]
 
-       [COLOR goldenrod][B]Media Centers soportados[COLOR plum][I]  20.x,  19.x,  18.x  y  17.x[/I][/B][/COLOR]
+       [COLOR goldenrod][B]Media Centers:[/B][/COLOR]
+           [COLOR tan][B]Kodi Versiones Oficiales Soportadas:[/B][/COLOR]
+           [COLOR plum][B]21.x Omega,  20.x Nexus,  19.x Matrix,[/B][/COLOR]
+           [COLOR plum][B]18.x Leia  y  17.x Krypton[/B][/COLOR]
 
-       [COLOR springgreen][B]Fuentes:[/COLOR]  [COLOR cyan]balandro-tk.github.io/balandro/[/B][/COLOR]
+       [COLOR springgreen][B]Fuente[/COLOR]  [COLOR cyan]repobal.github.io/base/[/B][/COLOR]
        </news>
-       <description>[COLOR yellow][B]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] MOD derivado de Pelisalacarta y Alfa,[COLOR mediumaquamarine] y Tiene Como Objeto, Permitir Visualizar Películas, Series y Documentales, Todo a Través de Internet y Directamente Desde su Sistema Media Center. [COLOR orchid]Este Add-On es Tan Solo un Mero Ejercicio de Aprendizaje Del Lenguaje de Programación Python y se Distribuye Sin Ningún Contenido Multimedia Adjunto al Mismo [COLOR lightgrey][I]En Consecuencia Solo Las Webs Son Plenamente Responsables de Los Contenidos Que Publiquen.[/I][/B][/COLOR]</description>
-       <disclaimer>[COLOR tan][B]Está Prohibida su Distribución, Solo o Junto Con Contenidos Multimedia Protegidos Por Los Derechos de Autor. [COLOR chocolate]Si Este Tipo de Contenido Está Prohibido en su País, Solamente Usted Será el Responsable de su Uso. [COLOR white]La Vulneración de Estas Prohibiciones Exonerarán de Cualquier Culpa a sus Autores, [COLOR red]Siendo el Único Responsable Quien lo Haya Distribuido o Utilizado Ilegalmente.[/B][/COLOR]</disclaimer>
+       <summary>Balandro es un Navegador de Páginas Webs</summary>
+       <description>[COLOR moccasin][B]Navega con Kodi por Páginas Webs para poder ver sus contenidos de manera fácil. [COLOR yellow]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] un MOD derivado de [COLOR yellowgreen]Pelisalacarta y Alfa[COLOR yellow],[COLOR mediumaquamarine] y tiene como objeto, permitir visualizar [COLOR deepskyblue]Películas[COLOR mediumaquamarine], [COLOR hotpink]Series[COLOR mediumaquamarine], [COLOR darkcyan]Documentales[COLOR mediumaquamarine], etc., todo a través de Internet y directamente desde su sistema Media Center. [COLOR orchid]Este Add-On es tan solo un mero Ejercicio de Aprendizaje del Lenguaje de Programación Python y se distribuye sin Ningún Contenido Multimedia adjunto al mismo [COLOR lightgrey][I]En consecuencia solo las Webs son Plenamente Responsables de los contenidos que publiquen.[/I][/B][/COLOR]</description>
+       <disclaimer>[COLOR aqua][B]Los Propietarios y Distribuidores de este Add-On no Proveen ni Distribuyen Ningún Contenido Mostrado por el Add-On, ni Tienen Afiliación alguna con los Proveedores/Webs de contenidos. [COLOR tan]Está Prohibida su distribución, solo ó junto con Contenidos Multimedia Protegidos por los Derechos de Autor. [COLOR chocolate]Si este tipo de contenido está Prohibido en su País, solamente Usted será el Responsable de su uso. [COLOR white]La vulneración de estas prohibiciones Exonerarán de cualquier Culpa a sus Autores, [COLOR red]Siendo el unico Responsable quien lo haya Distribuido ó Utilizado Ilegalmente.[/B][/COLOR]</disclaimer>
        <platform>all</platform>
        <license>GNU GPL v3</license>
-       <source>https://balandro-tk.github.io/balandro/</source>
+       <source>https://repobal.github.io/base/</source>
        <forum>https://www.mimediacenter.info/foro/</forum>
     </extension>
 
-    
+    <extension point="xbmc.service" library="service.py" start="login|startup" />
 </addon><addon id="repository.camaradas.repo" name="[COLOR orangered]camaradas.repo[/COLOR]" version="2.0" provider-name="Team Camaradas">
     <extension point="xbmc.addon.repository" name="camaradas.repo">
         <info>https://raw.githubusercontent.com/camaradas/camaradas.repo/master/Repositorio/addons.xml</info>
@@ -1652,7 +1662,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         </assets>
 		<source>https://github.com/fontsvr/repo-fontsVR/</source>
     </extension>
-</addon><addon id="repository.github" name="GitHub Add-on repository" provider-name="i96751414" version="0.0.7">
+</addon><addon id="repository.github" name="GitHub Add-on repository" provider-name="i96751414" version="0.0.8">
     <requires>
         
     </requires>
@@ -1669,15 +1679,12 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         <platform>all</platform>
         <license>See https://github.com/i96751414/repository.github/blob/master/LICENSE</license>
         <source>https://github.com/i96751414/repository.github</source>
-        <summary lang="en">GitHub virtual Add-on repository for TORREST and others</summary>
-        <description lang="en">Customizable repository which acts as a proxy for defined GitHub users' add-ons updates, like TORREST.</description>
-        <summary lang="es">Repositorio GitHub virtual para el Add-on TORREST y otros</summary>
-        <description lang="es">Repositorio configurable que actúa como un proxy para add-ons disponibles en GitHub, como TORREST.</description>
+        <summary lang="en">GitHub virtual Add-on repository</summary>
+        <description lang="en">Customizable repository which acts as a proxy for defined GitHub users' add-ons updates.</description>
         <news>
-            - Add platform check support
-            - Fix arch detection for aarch with 32 bits
-            - Add support to Kodi 20
-            - Small improvements (os_platform, logging)
+- Improve HTTP server
+- Add spanish translation
+- Allow extracting information about running platform
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -1987,6 +1994,23 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 	<extension point="xbmc.addon.metadata">
 		<summary />
    		<description lang="en">[COLOR gold]Instala Palantir 2[/COLOR]</description>
+		<platform>all</platform>
+		<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.gif</fanart>
+        </assets>
+	</extension>
+</addon><addon id="repository.palantir3" name="[COLOR gold]Repositorio Palantir 3[/COLOR]" version="2.0.3" provider-name="TierraMedia">
+    <extension point="xbmc.addon.repository" name="Palantir 3 official Repo">
+    	<dir minversion="18.9.0">
+    	    <info compressed="false">https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/addons.xml</info>
+		    <checksum>https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/addons.xml.md5</checksum>
+		    <datadir zip="true">https://raw.githubusercontent.com/Palantiraddon/repo/master/Palantir/</datadir>
+	    </dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary />
+   		<description lang="en">[COLOR gold]Instala Palantir 3[/COLOR]</description>
 		<platform>all</platform>
 		<assets>
             <icon>icon.png</icon>
@@ -2323,7 +2347,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <screenshot>resources/screenshot002.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="script.luar" version="0.9.5" name="Luar" provider-name="The Dreamers">
+</addon><addon id="script.luar" version="0.9.10" name="Luar" provider-name="The Dreamers">
   <requires>
     <import addon="script.module.six" version="1.11.0" />
     <import addon="script.module.requests" />
@@ -2549,16 +2573,19 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<icon>resources/icon.png</icon>
 		</assets>
 	</extension>
-</addon><addon id="script.module.slyguy" name="SlyGuy Common" provider-name="SlyGuy" version="0.70.6">
+</addon><addon id="script.module.slyguy" name="SlyGuy Common" provider-name="SlyGuy" version="0.77.7">
   <requires>
     <import addon="slyguy.dependencies" version="0.0.8" />
     <import addon="repository.slyguy" version="0.0.4" />
   </requires>
-  <extension point="xbmc.service" library="service.py" start="login" />
+  <extension point="xbmc.python.script" library="script.py">
+    <provides>executable</provides>
+  </extension>
   <extension point="xbmc.python.pluginsource" library="default.py" />
+  <extension point="xbmc.service" library="service.py" start="login" />
   <extension point="xbmc.python.module" library="resources/modules" />
   <extension point="xbmc.addon.metadata">
-    <description lang="en">Common code required by all Slyguy add-ons</description>
+    <description lang="en">Common code, proxy and settings required by all Slyguy add-ons</description>
     <reuselanguageinvoker>true</reuselanguageinvoker>
     <license />
     <language />

@@ -52,8 +52,6 @@ def generos(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
-
     itemlist.append(item.clone( title = 'Análisis y estudios', url = host + 'category/analisis-y-estudios/', action = 'list_all', text_color = 'deepskyblue' ))
     itemlist.append(item.clone( title = 'Artículos de cine', url = host + 'category/articulos-de-cine/', action = 'list_all', text_color = 'deepskyblue' ))
 
@@ -61,7 +59,7 @@ def generos(item):
     itemlist.append(item.clone( title = 'Críticas', url = host + 'category/critica/', action = 'list_all', text_color = 'deepskyblue' ))
     itemlist.append(item.clone( title = 'Contemporaneo', url = host + 'category/actualidad/', action = 'list_all', text_color = 'deepskyblue' ))
 
-    if not descartar_xxx:
+    if not config.get_setting('descartar_xxx', default=False):
         itemlist.append(item.clone( title = 'Erotismo', url = host + 'category/erotismo/', action = 'list_all', text_color = 'deepskyblue' ))
 
     itemlist.append(item.clone( title = 'Imprescindibles', url = host + 'category/imprescindibles/', action = 'list_all', text_color = 'deepskyblue' ))
@@ -87,7 +85,7 @@ def list_all(item):
         if item.group == 'magazine':
             if '/sin-categoria/' in match: continue
 
-        url = scrapertools.find_single_match(match, 'class="entry-title"><a href="(.*?)"')
+        url = scrapertools.find_single_match(match, 'href="(.*?)"')
         if not url: continue
 
         if '/passionatte.com/' in url: continue
@@ -115,11 +113,15 @@ def list_all(item):
         elif 'Versión ' in info: langs = 'Vo'
         else: langs = 'Esp'
 
-        title = scrapertools.find_single_match(match, 'rel="bookmark">(.*?)</a>').lower()
+        title = scrapertools.find_single_match(match, 'rel="bookmark">(.*?)</a>')
+        if not title: title = scrapertools.find_single_match(match, ' alt="(.*?)"')
+        if not title: title = scrapertools.find_single_match(match, '<a href=".*?">(.*?)</a>')
 
         if not title: continue
 
-        title = title.lower().replace('ver ', '').replace('videoclub gratuito ', '').replace('videoclub gratis ', '').replace('videoclub online ', '').replace('videoclub ', '').replace('y descargar ', '').strip()
+        title = title.lower()
+
+        title = title.replace('Ver Serie completa ', '').replace('ver ', '').replace('videoclub gratuito online ', '').replace('videoclub gratuito ', '').replace('videoclub gratis: ', '').replace('videoclub gratis ', '').replace('videoclub online gratis: ', '').replace('videoclub online gratis ', '').replace('videoclub online: ', '').replace('videoclub online ', '').replace('videoclub: ', '').replace('videoclub ', '').replace('y descargar ', '').strip()
 
         if title.startswith('|'):
             title = title.split("|")[1]
@@ -134,7 +136,7 @@ def list_all(item):
 
         if not year == '-': title = title.replace('(' + year + ')', '').strip()
 
-        title = title.replace('&#8211;', '').replace('&#8221;', '').replace('&#215;', '')
+        title = title.replace('&#8211;', '').replace('&#8221;', '').replace('&#215;', '').replace('&#039;', '')
 
         if capitulos:
             datos_cap = do_downloadpage(url)
@@ -149,8 +151,7 @@ def list_all(item):
             itemlist.append(item.clone( action = 'list_col', url = url, title = title, thumbnail = thumb, languages = langs, grupo = 'colec',
                                         contentType = 'movie', contentTitle = title, infoLabels={'year': year} ))
 
-    if not '/?s=' in item.url:
-        tmdb.set_infoLabels(itemlist)
+    if not '/?s=' in item.url: tmdb.set_infoLabels(itemlist)
 
     if itemlist:
         next_page = scrapertools.find_single_match(data, '<a class="next page-numbers" href="(.*?)"')
@@ -226,7 +227,7 @@ def findvideos(item):
     data = do_downloadpage(item.url)
 
     links = scrapertools.find_multiple_matches(data, '<div class="jetpack-video-wrapper">.*?src="(.*?)"')
-    links = scrapertools.find_multiple_matches(data, '<iframe.*?src="(.*?)"')
+    if not links: links = scrapertools.find_multiple_matches(data, '<iframe.*?src="(.*?)"')
 
     ses = 0
 
@@ -234,6 +235,8 @@ def findvideos(item):
         ses += 1
 
         url = url.replace('?feature=oembed', '')
+
+        if url.startswith("//"): url = 'https:' + url
 
         servidor = servertools.get_server_from_url(url)
 

@@ -121,7 +121,8 @@ WIDEVINE_UUID = bytearray([237, 239, 139, 169, 121, 214, 74, 206, 163, 200, 39, 
 WIDEVINE_PSSH = bytearray([112, 115, 115, 104])
 
 #DEFAULT_USERAGENT = xbmc.getUserAgent()
-DEFAULT_USERAGENT = 'okhttp/3.4.1'
+#DEFAULT_USERAGENT = 'Dalvik/2.1.0 (Linux; U; Android 9; SHIELD Android TV Build/PPR1.180610.011)'
+DEFAULT_USERAGENT = 'okhttp/4.9.3'
 DEFAULT_WORKERS = 5
 
 #### BOOKMARKS #####
@@ -131,8 +132,9 @@ BOOKMARK_FILE = os.path.join(ADDON_PROFILE, 'bookmarks.json')
 REMOVE_IN_HEADERS = ['upgrade', 'host', 'accept-encoding']
 REMOVE_OUT_HEADERS = ['date', 'server', 'transfer-encoding', 'keep-alive', 'connection']
 
-DEFAULT_PORT = 52103
-HOST = '127.0.0.1'
+PROXY_HOST = '127.0.0.1'
+PROXY_PORT = 52103
+PROXY_PATH = 'http://{}:{}/'.format(PROXY_HOST, PROXY_PORT)
 ERROR_URL = 'error.m3u8'
 STOP_URL = 'stop.m3u8'
 EMPTY_TS = 'empty.ts' if KODI_VERSION < 19 else ''
@@ -148,6 +150,9 @@ MIDDLEWARE_CONVERT_SUB = 'convert_sub'
 MIDDLEWARE_REGEX = 'regex'
 MIDDLEWARE_PLUGIN = 'plugin'
 
-DONOR_URL = 'https://d.mjh.nz/donors/{id}'
+REDIRECT_HOSTS = ['i.mjh.nz', 'r.mjh.nz', 'c.mjh.nz']
+DONOR_URL = 'https://d.slyguy.uk/donors/{id}'
+DONOR_CHECK_TIME = (60*60*6) #6 hours
+DONOR_TIMEOUT = 172800 #48 hours
 UPDATE_TIME_LIMIT = 86400 #24 hours
 REQUIRED_UPDATE = [ADDON_ID, COMMON_ADDON_ID, DEPENDENCIES_ADDON_ID, REPO_ADDON_ID]

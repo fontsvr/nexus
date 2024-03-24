@@ -23,7 +23,7 @@ msgid "General"
 msgstr ""
 
 msgctxt "#30001"
-msgid "Service port"
+msgid "Server port"
 msgstr ""
 
 msgctxt "#30002"
@@ -72,6 +72,10 @@ msgstr ""
 
 msgctxt "#30018"
 msgid "User-Agent"
+msgstr ""
+
+msgctxt "#30019"
+msgid "SSL connection"
 msgstr ""
 
 msgctxt "#30031"
@@ -174,10 +178,6 @@ msgctxt "#30055"
 msgid "Minimum video candidate size (MB)"
 msgstr ""
 
-msgctxt "#30056"
-msgid "Ask to remove torrent after streaming"
-msgstr ""
-
 msgctxt "#30057"
 msgid "Service log level"
 msgstr ""
@@ -191,7 +191,7 @@ msgid "Enable Torrest service"
 msgstr ""
 
 msgctxt "#30060"
-msgid "Torrest sevice IP address"
+msgid "Torrest Server IP/Domain"
 msgstr ""
 
 msgctxt "#30061"
@@ -292,6 +292,22 @@ msgstr ""
 
 msgctxt "#30085"
 msgid "Force torrest binary - Requires restart"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Action to perform on playback stop"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Ask to delete torrent"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Delete torrent"
+msgstr ""
+
+msgctxt "#30089"
+msgid "Do nothing"
 msgstr ""
 
 # Service

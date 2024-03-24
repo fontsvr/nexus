@@ -8,12 +8,13 @@ if sys.version_info[0] >= 3: PY3 = True
 
 import re
 
-from platformcode import logger, config
+from platformcode import logger, config, platformtools
 from core.item import Item
 from core import httptools, scrapertools, tmdb
 
 
 host = 'https://pasateatorrent.org/'
+
 
 # ~  03/2022 algunas series No hay enlaces
 # ~  04/2022 algunas pelis salta Recaptcha
@@ -222,7 +223,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('PasateaTorrent', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -330,7 +332,7 @@ def play(item):
 
     if PY3:
         from core import requeststools
-        data = requeststools.read(item.url, '')
+        data = requeststools.read(item.url, 'pasateatorrent')
     else:
         data = do_downloadpage(item.url)
 
@@ -338,8 +340,11 @@ def play(item):
         if '<meta name="captcha-bypass" id="captcha-bypass"' in str(data):
             return 'Requiere verificación [COLOR red]reCAPTCHA[/COLOR]'
 
-        if '<h1>Not Found</h1>' in str(data) or '<!DOCTYPE html>' in str(data) or '<!DOCTYPE>' in str(data) or '<!doctype' in str(data):
+        if '<h1>404 Not Found</h1>' in str(data) or '<h1>Not Found</h1>' in str(data) or '<!DOCTYPE html>' in str(data) or '<!DOCTYPE>' in str(data) or '<!doctype' in str(data):
             return 'Archivo [COLOR red]Inexistente[/COLOR]'
+
+        elif 'Página no encontrada</title>' in str(data) or 'no encontrada</title>' in str(data) or '<h1>403 Forbidden</h1>' in str(data):
+            return 'Archivo [COLOR red]No encontrado[/COLOR]'
 
         import os
 

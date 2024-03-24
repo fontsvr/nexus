@@ -25,8 +25,8 @@ class Language(BaseLanguage):
     SHOW_NEWS         = 30021
     VIDEO_MEDIA       = 30023
     SHOW_FOLDERS      = 30024
-    CHECK_WV_CDM      = 30035
     ARCH_CHANGED      = 30036
     VIDEO_MENUS       = 30037
+    FAST_UPDATES      = 30040
 
 _ = Language()

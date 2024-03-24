@@ -23,8 +23,8 @@ msgid "General"
 msgstr "General"
 
 msgctxt "#30001"
-msgid "Service port"
-msgstr "Puerto de servicio"
+msgid "Server port"
+msgstr "Puerto del servidor"
 
 msgctxt "#30002"
 msgid "Daemon start timeout"
@@ -73,6 +73,10 @@ msgstr "Deshabilitar UPNP"
 msgctxt "#30018"
 msgid "User-Agent"
 msgstr "User-Agent"
+
+msgctxt "#30019"
+msgid "SSL connection"
+msgstr "Conexion SSL"
 
 msgctxt "#30031"
 msgid "Session saving frequency (seconds)"
@@ -174,10 +178,6 @@ msgctxt "#30055"
 msgid "Minimum video candidate size (MB)"
 msgstr "Tamaño mínimo de video candidato (MB)"
 
-msgctxt "#30056"
-msgid "Ask to remove torrent after streaming"
-msgstr "Preguntar eliminar torrent después de la transmisión"
-
 msgctxt "#30057"
 msgid "Service log level"
 msgstr "Nivel de registro de servicio"
@@ -191,8 +191,8 @@ msgid "Enable Torrest service"
 msgstr "Habilitar el servicio Torrest"
 
 msgctxt "#30060"
-msgid "Torrest sevice IP address"
-msgstr "Habilitar el servicio Torrest"
+msgid "Torrest Server IP/Domain"
+msgstr "IP/Dominio del Servidor Torrest"
 
 msgctxt "#30061"
 msgid "Disabled"
@@ -293,6 +293,22 @@ msgstr "Tiempo de caducidad de pieza"
 msgctxt "#30085"
 msgid "Force torrest binary - Requires restart"
 msgstr "Forzar binario de torrest - Requiere reiniciar"
+
+msgctxt "#30086"
+msgid "Action to perform on playback stop"
+msgstr "Acción a realizar al parar la reproducción"
+
+msgctxt "#30087"
+msgid "Ask to delete torrent"
+msgstr "Preguntar eliminar torrent"
+
+msgctxt "#30088"
+msgid "Delete torrent"
+msgstr "Eliminar torrent"
+
+msgctxt "#30089"
+msgid "Do nothing"
+msgstr "Hacer nada"
 
 # Service
 msgctxt "#30100"

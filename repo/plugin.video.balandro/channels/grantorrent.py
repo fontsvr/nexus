@@ -14,7 +14,39 @@ from core import httptools, scrapertools, tmdb
 from lib import decrypters
 
 
-host = 'https://grantorrent.bz/'
+LINUX = False
+BR = False
+BR2 = False
+
+if PY3:
+    try:
+       import xbmc
+       if xbmc.getCondVisibility("system.platform.Linux.RaspberryPi") or xbmc.getCondVisibility("System.Platform.Linux"): LINUX = True
+    except: pass
+ 
+try:
+   if LINUX:
+       try:
+          from lib import balandroresolver2 as balandroresolver
+          BR2 = True
+       except: pass
+   else:
+       if PY3:
+           from lib import balandroresolver
+           BR = true
+       else:
+          try:
+             from lib import balandroresolver2 as balandroresolver
+             BR2 = True
+          except: pass
+except:
+   try:
+      from lib import balandroresolver2 as balandroresolver
+      BR2 = True
+   except: pass
+
+
+host = 'https://www1.grantorrent.wf/'
 
 
 # ~ por si viene de enlaces guardados
@@ -23,7 +55,8 @@ ant_hosts = ['http://grantorrent.net/', 'https://grantorrent1.com/', 'https://gr
              'https://grantorrent.eu/', 'https://grantorrent.cc/', 'https://grantorrent.li/',
              'https://grantorrent.online/', 'https://grantorrentt.com/', 'https://grantorrent.nl/',
              'https://grantorrent.ch/', 'https://grantorrent.ac/', 'https://grantorrent.re/',
-             'https://grantorrent.se/,' 'https://grantorrent.si/', 'https://grantorrent.fi/']
+             'https://grantorrent.se/', 'https://grantorrent.si/', 'https://grantorrent.fi/',
+             'https://grantorrent.bz/', 'https://grantorrent.zip/', 'https://www1.grantorrent.pm/']
 
 
 domain = config.get_setting('dominio', 'grantorrent', default='')
@@ -82,32 +115,50 @@ def do_downloadpage(url, post=None, headers=None):
     for ant in ant_hosts:
         url = url.replace(ant, host)
 
-    # ~ timeout 13/7/2022
-    timeout = 15
-
-    if '/?query' in url: timeout = 30
-    elif '/categoria/' in url: timeout = 30
-
     headers = {'Referer': host}
+
+    hay_proxies = False
+    if config.get_setting('channel_grantorrent_proxies', default=''): hay_proxies = True
+
+    timeout = None
+    if host in url:
+        if hay_proxies: timeout = config.get_setting('channels_repeat', default=30)
 
     if not url.startswith(host):
         data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
     else:
-        data = httptools.downloadpage_proxy('grantorrent', url, post=post, headers=headers, timeout=timeout).data
+        if hay_proxies:
+            data = httptools.downloadpage_proxy('grantorrent', url, post=post, headers=headers, timeout=timeout).data
+        else:
+            data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
+
+        if not data:
+            if not '?s=' in url:
+                if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Re-Intentanto acceso[/COLOR]')
+
+                timeout = config.get_setting('channels_repeat', default=30)
+
+                if hay_proxies:
+                    data = httptools.downloadpage_proxy('grantorrent', url, post=post, headers=headers, timeout=timeout).data
+                else:
+                    data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
 
     if '<title>You are being redirected...</title>' in data:
-        try:
-            from lib import balandroresolver
-            ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
-            if ck_name and ck_value:
-                httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
+        if BR or BR2:
+            try:
+                ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
+                if ck_name and ck_value:
+                    httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
 
                 if not url.startswith(host):
                     data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
                 else:
-                    data = httptools.downloadpage_proxy('grantorrent', url, post=post, headers=headers, timeout=timeout).data
-        except:
-            pass
+                    if hay_proxies:
+                        data = httptools.downloadpage_proxy('grantorrent', url, post=post, headers=headers, timeout=timeout).data
+                    else:
+                        data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
+            except:
+                pass
 
     return data
 
@@ -237,6 +288,8 @@ def list_all(item):
 
         qlty = scrapertools.find_single_match(match, ' text-center">.*?<span>(.*?)</span>')
 
+        title = title.replace('&#038;', '').strip()
+
         itemlist.append(item.clone( action='findvideos', url=url, title=title, thumbnail=thumb, languages=lang, qualities=qlty,
                                     contentType='movie', contentTitle=title, infoLabels={'year': '-'} ))
 
@@ -256,6 +309,7 @@ def list_all(item):
 
 def puntuar_calidad(txt):
     txt = txt.lower().replace(' ', '').replace('-', '')
+
     orden = ['3d',
              'screener',
              'screener720p',
@@ -270,6 +324,7 @@ def puntuar_calidad(txt):
              'microhd',
              'microhd1080p',
              '1080p',
+             'blurayrip',
              'bluray1080p',
              'fullbluray1080p',
              'bdremux1080p',
@@ -297,7 +352,7 @@ def findvideos(item):
         if not url.endswith('.torrent'):
             if not '/s.php' in url: continue
 
-        itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = url, server = 'directo',
+        itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = url, server = 'torrent',
                               language = item.languages, quality = item.qualities, quality_num = puntuar_calidad(item.qualities) ))
 
     return itemlist
@@ -312,7 +367,7 @@ def play(item):
         url_base64 = decrypters.decode_url_base64(item.url, host_torrent)
 
         if url_base64.endswith('.torrent'):
-           if not url_base64.startswith('https://files.'): url_base64 = url_base64.replace(host, 'https://files.' + b64_host + '/' )
+           url_base64 = url_base64.replace(host, 'https://dl.' + b64_host + '/' )
            item.url = url_base64
 
     if item.url.endswith('.torrent'):
@@ -324,8 +379,11 @@ def play(item):
                 data = do_downloadpage(item.url)
 
             if data:
-                if '<h1>Not Found</h1>' in str(data) or '<!DOCTYPE html>' in str(data) or '<!DOCTYPE>' in str(data) or '<!doctype' in str(data):
+                if '<h1>404 Not Found</h1>' in str(data) or '<h1>Not Found</h1>' in str(data) or '<!DOCTYPE html>' in str(data) or '<!DOCTYPE>' in str(data) or '<!doctype' in str(data):
                     return 'Archivo [COLOR red]Inexistente[/COLOR]'
+
+                elif 'Página no encontrada</title>' in str(data) or 'no encontrada</title>' in str(data) or '<h1>403 Forbidden</h1>' in str(data):
+                    return 'Archivo [COLOR red]No encontrado[/COLOR]'
 
                 import os
 

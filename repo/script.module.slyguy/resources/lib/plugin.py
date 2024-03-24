@@ -2,15 +2,12 @@ import re
 
 from kodi_six import xbmc
 
-from slyguy import plugin, settings, gui
-from slyguy.util import get_kodi_setting, get_addon, run_plugin
+from slyguy import plugin, gui
+from slyguy.util import get_kodi_setting, get_addon
 
 from .util import check_updates, get_slyguy_addons
 from .language import _
 
-@plugin.route('')
-def home(**kwargs):
-    settings.open()
 
 @plugin.route()
 def update_addons(**kwargs):
@@ -45,7 +42,7 @@ def check_log(**kwargs):
     addon_ids = [x.lower() for x in get_slyguy_addons()]
 
     errors = []
-    text = text.decode('utf8')
+    text = text.decode('utf8', errors='ignore')
     for line in text.splitlines():
         match = None
         if 'ERROR <general>:' in line: #Kodi 19+

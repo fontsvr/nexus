@@ -40,7 +40,7 @@ def get_platform():
     machine = platform.machine().lower()
     is_arch64 = "64" in machine and arch == Arch.x64
 
-    logging.warning("## Resolving platform - system=%s, version=%s, arch=%s, machine=%s", system, version, arch, machine)
+    logging.debug("Resolving platform - system=%s, version=%s, arch=%s, machine=%s", system, version, arch, machine)
 
     if "ANDROID_STORAGE" in os.environ:
         system = System.android
@@ -58,8 +58,6 @@ def get_platform():
             arch = Arch.x64
     elif system == System.darwin:
         arch = Arch.x64
-    
-    logging.warning("## Resolved platform - system=%s, arch=%s", system, arch)
 
     if system not in System.values() or arch not in Arch.values():
         logging.warning("Unknown system (%s) and/or arch (%s) values", system, arch)
@@ -68,8 +66,9 @@ def get_platform():
 
 
 def dump_platform():
-    return "system: {}\nrelease: {}\nmachine: {}\narchitecture: {}\nmax_size: {}".format(
-        platform.system(), platform.release(), platform.machine(), platform.architecture(), sys.maxsize)
+    return "system: {}\nrelease: {}\nmachine: {}\narchitecture: {}\nmax_size: {} ({:x} {})".format(
+        platform.system(), platform.release(), platform.machine(), platform.architecture(), sys.maxsize,
+        sys.maxsize, ">32b" if sys.maxsize > 2 ** 32 else "<=32b")
 
 
 try:

@@ -10,62 +10,20 @@ from core import httptools, scrapertools, servertools
 host = 'https://yespornpleasexxx.com/'
 
 
-def item_configurar_proxies(item):
-    color_list_proxies = config.get_setting('channels_list_proxies_color', default='red')
-
-    color_avis = config.get_setting('notification_avis_color', default='yellow')
-    color_exec = config.get_setting('notification_exec_color', default='cyan')
-
-    context = []
-
-    tit = '[COLOR %s]Información proxies[/COLOR]' % color_avis
-    context.append({'title': tit, 'channel': 'helper', 'action': 'show_help_proxies'})
-
-    if config.get_setting('channel_yespornplease_proxies', default=''):
-        tit = '[COLOR %s][B]Quitar los proxies del canal[/B][/COLOR]' % color_list_proxies
-        context.append({'title': tit, 'channel': item.channel, 'action': 'quitar_proxies'})
-
-    tit = '[COLOR %s]Ajustes categoría proxies[/COLOR]' % color_exec
-    context.append({'title': tit, 'channel': 'actions', 'action': 'open_settings'})
-
-    plot = 'Es posible que para poder utilizar este canal necesites configurar algún proxy, ya que no es accesible desde algunos países/operadoras.'
-    plot += '[CR]Si desde un navegador web no te funciona el sitio ' + host + ' necesitarás un proxy.'
-    return item.clone( title = 'Configurar proxies a usar ... [COLOR plum](si no hay resultados)[/COLOR]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
-
-def quitar_proxies(item):
-    from modules import submnuctext
-    submnuctext._quitar_proxies(item)
-    return True
-
-def configurar_proxies(item):
-    from core import proxytools
-    return proxytools.configurar_proxies_canal(item.channel, host)
-
-
 def do_downloadpage(url, post=None, headers=None, raise_weberror=True):
-    if not url.startswith(host):
-        data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
-    else:
-        data = httptools.downloadpage_proxy('yespornplease', url, post=post, headers=headers, raise_weberror=raise_weberror).data
+    timeout = None
+    if host in url: timeout = config.get_setting('channels_repeat', default=30)
 
-    if '<title>You are being redirected...</title>' in data or '<title>Just a moment...</title>' in data:
-        try:
-            from lib import balandroresolver
-            ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
-            if ck_name and ck_value:
-                httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
+    data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
 
-                if not url.startswith(host):
-                    data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
-                else:
-                    data = httptools.downloadpage_proxy('yespornplease', url, post=post, headers=headers, raise_weberror=raise_weberror).data
-        except:
-            pass
+    if not data:
+        if url.startswith(host):
+            if not '?s=' in url:
+                if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('YesPornPlease', '[COLOR cyan]Re-Intentanto acceso[/COLOR]')
 
-    if '<title>Just a moment...</title>' in data:
-        if not '?s=' in url:
-            platformtools.dialog_notification(config.__addon_name, '[COLOR red][B]CloudFlare[COLOR orangered] Protection[/B][/COLOR]')
-        return ''
+                timeout = config.get_setting('channels_repeat', default=30)
+
+                data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
 
     return data
 
@@ -78,18 +36,11 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
-
-    if descartar_xxx: return itemlist
+    if config.get_setting('descartar_xxx', default=False): return
 
     if config.get_setting('adults_password'):
         from modules import actions
-        if actions.adults_password(item) == False:
-            return itemlist
-
-    itemlist.append(item_configurar_proxies(item))
-
-    itemlist.append(Item( channel='helper', action='show_help_yespornplease', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('help') ))
+        if actions.adults_password(item) == False: return
 
     itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
 
@@ -134,6 +85,8 @@ def categorias(item):
     for url, thumb, title in matches:
         if title == 'All Videos': continue
 
+        title = title.replace('</figcaption>', '').strip()
+
         itemlist.append(item.clone (action='list_all', title=title, url=url, thumbnail=thumb, text_color = 'tan' ))
 
     return sorted(itemlist, key=lambda x: x.title)
@@ -164,12 +117,14 @@ def list_all(item):
 
     data = do_downloadpage(item.url)
 
-    matches = re.compile('<div class="post-preview-styling">.*?<a href="(.*?)".*?title="(.*?)".*?data-src="(.*?)"', re.DOTALL).findall(data)
+    matches = re.compile('<div class="post-preview-styling">.*?<a href="(.*?)".*?title="(.*?)".*?data-src="(.*?)".*?<p>(.*?)</p>', re.DOTALL).findall(data)
 
-    for url, title, thumb in matches:
+    for url, title, thumb, time in matches:
         title = title.replace('&#8217;', '').replace('&#8211;', '&').replace('&#038;', '&')
 
-        itemlist.append(item.clone (action='findvideos', title=title, url=url, thumbnail=thumb, contentType = 'movie', contentTitle = title, contentExtra='adults') )
+        titulo = "[COLOR tan]%s[/COLOR] %s" % (time, title)
+
+        itemlist.append(item.clone (action='findvideos', title=titulo, url=url, thumbnail=thumb, contentType = 'movie', contentTitle = title, contentExtra='adults') )
 
     if itemlist:
         next_page = scrapertools.find_single_match(data,'<link rel="next" href="(.*?)"')
@@ -198,7 +153,7 @@ def findvideos(item):
             if url:
                 url += '|Referer=%s' % item.url
 
-                itemlist.append(Item( channel = item.channel, action = 'play', server = 'directo', title = '', url = url, language = 'VO' ))
+                itemlist.append(Item( channel = item.channel, action = 'play', server = 'directo', title = '', url = url, language = 'Vo' ))
 
         servidor = servertools.get_server_from_url(link)
         servidor = servertools.corregir_servidor(servidor)
@@ -208,7 +163,7 @@ def findvideos(item):
         if not 'http' in link: link = 'https:' + link
 
         if not servidor == 'directo':
-            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = link, language = 'VO' ))
+            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = link, language = 'Vo' ))
 
     return itemlist
 

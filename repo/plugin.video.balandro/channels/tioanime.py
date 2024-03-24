@@ -18,14 +18,11 @@ def mainlist_animes(item):
     logger.info()
     itemlist = []
 
-    descartar_anime = config.get_setting('descartar_anime', default=False)
-
-    if descartar_anime: return itemlist
+    if config.get_setting('descartar_anime', default=False): return
 
     if config.get_setting('adults_password'):
         from modules import actions
-        if actions.adults_password(item) == False:
-            return itemlist
+        if actions.adults_password(item) == False: return
 
     current_year = int(datetime.today().year)
 
@@ -33,7 +30,7 @@ def mainlist_animes(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + '/directorio', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Últimos episodios', action = 'list_all', url = host, group = 'last_epis', search_type = 'tvshow', text_color = 'olive' ))
+    itemlist.append(item.clone( title = 'Últimos episodios', action = 'list_all', url = host, group = 'last_epis', search_type = 'tvshow', text_color = 'cyan' ))
 
     itemlist.append(item.clone( title = 'En emisión', action = 'list_all', url = host + '/directorio?type%5B%5D=0&year=1950%2C' + str(current_year) +'&status=1&sort=recent', search_type = 'tvshow' ))
 
@@ -132,10 +129,9 @@ def list_all(item):
         next_page = scrapertools.find_single_match(data,'<li class="page-item active">.*?<li class="page-item">.*?href="(.*?)"')
 
         if next_page:
-            if itemlist:
-                next_page = host + next_page
+            next_page = host + next_page
 
-                itemlist.append(item.clone( title = 'Siguientes ...', action = 'list_all', url = next_page, text_color = 'coral' ))
+            itemlist.append(item.clone( title = 'Siguientes ...', action = 'list_all', url = next_page, text_color = 'coral' ))
 
     return itemlist
 
@@ -162,7 +158,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('TioAnime', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -201,6 +198,8 @@ def episodios(item):
 
         titulo = '1x%s - Episodio %s' % (epi_num, epi_num)
 
+        titulo = titulo + ' ' + item.contentSerieName
+
         itemlist.append(item.clone( action='findvideos', url = url, title = titulo, contentType = 'episode', contentSeason = 1, contentEpisodeNumber = epi_num ))
 
         if len(itemlist) >= item.perpage:
@@ -231,10 +230,10 @@ def findvideos(item):
 
         url = datos[1].replace("\\/", "/")
 
-        if servidor == 'netu': continue
-        elif servidor == 'streamium': continue
+        if servidor == 'streamium': continue
         elif servidor == 'amus': continue
         elif servidor == 'mepu': continue
+        elif servidor == 'streamsb': continue
 
         if servidor == 'umi':
             url = url.replace("gocdn.html#", "gocdn.php?v=")
@@ -247,7 +246,28 @@ def findvideos(item):
             servidor = servertools.get_server_from_url(url)
             servidor = servertools.corregir_servidor(servidor)
 
-            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url, language = 'Vose' ))
+            url = servertools.normalize_url(servidor, url)
+
+            link_other = ''
+
+            if config.get_setting('developer_mode', default=False):
+                try:
+                   link_other = url.split('//')[1]
+                   link_other = link_other.split('/')[0]
+                except:
+                   link_other = url
+            else: link_other = url
+
+            link_other = link_other.replace('www.', '').replace('.com', '').replace('.net', '').replace('.org', '').replace('.top', '')
+            link_other = link_other.replace('.co', '').replace('.cc', '').replace('.sh', '').replace('.to', '').replace('.tv', '').replace('.ru', '').replace('.io', '')
+            link_other = link_other.replace('.eu', '').replace('.ws', '').replace('.sx', '').replace('.nz', '')
+
+            if servidor == 'directo': other = link_other
+            else: link_other = ''
+
+            if servidor == 'various': link_other = servertools.corregir_other(url)
+
+            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url, language = 'Vose', other = link_other ))
 
     if not itemlist:
         if not ses == 0:

@@ -1,11 +1,51 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
+PY3 = False
+if sys.version_info[0] >= 3: PY3 = True
+
 from platformcode import config, logger, platformtools
 from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb
 
 
 host = 'https://www.pepeliculas.org/'
+
+
+_player = '/player.pepeliculas.org/'
+
+
+LINUX = False
+BR = False
+BR2 = False
+
+if PY3:
+    try:
+       import xbmc
+       if xbmc.getCondVisibility("system.platform.Linux.RaspberryPi") or xbmc.getCondVisibility("System.Platform.Linux"): LINUX = True
+    except: pass
+
+try:
+   if LINUX:
+       try:
+          from lib import balandroresolver2 as balandroresolver
+          BR2 = True
+       except: pass
+   else:
+       if PY3:
+           from lib import balandroresolver
+           BR = true
+       else:
+          try:
+             from lib import balandroresolver2 as balandroresolver
+             BR2 = True
+          except: pass
+except:
+   try:
+      from lib import balandroresolver2 as balandroresolver
+      BR2 = True
+   except: pass
 
 
 def item_configurar_proxies(item):
@@ -28,7 +68,7 @@ def item_configurar_proxies(item):
 
     plot = 'Es posible que para poder utilizar este canal necesites configurar algún proxy, ya que no es accesible desde algunos países/operadoras.'
     plot += '[CR]Si desde un navegador web no te funciona el sitio ' + host + ' necesitarás un proxy.'
-    return item.clone( title = 'Configurar proxies a usar ... [COLOR plum](si no hay resultados)[/COLOR]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
+    return item.clone( title = '[B]Configurar proxies a usar ...[/B]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
 
 def quitar_proxies(item):
     from modules import submnuctext
@@ -41,33 +81,78 @@ def configurar_proxies(item):
 
 
 def do_downloadpage(url, post=None, headers=None):
-    if not url.startswith(host):
-        data = httptools.downloadpage(url, post=post, headers=headers).data
+    hay_proxies = False
+    if config.get_setting('channel_ppeliculas_proxies', default=''): hay_proxies = True
+
+    timeout = None
+    if host in url:
+        if hay_proxies: timeout = config.get_setting('channels_repeat', default=30)
+
+    if not url.startswith(host) and not _player in url:
+        data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
     else:
-        data = httptools.downloadpage_proxy('ppeliculas', url, post=post, headers=headers).data
+        if hay_proxies:
+            data = httptools.downloadpage_proxy('ppeliculas', url, post=post, headers=headers, timeout=timeout).data
+        else:
+            data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
+
+        if not data:
+            if not '?s=' in url:
+                if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('Ppeliculas', '[COLOR cyan]Re-Intentanto acceso[/COLOR]')
+
+                timeout = config.get_setting('channels_repeat', default=30)
+
+                if hay_proxies:
+                    data = httptools.downloadpage_proxy('ppeliculas', url, post=post, headers=headers, timeout=timeout).data
+                else:
+                    data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
 
     if '<title>You are being redirected...</title>' in data:
-        try:
-            from lib import balandroresolver
-            ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
-            if ck_name and ck_value:
-                httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
+        if BR or BR2:
+            try:
+                ck_name, ck_value = balandroresolver.get_sucuri_cookie(data)
+                if ck_name and ck_value:
+                    httptools.save_cookie(ck_name, ck_value, host.replace('https://', '')[:-1])
 
-                if not url.startswith(host):
-                    data = httptools.downloadpage(url, post=post, headers=headers).data
-                else:
-                    data = httptools.downloadpage_proxy('ppeliculas', url, post=post, headers=headers).data
-        except:
-            pass
+                    if not url.startswith(host) and not _player in url:
+                        data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
+                    else:
+                        if hay_proxies:
+                           data = httptools.downloadpage_proxy('ppeliculas', url, post=post, headers=headers, timeout=timeout).data
+                        else:
+                            data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
+            except:
+               pass
+
+    if '<title>Just a moment...</title>' in data:
+        if not '?s=' in url:
+            platformtools.dialog_notification(config.__addon_name, '[COLOR red][B]CloudFlare[COLOR orangered] Protection[/B][/COLOR]')
+        return ''
 
     return data
+
+
+def acciones(item):
+    logger.info()
+    itemlist = []
+
+    itemlist.append(item.clone( channel='submnuctext', action='_test_webs', title='Test Web del canal [COLOR yellow][B] ' + host + '[/B][/COLOR]',
+                                from_channel='ppeliculas', folder=False, text_color='chartreuse' ))
+
+    itemlist.append(item_configurar_proxies(item))
+
+    itemlist.append(Item( channel='helper', action='show_help_ppeliculas', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('help') ))
+
+    platformtools.itemlist_refresh()
+
+    return itemlist
 
 
 def mainlist(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar ...', action = 'search', search_type = 'all', text_color = 'yellow' ))
 
@@ -81,7 +166,7 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar película ...', action = 'search', search_type = 'movie', text_color = 'deepskyblue' ))
 
@@ -102,7 +187,7 @@ def mainlist_series(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item_configurar_proxies(item))
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
@@ -177,7 +262,7 @@ def list_all(item):
 
         if not url or not title: continue
 
-        title = title.replace('&#038;', '').replace("&#8217;", "'")
+        title = title.replace('&#038;', '').replace("&#8217;", "'").replace("&#8211;", "")
 
         thumb = scrapertools.find_single_match(match, 'src="(.*?)"')
 
@@ -205,6 +290,7 @@ def list_all(item):
         if not item.group == 'destacadas':
             next_page = scrapertools.find_single_match(data, "<div class='resppages'>" + '.*?</a><a href="(.*?)".*?><span')
             if not next_page: next_page = scrapertools.find_single_match(data, "<div class='resppages'>" + '<a href="(.*?)".*?><span')
+            if not next_page: next_page = scrapertools.find_single_match(data, '<div class="resppages">.*?<a href="(.*?)".*?><span')
 
             if next_page:
                 if '/page/' in next_page:
@@ -222,20 +308,23 @@ def list_top(item):
     if item.search_type == 'movie':
         blk = '<h3>TOP Movies(.*?)<h3>TOP Series'
     else:
-        blk = '<h3>TOP Series(.*?)</div></div></div>'
+        blk = '<h3>TOP Series(.*?)</div></div></div></div>'
 
     bloque = scrapertools.find_single_match(data, blk)
 
-    matches = scrapertools.find_multiple_matches(bloque, "<div class='top-imdb-item'(.*?)<div class='puesto'>")
+    matches = scrapertools.find_multiple_matches(bloque, 'id="top-(.*?)div class="puesto">')
 
     for match in matches:
-        url = scrapertools.find_single_match(match, "<a href='(.*?)'")
+        url = scrapertools.find_single_match(match, '<a href="(.*?)"')
 
-        title = scrapertools.find_single_match(match, "alt='(.*?)'")
+        title = scrapertools.find_single_match(match, 'alt="(.*?)"')
+        if not title: title = scrapertools.find_single_match(match, '<a href=.*?">(.*?)</a>')
 
         if not url or not title: continue
 
-        thumb = scrapertools.find_single_match(match, "src='(.*?)'")
+        title = title.replace('&#038;', '').replace("&#8217;", "'").replace("&#8211;", "")
+
+        thumb = scrapertools.find_single_match(match, 'src="(.*?)"')
 
         if '/pelicula/' in url:
             itemlist.append(item.clone( action='findvideos', url=url, title=title, thumbnail=thumb, contentType='movie', contentTitle=title, infoLabels={'year': '-'} ))
@@ -280,6 +369,8 @@ def last_epis(item):
 
         title = title.replace('Online', '').replace('Sub Español', 'Vose').strip()
 
+        title = title.replace('&#038;', '').replace("&#8217;", "'").replace("&#8211;", "")
+
         if ':' in title: SerieName = scrapertools.find_single_match(title, '(.*?):').strip()
         elif ' (' in title: SerieName = title.split(" (")[0]
         else: SerieName = title
@@ -292,6 +383,7 @@ def last_epis(item):
     if itemlist:
         next_page = scrapertools.find_single_match(data, "<div class='resppages'>" + '.*?</a><a href="(.*?)".*?><span')
         if not next_page: next_page = scrapertools.find_single_match(data, "<div class='resppages'>" + '<a href="(.*?)".*?><span')
+        if not next_page: next_page = scrapertools.find_single_match(data, '<div class="resppages">.*?<a href="(.*?)".*?><span')
 
         if next_page:
             if '/page/' in next_page:
@@ -306,7 +398,7 @@ def temporadas(item):
 
     data = do_downloadpage(item.url)
 
-    matches = scrapertools.find_multiple_matches(data, "<span class='se-t.*?'>(.*?)</span>")
+    matches = scrapertools.find_multiple_matches(data, '<span class="se-t.*?">(.*?)</span>')
 
     tot_tempo = len(matches)
 
@@ -318,7 +410,9 @@ def temporadas(item):
         title = 'Temporada ' + nro_tempo
 
         if len(matches) == 1:
-            platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+            if config.get_setting('channels_seasons', default=True):
+                platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'solo [COLOR tan]' + title + '[/COLOR]')
+
             item.page = 0
             item.contentType = 'season'
             item.contentSeason = numtempo
@@ -341,9 +435,9 @@ def episodios(item):
 
     data = do_downloadpage(item.url)
 
-    bloque = scrapertools.find_single_match(data, "<span class='se-t.*?'>" + str(item.contentSeason) + "</span>(.*?)</div></li></ul></div></div>")
+    bloque = scrapertools.find_single_match(data, '<span class="se-t.*?">' + str(item.contentSeason) + "</span>(.*?)</div></li></ul></div></div>")
 
-    patron = "<li class='mark-(.*?)'>.*?<img src='(.*?)'.*?<a href='(.*?)'>(.*?)</a>"
+    patron = '<li class="mark-(.*?)">.*?<img src="(.*?)".*?<a href="(.*?)">(.*?)</a>'
 
     matches = scrapertools.find_multiple_matches(bloque, patron)
 
@@ -355,7 +449,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('Ppeliculas', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -416,25 +511,22 @@ def corregir_servidor(servidor):
      servidor = servidor.replace('v2.', '').replace('.veoh', '').replace('.sh', '').replace('.nz', '').replace('.site', '').strip()
 
      return servidor
-	 
+
 
 def findvideos(item):
     logger.info()
     itemlist = []
 
-    # ~ torrents No se tratan dan error  https://www.pepeliculas.org/link/361535-zypzvbie5v/   13/10/2022
-
     data = do_downloadpage(item.url)
 
-    patron = "<li id='player-option-.*?"
-    patron += "data-post='(.*?)'.*?data-type='(.*?)'.*?data-nume='(.*?)'.*?<span class='title'>(.*?)</span>.*?<span class='server'>(.*?)</span>"
+    patron = '<li id="player-option-.*?'
+    patron += 'data-post="(.*?)".*?data-type="(.*?)".*?data-nume="(.*?)".*?<span class="title">(.*?)</span>.*?<span class="server">(.*?)</span>'
 
     matches = scrapertools.find_multiple_matches(data, patron)
 
     ses = 0
 
     # ~ orden post
-
     for _post, _type, _nume, qlty_lang, _server in matches:
         ses += 1
 
@@ -453,17 +545,20 @@ def findvideos(item):
             qlty = qlty_lang
             lang = '?'
 
+        if 'hqq' in _server or 'netu' in _server or 'waaw' in _server: _server = 'waaw'
+
         other = corregir_servidor(_server)
 
         if 'youtube' in other: continue
 
-        if 'waaw' in other or 'hqq' in other or 'netu' in other: continue
-
-        elif 'pepeliculas' in other: continue
-        elif 'earn4files' in other: continue
+        if 'earn4files' in other: continue
         elif 'uploadbuzz' in other: continue
 
         if other == qlty: qlty = ''
+
+        if url.startswith('https://player.pepeliculas.org/'):
+            url = url.replace('/player.pepeliculas.org/', '/waaw.to/')
+            other == 'waaw'
 
         servidor = servertools.corregir_servidor(other)
 
@@ -472,12 +567,12 @@ def findvideos(item):
         else:
             if not config.get_setting('developer_mode', default=False): continue
 
-        itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = 'directo', url = url, ref = item.url, other = other.capitalize(), language = lang, quality = qlty ))
+        itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = 'directo', url = url, ref = item.url,
+                              other = other.capitalize(), language = lang, quality = qlty ))
 
     # ~ orden type
-
-    patron = "<li id='player-option-.*?"
-    patron += "data-type='(.*?)'.*?data-post='(.*?)'.*?data-nume='(.*?)'.*?<span class='title'>(.*?)</span>.*?<span class='server'>(.*?)</span>"
+    patron = '<li id="player-option-.*?'
+    patron += 'data-type="(.*?)".*?data-post="(.*?)".*?data-nume="(.*?)".*?<span class="title">(.*?)</span>.*?<span class="server">(.*?)</span>'
 
     matches = scrapertools.find_multiple_matches(data, patron)
 
@@ -499,17 +594,20 @@ def findvideos(item):
             qlty = qlty_lang
             lang = '?'
 
+        if 'hqq' in _server or 'netu' in _server or 'waaw' in _server: _server = 'waaw'
+		
         other = corregir_servidor(_server)
 
         if 'youtube' in other: continue
 
-        if 'waaw' in other or 'hqq' in other or 'netu' in other: continue
-
-        elif 'pepeliculas' in other: continue
-        elif 'earn4files' in other: continue
+        if 'earn4files' in other: continue
         elif 'uploadbuzz' in other: continue
 
         if other == qlty: qlty = ''
+
+        if url.startswith('https://player.pepeliculas.org/'):
+            url = url.replace('/player.pepeliculas.org/', '/waaw.to/')
+            other == 'waaw'
 
         servidor = servertools.corregir_servidor(other)
 
@@ -518,13 +616,13 @@ def findvideos(item):
         else:
             if not config.get_setting('developer_mode', default=False): continue
 
-        itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = 'directo', url = url, ref = item.url, other = other.capitalize(), language = lang, quality = qlty ))
+        itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = 'directo', url = url, ref = item.url,
+                              other = other.capitalize(), language = lang, quality = qlty ))
 
     # ~ Ver
-
     if 'Ver en línea' in data: 
-        patron = "<tr id='link-.*?<img src=.*?"
-        patron += "domain=(.*?)'>.*?<a href='(.*?)'.*?target='_blank'>(.*?)</a>.*?<strong class='quality'>(.*?)</strong>.*?</td><td>(.*?)</td>"
+        patron = '<tr id="link-.*?<img src=.*?'
+        patron += 'domain=(.*?)">.*?<a href="(.*?)".*?target="_blank">(.*?)</a>.*?<strong class="quality">(.*?)</strong>.*?</td><td>(.*?)</td>'
 
         matches = scrapertools.find_multiple_matches(data, patron)
 
@@ -535,11 +633,10 @@ def findvideos(item):
 
             servidor = corregir_servidor(domain)
 
-            if 'waaw' in servidor or 'hqq' in servidor or 'netu' in servidor: continue
-
-            elif 'pepeliculas' in servidor: continue
-            elif 'earn4files' in servidor: continue
+            if 'earn4files' in servidor: continue
             elif 'uploadbuzz' in servidor: continue
+
+            if url.startswith('https://player.pepeliculas.org/'): url = url.replace('/player.pepeliculas.org/', '/waaw.to/')
 
             if lang == 'Latino': lang = 'Lat'
             elif lang == 'Castellano' or lang == 'Español': lang = 'Esp'
@@ -557,13 +654,13 @@ def findvideos(item):
             else:
                 if not config.get_setting('developer_mode', default=False): continue
 
-            itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url, ref = item.url, other = 'v', language = lang, quality = qlty ))
+            itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url,
+                                  ref = item.url, other = 'v', language = lang, quality = qlty ))
 
     # ~ Descargas
-
     if 'Descarga' in data:
-        patron = "<tr id='link-.*?<img src=.*?"
-        patron += "domain=(.*?)'>.*?<a href='(.*?)'.*?target='_blank'>(.*?)</a>.*?<strong class='quality'>(.*?)</strong>.*?</td><td>(.*?)</td>"
+        patron = '<tr id="link-.*?<img src=.*?'
+        patron += 'domain=(.*?)">.*?<a href="(.*?)".*?target="_blank">(.*?)</a>.*?<strong class="quality">(.*?)</strong>.*?</td><td>(.*?)</td>'
 
         matches = scrapertools.find_multiple_matches(data, patron)
 
@@ -574,15 +671,16 @@ def findvideos(item):
 
             servidor = corregir_servidor(domain)
 
-            if 'waaw' in servidor or 'hqq' in servidor or 'netu' in servidor: continue
-
-            elif 'pepeliculas' in servidor: continue
-            elif 'earn4files' in servidor: continue
+            if 'earn4files' in servidor: continue
             elif 'uploadbuzz' in servidor: continue
-            elif 'nitro.download' in servidor: continue
+
+            elif 'nitro.' in servidor: continue
+            elif '1fichier.' in servidor: continue
             elif 'multiup' in servidor: continue
 
             elif servidor == 'filemoon': servidor = 'various'
+
+            if url.startswith('https://player.pepeliculas.org/'): url = url.replace('/player.pepeliculas.org/', '/waaw.to/')
 
             if lang == 'Latino': lang = 'Lat'
             elif lang == 'Castellano' or lang == 'Español': lang = 'Esp'
@@ -600,7 +698,8 @@ def findvideos(item):
             else:
                 if not config.get_setting('developer_mode', default=False): continue
 
-            itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url, ref = item.url, other = 'd', language = lang, quality = qlty ))
+            itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url,
+                                  ref = item.url, other = 'd', language = lang, quality = qlty ))
 
     if not itemlist:
         if not ses == 0:
@@ -617,10 +716,13 @@ def play(item):
     url = item.url
 
     if item.other == 'v' or item.other == 'd':
-        if not item.url.startswith(host):
+        if not item.url.startswith(host) and not _player in url:
             resp = httptools.downloadpage(item.url, follow_redirects=False)
         else:
-            resp = httptools.downloadpage_proxy('ppeliculas', item.url, follow_redirects=False)
+            if config.get_setting('channel_ppeliculas_proxies', default=''):
+                resp = httptools.downloadpage_proxy('ppeliculas', item.url, follow_redirects=False)
+            else:
+                resp = httptools.downloadpage(item.url, follow_redirects=False)
 
         if 'location' in resp.headers: url = resp.headers['location']
 
@@ -631,10 +733,9 @@ def play(item):
 
         url = url.replace('\\/', '/')
 
-        if '/hqq.' in url or '/waaw.' in url or '/netu.' in url:
-            return 'Requiere verificación [COLOR red]reCAPTCHA[/COLOR]'
-
         if url.startswith('//'): url = 'https:' + url
+
+        if url.startswith('https://player.pepeliculas.org/'): url = url.replace('/player.pepeliculas.org/', '/waaw.to/')
 
     if url:
         servidor = servertools.get_server_from_url(url)
@@ -661,6 +762,8 @@ def list_search(item):
         title = scrapertools.find_single_match(match, ' alt="(.*?)"')
 
         if not url or not title: continue
+
+        title = title.replace('&#038;', '').replace("&#8217;", "'").replace("&#8211;", "")
 
         thumb = scrapertools.find_single_match(match, ' src="(.*?)"')
 

@@ -3,7 +3,8 @@ import socket
 import shutil
 import re
 import ssl
-import random
+import os
+import functools
 from gzip import GzipFile
 
 import requests
@@ -19,7 +20,7 @@ from .smart_urls import get_dns_rewrites
 from .log import log
 from .language import _
 from .exceptions import SessionError, Error
-from .constants import DEFAULT_USERAGENT, CHUNK_SIZE
+from .constants import DEFAULT_USERAGENT, CHUNK_SIZE, KODI_VERSION
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -32,14 +33,10 @@ DEFAULT_HEADERS = {
     'User-Agent': DEFAULT_USERAGENT,
 }
 
-SSL_CIPHERS = 'ECDHE-ECDSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA'
-SSL_OPTIONS = None
+SSL_CIPHERS = 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA:AES256-SHA'
+SSL_OPTIONS = ssl.OP_NO_SSLv2 | ssl.OP_NO_SSLv3 | ssl.OP_NO_COMPRESSION
 DNS_CACHE = dns.resolver.Cache()
 
-# Save pointers to original functions
-orig_connection_from_pool_key = urllib3.PoolManager.connection_from_pool_key
-orig_getaddrinfo = socket.getaddrinfo
-orig_ssl_wrap_socket_impl = urllib3.util.ssl_._ssl_wrap_socket_impl
 
 def json_override(func, error_msg):
     try:
@@ -47,14 +44,17 @@ def json_override(func, error_msg):
     except Exception as e:
         raise SessionError(error_msg or _.JSON_ERROR)
 
-SESSIONS = []
+
+OPEN_SESSIONS = []
 @signals.on(signals.AFTER_DISPATCH)
 def close_sessions():
-    for session in SESSIONS:
+    for session in OPEN_SESSIONS:
         session.close()
 
+
 class DOHResolver(object):
-    def __init__(self, nameservers=None):
+    def __init__(self, adapter, nameservers=None):
+        self._adapter = adapter
         self.nameservers = nameservers or []
         self._session = RawSession()
 
@@ -74,7 +74,7 @@ class DOHResolver(object):
                 headers = {'accept': 'application/dns-json'}
 
                 server_host = urlparse(server).netloc.lower()
-                info = orig_getaddrinfo(server_host, 443 if server.lower().startswith('https') else 80)
+                info = self._adapter.getaddrinfo(server_host, 443 if server.lower().startswith('https') else 80)
                 families = [x[0] for x in info]
 
                 params = {'name': host, 'dns': host}
@@ -103,23 +103,110 @@ class DOHResolver(object):
 
         raise SessionError('Unable to resolve host: {} with nameservers: {}'.format(host, self.nameservers))
 
+
+class SessionAdapter(requests.adapters.HTTPAdapter):
+    def __init__(self):
+        self.session_data = {}
+        self._context_cache = {}
+        super(SessionAdapter, self).__init__()
+
+    def init_poolmanager(self, *args, **kwargs):
+        super(SessionAdapter, self).init_poolmanager(*args, **kwargs)
+        self.poolmanager.connection_from_pool_key = functools.partial(self.connection_from_pool_key, self.poolmanager.connection_from_pool_key)
+
+    def proxy_manager_for(self, *args, **kwargs):
+        manager = super(SessionAdapter, self).proxy_manager_for(*args, **kwargs)
+        manager.connection_from_pool_key = functools.partial(self.connection_from_pool_key, manager.connection_from_pool_key)
+        return manager
+
+    def connection_from_pool_key(self, func, pool_key, request_context):
+        if self.session_data['ssl_ciphers'] or self.session_data['ssl_options']:
+            context_key = (self.session_data['ssl_ciphers'], self.session_data['ssl_options'])
+            request_context['ssl_context'] = self._context_cache[context_key] = self._context_cache.get(context_key, requests.packages.urllib3.util.ssl_.create_urllib3_context(ciphers=SSL_CIPHERS, options=SSL_OPTIONS))
+            pool_key = pool_key._replace(key_ssl_context=context_key)
+
+        if self.session_data['interface_ip']:
+            request_context['source_address'] = (self.session_data['interface_ip'], 0)
+            pool_key = pool_key._replace(key_source_address=request_context['source_address'])
+
+        # ensure we get a unique pool (socket) for same domain on different rewrite ips
+        if self.session_data['rewrite'] and self.session_data['rewrite'][0] == request_context['host']:
+            pool_key = pool_key._replace(key_server_hostname=self.session_data['rewrite'][1])
+
+        # ensure we get a unique pool (socket) for same domain on different resolvers
+        elif self.session_data['resolver'] and self.session_data['resolver'][0] == request_context['host']:
+            pool_key = pool_key._replace(key_server_hostname=self.session_data['resolver'][1].nameservers[0])
+
+        pool = func(pool_key, request_context)
+        pool._new_conn = functools.partial(self._new_pool_conn, pool._new_conn)
+        return pool
+
+    def _new_pool_conn(self, func, *args, **kwargs):
+        conn = func(*args, **kwargs)
+        conn.connect = functools.partial(self.connect, conn.connect, conn)
+        conn.getaddrinfo = self.getaddrinfo
+        return conn
+
+    def connect(self, func, conn, *args, **kwargs):
+        retval = func(*args, **kwargs)
+        if hasattr(conn.sock, 'server_hostname'):
+            log.debug('SSL Cipher: {} - {}'.format(conn.sock.server_hostname, conn.sock.cipher()))
+        return retval
+
+    def getaddrinfo(self, host, port, family=0, _type=0):
+        orig_host = host
+
+        if self.session_data['rewrite'] and self.session_data['rewrite'][0] == host:
+            host = self.session_data['rewrite'][1]
+            log.debug("DNS Rewrite: {} -> {}".format(orig_host, host))
+
+        elif self.session_data['resolver'] and self.session_data['resolver'][0] == host:
+            try:
+                host = self.session_data['resolver'][1].query(host)[0].to_text()
+                log.debug('DNS Resolver: {} -> {} -> {}'.format(orig_host, self.session_data['resolver'][1].nameservers[0], host))
+            except Exception as e:
+                log.exception(e)
+                log.error('Failed to resolve. Falling back to dns lookup')
+                host = orig_host
+
+        if ':' in host:
+            first, second = (family, None)
+        else:
+            first = socket.AF_INET
+            second = socket.AF_INET6 if family == socket.AF_UNSPEC else None
+
+        try:
+            addresses = socket.getaddrinfo(host, port, first, _type)
+        except socket.gaierror:
+            if second:
+                addresses = socket.getaddrinfo(host, port, second, _type)
+            else:
+                raise
+
+        if addresses[0][4][0] != host:
+            log.debug('DNS Resolver: {} -> {}'.format(host, addresses[0][4][0]))
+
+        return addresses
+
+
 class RawSession(requests.Session):
     def __init__(self, verify=None, timeout=None, auto_close=True, ssl_ciphers=SSL_CIPHERS, ssl_options=SSL_OPTIONS, proxy=None):
         super(RawSession, self).__init__()
         self._verify = verify
         self._timeout = timeout
-        self._session_cache = {}
         self._rewrites = []
+        self._session_cache = {}
         self._proxy = proxy
         self._cert = None
-
-        ciphers_list = ssl_ciphers.split(':')
-        random.shuffle(ciphers_list)
-        self._ssl_ciphers = ':'.join(ciphers_list)
+        self._ssl_ciphers = ssl_ciphers
         self._ssl_options = ssl_options
 
         if auto_close:
-            SESSIONS.append(self)
+            OPEN_SESSIONS.append(self)
+
+        self._adapter = SessionAdapter()
+        for prefix in ('http://', 'https://'):
+            self.mount(prefix, self._adapter)
 
     def set_dns_rewrites(self, rewrites):
         for entries in rewrites:
@@ -145,7 +232,6 @@ class RawSession(requests.Session):
                     _type = 'url_sub'
                 new_entries.append([_type, entry])
 
-            # Make sure dns is done last
             self._rewrites.append([pattern, sorted(new_entries, key=lambda x: x[0] == 'dns')])
 
     def set_cert(self, cert):
@@ -177,6 +263,11 @@ class RawSession(requests.Session):
         if self._proxy and self._proxy.lower().strip() == 'kodi':
             self._proxy = get_kodi_proxy()
         return self._proxy
+
+    def close(self):
+        super(RawSession, self).close()
+        if self in OPEN_SESSIONS:
+            OPEN_SESSIONS.remove(self)
 
     def __del__(self):
         self.close()
@@ -215,7 +306,7 @@ class RawSession(requests.Session):
                         session_data['rewrite'] = [urlparse(session_data['url']).netloc.lower(), entry[1]]
                     elif entry[0] == 'resolver' and entry[1]:
                         if entry[1].lower().startswith('http'):
-                            resolver = DOHResolver()
+                            resolver = DOHResolver(self._adapter)
                         else:
                             resolver = dns.resolver.Resolver(configure=False)
                             resolver.cache = DNS_CACHE
@@ -226,52 +317,7 @@ class RawSession(requests.Session):
 
             self._session_cache[url] = session_data
 
-        def connection_from_pool_key(self, pool_key, request_context):
-            if session_data['ssl_ciphers'] or session_data['ssl_options']:
-                request_context['ssl_context'] = requests.packages.urllib3.util.ssl_.create_urllib3_context(ciphers=session_data['ssl_ciphers'], options=session_data['ssl_options'])
-                pool_key = pool_key._replace(key_ssl_context=(session_data['ssl_ciphers'], session_data['ssl_options']))
-
-            if session_data['interface_ip']:
-                request_context['source_address'] = (session_data['interface_ip'], 0)
-                pool_key = pool_key._replace(key_source_address=request_context['source_address'])
-
-            # ensure we get a unique pool (socket) for same domain on different rewrite ips
-            if session_data['rewrite'] and session_data['rewrite'][0] == request_context['host']:
-                pool_key = pool_key._replace(key_server_hostname=session_data['rewrite'][1])
-            # ensure we get a unique pool (socket) for same domain on different resolvers
-            elif session_data['resolver'] and session_data['resolver'][0] == request_context['host']:
-                pool_key = pool_key._replace(key_server_hostname=session_data['resolver'][1].nameservers[0])
-
-            return orig_connection_from_pool_key(self, pool_key, request_context)
-
-        def getaddrinfo(host, port, family=0, _type=0, proto=0, flags=0):
-            orig_host = host
-
-            if session_data['rewrite'] and session_data['rewrite'][0] == host:
-                host = session_data['rewrite'][1]
-                log.debug("DNS Rewrite: {} -> {}".format(orig_host, host))
-
-            elif session_data['resolver'] and session_data['resolver'][0] == host:
-                try:
-                    host = session_data['resolver'][1].query(host)[0].to_text()
-                    log.debug('DNS Resolver: {} -> {} -> {}'.format(orig_host, session_data['resolver'][1].nameservers[0], host))
-                except Exception as e:
-                    log.exception(e)
-                    log.error('Failed to resolve. Falling back to dns lookup')
-                    host = orig_host
-
-            # prefer ipv4
-            try:
-                addresses = orig_getaddrinfo(host, port, socket.AF_INET, _type, proto, flags)
-            except socket.gaierror:
-                addresses = orig_getaddrinfo(host, port, socket.AF_INET6, _type, proto, flags)
-
-            return addresses
-
-        def _ssl_wrap_socket_impl(*args, **kwargs):
-            ssl_obj = orig_ssl_wrap_socket_impl(*args, **kwargs)
-            log.debug('SSL Cipher: {} - {}'.format(ssl_obj.server_hostname, ssl_obj.cipher()))
-            return ssl_obj
+        self._adapter.session_data = session_data
 
         if session_data['url'] != url:
             log.debug("URL Changed: {}".format(session_data['url']))
@@ -291,6 +337,9 @@ class RawSession(requests.Session):
             }
 
         if self._cert:
+            if KODI_VERSION > 18:
+                # @SECLEVEL added in OpenSSL 1.1.1
+                session_data['ssl_ciphers'] += '@SECLEVEL=0'
             kwargs['verify'] = False
             kwargs['cert'] = self._get_cert()
 
@@ -300,14 +349,6 @@ class RawSession(requests.Session):
         if 'timeout' not in kwargs:
             kwargs['timeout'] = self._timeout
 
-        prev_getaddrinfo = socket.getaddrinfo
-        prev_connection_from_pool = urllib3.PoolManager.connection_from_pool_key
-        prev_ssl_wrap_socket_impl = urllib3.util.ssl_._ssl_wrap_socket_impl
-
-        # Override functions
-        socket.getaddrinfo = getaddrinfo
-        urllib3.PoolManager.connection_from_pool_key = connection_from_pool_key
-        urllib3.util.ssl_._ssl_wrap_socket_impl = _ssl_wrap_socket_impl
         try:
             # Do request
             result = super(RawSession, self).request(method, session_data['url'], **kwargs)
@@ -317,23 +358,19 @@ class RawSession(requests.Session):
                 raise SessionError(_(_.CONNECTION_ERROR_PROXY, host=urlparse(session_data['url']).netloc.lower()))
             else:
                 raise SessionError(_(_.CONNECTION_ERROR, host=urlparse(session_data['url']).netloc.lower()))
-        finally:
-            # Revert functions to previous
-            socket.getaddrinfo = prev_getaddrinfo
-            urllib3.PoolManager.connection_from_pool_key = prev_connection_from_pool
-            urllib3.util.ssl_._ssl_wrap_socket_impl = prev_ssl_wrap_socket_impl
 
         return result
 
 class Session(RawSession):
-    def __init__(self, headers=None, cookies_key=None, base_url='{}', timeout=None, attempts=None, verify=None, dns_rewrites=None, auto_close=True,):
+    def __init__(self, headers=None, cookies_key=None, base_url='{}', timeout=None, attempts=None, verify=None, dns_rewrites=None, auto_close=True, return_json=False, **kwargs):
         super(Session, self).__init__(verify=settings.common_settings.getBool('verify_ssl', True) if verify is None else verify,
-            timeout=settings.common_settings.getInt('http_timeout', 30) if timeout is None else timeout, auto_close=auto_close)
+            timeout=settings.common_settings.getInt('http_timeout', 30) if timeout is None else timeout, auto_close=auto_close, **kwargs)
 
         self._headers = headers or {}
         self._cookies_key = cookies_key
         self._base_url = base_url
         self._attempts = settings.common_settings.getInt('http_retries', 1) if attempts is None else attempts
+        self._return_json = return_json
         self.before_request = None
         self.after_request = None
 
@@ -347,17 +384,19 @@ class Session(RawSession):
             self.cookies.update(userdata.get(self._cookies_key, {}))
 
     def gz_json(self, *args, **kwargs):
+        kwargs['return_json'] = False
         resp = self.get(*args, **kwargs)
         json_text = GzipFile(fileobj=BytesIO(resp.content)).read()
         return json.loads(json_text)
 
-    def request(self, method, url, timeout=None, attempts=None, verify=None, error_msg=None, retry_not_ok=False, retry_delay=1000, log_url=None, **kwargs):
+    def request(self, method, url, timeout=None, attempts=None, verify=None, error_msg=None, retry_not_ok=False, retry_delay=1000, log_url=None, return_json=None, **kwargs):
         method = method.upper()
 
         if not url.startswith('http'):
             url = self._base_url.format(url)
 
-        attempts = self._attempts if attempts is None else attempts
+        attempts = max(self._attempts if attempts is None else attempts, 1)
+        return_json = self._return_json if return_json is None else return_json
 
         if timeout is not None:
             kwargs['timeout'] = timeout
@@ -373,34 +412,42 @@ class Session(RawSession):
             if self.before_request:
                 self.before_request()
 
-            log('{}{} {}'.format(attempt, method, log_url or url))
+            log.debug('{}{} {}'.format(attempt, method, log_url or url))
 
             try:
                 resp = super(Session, self).request(method, url, **kwargs)
             except SessionError:
-                resp = None
                 if i == attempts:
                     raise
                 else:
                     continue
             except Exception as e:
-                log.exception(e)
-                resp = None
-
-            if resp is None:
+                #log.exception(e) #causes log spam in service loop when no internet
                 raise SessionError(error_msg or _.NO_RESPONSE_ERROR)
 
             if retry_not_ok and not resp.ok:
                 continue
-            else:
-                break
+
+            if return_json:
+                try:
+                    data = resp.json()
+                except:
+                    if i == attempts:
+                        raise
+                    else:
+                        continue
+
+            break
 
         resp.json = lambda func=resp.json, error_msg=error_msg: json_override(func, error_msg)
 
         if self.after_request:
             self.after_request(resp)
 
-        return resp
+        if return_json:
+            return data
+        else:
+            return resp
 
     def save_cookies(self):
         if not self._cookies_key:
@@ -415,6 +462,7 @@ class Session(RawSession):
 
     def chunked_dl(self, url, dst_path, method='GET', **kwargs):
         kwargs['stream'] = True
+        kwargs['return_json'] = False
         resp = self.request(method, url, **kwargs)
         resp.raise_for_status()
 
@@ -425,17 +473,18 @@ class Session(RawSession):
         return resp
 
 def gdrivedl(url, dst_path):
-    if 'drive.google.com' not in url.lower():
-        raise Error('Not a gdrive url')
-
     ID_PATTERNS = [
         re.compile('/file/d/([0-9A-Za-z_-]{10,})(?:/|$)', re.IGNORECASE),
         re.compile('id=([0-9A-Za-z_-]{10,})(?:&|$)', re.IGNORECASE),
         re.compile('([0-9A-Za-z_-]{10,})', re.IGNORECASE)
     ]
-    FILE_URL = 'https://docs.google.com/uc?export=download&id={id}&confirm={confirm}'
-    CONFIRM_PATTERN = re.compile("download_warning[0-9A-Za-z_-]+=([0-9A-Za-z_-]+);", re.IGNORECASE)
-    FILENAME_PATTERN = re.compile('attachment;filename="(.*?)"', re.IGNORECASE)
+    FILE_URL = "https://drive.usercontent.google.com/download?uc-download-link=Download%20anyway&id={id}&confirm={confirm}&uuid={uuid}"
+    CONFIRM_PATTERNS = [
+        re.compile(r"confirm=([0-9A-Za-z_-]+)", re.IGNORECASE),
+        re.compile(r"name=\"confirm\"\s+value=\"([0-9A-Za-z_-]+)\"", re.IGNORECASE),
+    ]
+    UUID_PATTERN = re.compile(r"name=\"uuid\"\s+value=\"([0-9A-Za-z_-]+)\"", re.IGNORECASE)
+    FILENAME_PATTERN = re.compile('filename="(.*?)"', re.IGNORECASE)
 
     id = None
     for pattern in ID_PATTERNS:
@@ -445,22 +494,39 @@ def gdrivedl(url, dst_path):
             break
 
     if not id:
-        raise Error('No file ID find in gdrive url')
+        raise Error('No Gdrive file ID found in url')
 
     with Session() as session:
-        resp = session.get(FILE_URL.format(id=id, confirm=''), stream=True)
+        resp = session.get(FILE_URL.format(id=id, confirm='', uuid=''), stream=True)
         if not resp.ok:
             raise Error('Gdrive url no longer exists')
 
         if 'ServiceLogin' in resp.url:
             raise Error('Gdrive url does not have link sharing enabled')
 
-        cookies = resp.headers.get('Set-Cookie') or ''
-        if 'download_warning' in cookies:
-            confirm = CONFIRM_PATTERN.search(cookies)
-            resp = session.get(FILE_URL.format(id=id, confirm=confirm.group(1)), stream=True)
+        content_disposition = resp.headers.get("content-disposition")
+        if not content_disposition:
+            html = resp.read()
 
-        filename = FILENAME_PATTERN.search(resp.headers.get('content-disposition')).group(1)
+            for pattern in CONFIRM_PATTERNS:
+                confirm = pattern.search(html)
+                if confirm: break
+
+            uuid = UUID_PATTERN.search(html)
+            if uuid:
+                uuid = uuid.group(1)
+            else:
+                uuid=''
+
+            if confirm:
+                resp = session.get(FILE_URL.format(id=id, confirm=confirm.group(1), uuid=uuid), stream=True)
+            elif b"Google Drive - Quota exceeded" in html:
+                raise Error("Quota exceeded for this file")
+            else:
+                log.debug("Trying confirmation 't' as a last resort")
+                resp = session.get(FILE_URL.format(id=id, confirm='t', uuid=uuid), stream=True)
+
+        filename = FILENAME_PATTERN.search(content_disposition).group(1)
         dst_path = dst_path if os.path.isabs(dst_path) else os.path.join(dst_path, filename)
 
         resp.raise_for_status()

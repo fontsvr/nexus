@@ -35,7 +35,7 @@ def mainlist_series(item):
 
     itemlist.append(item.clone ( title = 'Catálogo', action = 'list_all', url = url_doramas, search_type = 'tvshow' ))
 
-    itemlist.append(item.clone ( title = 'Últimos episodios', action = 'list_all', url = host + 'ultimoscapitulos.php', group = 'last', search_type = 'tvshow', text_color='olive' ))
+    itemlist.append(item.clone ( title = 'Últimos episodios', action = 'list_all', url = host + 'ultimoscapitulos.php', group = 'last', search_type = 'tvshow', text_color='cyan' ))
 
     itemlist.append(item.clone ( title = 'En emisión', action = 'list_lst',
                                  post = {"countries": "", "generos": "", "years": "", "emition": "[\"Si\"]", "submit": ""}, search_type = 'tvshow' ))
@@ -139,27 +139,30 @@ def list_all(item):
         if thumb.startswith('./'): thumb = thumb.replace('./', '/')
         thumb = host[:-1] + thumb
 
-        titulo = re.sub(r'(\d{4})$', '', title)
+        title_serie = re.sub(r'(\d{4})$', '', title)
+        title_serie = title_serie.strip()
 
-        if titulo: title = titulo
+        if "Capitulo" in title_serie: SerieName = title_serie.split("Capitulo")[0]
+        else: SerieName = title_serie.strip()
+
+        SerieName = SerieName.strip()
+
+        if title_serie: title = title_serie
 
         if item.group == 'last':
-            if "Capitulo" in title: titulo = title.split("Capitulo")[0]
-            else: titulo = title
-
-            titulo = titulo.strip()
-            titulo = re.sub(r'(\d{4})$', '', titulo)
-            if titulo: SerieName = titulo
-
             episode = scrapertools.find_single_match(title, 'Capitulo(.*?)$').strip()
 
             if not episode: episode = 1
 
+            SerieName = re.sub(r'(\d{4})$', '', SerieName)
+            SerieName = SerieName.strip()
+
+            title = title.replace('Capitulo', '[COLOR goldenrod]Capitulo[/COLOR]')
+
             itemlist.append(item.clone( action='findvideos', url=url, title=title, thumbnail=thumb, contentSerieName=SerieName,
                                         contentType = 'episode', contentSeason = 1, contentEpisodeNumber=episode, infoLabels={'year': '-'} ))
         else:
-            itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb,
-                                        contentType='tvshow', contentSerieName=title, infoLabels={'year': '-'} ))
+            itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb, contentSerieName=SerieName, contentType='tvshow', infoLabels={'year': '-'} ))
 
     tmdb.set_infoLabels(itemlist)
 
@@ -210,11 +213,17 @@ def list_lst(item):
         if thumb.startswith('./'): thumb = thumb.replace('./', '/')
         thumb = host[:-1] + thumb
 
-        titulo = re.sub(r'(\d{4})$', '', title)
+        title_serie = re.sub(r'(\d{4})$', '', title)
+        title_serie = title_serie.strip()
 
-        if titulo: title = titulo
+        if "Capitulo" in title_serie: SerieName = title_serie.split("Capitulo")[0]
+        else: SerieName = title_serie.strip()
 
-        itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb, contentType='tvshow', contentSerieName=title, infoLabels={'year': '-'} ))
+        SerieName = SerieName.strip()
+
+        if title_serie: title = title_serie
+
+        itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb, contentType='tvshow', contentSerieName=SerieName, infoLabels={'year': '-'} ))
 
         if len(itemlist) >= perpage: break
 
@@ -233,10 +242,11 @@ def temporadas(item):
     logger.info()
     itemlist = []
 
-    # ~ No hay temporadas
-    title = 'Temporadas'
+    if config.get_setting('channels_seasons', default=True):
+        title = 'Temporadas'
 
-    platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'sin [COLOR tan]' + title + '[/COLOR]')
+        platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), 'sin [COLOR tan]' + title + '[/COLOR]')
+
     item.page = 0
     item.contentType = 'season'
     item.contentSeason = 1
@@ -277,7 +287,8 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if tvdb_id:
+        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('DoramasQueen', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
                 item.perpage = sum_parts
@@ -369,7 +380,10 @@ def findvideos(item):
         url = servertools.normalize_url(servidor, url)
 
         other = ''
-        if servidor == 'directo': other = '?'
+
+        if servidor == 'various': other = servertools.corregir_other(url)
+
+        elif servidor == 'directo': other = '?'
 
         itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url, ref = item.url, language = lang, other = other ))
 
@@ -419,7 +433,17 @@ def list_search(item):
 
         thumb = host + 'admin/uploads/doramas/' + thumb
 
-        itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb, contentType = 'tvshow', contentSerieName = title, infoLabels={'year': '-'} ))
+        title_serie = re.sub(r'(\d{4})$', '', title)
+        title_serie = title_serie.strip()
+
+        if "Capitulo" in title_serie: SerieName = title_serie.split("Capitulo")[0]
+        else: SerieName = title_serie.strip()
+
+        SerieName = SerieName.strip()
+
+        if title_serie: title = title_serie
+
+        itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb, contentType='tvshow', contentSerieName=SerieName, infoLabels={'year': '-'} ))
 
     tmdb.set_infoLabels(itemlist)
 
