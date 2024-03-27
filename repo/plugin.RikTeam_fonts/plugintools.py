@@ -56,6 +56,14 @@ from six.moves import urllib_request
 from six.moves.urllib.parse import unquote_plus, quote_plus, urlencode
 module_log_enabled = False
 http_debug_log_enabled = False
+PY3 = False
+if sys.version_info[0] >= 3: PY3 = True; unicode = str; unichr = chr; long = int
+if sys.version_info[0] >= 3:
+    translatePath = xbmcvfs.translatePath
+    long = int
+    unicode = str
+else:
+    translatePath = xbmc.translatePath
 if six.PY3:
     unicode = str
 LIST = "list"
@@ -532,6 +540,31 @@ def message(text1, text2="", text3=""):
     else:
         xbmcgui.Dialog().ok( text1 , text2 , text3 )
 
+def compat(line1, line2, line3):
+    message = line1
+    if line2:
+        message += '\n' + line2
+    if line3:
+        message += '\n' + line3
+    return message
+
+def browse(params):
+    localfile = getBrowseDialog()
+    try:
+     f = open(localfile, 'r')
+     source = f.read()
+     f.close()
+     dialog = xbmcgui.Dialog()
+     dialog.textviewer(localfile, source)
+     return 'ignore'
+    except:
+     pass
+
+def getBrowseDialog( default="", heading="", dlg_type=1, shares="files", mask="", use_thumbs=False, treat_as_folder=False ):
+    dialog = xbmcgui.Dialog()
+    value = dialog.browse( dlg_type, heading, shares, mask, use_thumbs, treat_as_folder, default )
+    return value
+
 def message_yes_no(text1, text2="", text3=""):
     _log("message_yes_no text1='"+text1+"', text2='"+text2+"', text3='"+text3+"'")
 
@@ -543,6 +576,21 @@ def message_yes_no(text1, text2="", text3=""):
         yes_pressed = xbmcgui.Dialog().yesno( text1 , text2 , text3 )
 
     return yes_pressed
+
+def dialog_yesno(heading, line1, line2="", line3="", nolabel="No", yeslabel="Sí", autoclose=0, customlabel=None):
+    # customlabel only on kodi 19
+    dialog = xbmcgui.Dialog()
+    if PY3:
+        if autoclose > 0:
+            return dialog.yesno(heading, compat(line1=line1, line2=line2, line3=line3), nolabel=nolabel,
+                                yeslabel=yeslabel, customlabel=customlabel, autoclose=autoclose)
+        else:
+            return dialog.yesno(heading, compat(line1=line1, line2=line2, line3=line3), nolabel=nolabel, yeslabel=yeslabel)
+    else:
+        if autoclose > 0:
+            return dialog.yesno(heading, compat(line1=line1, line2=line2, line3=line3), nolabel=nolabel, yeslabel=yeslabel, autoclose=autoclose)
+        else:
+            return dialog.yesno(heading, compat(line1=line1, line2=line2, line3=line3), nolabel=nolabel, yeslabel=yeslabel)
 
 def selector(option_list,title="Select one"):
     _log("selector title='"+title+"', options="+repr(option_list))

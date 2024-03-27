@@ -17,12 +17,12 @@ import requests
 import six
 import xbmcvfs
 addon = xbmcaddon.Addon()
-addonname = '[B][LOWERCASE][CAPITALIZE][COLOR white]RikTeam_[COLOR aqua]fonts[/CAPITALIZE][/LOWERCASE][/B][/COLOR]'
+addonname = '[B][COLOR white]RikTeam_[COLOR aqua]fonts[/COLOR][/B]'
 icon = addon.getAddonInfo('icon')
 myaddon = xbmcaddon.Addon("plugin.RikTeam_fonts")
 Set_Color = myaddon.getSetting('SetColor')
 Set_View = myaddon.getSetting('SetView')
-
+     
 def run():
  
     plugintools.set_view(plugintools.LIST)
@@ -31,7 +31,7 @@ def run():
     params = plugintools.get_params()
  
     if params.get("action") is None:
-        main_list(params)
+        ejecucion(params)
     else:
        action = params.get("action")
        url = params.get("url")
@@ -55,16 +55,34 @@ def run():
  
 
 def main_list(params):
-
-    plugintools.add_item(action = "" , title = "[B][LOWERCASE][CAPITALIZE][COLOR aqua]------------------------------[COLOR violet] RikTeam[COLOR aqua]--------------------------------------[/CAPITALIZE][/LOWERCASE][/B][/COLOR]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
-
     
+    url = params.get ( "url" )
     
-    plugintools.add_item(action = "" , title = "[B][LOWERCASE][CAPITALIZE][COLOR white]A C T U A L I Z A D O R [COLOR yellow]   D E [COLOR aqua]  F U E N T E S[/CAPITALIZE][/LOWERCASE][/B][/COLOR]",  thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_icon.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False ) 
-
+    if url:
+      plugintools.add_item(action = "" , title = "[B][COLOR aqua]---------------------"+addonname+"[B][COLOR aqua]--------------------------------------[/COLOR][/B]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_ico.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
  
-    plugintools.add_item(action = "" , title = "[B][LOWERCASE][CAPITALIZE][COLOR aqua]------------------------------[COLOR yellow] RikTeam[COLOR aqua]--------------------------------------[/CAPITALIZE][/LOWERCASE][/B][/COLOR]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_icon.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
+    
+      plugintools.add_item(action = "" , title = "[B][COLOR white][LOWERCASE][CAPITALIZE]   A C T U A L I Z A D O R [COLOR yellow]  D E [COLOR aqua]  F U E N T E S[/CAPITALIZE][/LOWERCASE][/COLOR][/B]",  thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_ico.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False ) 
 
+    
+      plugintools.add_item(action = "ejecucion" , title = "[COLOR yellow]         << Iniciar el instalador de fuentes >>[/COLOR]", info_labels={"Title":addonname, "Plot":addonname+"\n\nIniciar el instalador de las fuentes más populares para dotar a tu mediacenter de los complementos necesarios para una máxima experiencia."}, thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_icon.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
+      
+      
+      plugintools.set_view(plugintools.EPISODES)
+      
+      
+      plugintools.add_item(action = "" , title = "[B][COLOR aqua]---------------------"+addonname+"[B][COLOR aqua]--------------------------------------[/COLOR][/B]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_ico.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
+      
+      plugintools.add_item(action = "plugintools.browse" , title = "Abrir archivos y explorar carpetas de Kodi (visor texto)", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_ico.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
+
+      
+      plugintools.add_item(action = "salir" , title = "[B]                                  S A L I R[/B]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519183/build/fonts_ico.png", fanart = "https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
+      
+    else:
+      ejecucion()
+    
+
+def ejecucion(params):
 
     if six.PY2:
         translatePath = xbmc.translatePath
@@ -95,7 +113,7 @@ def main_list(params):
 
     t = r.text
     sources = xbmcvfs.translatePath('special://profile/sources.xml')    
-    respuesta = xbmcgui.Dialog().yesno("[COLOR violet]"+"RikTeam"+"[/COLOR]", "[COLOR yellow]"+"Script "+"[COLOR violet]"+" RikTeam. "+"[COLOR yellow]"+"Pulsa Ok para borrar tus fuentes y añadir las pricipales"+" fuentes actualizadas."+"[COLOR lightpink]"+" Reiniciar Kodi para que coja los cambios."+"[/COLOR]", "No","Si")
+    respuesta = xbmcgui.Dialog().yesno(addonname, "[COLOR yellow]\nPulsa Ok para borrar tus fuentes y añadir las pricipales fuentes actualizadas. [COLOR lightpink]Después deberás reiniciar Kodi para que coja los cambios.[/COLOR]", "[B][COLOR red] No [/COLOR][/B]","[B][COLOR green]OK[/COLOR][/B]")
    
 
     if respuesta:       
@@ -108,7 +126,7 @@ def main_list(params):
                 file.write(linea)
             file.seek(0)    
             file.close()
-            xbmcgui.Dialog().notification('[COLOR violet]'+'RikTeam'+'[/COLOR]', '[COLOR lightgreen]'+'COPIA DE FUENTES REALIZADA EXITOSAMENTE.'+'[/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
+            xbmcgui.Dialog().notification(addonname, '[COLOR lightgreen]'+'COPIA DE FUENTES REALIZADA.'+'[/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
             
         else:
             file = open(sources,'w+')
@@ -118,9 +136,25 @@ def main_list(params):
                 file.write(linea)
             file.seek(0)    
             file.close()
-            xbmcgui.Dialog().notification('[COLOR gold]RikTeam[/COLOR]', '[COLOR green]COPIA DE FUENTES REALIZADA EXITOSAMENTE.[/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
-            
+            xbmcgui.Dialog().notification(addonname, '[COLOR green]COPIA DE FUENTES REALIZADA EXITOSAMENTE.[/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
+            xbmc.sleep(1500)
+            choice = 1
+            choice = plugintools.dialog_yesno(addonname, ' Cerrar Kodi para aplicar cambios. ', '[COLOR greenyellow][B]¿ Quieres Cerrar ?[/B][/COLOR]')
+            try:
+               if choice == 1:
+                  os._exit(1)
+               elif choice == 0:
+                  pass
+               else:
+                  xbmc.executebuiltin("Action(Close)")
+            except:
+                pass
     else:
         xbmcgui.Dialog().notification('Info', 'CANCELADA LA COPIA DE FUENTES.', xbmcgui.NOTIFICATION_ERROR, 4000) 
-    exit(0)            
+        params["url"]=addonname
+        main_list(params)
+        #exit(0)
+def salir(params):
+    xbmc.executebuiltin("Action(Close)") 
+    
 run()
