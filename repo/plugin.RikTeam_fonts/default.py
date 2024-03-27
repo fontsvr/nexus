@@ -56,7 +56,7 @@ def run():
 
 def main_list(params):
 
-    plugintools.add_item(action = "" , title = "[B][LOWERCASE][CAPITALIZE][COLOR aqua]------------------------------[COLOR violet] RikTeam[COLOR aqua]--------------------------------------[/CAPITALIZE][/LOWERCASE][/B][/COLOR]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpghttps://imgur.com/a/kmDBgGd",  folder = False )   
+    plugintools.add_item(action = "" , title = "[B][LOWERCASE][CAPITALIZE][COLOR aqua]------------------------------[COLOR violet] RikTeam[COLOR aqua]--------------------------------------[/CAPITALIZE][/LOWERCASE][/B][/COLOR]", thumbnail ="https://res.cloudinary.com/dsmvomgrd/image/upload/v1684519184/build/fonts_fanart.jpg",  folder = False )   
 
     
     
