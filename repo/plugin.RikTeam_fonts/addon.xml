@@ -1,6 +1,6 @@
 <?xml version="2.0" encoding="UTF-8"?>
 <addon
-	id="plugin.RikTeam_fonts" version="1.0" name="[B][COLOR white]RikTeam_[COLOR aqua]fonts[/COLOR][/B]" provider-name="Rik Team">
+	id="plugin.RikTeam_fonts" version="1.1" name="[B][COLOR white]RikTeam_[COLOR aqua]fonts[/COLOR][/B]" provider-name="Rik Team">
 <requires> 
     <import addon="script.module.requests" />
     <import addon="script.module.resolveurl" />
