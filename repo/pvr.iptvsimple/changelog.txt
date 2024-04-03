@@ -1,3 +1,18 @@
+
+v20.13.0
+- Only reset channel group list when a channel URL is read from M3U playlist
+- Modify EXTGRP behaviour so it is a begin directive for channels groups, i.e. it carries across channels unless reset by an empty EXTGRP directive or any group-title tag for a EXTINF channel directive
+
+v20.12.0
+- Extract season from medis title for path if not available
+- Set default to include media Group name in path if no dir present
+
+v20.11.1
+- EPG entry selection criteria for timezone shift calculation works for Media as well as channels
+- Fix being able to disable media from settings
+- Fix group name in recording path being disabled in addon settings when media is not enabled
+- Add support for Genres for Media
+
 v20.11.0
 - M3U format specifier to override realtime processing in Kodi PVR where the stream should not be treated like VOD/Media in the UI
 - Revert the support of Async connect that was causing Connection Lost error messages for users of this add-on

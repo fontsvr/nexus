@@ -1,6 +1,6 @@
 """
     Plugin for ResolveURL
-    Copyright (c) 2022 gujal
+    Copyright (C) 2024 gujal
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,19 +20,18 @@ from resolveurl.plugins.__resolve_generic__ import ResolveGeneric
 from resolveurl.lib import helpers
 
 
-class AnonFilesResolver(ResolveGeneric):
-    name = 'AnonFiles'
-    domains = ['anonfiles.com', 'bayfiles.com', 'letsupload.cc', 'openload.cc', 'hotfile.io']
-    pattern = r'(?://|\.)((?:(?:bay|anon)files|letsupload|openload|hotfile)\.(?:com|cc|io))/([0-9a-zA-Z]+)'
+class MaxStreamResolver(ResolveGeneric):
+    name = 'MaxStream'
+    domains = ['maxstream.org']
+    pattern = r'(?://|\.)(maxstream\.org)/(?:embed-)?([0-9a-zA-Z]+)'
 
-    def get_media_url(self, host, media_id):
+    def get_media_url(self, host, media_id, subs=False):
         return helpers.get_media_url(
             self.get_url(host, media_id),
-            patterns=[r'(?s)id="download-url".+?href="(?P<url>[^"]+)'],
+            patterns=[r'''file:\s*"(?P<url>[^"]+)'''],
             generic_patterns=False,
-            referer=False,
-            result_blacklist=['.zip', '.rar', '.7z']
-        ).replace(' ', '%20').replace('https:', 'http:')
+            referer=True
+        )
 
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id, template='https://{host}/{media_id}')
+        return self._default_get_url(host, media_id, template='https://{host}/embed-{media_id}.html')
