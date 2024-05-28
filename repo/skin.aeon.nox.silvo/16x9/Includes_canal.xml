@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<includes>
-	<include name="CanalPlusLiveTV">
-	<items>
-<item><title>[COLOR lime]magellan>[COLOR=cyan][B]La 1[/B][/COLOR]</title><link>https://amc-amcespanol-1-us.plex.wurl.tv/playlist.m3u8</link><thumbnail>https://estatico.emisiondof6.com/recorte/n/dispficha/MTVEP57551</thumbnail><fanart>http://i.imgur.com/bcpZZ1S.png</fanart></item>
-<item><title>[COLOR lime]magellan>[COLOR=cyan][B][I]#O  [/I][/B][/COLOR]</title><link>http://Ox3bCmMS4hLdtWT1QlJ5gi.green.onerunthisway.me/live/sun.php?z=997&amp;u=DJM5QAEvOJ&amp;s=5768616668&amp;id=378&amp;t=live&amp;f=ts|User-agent=Vlc</link><thumbnail>https://static.wikia.nocookie.net/logopedia/images/d/d5/0_por_Movistar_Plus%2B.svg/revision/latest/scale-to-width-down/200?cb=20220127142617</thumbnail><fanart>http://i.imgur.com/bcpZZ1S.png</fanart></item>
-</items>
-	</include>	
-</includes>

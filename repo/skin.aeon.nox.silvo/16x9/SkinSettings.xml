@@ -2,6 +2,10 @@
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<onload>SetProperty(Window.HasSettings,True,Home)</onload>
+	
+	<onload condition="!IsEmpty(Window(Home).Property(ListPos)) + !Container.HasParent + Container($PARAM[Id].Column(-1)">Up</onload>
+    <onload condition="!IsEmpty(Window(Home).Property(ListPos)) + !Container.HasParent">Right</onload>
+	
 	<onload>ClearProperty(MediaMenu,Home)</onload>
 	<onload>ClearProperty(BusySkinBackup,Home)</onload>
 	<onunload>ClearProperty(MediaMenu,Home)</onunload>
@@ -266,10 +270,13 @@
 							<onclick>Skin.SetBool(enable.visiblesubmenu,)</onclick>-->
 							<onclick>Skin.SetBool(preguntado_ajustes)</onclick><!--devuelve true !urgente-->
 							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/fallback_movies.jpg)</onclick>
+							<onclick>Skin.SetString(StartupIntro,special://skin/extras/intro.mp4)</onclick>
+							
+						    <!--<onclick>RunScript(script.skinshortcuts,type=resetall)</onclick>-->
 						</control>
 						<control type="button" id="1020">
 							<include>SettingsButtonCommonValues</include>
-							<label>Volver a los ajustes anteriores del Skin $INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,]</label>
+							<label>Sombreado Rojo del Skin $INFO[System.AddonTitle(skin.aeon.nox.silvo)] $INFO[System.AddonVersion(skin.aeon.nox.silvo),,]</label>
 							<onclick>Skin.SetString(highlightbarcolor,FFFF1744)</onclick>
 							<onclick>Skin.SetString(focusedsubmenucolor,FFFFF700)</onclick>
 							<onclick>Skin.SetString(themehomemenubarcolor,81000000)</onclick>
@@ -288,6 +295,8 @@
 							<onclick>Skin.SetBool(systembarontop,true)</onclick>
 							<onclick>Skin.SetBool(enable.visiblesubmenu,true)</onclick>
 							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/default_bg.jpg)</onclick>
+							<onclick>Skin.SetString(StartupIntro,special://skin/extras/intro.mp4)</onclick>
+							
 						</control>
 					<control type="button" id="1021">
 							<include>SettingsButtonCommonValues</include>
@@ -310,6 +319,18 @@
 							<onclick>Skin.SetBool(systembarontop,true)</onclick>
 							<onclick>Skin.SetBool(enable.visiblesubmenu,true)</onclick>
 							<onclick>Skin.SetString(customdefaultbackground.path,special://skin/extras/backgrounds/default_bg.jpg)</onclick>
+						    <!--<onclick>Skin.SetString(StartupIntro,special://skin/extras/intro.mp4)</onclick>
+							<onclick>Skin.SetBool(StartupIntroTrue,true)</onclick>-->
+						</control>
+						<control type="button" id="1022">
+							<include>SettingsButtonCommonValues</include>
+							<label>[COLOR yellow]Actualizar lista de canales ahora[/COLOR] ( $INFO[System.AddonTitle(plugin.program.iptv.merge)] $INFO[System.AddonVersion(plugin.program.iptv.merge),,] )</label>
+						    <!--<onclick condition="!System.HasAddon(plugin.program.iptv.merge)">ActivateWindow(1152)<onclick>-->
+							<onclick condition="!System.HasAddon(plugin.program.iptv.merge)">InstallAddon(plugin.program.iptv.merge)</onclick>
+							<onclick condition="!System.AddonIsEnabled(plugin.program.iptv.merge)+System.HasAddon(plugin.program.iptv.merge)">EnableAddon(plugin.program.iptv.merge)</onclick>
+							<onclick>ActivateWindow(10001,&quot;plugin://plugin.program.iptv.merge/?_=merge&quot;,return)</onclick>
+							<!--<onclick>RunAddon(&quot;plugin.program.iptv.merge&quot;)</onclick>-->
+							<onclick>AlarmClock(Settings,ReplaceWindow(SkinSettings),00:01,silent)</onclick>
 						</control>
 					</control>
 					<control type="grouplist" id="9001">

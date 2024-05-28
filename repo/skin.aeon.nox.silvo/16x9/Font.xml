@@ -128,6 +128,7 @@
 			<style>bold</style>
 			<size>52</size>
 		</font>
+		<!--1f-->
 		<font>
 			<name>roboto22</name>
 			<filename>Roboto-Regular.ttf</filename>
@@ -264,7 +265,7 @@
 		</font>--><!--sub-menu-->
 		<font>
 			<name>font13_title</name>
-			<filename>Exo2-Bold.ttf</filename><!--Exo2-Bold.ttf-->
+			<filename>Exo2-Bold.ttf</filename><!--RobotoCondensed-Regular.ttf-->
 			<style>uppercase</style>
 			<size>30</size>
 		</font>
@@ -363,12 +364,7 @@
 			<linespacing>0</linespacing>
 			<size>58</size>
 		</font>
-		<!--<font>
-			<name>font_MainMenu</name>
-			<filename>BebasNeue.ttf</filename>
-			<linespacing>0</linespacing>
-			<size>112</size>
-		</font>--><!--112-->
+
 		<font>
 			<name>font_MainMenu</name>
 			<filename>BebasNeue.ttf</filename><!--BebasNeue.ttf Exo2-Bold.ttf menu principal-->
