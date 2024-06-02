@@ -690,7 +690,7 @@
   </extension>
 
   <extension point="xbmc.service" library="services.py" start="login|startup" />
-</addon><addon id="plugin.video.cristalazul" name="[B][/B][COLOR aqua]CRISTAL AZUL 3.0.8[/COLOR]" version="3.0.8" provider-name="PICAPAU, LOURDES, SUPERTOPO, LUISMA, GEORGE">
+</addon><addon id="plugin.video.cristalazul" name="[B][/B][COLOR aqua]CRISTAL AZUL 3.0.9[/COLOR]" version="3.0.9" provider-name="PICAPAU, LOURDES, SUPERTOPO, LUISMA, GEORGE">
     <requires>
         <import addon="script.module.simplecache" />
         <import addon="script.module.six" />
@@ -885,7 +885,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 		</assets>
 		<news>Primera versión basada en LSP Mod by Someone Like You</news>
 	</extension>
-</addon><addon id="plugin.video.koditv" version="10" name="[B][COLOR white]kodi[COLOR aqua]tv[/COLOR][/B]" provider-name="equipo tvchopo">
+</addon><addon id="plugin.video.koditv" version="11" name="[B][COLOR white]kodi[COLOR aqua]tv[/COLOR][/B]" provider-name="equipo tvchopo">
 <requires>
     <import addon="script.module.requests" />
     <import addon="script.module.resolveurl" optional="true" />
@@ -911,7 +911,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
                 <platform>all</platform>
 		<summary lang="en" />
 		<summary lang="da" />
-		<description lang="en" />
+		<description lang="en">este addon es totalmente gratuito no contiene ningun contenido todo es enlazado a webs que estan libremente en internet.</description>
 		<website />
 		<license>GPL 2.0</license>
 		<platform>all</platform>
