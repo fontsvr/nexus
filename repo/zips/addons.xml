@@ -2847,4 +2847,21 @@ Versión 3.4 - 15/5/23
 			<screenshot>resources/screenshot005.jpg</screenshot>
 		</assets>
 	</extension>
+</addon><addon id="slyguy.dependencies" name="SlyGuy Dependencies" provider-name="SlyGuy" version="0.0.18">
+  <requires>
+    <import addon="repository.slyguy" />
+  </requires>
+  <extension point="xbmc.python.module" library="resources/modules" />
+  <extension point="xbmc.addon.metadata">
+    <description lang="en">Dependencies required by all Slyguy add-ons</description>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <license />
+    <language />
+    <website />
+    <news>Update six. Add looseversion</news>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
 </addon></addons>
