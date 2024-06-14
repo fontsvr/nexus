@@ -1,43 +1,30 @@
 {
   "addons": [
     {
-      "name": "VR20 Aeon w/o Repository",
+      "name": "VR20 Aeon Nox Silvo (mod)",
       "type": "addon",
       "section": false,
-      "plugin": "skin.aeon.nox.silvo",
-      "url": "https://raw.githubusercontent.com/fontsvr/nexus/master/repo/skin.aeon.nox.silvo",
-      "repository": "repository.rebase",
+      "plugin": "skin.aeon.nox.silvo", 
+      "url": "https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/skin.aeon.nox.silvo/skin.aeon.nox.silvo-20.0.1.zip",
+      "repository": "repository.fontsvr",
       "repositoryxml": "https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml",
-      "repositoryurl": "https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/",
-      "icon": "https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640927/build/fandrart.png",
+      "repositoryurl": "https://github.com/fontsvr/nexus/blob/master/repo/zips/repository.rebase/repository.rebase-1.0.zip?raw=true",
+      "icon": "https://imgur.com/ioo2s5e.png",
       "adult": false,
-      "description": "Skin Wizard. +info: fontsvr.github.io"
-    },
-    {
-      "name": "Cristal Touch w/o Repository",
-      "type": "addon",
-      "section": false,
-      "plugin": "skin.ctouch",
-      "url": "https://github.com/fontsvr/repo-fontsVR/raw/rel/skin.ctouch-9.3.4.3.zip",
-      "repository": "",
-      "repositoryxml": "",
-      "repositoryurl": "",
-      "icon": "https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640927/build/fandrart.png",
-      "adult": false,
-      "description": "Skin Wizard+info: fontsvr.github.io"
+      "description": "Skin VR20 - Mod skin.aeon.nox.silvo-20.0.1  + info: https://github.com/fontsvr/nexus/"
     },
     {
       "name": "Cristal Touch",
       "type": "addon",
       "section": false,
       "plugin": "skin.ctouch",
-      "url": "https://github.com/fontsvr/nexus/master/repo/zips/skin.ctouch/skin.ctouch-9.3.4.2.zip?raw=true",
+      "url": "https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/skin.ctouch/skin.ctouch-9.3.4.3.zip",
       "repository": "repository.rebase",
       "repositoryxml": "https://raw.githubusercontent.com/fontsvr/nexus/master/repo/zips/addons.xml",
-      "repositoryurl": "https://github.com/fontsvr/nexus/blob/master/repo/zips/repository.rebase/repository.rebase-1.0.zip?raw=true",
-      "icon": "https://res.cloudinary.com/dsmvomgrd/image/upload/v1683640927/build/fandrart.png",
+      "repositoryurl": "https://github.com/fontsvr/nexus/raw/master/repo/zips/repository.rebase/repository.rebase-1.0.zip?raw=true",
+      "icon": "https://imgur.com/lWiTz59.png",
       "adult": false,
-      "description": "Skin Wizard. +info: fontsvr.github.io"
+      "description": "Skin Wizard - Mod skin.ctouch-9.3.4.3  + info: https://github.com/fontsvr/nexus/"
     },
     {
       "name": "Example Section",
