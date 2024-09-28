@@ -608,7 +608,7 @@
         </assets>
     </extension>
     <extension point="xbmc.service" library="videolibrary_service.py" start="login|startup" />
-</addon><addon id="plugin.video.balandro" name="Balandro" version="4.0.08" provider-name="Team Balandro">
+</addon><addon id="plugin.video.balandro" name="Balandro" version="4.0.11" provider-name="Team Balandro">
   <requires>
      <import addon="script.module.requests" />
   </requires>
@@ -628,11 +628,11 @@
       <screenshot>resources/screenshots/4.jpg</screenshot>
     </assets>
     <news>
-    [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]4.0.08[/COLOR][COLOR chartreuse]  Julio de 2024[/B][/COLOR]
+    [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]4.0.11[/COLOR][COLOR chartreuse]  Septiembre de 2024[/B][/COLOR]
 
     [COLOR goldenrod][B]Media Centers:[/B][/COLOR]
         [COLOR tan][B]Kodi Versiones Oficiales Soportadas:[/B][/COLOR]
-        [COLOR plum][B]]22.x (P...),  21.x Omega,  20.x Nexus,  19.x Matrix,[/B][/COLOR]
+        [COLOR plum][B]]22.x Piers,  21.x Omega,  20.x Nexus,  19.x Matrix,[/B][/COLOR]
         [COLOR plum][B]18.x Leia  y  17.x Krypton[/B][/COLOR]
 
     [COLOR springgreen][B]Fuente[/COLOR]  [COLOR cyan]https://repobal.github.io/base/[/B][/COLOR]
@@ -670,7 +670,7 @@
   </extension>
 
   <extension point="xbmc.service" library="services.py" start="login|startup" />
-</addon><addon id="plugin.video.cristalazul" name="[B][/B][COLOR aqua]CRISTAL AZUL 3.0.9[/COLOR]" version="3.0.9" provider-name="PICAPAU, LOURDES, SUPERTOPO, LUISMA, GEORGE">
+</addon><addon id="plugin.video.cristalazul" name="[B][/B][COLOR aqua]CRISTAL AZUL 3.0.10[/COLOR]" version="3.0.10" provider-name="PICAPAU, LOURDES, SUPERTOPO, LUISMA, GEORGE">
     <requires>
         <import addon="script.module.simplecache" />
         <import addon="script.module.six" />
@@ -1512,7 +1512,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <icon>icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="repository.fontsvr" name="Repo [B][COLOR aqua]FONTS[COLOR azure]VR[/COLOR][/B]" version="2.0" provider-name="Rik Team">
+</addon><addon id="repository.fontsvr" name="Repo [B][COLOR aqua]FONTS[COLOR azure]VR[/COLOR][/B]" version="2.1" provider-name="fontsvr">
     <extension point="xbmc.addon.repository" name="Repo FONTSVR">
         <dir>
 		<info compressed="false">https://raw.githubusercontent.com/fontsvr/omega/main/repo/zips/addons.xml</info>
@@ -1524,8 +1524,8 @@ No se acepta ninguna responsabilidad por el uso de este addon.
     <extension point="xbmc.addon.metadata">
         <summary>Repo [COLOR aqua]FONTS[COLOR azure]VR[/COLOR]</summary>
         <description>[COLOR azure]Repositorio de addons [COLOR aqua]FONTS[COLOR azure]VR[/COLOR]
-[COLOR gold]Developers:[/COLOR] Rik Team</description>
-        <disclaimer>Repositorio de addons para 20.x NEXUS y 21.x OMEGA.</disclaimer>
+[COLOR azure]Addons para Kodi[/COLOR]</description>
+        <disclaimer>Repositorio de addons.</disclaimer>
         <platform>all</platform>
         <assets>
             <icon>icon.png</icon>
