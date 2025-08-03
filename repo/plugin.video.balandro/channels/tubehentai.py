@@ -9,8 +9,6 @@ from core import httptools, scrapertools
 
 host = 'https://tubehentai.com/'
 
-perpage = 30
-
 
 def mainlist(item):
     return mainlist_pelis(item)
@@ -20,23 +18,24 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
-    itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'most-recent/'))
+    itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'most-recent/' ))
 
-    itemlist.append(item.clone( title = 'Al azar', action = 'list_all', url = host + 'random/'))
+    itemlist.append(item.clone( title = 'Al azar', action = 'list_all', url = host + 'random/' , text_color = 'pink' ))
 
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'most-viewed/'))
-    itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'top-rated/'))
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'most-viewed/' ))
+    itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'top-rated/' ))
     itemlist.append(item.clone( title = 'Long play', action = 'list_all', url = host + 'longest/' ))
 
-    itemlist.append(item.clone( title = 'Por categoría', action = 'categorias'))
+    itemlist.append(item.clone( title = 'Por categoría', action = 'categorias' ))
 
     return itemlist
 
@@ -98,6 +97,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = httptools.downloadpage(item.url).data
 
     url = scrapertools.find_single_match(data, '<source src="([^"]+\.mp4)"')
@@ -112,6 +118,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + "search/videos/%s/" % (texto.replace(" ", "-"))
         return list_all(item)
     except:

@@ -44,9 +44,10 @@ except:
    except: pass
 
 
-host = 'https://www.pelisxd.com/'
+# ~ En la web: Solo hay 42 series se desestiman  /series-y-novelas/
 
-# ~ En la web: Solo hay 42 series se desetiman  /series-y-novelas/
+
+host = 'https://www.pelisxd.com/'
 
 
 def item_configurar_proxies(item):
@@ -246,9 +247,13 @@ def findvideos(item):
     data = do_downloadpage(item.url)
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
+    ses = 0
+
     matches = re.compile('href="#options-(.*?)">.*?<span class="server">(.*?)</span>', re.DOTALL).findall(data)
 
     for option, srv in matches:
+        ses += 1
+
         srv = srv.lower()
 
         if '-' in srv:
@@ -287,6 +292,11 @@ def findvideos(item):
 
             itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = IDIOMAS.get(lang, lang), other = other.capitalize() ))
 
+    if not itemlist:
+        if not ses == 0:
+            platformtools.dialog_notification(config.__addon_name, '[COLOR tan][B]Sin enlaces Soportados[/B][/COLOR]')
+            return
+
     return itemlist
 
 
@@ -316,6 +326,8 @@ def play(item):
             url = item.url
 
     if url:
+        url = url.replace('/Smoothpre.', '/smoothpre.')
+
         servidor = servertools.get_server_from_url(url)
         servidor = servertools.corregir_servidor(servidor)
 
@@ -323,10 +335,11 @@ def play(item):
 
         if servidor == 'directo':
             new_server = servertools.corregir_other(url).lower()
-            if not new_server.startswith("http"): servidor = new_server
+            if new_server.startswith("http"):
+                if not config.get_setting('developer_mode', default=False): return itemlist
+            servidor = new_server
 
-        if not servidor == 'directo':
-            itemlist.append(item.clone(url = url, server = servidor))
+        itemlist.append(item.clone(url = url, server = servidor))
 
     return itemlist
 

@@ -11,7 +11,7 @@
 			<posy>-500</posy>
 			<width>2200</width>
 			<height>2200</height>
-			<texture>trakt-bg-fade.png</texture>
+			<texture>RatingDialog/trakt-bg-fade.png</texture>
 		</control>				
 		<control type="group">
 			<animation type="WindowOpen" reversible="false">
@@ -30,7 +30,14 @@
 					<posy>0</posy>
 					<width>600</width>
 					<height>250</height>
-					<texture>trakt-bg.png</texture>
+					<texture>RatingDialog/trakt-bg.png</texture>
+				</control>
+				<control type="image" description="Fondo cuadro -marco">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>600</width>
+					<height>250</height>
+					<texture colordiffuse="Ffd414fc">RatingDialog/box.png</texture>
 				</control>
 				<control type="label" id="10011">
 					<description>Trakt Question</description>
@@ -55,8 +62,9 @@
 					<label></label>
 					<align>right</align>
 					<aligny>center</aligny>
-					<font>font13</font>
-					<textcolor>FF01091a</textcolor>
+					<font>font14</font>
+					<!--textcolor>FFf2c8f4</textcolor-->
+					<textcolor>FFfc66ec</textcolor>
 					<scroll>true</scroll>
 					<autoscroll time="2000" delay="1000" repeat="5000">true</autoscroll>
 				</control>
@@ -72,18 +80,6 @@
 					<font>font14</font>
 					<textcolor>FF01091a</textcolor>
 				</control>
-				<control type="button">
-					<description>Close Window button</description>
-					<posx>536</posx>
-					<posy>-26</posy>
-					<width>64</width>
-					<height>32</height>
-					<label></label>
-					<onclick>PreviousMenu</onclick>
-					<texturefocus>close-fo.png</texturefocus>
-					<texturenofocus>close-nofo.png</texturenofocus>
-					<visible>system.getbool(input.enablemouse)</visible>
-				</control>
 			</control>		
 			<!-- Dialogue Button content -->
 			<control type="group" id="10015">
@@ -94,8 +90,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>1.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/1.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -111,8 +107,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>2.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/2.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -128,7 +124,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>2_b.png</texture>
+					<texture>RatingDialog/2_b.png</texture>
 					<visible>Control.HasFocus(11030)</visible>
 				</control>
 				<control type="button" id="11032">
@@ -138,8 +134,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>3.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/3.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -155,7 +151,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>3_b.png</texture>
+					<texture>RatingDialog/3_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)</visible>
 				</control>
 				<control type="button" id="11033">
@@ -165,8 +161,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>4.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/4.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -182,7 +178,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>4_b.png</texture>
+					<texture>RatingDialog/4_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)</visible>
 				</control>
 				<control type="button" id="11034">
@@ -192,8 +188,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>5.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/5.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -209,7 +205,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>5_b.png</texture>
+					<texture>RatingDialog/5_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)|Control.HasFocus(11033)</visible>
 				</control>
 				<control type="button" id="11035">
@@ -219,8 +215,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>6.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/6.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -236,7 +232,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>6_b.png</texture>
+					<texture>RatingDialog/6_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)|Control.HasFocus(11033)|Control.HasFocus(11034)</visible>
 				</control>
 				<control type="button" id="11036">
@@ -246,8 +242,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>7.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/7.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -263,7 +259,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>7_b.png</texture>
+					<texture>RatingDialog/7_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)|Control.HasFocus(11033)|Control.HasFocus(11034)|Control.HasFocus(11035)</visible>
 				</control>
 				<control type="button" id="11037">
@@ -273,8 +269,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>8.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/8.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -290,7 +286,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>8_b.png</texture>
+					<texture>RatingDialog/8_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)|Control.HasFocus(11033)|Control.HasFocus(11034)|Control.HasFocus(11035)|Control.HasFocus(11036)</visible>
 				</control>
 				<control type="button" id="11038">
@@ -300,8 +296,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>9.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/9.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -317,7 +313,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>9_b.png</texture>
+					<texture>RatingDialog/9_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)|Control.HasFocus(11033)|Control.HasFocus(11034)|Control.HasFocus(11035)|Control.HasFocus(11036)|Control.HasFocus(11037)</visible>
 				</control>
 				<control type="button" id="11039">
@@ -327,8 +323,8 @@
 					<width>35</width>
 					<height>35</height>
 					<label></label>
-					<texturefocus>10.png</texturefocus>
-					<texturenofocus>10.png</texturenofocus>
+					<texturefocus>RatingDialog/10.png</texturefocus>
+					<texturenofocus>RatingDialog/10.png</texturenofocus>
 					<align>center</align>
 					<aligny>center</aligny>
 					<ondown>11030</ondown>
@@ -344,7 +340,7 @@
 					<posy>130</posy>
 					<width>35</width>
 					<height>35</height>
-					<texture>10_b.png</texture>
+					<texture>RatingDialog/10_b.png</texture>
 					<visible>Control.HasFocus(11030)|Control.HasFocus(11031)|Control.HasFocus(11032)|Control.HasFocus(11033)|Control.HasFocus(11034)|Control.HasFocus(11035)|Control.HasFocus(11036)|Control.HasFocus(11037)|Control.HasFocus(11038)</visible>
 				</control>
 			</control>

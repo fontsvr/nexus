@@ -5,13 +5,13 @@
 
   "active": true,
 
-  "searchable": true,
+  "searchable": false,
   "search_types": ["movie"],
 
   "categories": ["torrent", "movie"],
   "language": ["cast", "lat", "vose", "vo"],
 
-  "clusters": ["onlyone", "torrents", "docs"],
+  "clusters": ["torrents", "docs"],
 
-  "notes": "Canal con enlaces Torrent exclusivamente. Películas por géneros y años."
+  "notes": "Canal con enlaces Streaming y Torrent. Películas por géneros y años."
 }

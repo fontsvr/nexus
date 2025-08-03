@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import re
+import re, base64
 
 from platformcode import config, logger, platformtools
 from core.item import Item
@@ -218,14 +218,16 @@ def list_all(item):
     for article in matches[item.page * perpage:]:
         url = scrapertools.find_single_match(article, '<a href="(.*?)"')
 
-        title = scrapertools.find_single_match(article, '<h3 class="Title">(.*?)</h3>')
+        title = scrapertools.find_single_match(article, 'alt="(.*?)"')
+
+        if not title: title = scrapertools.find_single_match(article, '<h2 class="Title">(.*?)</h2>')
 
         if not url or not title: continue
 
         title = re.sub(r'\((.*)', '', title)
         title = re.sub(r'\[(.*?)\]', '', title)
 
-        title = title.replace('&#8211;', '')
+        title = title.replace('&#8211;', '').replace('&#8230;', '').replace('&#8217;', "'")
 
         thumb = scrapertools.find_single_match(article, '<img src="(.*?)"')
 
@@ -236,9 +238,13 @@ def list_all(item):
 
         lang = 'Lat'
         if '-sub/' in url: lang = 'Vose'
-        if '-es/' in url: lang = 'Esp'
+        elif '-es/' in url: lang = 'Esp'
 
-        tipo = 'tvshow' if '/serie/' in url else 'movie'
+        elif '-ESP' in article: lang = 'Esp'
+        elif '-LAT' in article: lang = 'Lat'
+        elif '-SUB' in article: lang = 'Vose'
+
+        tipo = 'tvshow' if '/series/' in url else 'movie'
         sufijo = '' if item.search_type != 'all' else tipo
 
         if tipo == 'movie':
@@ -285,9 +291,11 @@ def temporadas(item):
 
     data = do_downloadpage(item.url)
 
-    temporadas = re.compile('data-tab="(.*?)"', re.DOTALL).findall(data)
+    temporadas = re.compile('data-season.*?Season(.*?)<', re.DOTALL).findall(data)
 
     for tempo in temporadas:
+        tempo = tempo.strip()
+
         title = 'Temporada ' + tempo
 
         if len(temporadas) == 1:
@@ -317,7 +325,7 @@ def episodios(item):
     data = do_downloadpage(item.url)
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    bloque = scrapertools.find_single_match(data, 'data-tab="' + str(item.contentSeason) + '(.*?)</table>')
+    bloque = scrapertools.find_single_match(data, 'data-season>.*?Season ' + str(item.contentSeason) + '(.*?)</table>')
 
     bloque = bloque.replace('>&lt;img src=&quot;', '<img src="').replace('&quot;', '"')
 
@@ -331,7 +339,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('Cine24h', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('Cine24h', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -393,41 +404,49 @@ def findvideos(item):
 
     data = do_downloadpage(item.url)
 
-    matches = scrapertools.find_multiple_matches(data, '<li data-shortcode="(.*?)</li>')
+    bloque = scrapertools.find_single_match(data, '>Opciones<(.*?)>Enlaces<')
+
+    matches = scrapertools.find_multiple_matches(bloque, '<li(.*?)</li>')
 
     ses = 0
 
     for match in matches:
         ses += 1
 
-        other = scrapertools.find_single_match(match, 'data-tplayernv="Opt.*?<span>(.*?)</span>')
+        other = scrapertools.find_single_match(match, '<span>(.*?)</span>').strip().lower()
 
         other = other.replace('🥇', '').replace('🥉', '').replace('🥈', '').replace('🔰', '').replace('👑', '').strip()
 
-        if 'FMD' in other: continue
-        elif 'MSM' in other: continue
-        elif 'JET' in other: continue
-        elif 'GOU' in other: continue
+        if 'fmd' in other: continue
+        elif 'msn' in other: continue
+        elif 'jet' in other: continue
+        elif 'gou' in other: continue
 
-        if 'HQQ' in other: other = 'Waaw'
+        if 'hqq' in other: other = 'Waaw'
 
-        idio = scrapertools.find_single_match(match, 'data-tplayernv="Opt.*?</span><span>(.*?)-.*?</span>').strip()
+        if '<span>' in other: other = ''
+
+        idio = scrapertools.find_single_match(match, '</span>.*?<span>(.*?)<span>').strip()
 
         lang = IDIOMAS.get(idio, idio)
 
-        qlty = scrapertools.find_single_match(match, 'data-tplayernv="Opt.*?</span><span>.*?-(.*?)</span>').strip()
+        qlty = scrapertools.find_single_match(match, '</span>.*?<span>.*?<span>(.*?)</span>').strip()
 
-        opt = scrapertools.find_single_match(match, 'data-tplayernv="(.*?)"')
+        opt = scrapertools.find_single_match(match, '(.*?)"')
 
-        url = scrapertools.find_single_match(data, 'id="' + opt + '".*?data-litespeed-src="(.*?)"')
-        if not url: url = scrapertools.find_single_match(data, 'id="' + opt + '"<iframe.*?src"(.*?"')
-        if not url: url = scrapertools.find_single_match(data, 'id="' + opt + '".*?src=&quot;(.*?)&quot;')
+        url = scrapertools.find_single_match(match, 'src="(.*?)"')
 
-        if not 'http' in url: continue
+        if not 'http' in url:
+            try:
+               url = base64.b64decode(url).decode("utf-8")
+            except:
+               continue
 
         if url:
-           itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = 'directo', url = url,
-                                 language = lang, quality = qlty, other = other.capitalize() ))
+            if not 'http' in url: continue
+
+            itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = '', url = url,
+                                  language = lang, quality = qlty, other = other.capitalize() ))
 
     # ~ downloads
     matches = scrapertools.find_multiple_matches(data, '<span class="Num">.*?href="(.*?)"')
@@ -439,15 +458,15 @@ def findvideos(item):
 
         url = scrapertools.find_single_match(match, 'redirect=(.*?)$')
 
-        if not 'http' in url: continue
-
-        if '/fembed.' in url: continue
-
-        servidor = servertools.get_server_from_url(url)
-        servidor = servertools.corregir_servidor(servidor)
-
         if url:
-           itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url, language = item.languages ))
+            if not 'http' in url: continue
+
+            if '/fembed.' in url: continue
+
+            servidor = servertools.get_server_from_url(url)
+            servidor = servertools.corregir_servidor(servidor)
+
+            itemlist.append(Item( channel = item.channel, action = 'play', title = '', server = servidor, url = url, language = item.languages ))
 
     if not itemlist:
         if not ses == 0:
@@ -466,17 +485,25 @@ def play(item):
 
     url = item.url
 
-    if item.server == 'directo':
+    if not item.server:
         data = do_downloadpage(url)
 
         new_url = scrapertools.find_single_match(data, 'src="(.*?)"')
 
-        if new_url: url = new_url
+        if new_url:
+           if new_url == 'null': return itemlist
+
+           url = new_url
 
     if url:
-        if 'mystream.' in url: servidor = ''
-        elif 'gounlimited.' in url: servidor = ''
-        elif 'jetload.' in url: servidor = ''
+        if url.startswith(host): url = ''
+
+        elif 'mystream.' in url: url = ''
+        elif 'gounlimited.' in url: url = ''
+        elif 'jetload.' in url: url = ''
+
+        if 'fembed' in url or 'feurl' in url:
+            return 'Servidor [COLOR red]Obsoleto[/COLOR]'
 
         if url:
             servidor = servertools.get_server_from_url(url)
@@ -486,7 +513,9 @@ def play(item):
 
             if servidor == 'directo':
                 new_server = servertools.corregir_other(url).lower()
-                if not new_server.startswith("http"): servidor = new_server
+                if new_server.startswith("http"):
+                    if not config.get_setting('developer_mode', default=False): return itemlist
+                servidor = new_server
 
             itemlist.append(item.clone( url=url, server=servidor ))
 

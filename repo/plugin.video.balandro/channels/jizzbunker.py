@@ -7,7 +7,7 @@ from core.item import Item
 from core import httptools, scrapertools
 
 
-host = 'https://jizzbunker.com/en/'
+host = 'https://jizzbunker.com/es/'
 
 
 def do_downloadpage(url, post=None, headers=None):
@@ -23,17 +23,18 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'newest/' ))
 
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'straight/popular1/' ))
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'straight/popular1/' ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'straight/trending/' ))
 
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias', url= host + 'channels/alphabetically' ))
@@ -93,6 +94,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
@@ -107,6 +115,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'search?query=%s/' % (texto.replace(" ", "+"))
         return list_all(item)
     except:

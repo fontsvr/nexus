@@ -7,7 +7,7 @@ if sys.version_info[0] >= 3: PY3 = True
 
 import re, xbmcgui
 
-from platformcode import config, logger, platformtools
+from platformcode import config, logger, platformtools, dynamic
 from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb, jsontools
 
@@ -44,16 +44,21 @@ except:
    except: pass
 
 
-host = 'https://playdede.eu/'
+host = 'https://www12.playdede.link/'
 
 
 # ~ webs para comprobar dominio vigente en actions pero pueden requerir proxies
-# ~ webs  0)-'https://dominiosplaydede.com/' ó Telegram 'https://t.me/playdedeinformacion'
+# ~ webs  0)-https://privacidad.me/@playdede  1)-https://entrarplaydede.com  2)-X https://x.com/playdedesocial
 
 
 # ~ por si viene de enlaces guardados posteriores
 ant_hosts = ['https://playdede.com/', 'https://playdede.org/', 'https://playdede.nu/',
-             'https://playdede.to/', 'https://playdede.us/']
+             'https://playdede.to/', 'https://playdede.us/', 'https://playdede.eu/',
+             'https://playdede.me/', 'https://playdede.in/', 'https://playdede.link/',
+             'https://www1.playdede.link/', 'https://www2.playdede.link/', 'https://www3.playdede.link/',
+             'https://www4.playdede.link/', 'https://www5.playdede.link/', 'https://www6.playdede.link/',
+             'https://www7.playdede.link/', 'https://www8.playdede.link/', 'https://www9.playdede.link/',
+             'https://www10.playdede.link/', 'https://www11.playdede.link/']
 
 
 domain = config.get_setting('dominio', 'playdede', default='')
@@ -64,6 +69,20 @@ if domain:
     else: host = domain
 
 
+_dynamic = False
+
+cur_host = host
+new_host = dynamic.host(host)
+
+if not cur_host == new_host:
+    _dynamic = True
+
+    if config.get_setting('developer_mode', default=False):
+        platformtools.dialog_notification(config.__addon_name + ' Playdede', '[COLOR cyan][B]Dominio Dinámico[/B][/COLOR]')
+
+    config.set_setting('dominio', new_host, 'playdede')
+
+
 elepage = 42
 
 perpage = 21
@@ -71,7 +90,7 @@ perpage = 21
 login_ok = '[COLOR chartreuse]PlayDede Login correcto[/COLOR]'
 login_ko = '[COLOR red][B]PlayDede Login incorrecto[/B][/COLOR]'
 no_login = '[COLOR orangered][B]PlayDede Sin acceso Login[/B][/COLOR]'
-start_ses_ok = '[COLOR chartreuse][B]Sesión Iniciada[/B][/COLOR], Por favor [COLOR cyan][B]Retroceda Menús[/B][/COLOR] y acceda de Nuevo al Canal.'
+start_ses_ok = '[COLOR chartreuse][B]Sesión Iniciada[/B][/COLOR], Por favor, si fuera necesario, [COLOR cyan][B]Retroceda Menús[/B][/COLOR] y acceda de Nuevo al Canal.'
 
 datos_ko = '>Registrarme<'
 
@@ -341,11 +360,13 @@ def logout(item):
         data = do_make_login_logout(host + 'user/' + username + '/salir/')
 
         config.set_setting('playdede_login', False, 'playdede')
-        platformtools.dialog_notification(config.__addon_name, '[COLOR chartreuse]PlayDede Sesión cerrada[/COLOR]')
 
-        if item:
-            if item.category: 
-                platformtools.dialog_ok(config.__addon_name + ' PlayDede', '[COLOR yellow][B]Sesión Cerrada[/B][/COLOR].', 'Por favor [COLOR cyan][B]Retroceda Menús[/B][/COLOR] e [COLOR chartreuse][B]Inicie Sesión[/B][/COLOR] de nuevo.')
+        if config.get_setting('notificar_login', default=False):
+            platformtools.dialog_notification(config.__addon_name, '[COLOR chartreuse]PlayDede Sesión cerrada[/COLOR]')
+
+            if item:
+                if item.category: 
+                    platformtools.dialog_ok(config.__addon_name + ' PlayDede', '[COLOR yellow][B]Sesión Cerrada[/B][/COLOR].', 'Por favor, si fuera necesario,  [COLOR cyan][B]Retroceda Menús[/B][/COLOR] e [COLOR chartreuse][B]Inicie Sesión[/B][/COLOR] de nuevo.')
         return True
 
     platformtools.dialog_notification(config.__addon_name, '[COLOR red][B]PlayDede Sin cerrar la Sesión[/B][/COLOR]')
@@ -413,6 +434,10 @@ def do_downloadpage(url, post=None, headers=None, referer=None):
         else:
             data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=False, timeout=timeout).data
 
+    if not data:
+        if '?genre=' in url:
+            if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('PlayDede Error', '[COLOR cyan]Espere y Re-intentelo otra vez[/COLOR]')
+
     if '<title>You are being redirected...</title>' in data or '<title>Just a moment...</title>' in data:
         if BR or BR2:
             try:
@@ -455,21 +480,26 @@ def acciones(item):
     if domain_memo: url = domain_memo
     else: url = host
 
-    itemlist.append(Item( channel='actions', action='show_latest_domains', title='[COLOR moccasin][B]Últimos Cambios de Dominios[/B][/COLOR]', thumbnail=config.get_thumb('pencil') ))
+    itemlist.append(item.clone( channel='actions', action='show_latest_domains', title='[COLOR moccasin][B]Últimos Cambios de Dominios[/B][/COLOR]', thumbnail=config.get_thumb('pencil') ))
 
-    itemlist.append(Item( channel='helper', action='show_help_domains', title='[B]Información Dominios[/B]', thumbnail=config.get_thumb('help'), text_color='green' ))
+    itemlist.append(item.clone( channel='helper', action='show_help_domains', title='[B]Información Dominios[/B]', text_color='green' ))
 
-    itemlist.append(item.clone( channel='domains', action='test_domain_playdede', title='Test Web del canal [COLOR yellow][B] ' + url + '[/B][/COLOR]',
-                                from_channel='playdede', folder=False, text_color='chartreuse' ))
+    dom_dinamico = ''
+    if _dynamic: dom_dinamico = ' [COLOR dodgerblue] Dinámico'
+
+    itemlist.append(item.clone( channel='domains', action='test_domain_playdede', title='Test Web del canal [COLOR yellow][B] ' + url + dom_dinamico + '[/B][/COLOR]', from_channel='playdede', folder=False, text_color='chartreuse' ))
 
     username = config.get_setting('playdede_username', 'playdede', default='')
 
     if username:
-        itemlist.append(Item( channel='domains', action='operative_domains_playdede', title='[B]Dominio Operativo Vigente[/B]',
-                              desde_el_canal = True, host_canal = url, thumbnail=config.get_thumb('playdede'), text_color='mediumaquamarine' ))
+        itemlist.append(item.clone( action='show_current_domain', title='[B]Dominio Actual[COLOR dodgerblue] entrarplaydede.com[/B][/COLOR]',
+                                    text_color='darkgoldenrod' ))
 
-        itemlist.append(Item( channel='domains', action='last_domain_playdede', title='[B]Comprobar último dominio vigente[/B]',
-                              desde_el_canal = True, host_canal = url, thumbnail=config.get_thumb('playdede'), text_color='chocolate' ))
+        itemlist.append(item.clone( channel='domains', action='operative_domains_playdede', title='[B]Dominio Operativo Vigente' + '[COLOR dodgerblue] privacidad.me/@playdede[/B][/COLOR]',
+                                    desde_el_canal = True, host_canal = url, text_color='mediumaquamarine' ))
+
+        itemlist.append(item.clone( channel='domains', action='last_domain_playdede', title='[B]Comprobar último dominio vigente[/B]',
+                                    desde_el_canal = True, host_canal = url, text_color='chocolate' ))
 
     if domain_memo: title = '[B]Modificar/Eliminar el dominio memorizado[/B]'
     else: title = '[B]Informar Nuevo Dominio manualmente[/B]'
@@ -480,22 +510,32 @@ def acciones(item):
         if username:
             itemlist.append(item.clone( title = '[COLOR chartreuse][B]Iniciar sesión[/B][/COLOR]', action = 'login', start_ses = True ))
 
-            itemlist.append(item.clone( title = '[COLOR springgreen][B]Ver las credenciales[/B][/COLOR]', action = 'show_credenciales' ))
-            itemlist.append(Item( channel='domains', action='del_datos_playdede', title='[B]Eliminar credenciales cuenta[/B]', thumbnail=config.get_thumb('playdede'), text_color='crimson' ))
-        else:
-            itemlist.append(Item( channel='helper', action='show_help_register', title='[B]Información para registrarse[/B]', thumbnail=config.get_thumb('help'), text_color='green' ))
+            itemlist.append(item.clone( channel='submnuctext', action='_credenciales_playdede', title= 'Test [COLOR cyan][B]Login[/B][/COLOR] Credenciales' ))
 
-            itemlist.append(item.clone( title = '[COLOR crimson][B]Credenciales cuenta[/B][/COLOR]', action = 'login' ))
+            itemlist.append(item.clone( title = '[COLOR springgreen][B]Credenciales[/B][/COLOR]', action = 'show_credenciales' ))
+            itemlist.append(item.clone( channel='domains', action='del_datos_playdede', title='[B]Eliminar Credenciales[/B]', text_color='crimson' ))
+        else:
+            itemlist.append(item.clone( channel='helper', action='show_help_register', title='Información para [COLOR violet][B]Registrarse[/B][/COLOR]',                            desde_el_canal = True, channel_id='playdede', text_color='green' ))
+
+            itemlist.append(item.clone( title = '[COLOR crimson][B]Informar Credenciales Cuenta[/B][/COLOR]', action = 'login', thumbnail=config.get_thumb('pencil') ))
 
     if config.get_setting('playdede_login', 'playdede', default=False):
         itemlist.append(item.clone( title = '[COLOR chartreuse][B]Cerrar sesión[/B][/COLOR]', action = 'logout' ))
 
-        itemlist.append(item.clone( title = '[COLOR springgreen][B]Ver las credenciales[/B][/COLOR]', action = 'show_credenciales' ))
-        itemlist.append(Item( channel='domains', action='del_datos_playdede', title='[B]Eliminar credenciales cuenta[/B]', thumbnail=config.get_thumb('playdede'), text_color='crimson' ))
+        itemlist.append(item.clone( channel='submnuctext', action='_credenciales_playdede', title= 'Test [COLOR cyan][B]Login[/B][/COLOR] Credenciales' ))
+
+        itemlist.append(item.clone( title = '[COLOR springgreen][B]Credenciales[/B][/COLOR]', action = 'show_credenciales' ))
+        itemlist.append(item.clone( channel='domains', action='del_datos_playdede', title='[B]Eliminar Credenciales[/B]', text_color='crimson' ))
 
     itemlist.append(item_configurar_proxies(item))
 
-    itemlist.append(Item( channel='helper', action='show_help_playdede', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('playdede') ))
+    itemlist.append(item.clone(channel='helper', action = 'show_help_playdede_media_center', title = '[COLOR aquamarine][B]Aviso[/COLOR] [COLOR violet][B]Ubicación[/B][/COLOR] Media Center',  thumbnail=config.get_thumb('mediacenter') ))
+
+    itemlist.append(item.clone( channel='helper', action='show_help_playdede_bloqueo', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR yellowgreen][B]Bloqueo[/B][/COLOR] Operadoras', thumbnail=config.get_thumb('roadblock') ))
+
+    itemlist.append(item.clone( channel='helper', action='show_help_playdede', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal' ))
+
+    itemlist.append(item.clone( channel='actions', action='show_old_domains', title='[COLOR coral][B]Historial Dominios[/B][/COLOR]', channel_id = 'playdede' ))
 
     platformtools.itemlist_refresh()
 
@@ -512,6 +552,8 @@ def mainlist(item):
     itemlist.append(item.clone( action='acciones', title=titulo, text_color='goldenrod' ))
 
     if config.get_setting('playdede_login', 'playdede', default=False):
+        itemlist.append(item.clone( title = '[COLOR teal][B]Menú usuario[/B][/COLOR]', action = 'mainlist_user', search_type = 'all' ))
+
         itemlist.append(item.clone( title = '[COLOR greenyellow][B]Listas populares[/B][/COLOR]', action = 'list_listas', search_type = 'all' ))
 
         itemlist.append(item.clone( title = 'Buscar ...', action = 'search', search_type = 'all', text_color = 'yellow' ))
@@ -523,8 +565,8 @@ def mainlist(item):
             itemlist.append(item.clone( title = 'Animes', action = 'mainlist_animes', text_color = 'springgreen' ))
 
         itemlist.append(item.clone( title = 'Búsqueda en listas populares:', action = '', folder=False, text_color='greenyellow' ))
-        itemlist.append(item.clone( title = ' - Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all',
-                                    plot = 'Debe indicarse el título de la lista (ó parte del mismo).'))
+        itemlist.append(item.clone( title = ' - Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', search_pop = 'pop',
+                                    plot = 'Indicar el título de la lista (ó parte del mismo).'))
 
     return itemlist
 
@@ -539,11 +581,13 @@ def mainlist_pelis(item):
     itemlist.append(item.clone( action='acciones', title=titulo, text_color='goldenrod' ))
 
     if config.get_setting('playdede_login', 'playdede', default=False):
+        itemlist.append(item.clone( title = '[COLOR teal][B]Menú usuario[/B][/COLOR]', action = 'mainlist_user', search_type = 'all' ))
+
         itemlist.append(item.clone( title = '[COLOR greenyellow][B]Listas populares[/B][/COLOR]', action = 'list_listas', search_type = 'all' ))
 
         itemlist.append(item.clone( title = 'Buscar película ...', action = 'search', search_type = 'movie', text_color = 'deepskyblue' ))
 
-        itemlist.append(item.clone( title = 'Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', text_color = 'greenyellow' ))
+        itemlist.append(item.clone( title = 'Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', search_pop = 'pop', text_color = 'greenyellow' ))
 
         itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'peliculas/', slug = 'peliculas', nro_pagina = 1, search_type = 'movie' ))
 
@@ -552,7 +596,7 @@ def mainlist_pelis(item):
         itemlist.append(item.clone( title = 'Novedades', action = 'list_all', url = host + 'peliculas?orderBy=last_update', slug = 'peliculas',
                                     nro_pagina = 1, order = '?orderBy=last_update', search_type = 'movie' ))
 
-        itemlist.append(item.clone( title = 'En cartelera', action = 'list_all', url = host + 'peliculas?orderBy=now_playing', slug = 'peliculas',
+        itemlist.append(item.clone( title = 'Cartelera', action = 'list_all', url = host + 'peliculas?orderBy=now_playing', slug = 'peliculas',
                                     nro_pagina = 1, order = '?orderBy=now_playing', search_type = 'movie', text_color = 'moccasin' ))
 
         itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'peliculas?orderBy=popular', slug = 'peliculas',
@@ -581,15 +625,17 @@ def mainlist_series(item):
     itemlist.append(item.clone( action='acciones', title=titulo, text_color='goldenrod' ))
 
     if config.get_setting('playdede_login', 'playdede', default=False):
+        itemlist.append(item.clone( title = '[COLOR teal][B]Menú usuario[/B][/COLOR]', action = 'mainlist_user', search_type = 'all' ))
+
         itemlist.append(item.clone( title = '[COLOR greenyellow][B]Listas populares[/B][/COLOR]', action = 'list_listas', search_type = 'all' ))
 
         itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
-        itemlist.append(item.clone( title = 'Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', text_color = 'greenyellow' ))
+        itemlist.append(item.clone( title = 'Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', search_pop = 'pop', text_color = 'greenyellow' ))
 
         itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'series/', slug = 'series', nro_pagina = 1, search_type = 'tvshow' ))
 
-        itemlist.append(item.clone( title = 'Nuevos episodios', action = 'list_last', url = host, _type = 'episodes', nro_pagina = 1, search_type = 'tvshow', text_color = 'cyan' ))
+        itemlist.append(item.clone( title = 'Últimos episodios', action = 'list_last', url = host, _type = 'episodes', nro_pagina = 1, search_type = 'tvshow', text_color = 'cyan' ))
 
         itemlist.append(item.clone( title = 'Últimas', action = 'list_last', url = host, _type = 'series', nro_pagina = 1, search_type = 'tvshow', text_color = 'yellowgreen' ))
 
@@ -630,11 +676,13 @@ def mainlist_animes(item):
     itemlist.append(item.clone( action='acciones', title=titulo, text_color='goldenrod' ))
 
     if config.get_setting('playdede_login', 'playdede', default=False):
+        itemlist.append(item.clone( title = '[COLOR teal][B]Menú usuario[/B][/COLOR]', action = 'mainlist_user', search_type = 'all' ))
+
         itemlist.append(item.clone( title = '[COLOR greenyellow][B]Listas populares[/B][/COLOR]', action = 'list_listas', search_type = 'all' ))
 
         itemlist.append(item.clone( title = 'Buscar anime ...', action = 'search', search_type = 'tvshow', text_color = 'springgreen' ))
 
-        itemlist.append(item.clone( title = 'Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', text_color = 'greenyellow' ))
+        itemlist.append(item.clone( title = 'Buscar lista ...', action = 'search', target_action = 'top', search_type = 'all', search_pop = 'pop', text_color = 'greenyellow' ))
 
         itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'animes/', slug = 'animes', nro_pagina = 1, search_type = 'tvshow' ))
 
@@ -655,6 +703,15 @@ def mainlist_animes(item):
         itemlist.append(item.clone( title = 'Por idioma', action = 'idiomas', group = 'anime', slug = 'animes', nro_pagina = 1, search_type = 'tvshow' ))
         itemlist.append(item.clone( title = 'Por calidad', action = 'calidades', group = 'anime', slug = 'animes', nro_pagina = 1, search_type = 'tvshow' ))
         itemlist.append(item.clone( title = 'Por país', action = 'paises', group = 'anime', slug = 'animes', nro_pagina = 1, search_type = 'tvshow' ))
+
+    return itemlist
+
+
+def mainlist_user(item):
+    logger.info()
+    itemlist = []
+
+    itemlist.append(item.clone( title = '[COLOR green][B]Información [COLOR teal][B]Menú Usuario[/B][/COLOR]', action = 'show_help_usuario' ))
 
     return itemlist
 
@@ -691,45 +748,20 @@ def plataformas(item):
 
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    matches = re.compile('data-network="(.*?)".*?<img src="(.*?)"').findall(data)
+    bloque = scrapertools.find_single_match(data, 'const networkDict(.*?)let dropdownSorting')
 
-    for id_network, thumb in matches:
-        title = scrapertools.find_single_match(thumb, '/network/(.*?).png')
+    bloque = bloque.replace(';', ',')
+
+    matches = re.compile('"(.*?)":(.*?),').findall(str(bloque))
+
+    for title, id_network in matches:
+        title = clean_title(title, '').strip()
+
         title = title.capitalize()
 
-        itemlist.append(item.clone(title = title, action = 'list_plataforma', thumbnail = thumb, url = url, id_network = id_network, slug = item.slug, text_color = text_color ))
+        itemlist.append(item.clone(title=title, action = 'list_network', url=url, id_network=id_network, slug=item.slug, text_color=text_color ))
 
     return sorted(itemlist, key=(lambda x: x.title))
-
-
-def list_plataforma(item):
-    logger.info()
-    itemlist = []
-
-    if item.slug == 'animes': text_color = 'springgreen'
-    else: text_color = 'hotpink'
-
-    data = do_downloadpage(item.url)
-    data = re.sub('\\n|\\r|\\t|\\s{2}|&nbsp;', '', data)
-
-    matches = re.compile('<a href="([^"]+)"><i class[^<]+</i>([^<]+)').findall(data)
-
-    for url, title in matches:
-        title = title.capitalize()
-
-        url = url.replace('?orderBy=last_update', '?network=' + item.id_network + '&orderBy=last_update')
-        url = url.replace('?orderBy=airing_today', '?network=' + item.id_network + '&orderBy=airing_today')
-        url = url.replace('?orderBy=popular', '?network=' + item.id_network + '&orderBy=popular')
-        url = url.replace('?orderBy=score', '?network=' + item.id_network + '&orderBy=score')
-
-        if '=score' in url: order = 'score'
-        elif '=popular' in url: order = 'popular'
-        elif '=airing_today' in url: order = 'airing_today'
-        else: order = 'last_update'
-
-        itemlist.append(item.clone(title = title, action = 'list_network', url = url, order = order, slug = item.slug, text_color = text_color ))
-
-    return itemlist
 
 
 def generos(item):
@@ -767,24 +799,22 @@ def generos(item):
 
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    matches = re.compile('<li class="cfilter.*?data-type="genre".*?data-value="(.*?)">.*?<b>(.*?)</b>').findall(data)
+    bloque = scrapertools.find_single_match(data, 'const genreDict(.*?)const years')
 
-    for genre, title in matches:
+    matches = re.compile("'(.*?)':(.*?),").findall(str(bloque))
+
+    for title, genre in matches:
         if item.group == 'anime':
             if title == 'Documental': continue
 
         if config.get_setting('descartar_anime', default=False):
             if title == 'Anime': continue
 
+        genre = genre.strip()
+
         genre = '?genre=' + genre
 
-        itemlist.append(item.clone( title = title, action = 'list_all', genre = genre, text_color = text_color ))
-
-    if itemlist:
-        if item.search_type == 'movie':
-            itemlist.append(item.clone( title = 'Aventura', action = 'list_all', genre = '?genre=aventura', text_color = text_color ))
-            itemlist.append(item.clone( title = 'Fantasía', action = 'list_all', genre = '?genre=fantasia', text_color = text_color ))
-            itemlist.append(item.clone( title = 'Historia', action = 'list_all', genre = '?genre=historia', text_color = text_color ))
+        itemlist.append(item.clone( title=title, action = 'list_all', genre=genre, text_color=text_color ))
 
     return sorted(itemlist,key=lambda x: x.title)
 
@@ -798,6 +828,13 @@ def anios(item):
        if item.search_type == 'movie': text_color = 'deepskyblue'
        else: text_color = 'hotpink'
 
+    if item.group == 'anime': url_years = host + 'animes/'
+    else:
+        if item.search_type == 'movie': url_years = host + 'peliculas/'
+        else: url_years = host + 'series/'
+
+    url = url_years
+
     if item.search_type == 'movie': tope_year = 1934
     else: tope_year = 1969
 
@@ -807,7 +844,7 @@ def anios(item):
     for x in range(current_year, tope_year, -1):
         year = '?year=' + str(x)
 
-        itemlist.append(item.clone( title = str(x), year = year, action = 'list_all', text_color = text_color ))
+        itemlist.append(item.clone( title=str(x), url=url, year=year, action = 'list_all', text_color=text_color ))
 
     return itemlist
 
@@ -847,15 +884,12 @@ def idiomas(item):
 
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    bloque = scrapertools.find_single_match(data, '<ul class="Alenguajes Ageneros">(.*?)<ul class="Acalidades Ageneros">')
+    bloque = scrapertools.find_single_match(data, 'const languageDict(.*?)const qualityDict')
 
-    matches = re.compile("<li class='cfilter.*?data-type='lang'.*?data-value='(.*?)'>(.*?)</li>").findall(bloque)
-    if not matches: matches = re.compile('<li class="cfilter.*?data-type="lang".*?data-value="(.*?)">(.*?)</li>').findall(bloque)
+    matches = re.compile('"(.*?)":.*?"(.*?)",').findall(str(bloque))
 
-    for idioma, title in matches:
-        url = url_idiomas + '?lang=' + idioma
-
-        itemlist.append(item.clone( title = title, action = 'list_all', url = url, lang = idioma, text_color = text_color ))
+    for title, idioma in matches:
+        itemlist.append(item.clone( title=title, action = 'list_all', url=url, lang=idioma, text_color=text_color ))
 
     return sorted(itemlist,key=lambda x: x.title)
 
@@ -895,15 +929,16 @@ def calidades(item):
 
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    bloque = scrapertools.find_single_match(data, '<ul class="Acalidades Ageneros">(.*?)<select id="countries"')
+    bloque = scrapertools.find_single_match(data, 'const qualityDict(.*?)const networkDict')
 
-    matches = re.compile("<li class='cfilter.*?data-type='qlty'.*?data-value='(.*?)'>(.*?)</li>").findall(bloque)
-    if not matches: matches = re.compile('<li class="cfilter.*?data-type="qlty".*?data-value="(.*?)">(.*?)</li>').findall(bloque)
+    bloque = bloque.replace('};', ',')
+
+    matches = re.compile('"(.*?)":.*?"(.*?)",').findall(str(bloque))
 
     for calidad, title in matches:
-        url = url_calidades + '?qlty=' + calidad
+        title = title.capitalize()
 
-        itemlist.append(item.clone( title = title, action = 'list_all', url = url, qlty = calidad, text_color = text_color ))
+        itemlist.append(item.clone( title=title, action = 'list_all', url=url, qlty=calidad, text_color=text_color ))
 
     return sorted(itemlist,key=lambda x: x.title)
 
@@ -943,19 +978,18 @@ def paises(item):
 
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    bloque = scrapertools.find_single_match(data, '<select id="countries"(.*?)<div class="selDf">')
+    bloque = scrapertools.find_single_match(data, 'const countriesDict(.*?)const genreDict')
 
-    matches = re.compile("<option class='cfilter.*?data-type='country'.*?data-value='(.*?)'.*?>(.*?)</option>").findall(bloque)
-    if not matches: matches = re.compile('<option class="cfilter.*?data-type="country".*?data-value="(.*?)".*?>(.*?)</option>').findall(bloque)
+    bloque = bloque.replace('};', ',')
 
-    for pais, title in matches:
-        if not pais: continue
+    matches = re.compile('"(.*?)":.*?"(.*?)",').findall(str(bloque))
 
-        title = title.replace('á', 'Á').replace('é', 'É').replace('i', 'Í').replace('ó', 'Ó').replace('ú', 'Ú').replace('ñ', 'Ñ')
+    for title, pais in matches:
+        title = clean_title(title, '')
 
-        url = url_paises + '?country=' + pais
+        title = title.replace('á', 'Á').replace('é', 'É').replace('i', 'Í').replace('ó', 'Ó').replace('ú', 'Ú').replace('Í', 'i').replace('ñ', 'Ñ')
 
-        itemlist.append(item.clone( title = title, action = 'list_all', url = url, country = pais, text_color = text_color ))
+        itemlist.append(item.clone( title=title, action = 'list_all', url=url, country=pais, text_color=text_color ))
 
     return itemlist
 
@@ -991,9 +1025,9 @@ def list_all(item):
 
     else: post = item.post
 
-    if item.lang: url = host + 'ajax.php?lang='+ item.lang
-    elif item.qlty: url = host + 'ajax.php?qlty=' + item.qlty
-    elif item.country: url = host + 'ajax.php?country=' + item.country
+    if item.lang: url = host + 'ajax.php/?lang='+ item.lang
+    elif item.qlty: url = host + 'ajax.php/?qlty=' + item.qlty
+    elif item.country: url = host + 'ajax.php/?country=' + item.country
     elif item.order: url = host + 'ajax.php' + item.order
     else: url = host + 'ajax.php' + item.genre + item.year
 
@@ -1036,11 +1070,10 @@ def list_all(item):
         if url.startswith('/'): url = host[:-1] + url
         elif not url.startswith('http'): url = host + url
 
-        if '/extraiptv.' in url: continue
-
         title = clean_title(title, url)
 
         if 'Tu directorio de' in title: continue
+        elif '/extraiptv.' in url: continue
 
         thumb = scrapertools.find_single_match(match, '<img src="(.*?)"')
 
@@ -1113,6 +1146,9 @@ def list_last(item):
                     login(item)
                     data = do_downloadpage(url)
 
+                    if data:
+                        data = do_downloadpage(url, post=post)
+
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
     data = data.replace('\\/', '/')
@@ -1136,11 +1172,10 @@ def list_last(item):
         if url.startswith('/'): url = host[:-1] + url
         elif not url.startswith('http'): url = host + url
 
-        if '/extraiptv.' in url: continue
-
         title = clean_title(title, url)
 
         if 'Tu directorio de' in title: continue
+        elif '/extraiptv.' in url: continue
 
         thumb = scrapertools.find_single_match(match, '<img src="(.*?)"')
 
@@ -1231,7 +1266,10 @@ def list_last(item):
 
             titulo = titulo.replace('  ', ' ')
 
-            if not 'x' in titulo: titulo = titulo + ' ' + str(season) + 'x' + str(epis)
+            if len(epis) == 2:
+                if epis.startswith("0"): epis = epis.replace('0', '')
+
+            titulo = str(season) + 'x' + str(epis) + ' ' + titulo.replace(str(season) + 'x' + str(epis), '')
 
             SerieName = SerieName.replace('  ', ' ')
 
@@ -1311,11 +1349,13 @@ def list_network(item):
     if not item.page: item.page = 0
 
     if not item.post:
-        post = {'_method': 'items', 'page': item.nro_pagina, 'networks': item.id_network, 'ajaxName': 'main', 'slug': item.slug, 'orderBy=': item.order}
+        post = {'_method': 'items', 'page': item.nro_pagina, 'network': item.id_network, 'ajaxName': 'main', 'slug': item.slug, 'orderBy=': item.order}
     else:
         post = item.post
 
     url_post = item.url.replace('/series', '/ajax.php')
+
+    url_post = url_post + '?network=' + item.id_network
 
     data = do_downloadpage(url_post, post=post, referer=item.url)
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
@@ -1334,12 +1374,13 @@ def list_network(item):
 
         if not url or not title: continue
 
-        if 'Tu directorio de' in title: continue
-
         if url.startswith('/'): url = host[:-1] + url
         elif not url.startswith('http'): url = host + url
 
         title = clean_title(title, url)
+
+        if 'Tu directorio de' in title: continue
+        elif '/extraiptv.' in url: continue
 
         thumb = scrapertools.find_single_match(match, '<img src="(.*?)"')
 
@@ -1367,7 +1408,7 @@ def list_network(item):
         if buscar_next:
             item.nro_pagina = item.nro_pagina + 1
 
-            post = {'_method': 'items', 'page': item.nro_pagina, 'networks': item.id_network, 'ajaxName': 'main', 'slug': item.slug, 'orderBy=': item.order}
+            post = {'_method': 'items', 'page': item.nro_pagina, 'network': item.id_network, 'ajaxName': 'main', 'slug': item.slug, 'orderBy=': item.order}
 
             itemlist.append(item.clone( title = 'Siguientes ...', action = 'list_network', url = item.url, nro_pagina = item.nro_pagina, post = post, page = 0, text_color = 'coral' ))
 
@@ -1379,6 +1420,23 @@ def temporadas(item):
     itemlist = []
 
     data = do_downloadpage(item.url)
+
+    url = item.url
+
+    # ~ si se perdio la sesion (utoken)
+    if data:
+        if datos_ko in str(data):
+            logout(item)
+            login(item)
+            data = do_downloadpage(url)
+
+            if data:
+                username = config.get_setting('playdede_username', 'playdede', default='')
+
+                if not username in data:
+                    logout(item)
+                    login(item)
+                    data = do_downloadpage(url)
 
     matches = re.compile('<div class="clickSeason.*?data-season="(.*?)"', re.DOTALL).findall(data)
     if not matches: matches = re.compile("<div class='clickSeason.*?data-season='(.*?)'", re.DOTALL).findall(data)
@@ -1415,6 +1473,22 @@ def episodios(item):
     data = do_downloadpage(item.url)
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
+    url = item.url
+
+    if data:
+        if datos_ko in str(data):
+            logout(item)
+            login(item)
+            data = do_downloadpage(url)
+
+            if data:
+                username = config.get_setting('playdede_username', 'playdede', default='')
+
+                if not username in data:
+                    logout(item)
+                    login(item)
+                    data = do_downloadpage(url)
+
     bloque = scrapertools.find_single_match(data, '<div class="se-c".*?data-season="%d"(.*?)<\/div><\/div>' % (item.contentSeason))
     if not bloque: bloque = scrapertools.find_single_match(data, "<div class='se-c'.*?data-season='%d'(.*?)<\/div><\/div>" % (item.contentSeason))
 
@@ -1432,7 +1506,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('PlayDede', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('PlayDede', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -1512,14 +1589,12 @@ def findvideos(item):
 
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
+    ses = 0
+
     # ~ Reproductor
     matches = re.compile('<div class="playerItem(.*?)</div></div>', re.DOTALL).findall(data)
 
-    ses = 0
-
     for match in matches:
-        ses += 1
-
         sid = scrapertools.find_single_match(match, 'data-loadPlayer="(.*?)"')
         if not sid: sid = scrapertools.find_single_match(match, "data-loadplayer='(.*?)'")
 
@@ -1527,9 +1602,12 @@ def findvideos(item):
 
         if not server or not sid: continue
 
+        if server == 'alternativo': continue
+
+        ses += 1
+
         if server == 'powvideo': continue
         elif server == 'streamplay': continue
-        elif server == 'alternativo': continue
 
         lang = scrapertools.find_single_match(match, 'data-lang="(.*?)"')
 
@@ -1548,16 +1626,22 @@ def findvideos(item):
         elif server == 'hexupload': other = 'Hexupload'
         elif server == 'userload': other = 'Userload'
         elif server == 'streamruby': other = 'Streamruby'
+        elif server == 'streamsilk': other = 'Streamsilk'
 
         elif server == 'luluvideo':
               server = 'various'
               other = 'Lulustream'
 
+        elif 'bigwarp' in server or 'bgwp' in server:
+              server = 'zures'
+              other = 'Bigwarp'
+
         else: other = ''
 
         server = servertools.corregir_servidor(server)
 
-        itemlist.append(Item( channel = item.channel, action = 'play', server = server, title = '', id = sid, language = lang, quality = qlty, other = other ))
+        itemlist.append(Item( channel = item.channel, action = 'play', server = server, title = '', id = sid,
+                              language = lang, quality = qlty, other = other.capitalize() ))
 
     # ~ Enlaces
     bloque = scrapertools.find_single_match(data, '<div class="linkSorter">(.*?)<div class="contEP contepID_3">')
@@ -1565,15 +1649,16 @@ def findvideos(item):
     matches = re.compile('data-quality="(.*?)".*?data-lang="(.*?)".*?href="(.*?)".*?<span>.*?">(.*?)</b>', re.DOTALL).findall(bloque)
 
     for qlty, lang, url, server in matches:
-        ses += 1
-
         if not url or not server: continue
+
+        if server == 'alternativo': continue
+
+        ses += 1
 
         server = server.lower().strip()
 
         if server == 'powvideo': continue
         elif server == 'streamplay': continue
-        elif server == 'alternativo': continue
 
         if lang.lower() == 'espsub': lang = 'Vose'
 
@@ -1588,16 +1673,26 @@ def findvideos(item):
         elif server == 'hexupload': other = 'Hexupload'
         elif server == 'userload': other = 'Userload'
         elif server == 'streamruby': other = 'Streamruby'
+        elif server == 'streamsilk': other = 'Streamsilk'
 
         elif server == 'luluvideo':
               server = 'various'
               other = 'Lulustream'
 
+        elif 'bigwarp' in server or 'bgwp' in server:
+              server = 'zures'
+              other = 'Bigwarp'
+
         else: other = 'E'
 
         server = servertools.corregir_servidor(server)
 
-        itemlist.append(Item( channel = item.channel, action = 'play', server = server, title = '', url = url, language = lang, quality = qlty, other = other ))
+        if not server == 'directo':
+            if server == 'various': other = servertools.corregir_other(url)
+            elif server == 'zures': other = servertools.corregir_zures(url)
+
+        itemlist.append(Item( channel = item.channel, action = 'play', server = server, title = '', url = url,
+                              language = lang, quality = qlty, other = other.capitalize() ))
 
     # ~ Descargas
     bloque = scrapertools.find_single_match(data, '<div class="contEP contepID_3">(.*?)$')
@@ -1605,13 +1700,14 @@ def findvideos(item):
     matches = re.compile('data-quality="(.*?)".*?data-lang="(.*?)".*?href="(.*?)".*?<span>.*?">(.*?)</b>', re.DOTALL).findall(bloque)
 
     for qlty, lang, url, server in matches:
-        ses += 1
-
         if not url or not server: continue
 
-        server = server.lower().strip()
-
         if '>recomendado<' in server: continue
+        elif server == 'alternativo': continue
+
+        ses += 1
+
+        server = server.lower().strip()
 
         if '/ul.' in url: continue
         elif '/1fichier.' in url: continue
@@ -1635,9 +1731,11 @@ def findvideos(item):
         other = 'D'
 
         if not server == 'directo':
-            if server == 'various': other = servertools.corregir_other(server)
+            if server == 'various': other = servertools.corregir_other(url)
+            elif server == 'zures': other = servertools.corregir_zures(url)
 
-        itemlist.append(Item( channel = item.channel, action = 'play', server = server, title = '', url = url, language = lang, quality = qlty, other = other ))
+        itemlist.append(Item( channel = item.channel, action = 'play', server = server, title = '', url = url,
+                              language = lang, quality = qlty, other = other.capitalize() ))
 
     if not itemlist:
         if not ses == 0:
@@ -1682,7 +1780,9 @@ def play(item):
 
         if servidor == 'directo':
             new_server = servertools.corregir_other(url_play).lower()
-            if not new_server.startswith("http"): servidor = new_server
+            if new_server.startswith("http"):
+                if not config.get_setting('developer_mode', default=False): return itemlist
+            servidor = new_server
 
         itemlist.append(item.clone(url = url_play, server = servidor))
 
@@ -1739,6 +1839,11 @@ def list_search(item):
             else:
                 if '/pelicula/' in url: continue
 
+        title = clean_title(title, url)
+
+        if 'Tu directorio de' in title: continue
+        elif '/extraiptv.' in url: continue
+
         thumb = scrapertools.find_single_match(match, '<img src="(.*?)"')
 
         year = scrapertools.find_single_match(match, '<p>.*?, (\d+)</p>')
@@ -1793,32 +1898,124 @@ def clean_title(title, url):
     title = title.replace('\\u00f1', 'ñ').replace('\\u00bf', '¿').replace('\\u00a1', '¡').replace('\\u00ba', 'º')
     title = title.replace('\\u00eda', 'a').replace('\\u00f3n', 'o').replace('\\u00fal', 'u').replace('\\u00e0', 'a')
 
+    title = title.replace('\\u2019', "'")
+
+    title = title.replace('\\u00c0', "A").replace('\\u010c0', "C").replace('\\u00c5l', "Islas Al")
+
     if '\\u' in title:
-        data = do_downloadpage(url)
-        data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
+        if url:
+            data = do_downloadpage(url)
+            data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-        titulo = scrapertools.find_single_match(data, "<h1>(.*?)</h1>")
-        if not titulo: titulo = scrapertools.find_single_match(data, "<title>(.*?)</title>")
+            titulo = scrapertools.find_single_match(data, "<h1>(.*?)</h1>")
+            if not titulo: titulo = scrapertools.find_single_match(data, "<title>(.*?)</title>")
 
-        titulo = titulo.replace('Ver película:', '').replace('Ver serie:', '').replace('Ver anime:', '').strip()
+            titulo = titulo.replace('Ver película:', '').replace('Ver serie:', '').replace('Ver anime:', '').strip()
 
-        if titulo: title = titulo
+            if titulo: title = titulo
 
     return title
+
+
+def show_current_domain(item):
+    logger.info()
+
+    current_domain = ''
+
+    try:
+        data = httptools.downloadpage('https://entrarplaydede.com/').data
+
+        current_domain = scrapertools.find_single_match(data, '>Dirección actual:.*?<a href="(.*?)"')
+        if not current_domain: current_domain = scrapertools.find_single_match(data, '>Dirección actual:.*?">(.*?)</a>').strip()
+
+        if current_domain:
+            current_domain = current_domain.lower()
+
+            if not 'playdede' in current_domain: current_domain = ''
+
+        if current_domain:
+            if not 'https' in current_domain: current_domain  = 'https://' + current_domain
+            if not current_domain.endswith('/'): current_domain = current_domain + '/'
+    except:
+        pass
+
+    if not current_domain:
+        platformtools.dialog_notification(config.__addon_name + ' - PlayDede', '[B][COLOR red]No se pudo comprobar[/B][/COLOR]')
+        return
+
+    domain = config.get_setting('dominio', 'playdede', default='')
+    if not domain: domain = host
+
+    if domain == current_domain:
+        platformtools.dialog_ok(config.__addon_name + ' - PlayDede', '[COLOR gold][B]El dominio/host del canal es correcto.[/B]', '[COLOR cyan][B]' + current_domain + '[/B][/COLOR]')
+        return
+
+    procesar = True
+    if domain == host: procesar = False
+
+    if platformtools.dialog_yesno(config.__addon_name + ' - Nuevo Dominio PlayDede', '¿ [COLOR red][B]Nuevo Dominio[/B][/COLOR], Desea cambiarlo ?', 'Memorizado:  [COLOR yellow][B]' + domain + '[/B][/COLOR]', 'Actual..........:  [COLOR cyan][B]' + current_domain + '[/B][/COLOR]'):
+        if procesar:
+            logout(item)
+
+        config.set_setting('dominio', current_domain, 'playdede')
+
+        if procesar:
+            login(item)
+
+        platformtools.dialog_ok(config.__addon_name + ' - Playdede', '[COLOR yellow][B]Dominio Actual Memorizado, pero aún NO guardado.[/B][/COLOR]', 'Por favor,  [COLOR cyan][B]Retroceda Menús[/B][/COLOR] y acceda de Nuevo al Canal.')
+
+
+def show_help_usuario(item):
+    logger.info()
+
+    preferidos = False
+    if not config.get_setting('mnu_simple', default=False):
+        if config.get_setting('mnu_preferidos', default=True):
+            preferidos = True
+
+    txt = '[COLOR red][B]Restricciones:[/B][/COLOR][CR]'
+    txt += ' - [COLOR yellow][B]No se Gestionan las Referencias que tenga Asignadas en la Web, en sus Opciones de Usuario.[/B][/COLOR][CR]'
+    txt += '   Respecto al Seguimiento de [COLOR deepskyblue][B]Películas[/B][/COLOR], [COLOR hotpink][B]Series[/B][/COLOR], [COLOR springgreen][B]Animes[/B][/COLOR] y [COLOR greenyellow][B]Listas[/B][/COLOR][CR]'
+
+    txt += '[CR][COLOR cyan][B]Recomendación:[/B][/COLOR][CR]'
+
+    txt += '   Si lo que desea es hacer un Seguimiento Completo de sus Listas,[CR]'
+
+    txt += '   le sugerimos asigne cada Referencia a la opción [COLOR wheat][B]Preferidos[/B][/COLOR][CR]'
+
+    if not preferidos:
+        txt += '[CR][COLOR yellowgreen][B]Aviso:[/B][/COLOR][CR]'
+
+        txt += '   No tiene Activada la Opción [COLOR wheat][B]Preferidos[/B][/COLOR] en sus [COLOR chocolate][B]Ajustes[/B][/COLOR] preferencias (categoría [COLOR tan][B]Menú[/B][/COLOR])'
+
+    platformtools.dialog_textviewer('Información Menú Usuario', txt)
 
 
 def show_credenciales(item):
     logger.info()
 
+    domain = config.get_setting('dominio', 'playdede', default='')
+
+    if not domain: domain = host
+
+    if config.get_setting('playdede_login', 'playdede', default=False):
+       domain += '[I][COLOR teal] (sesion)[/I][/COLOR]'
+    else:
+       domain += '[I][COLOR teal] (login)[/I][/COLOR]'
+
     username = config.get_setting('playdede_username', 'playdede', default='')
     password = config.get_setting('playdede_password', 'playdede', default='')
 
-    platformtools.dialog_ok(config.__addon_name + ' PlayDede - Credenciales', 'User..:  [COLOR yellow][B]' + username, '[/B][/COLOR]Pass.:  [COLOR yellow][B]' + password + '[/B][/COLOR]')
+    platformtools.dialog_ok(config.__addon_name + ' PlayDede - Credenciales', 'Domain.:  [COLOR cyan][B]' + domain + '[/B][/COLOR]', 'User......:  [COLOR yellow][B]' + username, '[/B][/COLOR]Pass.....:  [COLOR yellow][B]' + password + '[/B][/COLOR]')
 
 
 def search(item, texto):
     logger.info()
+
     try:
+        if item.search_type == 'all':
+            if item.search_pop: config.set_setting('search_last_list', texto)
+
         if item.target_action == 'top':
             item.url = host + 'listas?q=' + texto.replace(" ", "+")
             return list_listas(item)

@@ -23,22 +23,23 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'newest/'))
 
-    itemlist.append(item.clone( title = 'En castellano', action = 'list_all', url = host + 'inyourlanguage/es/', text_color = 'pink' ))
+    itemlist.append(item.clone( title = 'En castellano', action = 'list_all', url = host + 'inyourlanguage/es/', text_color = 'moccasin' ))
 
-    itemlist.append(item.clone( title = 'Tendencias', action = 'list_all', url = host + 'hot/' ))
-
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'mostviewed/' ))
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'mostviewed/' ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'top/' ))
+
+    itemlist.append(item.clone( title = 'Más candentes', action = 'list_all', url = host + 'hot/' ))
 
     itemlist.append(item.clone( title = 'En HD', action = 'list_all', url = host + 'redtube/hd/', text_color = 'tan' ))
 
@@ -137,15 +138,15 @@ def list_all(item):
     data = do_downloadpage(item.url)
     data = re.sub(r'\n|\r|\t|&nbsp;|<br>', '', data)
 
-    data = scrapertools.find_single_match(data,'<em class="premium_tab_icon rt_icon rt_Menu_Star">(.*?)<div class="footer">')
-    data = re.sub(r'\n|\r|\t|&nbsp;|<br>', '', data)
+    bloque = scrapertools.find_single_match(data,'<em class="premium_tab_icon rt_icon rt_Menu_Star">(.*?)<div class="footer">')
+    bloque = re.sub(r'\n|\r|\t|&nbsp;|<br>', '', bloque)
 
     patron = '<div class="video_block_wrapper js_mediaBookBounds ">.*?'
-    patron += 'data-o_thumb="([^"]+)".*?'
-    patron += '<span class="duration">(.*?)</a>.*?'
-    patron += '<a title="([^"]+)".*?href="(/\d+)"'
+    patron += 'data-o_thumb="(.*?)".*?'
+    patron += '<div class="duration">(.*?)</a>.*?'
+    patron += '<a title="(.*?)".*?href="(.*?)"'
 
-    matches = re.compile(patron,re.DOTALL).findall(data)
+    matches = re.compile(patron,re.DOTALL).findall(bloque)
 
     for thumb, duration, title, url in matches:
         url = host[:-1] + url
@@ -174,7 +175,12 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
-    url = item.url
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     videos = get_video_url(item.url)
 
@@ -203,20 +209,23 @@ def get_video_url(page_url):
 
     data = resp.data
 
-    url = scrapertools.find_single_match(data,'"format":"mp4","videoUrl":"([^"]+)"')
+    url = scrapertools.find_single_match(data,'"format":"mp4",.*?"videoUrl":"([^"]+)"')
 
-    url = url.replace("\\", "")
+    url = url.replace('\\/','/')
+
+    url = url.replace('\\', '')
 
     if url.startswith('/'): url = host[:-1] + url
 
-    data = httptools.downloadpage(url).data
+    if url:
+        data = httptools.downloadpage(url).data
 
-    matches = scrapertools.find_multiple_matches(data, '"defaultQuality":.*?,"quality":"([^"]+)","videoUrl"\:"([^"]+)"')
+        matches = scrapertools.find_multiple_matches(data, '"defaultQuality":.*?,"quality":"([^"]+)","videoUrl"\:"([^"]+)"')
 
-    for qlty, url in matches:
-        url =  url.replace('\\/', '/')
+        for qlty, url in matches:
+            url =  url.replace('\\/', '/')
 
-        video_urls.append([qlty, url])
+            video_urls.append([qlty, url])
  
     return video_urls
 
@@ -224,6 +233,8 @@ def get_video_url(page_url):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + '?search=%s' % (texto.replace(" ", "+"))
         return list_all(item)
     except:

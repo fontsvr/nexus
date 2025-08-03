@@ -7,12 +7,12 @@ from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb
 
 
-host = 'https://w-ww.pelistv.top/'
+host = 'https://wc5n.gnularetro.lat/'
 
 
 # ~ por si viene de enlaces guardados
 ant_hosts = ['https://www.pelispedia.ws/', 'https://ww7.pelispedia.ws/', 'https://www.gnula4.cc/',
-             'https://www.pelistv.top/']
+             'https://www.pelistv.top/', 'https://w-ww.pelistv.top/', 'https://www.gnularetro.lat/']
 
 
 domain = config.get_setting('dominio', 'pelispediaws', default='')
@@ -56,6 +56,8 @@ def acciones(item):
 
     itemlist.append(item.clone( channel='domains', action='manto_domain_pelispediaws', title=title, desde_el_canal = True, folder=False, text_color='darkorange' ))
 
+    itemlist.append(Item( channel='actions', action='show_old_domains', title='[COLOR coral][B]Historial Dominios[/B][/COLOR]', channel_id = 'pelispediaws', thumbnail=config.get_thumb('pelispediaws') ))
+
     platformtools.itemlist_refresh()
 
     return itemlist
@@ -74,8 +76,6 @@ def mainlist_pelis(item):
     itemlist.append(item.clone( title = 'Buscar película ...', action = 'search', search_type = 'movie', text_color = 'deepskyblue' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'ver-pelicula/', search_type = 'movie' ))
-
-    itemlist.append(item.clone( title = 'Estrenos', action = 'list_all', url = host + 'peliculas/estrenos/', search_type = 'movie', text_color = 'cyan' ))
 
     itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'movie' ))
     itemlist.append(item.clone( title = 'Por año', action = 'anios', search_type = 'movie' ))
@@ -146,7 +146,7 @@ def list_all(item):
 
             if lang == 'Español' or lang == 'es': lng = 'Esp'
             if lang == 'Latino' or lang == 'mx': lng = 'Lat'
-            if lang == 'Subtitulado': lng = 'Vose'
+            if lang == 'Subtitulado' or lang == 'jp': lng = 'Vose'
             if lang == 'Ingles' or lang == 'en': lng = 'Voi'
 
             if lng:
@@ -212,6 +212,8 @@ def findvideos(item):
 
         if 'trailer' in servidor: continue
 
+        servidor = servertools.corregir_servidor(servidor)
+ 
         if servertools.is_server_available(servidor):
             if not servertools.is_server_enabled(servidor): continue
         else:
@@ -263,7 +265,9 @@ def play(item):
 
         if servidor == 'directo':
             new_server = servertools.corregir_other(url).lower()
-            if not new_server.startswith("http"): servidor = new_server
+            if new_server.startswith("http"):
+                if not config.get_setting('developer_mode', default=False): return itemlist
+            servidor = new_server
 
         itemlist.append(item.clone( url = url, server = servidor ))
 

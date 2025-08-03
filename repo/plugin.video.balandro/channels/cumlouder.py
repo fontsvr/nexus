@@ -18,13 +18,14 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color='orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color='orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all' ))
 
@@ -58,7 +59,7 @@ def repertorios(item):
         itemlist.append(item.clone( action = 'list_all', url = url, thumbnail = thumb, title = title, page = 1, text_color = 'pink' ))
 
     if itemlist:
-        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination" itemprop="name" href="(.*?)"')
+        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination".*?itemprop="name".*?href="(.*?)"')
 
         if next_url:
             next_url = host + next_url
@@ -92,7 +93,7 @@ def canales(item):
         itemlist.append(item.clone( action = 'list_all', url = url, title = title, thumbnail = thumb, page = 1, text_color = 'violet' ))
 
     if itemlist:
-        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination" itemprop="name" href="(.*?)"')
+        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination".*?temprop="name".*?href="(.*?)"')
 
         if next_url:
             next_url = host + next_url
@@ -125,7 +126,7 @@ def categorias(item):
         itemlist.append(item.clone( action = 'list_all', url = url, title = title, thumbnail = thumb, page = 1, text_color='moccasin' ))
 
     if itemlist:
-        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination" itemprop="name" href="(.*?)"')
+        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination".*?itemprop="name".*?href="(.*?)"')
 
         if next_url:
             next_url = host + next_url
@@ -157,7 +158,7 @@ def pornstars(item):
         itemlist.append(item.clone( action = 'list_all', url = url, thumbnail = thumb, title = title, page = 1, text_color='orange' ))
 
     if itemlist:
-        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination" itemprop="name" href="(.*?)"')
+        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination".*?itemprop="name".*?href="(.*?)"')
 
         if next_url:
             next_url = host + next_url
@@ -198,7 +199,7 @@ def list_all(item):
                                     contentType = 'movie', contentTitle = title, contentExtra='adults' ))
 
     if itemlist:
-        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination" itemprop="name" href="(.*?)"')
+        next_url = scrapertools.find_single_match(data, '<a class="btn-pagination".*?itemprop="name".*?href="(.*?)"')
 
         if next_url:
             next_url = host + next_url
@@ -211,6 +212,13 @@ def list_all(item):
 def findvideos(item):
     logger.info()
     itemlist = []
+
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     data = httptools.downloadpage(item.url).data
 
@@ -230,7 +238,9 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
-        item.url =  host + "/search?q=%s" % (texto.replace(" ", "%20"))
+        config.set_setting('search_last_video', texto)
+
+        item.url =  host + "/es/buscar/?q=%s" % (texto.replace(" ", "+"))
         item.page = 1
         return list_all(item)
     except:

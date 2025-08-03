@@ -40,19 +40,23 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host  + 'videos/recent' ))
 
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host  + 'videos/viewed' ))
     itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host  + 'videos/popular' ))
-    itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host  + 'videos/commented' ))
+    itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host  + 'videos/viewed' ))
+
+    itemlist.append(item.clone( title = 'Favoritos', action = 'list_all', url = host  + 'videos/favorited', text_color = 'pink' ))
+
+    itemlist.append(item.clone( title = 'Comentados', action = 'list_all', url = host  + 'videos/commented', text_color = 'tan' ))
 
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias', url = host ))
 
@@ -127,6 +131,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = do_downloadpage(item.url)
 
     if PY3 and isinstance(data, bytes): data = data.decode('utf-8')
@@ -144,6 +155,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'search/videos?term=%s&size=0&range=0&sort=date' % (texto.replace(" ", "+"))
         return list_all(item)
     except:

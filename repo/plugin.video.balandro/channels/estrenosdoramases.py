@@ -29,7 +29,7 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'temporadas/', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Últimos capítulos', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
+    itemlist.append(item.clone( title = 'Últimos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
 
     itemlist.append(item.clone( title = 'Por género', action = 'generos',  search_type = 'tvshow' ))
 
@@ -90,8 +90,7 @@ def list_all(item):
         thumb = scrapertools.find_single_match(match, 'src="(.*?)"')
 
         year = scrapertools.find_single_match(title, '(\d{4})')
-        if not year: year = '-'
-        else: title = title.replace('(' + year + ')', '').strip()
+        title = title.replace('(' + year + ')', '').strip()
 
         SerieName = title
 
@@ -143,8 +142,7 @@ def last_epis(item):
         title = title.replace('&#8217;', '').replace('&#8220;', '').replace('&#8221;', '').replace('&amp;', '').replace('amp;', '').replace('quot;', '').strip()
 
         year = scrapertools.find_single_match(title, '(\d{4})')
-        if not year: year = '-'
-        else: title = title.replace('(' + year + ')', '').strip()
+        title = title.replace('(' + year + ')', '').strip()
 
         season = 1
 
@@ -153,10 +151,16 @@ def last_epis(item):
         epis = epis.replace('Capitulo', '').strip()
         if not epis: epis = 1
 
+        title = title.replace('Season', '[COLOR tan]Temp.[/COLOR]').replace('season', '[COLOR tan]Temp.[/COLOR]')
+
         titulo = str(season) + 'x' + str(epis) + ' ' + title
 
-        itemlist.append(item.clone( action='findvideos', url=url, title=titulo,
-                                    contentType = 'episode', contentSerieName = title, contentSeason = season, contentEpisodeNumber = epis, infoLabels={'year': '-'} ))
+        if '-capitulo-' in url:
+            itemlist.append(item.clone( action='findvideos', url=url, title=titulo,
+                                        contentType='episode', contentSerieName=title, contentSeason=season, contentEpisodeNumber=epis, infoLabels={'year': '-'} ))
+        else:
+            itemlist.append(item.clone( action='episodios', url=url, title=titulo,
+                                        contentSerieName=title, contentType='tvshow', contentSeason=season, infoLabels={'year': '-'} ))
 
     tmdb.set_infoLabels(itemlist)
 
@@ -185,7 +189,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('EstrenosDoramasEs', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('EstrenosDoramasEs', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -220,7 +227,14 @@ def episodios(item):
                 else: item.perpage = 50
 
     title_ser = item.contentSerieName.replace("’s", 's').replace("'t", 't').replace(':', '').replace("'t", 't').replace(' ', '-').lower()
+
     title_ser = title_ser.replace('&#8217;', '').replace('&#8220;', '').replace('&#8221;', '').replace('&amp;', '').replace('amp;', '').replace('quot;', '').strip()
+
+    if '-(' in title_ser: title_ser = scrapertools.find_single_match(title_ser, '(.*?)-(')
+    if '.' in title_ser: title_ser = title_ser.replace('.', '-')
+    if ',' in title_ser: title_ser = title_ser.replace(',', '')
+
+    ok_title_ser = False
 
     for match in epis[item.page * item.perpage:]:
         if '>Muy Pronto<' in match: continue
@@ -232,6 +246,8 @@ def episodios(item):
         if not url or not epi: continue
 
         if not title_ser in url: continue
+
+        ok_title_ser = True
 
         epi = epi.replace('Capitulo', '').replace('Capítulo', '').replace('capitulo', '').replace('capítulo', '').replace('Episode', '').replace('episode', '').strip()
 
@@ -250,6 +266,11 @@ def episodios(item):
         if len(epis) > ((item.page + 1) * item.perpage):
             itemlist.append(item.clone( title="Siguientes ...", action="episodios", page = item.page + 1, perpage = item.perpage, text_color='coral', orden = '10000' ))
 
+    if not itemlist:
+        if not ok_title_ser:
+            platformtools.dialog_notification(config.__addon_name, '[COLOR tan][B]Sin Ningún Episodio[/B][/COLOR]')
+            return
+
     return sorted(itemlist, key=lambda i: i.orden)
 
 
@@ -265,11 +286,11 @@ def findvideos(item):
     matches = scrapertools.find_multiple_matches(data, 'data-embed="(.*?)"')
 
     for url in matches:
-        ses += 1
-
         url = url.strip()
 
         if url:
+            ses += 1
+
             if url.startswith("//"): url = 'https:' + url
 
             servidor = servertools.get_server_from_url(url)
@@ -287,7 +308,10 @@ def findvideos(item):
                     servidor = 'voe'
 
             if servidor == 'directo':
+                if not 'http' in url: continue
+
                 if not config.get_setting('developer_mode', default=False): continue
+
                 other = url.split("/")[2]
                 other = other.replace('https:', '').strip()
 

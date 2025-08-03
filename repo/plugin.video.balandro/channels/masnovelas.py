@@ -7,36 +7,121 @@ from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb
 
 
-host = 'https://ennovelas.pro/'
+host = 'https://www.ennovelas.pro/'
 
 
 IDIOMAS = {'Latino': 'Lat', 'mx': 'Lat', 'Español': 'Esp', 'es': 'Esp', 'Spanish': 'Esp', 'en': 'Esp', 'English': 'Vose'}
 
 
+def item_configurar_proxies(item):
+    color_list_proxies = config.get_setting('channels_list_proxies_color', default='red')
+
+    color_avis = config.get_setting('notification_avis_color', default='yellow')
+    color_exec = config.get_setting('notification_exec_color', default='cyan')
+
+    context = []
+
+    tit = '[COLOR %s]Información proxies[/COLOR]' % color_avis
+    context.append({'title': tit, 'channel': 'helper', 'action': 'show_help_proxies'})
+
+    if config.get_setting('channel_masnovelas_proxies', default=''):
+        tit = '[COLOR %s][B]Quitar los proxies del canal[/B][/COLOR]' % color_list_proxies
+        context.append({'title': tit, 'channel': item.channel, 'action': 'quitar_proxies'})
+
+    tit = '[COLOR %s]Ajustes categoría proxies[/COLOR]' % color_exec
+    context.append({'title': tit, 'channel': 'actions', 'action': 'open_settings'})
+
+    plot = 'Es posible que para poder utilizar este canal necesites configurar algún proxy, ya que no es accesible desde algunos países/operadoras.'
+    plot += '[CR]Si desde un navegador web no te funciona el sitio ' + host + ' necesitarás un proxy.'
+    return item.clone( title = '[B]Configurar proxies a usar ...[/B]', action = 'configurar_proxies', folder=False, context=context, plot=plot, text_color='red' )
+
+def quitar_proxies(item):
+    from modules import submnuctext
+    submnuctext._quitar_proxies(item)
+    return True
+
+def configurar_proxies(item):
+    from core import proxytools
+    return proxytools.configurar_proxies_canal(item.channel, host)
+
+
 def do_downloadpage(url, post=None, headers=None):
+    # ~ por si viene de enlaces guardados
+    ant_hosts = ['https://ennovelas.pro/']
+
+    for ant in ant_hosts:
+        url = url.replace(ant, host)
+
     raise_weberror = True
     if '/?years=' in url: raise_weberror = False
 
-    data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
+    hay_proxies = False
+    if config.get_setting('channel_masnovelas_proxies', default=''): hay_proxies = True
 
-    if not data or '<title>405 Not Allowed</title>' in data:
+    if not url.startswith(host):
+        data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
+    else:
+        if hay_proxies:
+            data = httptools.downloadpage_proxy('masnovelas', url, post=post, headers=headers, raise_weberror=raise_weberror).data
+        else:
+            data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
+
+    if not data or '<title>Checking your browser before accessing. Just a moment...</title>' in data or '<title>405 Not Allowed</title>' in data:
         if not '/?s=' in url:
             if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('MasNovelas', '[COLOR cyan]Re-Intentanto acceso[/COLOR]')
 
             timeout = config.get_setting('channels_repeat', default=30)
 
-            data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
+            if hay_proxies:
+                data = httptools.downloadpage_proxy('masnovelas', url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
+            else:
+                data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
 
-            if not data or '<title>405 Not Allowed</title>' in data:
+            if not data or '<title>Checking your browser before accessing. Just a moment...</title>' in data or '<title>405 Not Allowed</title>' in data:
                 if not '/?years=' in url:
-                    data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
+                    if hay_proxies:
+                        data = httptools.downloadpage_proxy('masnovelas', url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
+                    else:
+                        data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror, timeout=timeout).data
+
+    if '<title>You are being redirected...</title>' in data or '<title>Just a moment...</title>' in data or 'Just a moment...</title>' in data:
+        if not url.startswith(host):
+            data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
+        else:
+            if hay_proxies:
+                data = httptools.downloadpage_proxy('masnovelas', url, post=post, headers=headers, raise_weberror=raise_weberror).data
+            else:
+                data = httptools.downloadpage(url, post=post, headers=headers, raise_weberror=raise_weberror).data
+
+    if '<title>Just a moment...</title>' in data or 'Just a moment...</title>' in data:
+        if not '/?s=' in url:
+            platformtools.dialog_notification(config.__addon_name, '[COLOR red][B]CloudFlare[COLOR orangered] Protection[/B][/COLOR]')
+        return ''
 
     return data
+
+
+def acciones(item):
+    logger.info()
+    itemlist = []
+
+    itemlist.append(item.clone( channel='submnuctext', action='_test_webs', title='Test Web del canal [COLOR yellow][B] ' + host + '[/B][/COLOR]',
+                                from_channel='masnovelas', folder=False, text_color='chartreuse' ))
+
+    itemlist.append(item_configurar_proxies(item))
+
+    platformtools.itemlist_refresh()
+
+    itemlist.append(Item( channel='helper', action='show_help_masnovelas', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('masnovelas') ))
+
+    return itemlist
 
 
 def mainlist(item):
     logger.info()
     itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar ...', action = 'search', search_type = 'all', text_color = 'yellow' ))
 
@@ -49,6 +134,8 @@ def mainlist(item):
 def mainlist_pelis(item):
     logger.info()
     itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
 
     itemlist.append(item.clone( title = 'Buscar película ...', action = 'search', search_type = 'movie', text_color = 'deepskyblue' ))
 
@@ -64,11 +151,11 @@ def mainlist_series(item):
     logger.info()
     itemlist = []
 
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
+
     itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'tv_shows/', search_type = 'tvshow' ))
-
-    itemlist.append(item.clone( title = 'Últimas', action = 'list_last', url = host, search_type = 'tvshow', text_color = 'moccasin' ))
 
     itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'tvshow' ))
     itemlist.append(item.clone( title = 'Por año', action='anios', search_type = 'tvshow' ))
@@ -176,10 +263,12 @@ def paises(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item.clone( title = 'Argentina', action = 'list_all', url = host + 'tv_shows_cat/novelas-argentinas/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Colombia', action = 'list_all', url = host + 'tv_shows_cat/novelas-colombianas/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'México', action = 'list_all', url = host + 'tv_shows_cat/novelas-mexicanas', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Tuquía', action = 'list_all', url = host + 'tv_shows_cat/series-turcas/', text_color='moccasin' ))
+    text_color = 'hotpink'
+
+    itemlist.append(item.clone( title = 'Argentina', action = 'list_all', url = host + 'tv_shows_cat/novelas-argentinas/', text_color=text_color ))
+    itemlist.append(item.clone( title = 'Colombia', action = 'list_all', url = host + 'tv_shows_cat/novelas-colombianas/', text_color=text_color ))
+    itemlist.append(item.clone( title = 'México', action = 'list_all', url = host + 'tv_shows_cat/novelas-mexicanas', text_color=text_color ))
+    itemlist.append(item.clone( title = 'Tuquía', action = 'list_all', url = host + 'tv_shows_cat/series-turcas/', text_color=text_color ))
 
     return itemlist
 
@@ -193,7 +282,7 @@ def list_all(item):
 
     bloque = scrapertools.find_single_match(data, '<span>Filters</span>(.*?)>Copyright')
 
-    matches = scrapertools.find_multiple_matches(bloque, '<div class="post-media">(.*?)</div></div></div>')
+    matches = scrapertools.find_multiple_matches(bloque, '<div class="post-media"(.*?)</div></div></div>')
 
     if not matches: matches = scrapertools.find_multiple_matches(bloque, '<a class="video-detail"(.*?)</div><div><label>')
     if not matches: matches = scrapertools.find_multiple_matches(bloque, '<a class="videos-play (.*?)</h6>')
@@ -204,7 +293,7 @@ def list_all(item):
         title = scrapertools.find_single_match(match, '<a href=.*?">(.*?)</a>').strip()
         if not title: title = scrapertools.find_single_match(match, "alt='(.*?)'").strip()
 
-        if '<img class=' in title: title = scrapertools.find_single_match(match, '<h5 class="video_title">.*?<a href=.*?">(.*?)</a>').strip()
+        if '<img class=' in title: title = scrapertools.find_single_match(match, '<h6 class="video_title.*?<a href=.*?">(.*?)</a>').strip()
 
         if not url or not title: continue
 
@@ -250,53 +339,6 @@ def list_all(item):
         if next_page:
             if '/page/' in next_page:
                 itemlist.append(item.clone( title = 'Siguientes ...', url = next_page, action = 'list_all', text_color = 'coral' ))
-
-    return itemlist
-
-
-def list_last(item):
-    logger.info()
-    itemlist = []
-
-    data = do_downloadpage(item.url)
-    data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
-
-    bloque = scrapertools.find_single_match(data, 'recomendados<(.*?)</section>')
-
-    matches = scrapertools.find_multiple_matches(bloque, '<div class="post-media">(.*?)</div></div></div>')
-
-    for match in matches:
-        url = scrapertools.find_single_match(match, '<a href="(.*?)"')
-
-        title = scrapertools.find_single_match(match, '<h6 class="title">.*?<a href=.*?">(.*?)</a>').strip()
-
-        if not url or not title: continue
-
-        title = title.replace('&#8211;', "").replace('&#8220;', "").replace('&#8221;', "").strip()
-        title = title.replace('&#8216;', "").replace('&#8217;', "").replace('&#8230;', "").strip()
-        title = title.replace('&#038;', '&').replace('&amp;', '&')
-
-        thumb = scrapertools.find_single_match(match, ' src=(.*?)>').strip()
-
-        lang = scrapertools.find_single_match(match, '<label>Language:</label>(.*?)$')
-
-        if '</div>' in lang: lang = scrapertools.find_single_match(lang, '(.*?)</div>').strip()
-
-        lang = IDIOMAS.get(lang, lang)
-
-        SerieName = title
-
-        if "(En Español)" in SerieName: SerieName = SerieName.split("(En Español)")[0]
-
-        SerieName = SerieName.strip()
-
-        tipo = 'movie' if '/movie/' in url else 'tvshow'
-        sufijo = '' if item.search_type != 'all' else tipo
-
-        itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb, languages=lang,
-                                    contentType = 'tvshow', contentSerieName = SerieName, infoLabels={'year': '-'} ))
-
-    tmdb.set_infoLabels(itemlist)
 
     return itemlist
 
@@ -370,7 +412,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('MasNovelas', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('MasNovelas', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -413,7 +458,7 @@ def episodios(item):
 
         if not url or not title: continue
 
-        url = url.replace('\\/', '/')
+        url = url.replace('\\/', '/').replace('\/', '/')
 
         if not 'http' in url: url = 'https:' + url
 
@@ -423,8 +468,15 @@ def episodios(item):
         title = title.replace('&#8216;', "").replace('&#8217;', "").replace('&#8230;', "").strip()
         title = title.replace('&#038;', '&').replace('&amp;', '&')
 
+        season = item.contentSeason
+        c_season = scrapertools.find_single_match(url, '-temporada-(.*?)-')
+        if c_season:
+            if not c_season == season: season = c_season
+
         epis = scrapertools.find_single_match(url, '-capitulo-(.*?)-')
         if not epis: epis = scrapertools.find_single_match(url, '-capitulo-(.*?)/')
+
+        if not epis: epis = scrapertools.find_single_match(url, '-cap(.*?)/')
 
         if not epis: epis = scrapertools.find_single_match(match, '<span class="episodes-number.*?E(.*?)<')
 
@@ -433,10 +485,16 @@ def episodios(item):
         thumb = scrapertools.find_single_match(match, ' src=(.*?)>').strip()
         thumb = thumb.replace('\\/', '/')
 
-        titulo = str(item.contentSeason) + 'x' + str(epis) + ' ' + title
+        title = title.replace('Temporada', '[COLOR tan]Temp.[/COLOR]')
+
+        title = title.replace('Capitulo', '[COLOR goldenrod]Epis.[/COLOR]').replace('Capítulo', '[COLOR goldenrod]Epis.[/COLOR]')
+
+        titulo = str(season) + 'x' + str(epis) + ' ' + title
+
+        titulo = clean_title(titulo)
 
         itemlist.append(item.clone( action = 'findvideos', url = url, title = titulo, thumbnail = thumb,
-                                    contentType = 'episode', contentSeason = item.contentSeason, contentEpisodeNumber = epis ))
+                                    contentType = 'episode', contentSeason = season, contentEpisodeNumber = epis ))
 
         if len(itemlist) >= item.perpage:
             break
@@ -500,6 +558,7 @@ def findvideos(item):
             elif url.startswith('http://vidmoly/'): url = url.replace('http://vidmoly/w/', 'https://vidmoly/embed-').replace('http://vidmoly/', 'https://vidmoly/')
 
             elif url.startswith('https://sr.ennovelas.net/'): url = url.replace('/sr.ennovelas.net/', '/waaw.to/')
+            elif url.startswith('https://sr.ennovelas.watch/'): url = url.replace('/sr.ennovelas.watch/', '/waaw.to/')
             elif url.startswith('https://video.ennovelas.net/'): url = url.replace('/video.ennovelas.net/', '/waaw.to/')
             elif url.startswith('https://reproductor.telenovelas-turcas.com.es/'): url = url.replace('/reproductor.telenovelas-turcas.com.es/', '/waaw.to/')
             elif url.startswith('https://novelas360.cyou/player/'): url = url.replace('/novelas360.cyou/player/', '/waaw.to/')
@@ -508,7 +567,47 @@ def findvideos(item):
             servidor = servertools.get_server_from_url(url)
             servidor = servertools.corregir_servidor(servidor)
 
-            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = lang ))
+            other = ''
+            if servidor == 'various': other = servertools.corregir_other(url)
+
+            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = lang, other = other))
+
+    # ~ iframes
+    matches = scrapertools.find_multiple_matches(data, '<iframe src="(.*?)"')
+
+    for url in matches:
+        ses += 1
+
+        if url:
+            url = url.replace('\\/', '/')
+
+            if not 'http' in url: url = 'https:' + url
+
+            if '.disney.' in url: continue
+            elif '/short.' in url: continue
+
+            if 'api.mycdn.moe/uqlink.php?id=' in url: url = url.replace('api.mycdn.moe/uqlink.php?id=', 'uqload.com/embed-')
+
+            elif 'api.mycdn.moe/dourl.php?id=' in url: url = url.replace('api.mycdn.moe/dourl.php?id=', 'dood.to/e/')
+
+            elif 'api.mycdn.moe/dl/?uptobox=' in url: url = url.replace('api.mycdn.moe/dl/?uptobox=', 'uptobox.com/')
+
+            elif url.startswith('http://vidmoly/'): url = url.replace('http://vidmoly/w/', 'https://vidmoly/embed-').replace('http://vidmoly/', 'https://vidmoly/')
+
+            elif url.startswith('https://sr.ennovelas.net/'): url = url.replace('/sr.ennovelas.net/', '/waaw.to/')
+            elif url.startswith('https://sr.ennovelas.watch/'): url = url.replace('/sr.ennovelas.watch/', '/waaw.to/')
+            elif url.startswith('https://video.ennovelas.net/'): url = url.replace('/video.ennovelas.net/', '/waaw.to/')
+            elif url.startswith('https://reproductor.telenovelas-turcas.com.es/'): url = url.replace('/reproductor.telenovelas-turcas.com.es/', '/waaw.to/')
+            elif url.startswith('https://novelas360.cyou/player/'): url = url.replace('/novelas360.cyou/player/', '/waaw.to/')
+            elif url.startswith('https://novelas360.cyou/'): url = url.replace('/novelas360.cyou/', '/waaw.to/')
+
+            servidor = servertools.get_server_from_url(url)
+            servidor = servertools.corregir_servidor(servidor)
+
+            other = ''
+            if servidor == 'various': other = servertools.corregir_other(url)
+
+            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = lang, other = other))
 
     if not itemlist:
         if not ses == 0:
@@ -524,8 +623,9 @@ def clean_title(title):
     title = title.replace('\\u00e1', 'a').replace('\\u00c1', 'a').replace('\\u00e9', 'e').replace('\\u00ed', 'i').replace('\\u00f3', 'o').replace('\\u00fa', 'u')
     title = title.replace('\\u00f1', 'ñ').replace('\\u00bf', '¿').replace('\\u00a1', '¡').replace('\\u00ba', 'º')
     title = title.replace('\\u00eda', 'a').replace('\\u00f3n', 'o').replace('\\u00fal', 'u').replace('\\u00e0', 'a')
+    title = title.replace('\\u014d', 'o')
 
-    title = title.replace('\\u00a0', ' ')
+    title = title.replace('\\u00b7', '-').replace('\\u00a0', ' ')
 
     return title
 

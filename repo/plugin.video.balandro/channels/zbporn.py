@@ -12,6 +12,7 @@ host = 'https://zbporn.com/'
 
 def do_downloadpage(url, post=None, headers=None):
     data = httptools.downloadpage(url, post=post, headers=headers).data
+
     return data
 
 
@@ -23,17 +24,20 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
-    itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'latest-updates/' ))
+    itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host ))
 
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'most-popular/' ))
+    itemlist.append(item.clone( title = 'Novedades', action = 'list_all', url = host + 'latest-updates/' ))
+
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'most-popular/' ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'top-rated/' ))
 
     itemlist.append(item.clone( title = 'Por canal', action = 'canales', url= host + 'channels/' ))
@@ -137,7 +141,7 @@ def list_all(item):
         next_page = scrapertools.find_single_match(data, '<div class="page page-current".*?<a class="page-link".*?href="(.*?)"')
 
         if next_page:
-            next_page = host[:-1] + next_page
+            if not host in next_page: next_page = host[:-1] + next_page
 
             itemlist.append(item.clone (action='list_all', title='Siguientes ...', url=next_page, text_color = 'coral') )
 
@@ -147,6 +151,13 @@ def list_all(item):
 def findvideos(item):
     logger.info()
     itemlist = []
+
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
@@ -168,6 +179,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'search/%s/' % (texto.replace(" ", "+"))
         return list_all(item)
     except:

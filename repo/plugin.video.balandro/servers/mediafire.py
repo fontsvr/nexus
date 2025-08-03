@@ -29,6 +29,7 @@ def get_video_url(page_url, url_referer=''):
              return video_urls
 
     if len(matches) > 0:
-        video_urls.append([matches[0][-4:], matches[0]])
+        if not 'javascript:void' in matches[0]:
+            video_urls.append([matches[0][-4:], matches[0]])
 
     return video_urls

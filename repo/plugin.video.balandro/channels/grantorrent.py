@@ -5,7 +5,7 @@ import sys
 PY3 = False
 if sys.version_info[0] >= 3: PY3 = True
 
-import re
+import re, os
 
 from platformcode import config, logger, platformtools
 from core.item import Item
@@ -46,7 +46,10 @@ except:
    except: pass
 
 
-host = 'https://www4.grantorrent.wf/'
+host = 'https://www1.grantorrent.lol/'
+
+
+_player = host
 
 
 # ~ por si viene de enlaces guardados
@@ -57,7 +60,8 @@ ant_hosts = ['http://grantorrent.net/', 'https://grantorrent1.com/', 'https://gr
              'https://grantorrent.ch/', 'https://grantorrent.ac/', 'https://grantorrent.re/',
              'https://grantorrent.se/', 'https://grantorrent.si/', 'https://grantorrent.fi/',
              'https://grantorrent.bz/', 'https://grantorrent.zip/', 'https://www1.grantorrent.pm/',
-             'https://www1.grantorrent.wf/', 'https://www2.grantorrent.wf/', 'https://www3.grantorrent.wf/']
+             'https://www1.grantorrent.wf/', 'https://www2.grantorrent.wf/', 'https://www3.grantorrent.wf/',
+             'https://www4.grantorrent.wf/', 'https://grantorrent.mov/']
 
 
 domain = config.get_setting('dominio', 'grantorrent', default='')
@@ -187,13 +191,25 @@ def acciones(item):
 
     itemlist.append(item_configurar_proxies(item))
 
+    itemlist.append(Item( channel='actions', action='show_old_domains', title='[COLOR coral][B]Historial Dominios[/B][/COLOR]', channel_id = 'grantorrent', thumbnail=config.get_thumb('grantorrent') ))
+
     platformtools.itemlist_refresh()
 
     return itemlist
 
 
 def mainlist(item):
-    return mainlist_pelis(item)
+    logger.info()
+    itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
+
+    itemlist.append(item.clone( title = 'Buscar ...', action = 'search', search_type = 'all', text_color = 'yellow' ))
+
+    itemlist.append(item.clone( title = 'Películas', action = 'mainlist_pelis', text_color = 'deepskyblue' ))
+    itemlist.append(item.clone( title = 'Series', action = 'mainlist_series', text_color = 'hotpink' ))
+
+    return itemlist
 
 
 def mainlist_pelis(item):
@@ -208,6 +224,19 @@ def mainlist_pelis(item):
 
     itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'movie' ))
     itemlist.append(item.clone( title = 'Por calidad', action = 'calidades', search_type = 'movie' ))
+
+    return itemlist
+
+
+def mainlist_series(item):
+    logger.info()
+    itemlist = []
+
+    itemlist.append(item.clone( action='acciones', title= '[B]Acciones[/B] [COLOR plum](si no hay resultados)[/COLOR]', text_color='goldenrod' ))
+
+    itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
+
+    itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'series_p/', search_type = 'tvshow' ))
 
     return itemlist
 
@@ -291,8 +320,40 @@ def list_all(item):
 
         title = title.replace('&#038;', '').strip()
 
-        itemlist.append(item.clone( action='findvideos', url=url, title=title, thumbnail=thumb, languages=lang, qualities=qlty,
-                                    contentType='movie', contentTitle=title, infoLabels={'year': '-'} ))
+        tipo = 'tvshow' if '/series/' in url else 'movie'
+        sufijo = '' if item.search_type != 'all' else tipo
+
+        if tipo == 'movie':
+            if item.search_type != 'all':
+                if item.search_type == 'tvshow': continue
+
+            itemlist.append(item.clone( action='findvideos', url=url, title=title, thumbnail=thumb, fmt_sufijo=sufijo,
+                                        languages=lang, qualities=qlty,
+                                        contentType='movie', contentTitle=title, infoLabels={'year': '-'} ))
+
+        if tipo == 'tvshow':
+            if item.search_type != 'all':
+                if item.search_type == 'movie': continue
+
+            title = title.replace('&#8211;', '')
+
+            SerieName = title
+
+            if " Temporada" in SerieName: SerieName = SerieName.split(" Temporada")[0]
+
+            SerieName = SerieName.strip()
+
+            qlty = qlty.strip()
+
+            if qlty == 'Temporada': qlty = ''
+
+            qlty = qlty.replace('Temporada', '[COLOR tan]Temp.[/COLOR]')
+
+            title = title.replace('Temporada', '[COLOR tan]Temp.[/COLOR]')
+
+            itemlist.append(item.clone( action = 'episodios', url=url, title=title, thumbnail=thumb, fmt_sufijo=sufijo,
+                                        languages=lang, qualities=qlty,
+                                        contentType='tvshow', contentSerieName=SerieName, infoLabels={'year': '-'} ))
 
     tmdb.set_infoLabels(itemlist)
 
@@ -304,6 +365,123 @@ def list_all(item):
                 next_page = next_page.replace('&#038;', '&')
 
                 itemlist.append(item.clone( title='Siguientes ...', action='list_all', url=next_page, text_color='coral' ))
+
+    return itemlist
+
+
+def episodios(item):
+    logger.info()
+    itemlist = []
+
+    if not item.page: item.page = 0
+    if not item.perpage: item.perpage = 50
+
+    data = do_downloadpage(item.url)
+
+    bloque = scrapertools.find_single_match(data, '<tbody(.*?)</tbody>')
+
+    matches = re.compile('"episode-.*?<td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-300">(.*?)</td>.*?<a href="(.*?)"', re.DOTALL).findall(bloque)
+
+    num_matches = len(matches)
+
+    if item.page == 0 and item.perpage == 50:
+        sum_parts = num_matches
+
+        try: tvdb_id = scrapertools.find_single_match(str(item), "'tvdb_id': '(.*?)'")
+        except: tvdb_id = ''
+
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
+        elif tvdb_id:
+            if sum_parts > 50:
+                platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
+                item.perpage = sum_parts
+        else:
+
+            item.perpage = sum_parts
+
+            if sum_parts >= 1000:
+                if platformtools.dialog_yesno(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), '¿ Hay [COLOR yellow][B]' + str(sum_parts) + '[/B][/COLOR] elementos disponibles, desea cargarlos en bloques de [COLOR cyan][B]500[/B][/COLOR] elementos ?'):
+                    platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando 500 elementos[/COLOR]')
+                    item.perpage = 500
+
+            elif sum_parts >= 500:
+                if platformtools.dialog_yesno(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), '¿ Hay [COLOR yellow][B]' + str(sum_parts) + '[/B][/COLOR] elementos disponibles, desea cargarlos en bloques de [COLOR cyan][B]250[/B][/COLOR] elementos ?'):
+                    platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando 250 elementos[/COLOR]')
+                    item.perpage = 250
+
+            elif sum_parts >= 250:
+                if platformtools.dialog_yesno(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), '¿ Hay [COLOR yellow][B]' + str(sum_parts) + '[/B][/COLOR] elementos disponibles, desea cargarlos en bloques de [COLOR cyan][B]125[/B][/COLOR] elementos ?'):
+                    platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando 125 elementos[/COLOR]')
+                    item.perpage = 125
+
+            elif sum_parts >= 125:
+                if platformtools.dialog_yesno(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), '¿ Hay [COLOR yellow][B]' + str(sum_parts) + '[/B][/COLOR] elementos disponibles, desea cargarlos en bloques de [COLOR cyan][B]75[/B][/COLOR] elementos ?'):
+                    platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando 75 elementos[/COLOR]')
+                    item.perpage = 75
+
+            elif sum_parts > 50:
+                if platformtools.dialog_yesno(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), '¿ Hay [COLOR yellow][B]' + str(sum_parts) + '[/B][/COLOR] elementos disponibles, desea cargarlos [COLOR cyan][B]Todos[/B][/COLOR] de una sola vez ?'):
+                    platformtools.dialog_notification('GranTorrent', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
+                    item.perpage = sum_parts
+
+    for epis, url in matches[item.page * item.perpage:]:
+        if not url: continue
+
+        completa = ''
+        if 'Completa' in epis: completa = '[COLOR tan]Temp.[/COLOR]'
+
+        season = scrapertools.find_single_match(epis, "Temporada (.*?) ")
+        if not season: season = 1
+
+        epis = epis.strip()
+
+        if 'x' in epis:
+            season = scrapertools.find_single_match(epis, "(.*?)x").strip()
+
+            epis = scrapertools.find_single_match(epis, ".*?x(.*?)$").strip()
+
+        if not epis: epis = 1
+
+        if 'Temporada' in epis: epis = 1
+
+        titulo = str(season) + 'x' + str(epis) + ' ' + item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'") + ' ' + completa
+
+        itemlist.append(item.clone( action = 'findvideos', url=url, title=titulo,  contentType='episode', contentSeason=season, contentEpisodeNumber=epis ))
+
+        if len(itemlist) >= item.perpage:
+            break
+
+    tmdb.set_infoLabels(itemlist)
+
+    if itemlist:
+        if len(matches) > ((item.page + 1) * item.perpage):
+            itemlist.append(item.clone( title="Siguientes ...", action="episodios", page = item.page + 1, perpage = item.perpage, text_color='coral' ))
+
+    return itemlist
+
+
+def findvideos(item):
+    logger.info()
+    itemlist = []
+
+    if item.contentType == 'episode':
+        itemlist.append(Item( channel = item.channel, action='play', title='', url=item.url, server='torrent',
+                              language=item.languages, quality ='Hdtv', contentType='episode' ))
+        return itemlist
+
+    data = do_downloadpage(item.url)
+
+    matches = re.compile('<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium ml-auto">.*?href="(.*?)"', re.DOTALL).findall(data)
+
+    for url in matches:
+        if not url.endswith('.torrent'):
+            if not '/s.php' in url: continue
+
+        itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = url, server = 'torrent',
+                              language = item.languages, quality = item.qualities, quality_num = puntuar_calidad(item.qualities) ))
 
     return itemlist
 
@@ -320,6 +498,7 @@ def puntuar_calidad(txt):
              'mkv',
              'dvdrip',
              'hdrip',
+             'hdtv',
              '720p',
              'bluray720p',
              'microhd',
@@ -341,24 +520,6 @@ def puntuar_calidad(txt):
     else: return orden.index(txt) + 1
 
 
-def findvideos(item):
-    logger.info()
-    itemlist = []
-
-    data = do_downloadpage(item.url)
-
-    matches = re.compile('<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium ml-auto">.*?href="(.*?)"', re.DOTALL).findall(data)
-
-    for url in matches:
-        if not url.endswith('.torrent'):
-            if not '/s.php' in url: continue
-
-        itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = url, server = 'torrent',
-                              language = item.languages, quality = item.qualities, quality_num = puntuar_calidad(item.qualities) ))
-
-    return itemlist
-
-
 def play(item):
     logger.info()
     itemlist = []
@@ -368,8 +529,13 @@ def play(item):
         url_base64 = decrypters.decode_url_base64(item.url, host_torrent)
 
         if url_base64.endswith('.torrent'):
-           url_base64 = url_base64.replace(host, 'https://dl.' + b64_host + '/' )
+           if not '//dl.' in url_base64: url_base64 = url_base64.replace(host, _player)
+
            item.url = url_base64
+
+    if item.contentType == 'episode':
+        if _player in item.url:
+            item.url = item.url.replace(_player, host)
 
     if item.url.endswith('.torrent'):
         if config.get_setting('proxies', item.channel, default=''):
@@ -386,8 +552,6 @@ def play(item):
                 elif 'Página no encontrada</title>' in str(data) or 'no encontrada</title>' in str(data) or '<h1>403 Forbidden</h1>' in str(data):
                     return 'Archivo [COLOR red]No encontrado[/COLOR]'
 
-                import os
-
                 file_local = os.path.join(config.get_data_path(), "temp.torrent")
                 with open(file_local, 'wb') as f: f.write(data); f.close()
 
@@ -401,7 +565,10 @@ def play(item):
 def search(item, texto):
     logger.info()
     try:
-        item.url = host + '?s=' + texto.replace(" ", "+")
+        filtro = ''
+        if item.search_type == 'tvshow': filtro = '&filtro=series'
+
+        item.url = host + '?s=' + texto.replace(" ", "+") + filtro
         return list_all(item)
     except:
         import sys

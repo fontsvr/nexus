@@ -57,12 +57,12 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'tvshows/', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Subtituladas', action = 'list_all', url = sub_host + 'tvshows/', sub_host = True, search_type = 'tvshow', text_color = 'moccasin' ))
+    itemlist.append(item.clone( title = 'Subtitulados', action = 'list_all', url = sub_host + 'tvshows/', sub_host = True, search_type = 'tvshow', text_color = 'moccasin' ))
 
-    itemlist.append(item.clone( title = 'Destacadas', action = 'list_all', url = sub_host + 'ratings/', sub_host = True, search_type = 'tvshow' ))
+    itemlist.append(item.clone( title = 'Destacados', action = 'list_all', url = sub_host + 'ratings/', sub_host = True, search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Más vistas', action = 'list_all', url = host + 'tendencias-2/?get=tv', search_type = 'tvshow' ))
-    itemlist.append(item.clone( title = 'Más valoradas', action = 'list_all', url = host + 'ratings-2/?get=tv', search_type = 'tvshow' ))
+    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'tendencias-2/?get=tv', search_type = 'tvshow' ))
+    itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'ratings-2/?get=tv', search_type = 'tvshow' ))
 
     itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'tvshow' ))
 
@@ -257,7 +257,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('DoramedPlayLat', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('DoramedPlayLat', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -317,7 +320,8 @@ def findvideos(item):
 
     data = do_downloadpage(item.url)
 
-    matches = re.compile('<iframe.*?src="(.*?)"', re.DOTALL).findall(data)
+    matches = re.compile("<iframe.*?src='(.*?)'", re.DOTALL).findall(data)
+    if not matches: matches = re.compile('<iframe.*?src="(.*?)"', re.DOTALL).findall(data)
 
     ses = 0
 

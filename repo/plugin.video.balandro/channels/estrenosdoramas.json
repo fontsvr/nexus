@@ -3,7 +3,7 @@
   "name": "EstrenosDoramas",
   "thumbnail": "estrenosdoramas.jpg",
 
-  "active": true,
+  "active": false,
 
   "searchable": false,
   "search_types": ["all", "movie", "tvshow"],
@@ -11,7 +11,7 @@
   "categories": ["movie", "tvshow"],
   "language": ["lat", "vose"],
 
-  "clusters": ["current", "dorama"],
+  "clusters": ["dorama"],
 
-  "notes": "Web dedicada exclusivamente al dorama"
+  "notes": "Web CERRADA. Web dedicada exclusivamente al dorama"
 }

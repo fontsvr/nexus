@@ -5,11 +5,13 @@ import sys
 PY3 = False
 if sys.version_info[0] >= 3: PY3 = True
 
-import re
+import re, os
 
 from platformcode import config, logger, platformtools
 from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb
+
+from lib import decrypters
 
 
 LINUX = False
@@ -205,6 +207,8 @@ def acciones(item):
 
     itemlist.append(Item( channel='helper', action='show_help_cinecalidadlol', title='[COLOR aquamarine][B]Aviso[/COLOR] [COLOR green]Información[/B][/COLOR] canal', thumbnail=config.get_thumb('cinecalidadlol') ))
 
+    itemlist.append(Item( channel='actions', action='show_old_domains', title='[COLOR coral][B]Historial Dominios[/B][/COLOR]', channel_id = 'cinecalidadlol', thumbnail=config.get_thumb('cinecalidadlol') ))
+
     platformtools.itemlist_refresh()
 
     return itemlist
@@ -234,25 +238,16 @@ def mainlist_pelis(item):
 
     itemlist.append(item.clone( title = '[B]En castellano:[/B]', folder=False, text_color='moccasin' ))
     itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'espana/?ref=es', search_type = 'movie' ))
-    itemlist.append(item.clone( title = ' - Más destacadas', action = 'destacadas', url = host + 'espana/?ref=es', search_type = 'movie' ))
+    itemlist.append(item.clone( title = ' - Más vistas', action = 'destacadas', url = host + 'espana/?ref=es', search_type = 'movie' ))
     itemlist.append(item.clone( title = ' - En [COLOR moccasin]4K[/COLOR]', action = 'list_all', url = host + 'genero-de-la-pelicula/peliculas-en-calidad-4k/?ref=es', search_type = 'movie' ))
-
-    if not config.get_setting('descartar_anime', default=False):
-        itemlist.append(item.clone( title = ' - [COLOR springgreen]Animes[/COLOR]', action = 'list_all', url = host + 'genero-de-la-pelicula/anime/?ref=es', search_type = 'movie' ))
-
-    itemlist.append(item.clone( title = ' - Por género', action='generos', search_type = 'movie', group = '?ref=es' ))
-    itemlist.append(item.clone( title = ' - Por año', action='anios', search_type = 'movie', group = '?ref=es' ))
 
     itemlist.append(item.clone( title = '[B]En latino:[/B]', folder=False, text_color='moccasin' ))
     itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host, search_type = 'movie' ))
-    itemlist.append(item.clone( title = ' - Más destacadas', action = 'destacadas', url = host, search_type = 'movie' ))
+    itemlist.append(item.clone( title = ' - Más vistas', action = 'destacadas', url = host, search_type = 'movie' ))
     itemlist.append(item.clone( title = ' - En [COLOR moccasin]4K[/COLOR]', action = 'list_all', url = host + 'genero-de-la-pelicula/peliculas-en-calidad-4k/', search_type = 'movie' ))
 
-    if not config.get_setting('descartar_anime', default=False):
-        itemlist.append(item.clone( title = ' - [COLOR springgreen]Animes[/COLOR]', action = 'list_all', url = host + 'genero-de-la-pelicula/anime/', search_type = 'movie' ))
-
-    itemlist.append(item.clone( title = ' - Por género', action='generos', search_type = 'movie' ))
-    itemlist.append(item.clone( title = ' - Por año', action='anios', search_type = 'movie' ))
+    itemlist.append(item.clone( title = 'Por género', action='generos', search_type = 'movie' ))
+    itemlist.append(item.clone( title = 'Por año', action='anios', search_type = 'movie' ))
 
     return itemlist
 
@@ -267,13 +262,11 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = '[B]En castellano:[/B]', folder=False, text_color='moccasin' ))
     itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'ver-serie/?ref=es', search_type = 'tvshow' ))
-    itemlist.append(item.clone( title = ' - [COLOR moccasin]Últimas[/COLOR]', action = 'destacadas', url = host + '?ref=es', search_type = 'tvshow' ))
 
     itemlist.append(item.clone( title = ' - Por género', action='generos', search_type = 'tvshow', group = '?ref=es' ))
 
     itemlist.append(item.clone( title = '[B]En latino:[/B]', folder=False, text_color='moccasin' ))
     itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'ver-serie/', search_type = 'tvshow' ))
-    itemlist.append(item.clone( title = ' - [COLOR moccasin]Últimas[/COLOR]', action = 'destacadas', url = host, search_type = 'tvshow' ))
 
     itemlist.append(item.clone( title = ' - Por género', action='generos', search_type = 'tvshow' ))
 
@@ -291,9 +284,11 @@ def generos(item):
 
     bloque = scrapertools.find_single_match(data, '<ul id="menu-menu"(.*?)<a id="close_menu"')
 
-    matches = re.compile('<a href="(.*?)">(.*?)</a>').findall(bloque)
+    matches = re.compile('href="(.*?)">(.*?)</a>').findall(bloque)
 
     for url, title in matches:
+        title = title.strip()
+
         if title == '4K UHD': continue
         elif title == 'Estrenos': continue
         elif title == 'Destacadas': continue
@@ -318,10 +313,7 @@ def anios(item):
     from datetime import datetime
     current_year = int(datetime.today().year)
 
-    top_year = 1939
-    if item.group == '?ref=es': top_year = 1999
-
-    for x in range(current_year, top_year, -1):
+    for x in range(current_year, 1936, -1):
         url = host + 'release/' + str(x) + '/'
 
         itemlist.append(item.clone( title = str(x), url = url, action = 'list_all', text_color ='deepskyblue'  ))
@@ -352,7 +344,9 @@ def list_all(item):
 
         if url.startswith('/?post_id='): continue
 
-        elif '-premium-12-meses' in url or '-premium-1-ano' in url or '-12-meses' in url or '/netflix/o/' in url or '/product/' in url:
+        elif not 'http' in url: continue
+
+        elif '-premium-12-meses' in url or '-premium-1-ano' in url or '-12-meses' in url or '/netflix/o/' in url or '/product/' in url or '.ggpickaff.' in url:
               _promos += 1
               continue
         elif 'Netflix Premium' in match or 'Suscripción Disney Plus' in match or 'Suscripción HBO' in match:
@@ -522,7 +516,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('CineCalidadLol', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('CineCalidadLol', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -636,6 +633,7 @@ def findvideos(item):
                     if srv == 'streamtape': servidor = 'streamtape'
                     elif srv == 'voe': servidor = 'voe'
                     elif srv == 'doods' or srv == 'doostream': servidor = 'doodstream'
+                    elif srv == 'lamovie': servidor = 'clipwatching'
 
                     elif srv == 'netu' or servidor == 'hqq': servidor = 'waaw'
 
@@ -684,6 +682,7 @@ def findvideos(item):
                     if srv == 'streamtape': servidor = 'streamtape'
                     elif srv == 'voe': servidor = 'voe'
                     elif srv == 'doods' or srv == 'doostream': servidor = 'doodstream'
+                    elif srv == 'lamovie': servidor = 'clipwatching'
 
                     elif srv == 'netu' or servidor == 'hqq': servidor = 'waaw'
 
@@ -714,17 +713,22 @@ def findvideos(item):
                 ses = ses - 1
                 continue
 
-            if '<span' in servidor: servidor = scrapertools.find_single_match(servidor, '(.*?)<span')
+            qlty = '1080'
+
+            if '<span' in servidor:
+                if 'utorrent' in servidor.lower() or 'torrent' in servidor.lower():
+                    qlty = scrapertools.find_single_match(servidor, '.*?">(.*?)</span>')
+
+                servidor = scrapertools.find_single_match(servidor, '(.*?)<span')
 
             servidor = servidor.lower().strip()
-
-            qlty = '1080'
 
             if '4k' in servidor or '4K' in servidor:
                qlty = '4K'
                servidor = servidor.replace('4k', '').replace('4K', '').strip()
 
-            if 'subtítulo' in servidor: continue
+            if servidor == 'subtítulos' or 'subtitulo' in servidor: continue
+
             elif 'forzado' in servidor: continue
             elif 'cinecalidad' in servidor: continue
 
@@ -821,13 +825,42 @@ def play(item):
 
     if url:
         if '/acortalink.' in url:
-            return 'Tiene [COLOR plum]Acortador[/COLOR] del enlace'
+            host_torrent = host_player[:-1]
+            url_base64 = decrypters.decode_url_base64(url, host_torrent)
+
+            if url_base64.endswith('.torrent'): url = url_base64
+            elif url_base64.startswith('magnet:'): url = url_base64
+
+            else:
+               if url_base64:
+                   new_server = servertools.get_server_from_url(url_base64)
+                   new_server = servertools.corregir_other(new_server)				   
+
+                   if not new_server == 'directo':
+                       url = url_base64
+                       servidor = new_server
+
+        if '/acortalink.' in url:
+           return 'Tiene [COLOR plum]Acortador[/COLOR] del enlace'
 
         if url.endswith('.torrent'):
-            itemlist.append(item.clone( url = url, server = 'torrent' ))
+            if config.get_setting('proxies', item.channel, default=''):
+                if PY3:
+                    from core import requeststools
+                    data = requeststools.read(url, 'cinecalidadlol')
+                else:
+                    data = do_downloadpage(url)
+
+                file_local = os.path.join(config.get_data_path(), "temp.torrent")
+                with open(file_local, 'wb') as f: f.write(data); f.close()
+
+                itemlist.append(item.clone( url = file_local, server = 'torrent' ))
+            else:
+                itemlist.append(item.clone( url = url, server = 'torrent' ))
+
             return itemlist
 
-        elif 'magnet:?' in url:
+        elif 'magnet:' in url:
             itemlist.append(item.clone( url = url, server = 'torrent' ))
             return itemlist
 
@@ -835,9 +868,11 @@ def play(item):
             if not url.startswith('http'): return itemlist
 
             if '/okru.' in url: servidor = 'okru'
-
-            new_server = servertools.corregir_other(url).lower()
-            if not new_server.startswith("http"): servidor = new_server
+            else:
+                new_server = servertools.corregir_other(url).lower()
+                if new_server.startswith("http"):
+                    if not config.get_setting('developer_mode', default=False): return itemlist
+                servidor = new_server
 
         if servidor == 'zplayer': url = url + '|' + host_player
 

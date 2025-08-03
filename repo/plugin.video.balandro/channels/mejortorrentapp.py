@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import re
+import sys
+
+PY3 = False
+if sys.version_info[0] >= 3: PY3 = True
+
+
+import re, os
 
 from platformcode import config, logger, platformtools
 from core.item import Item
 from core import httptools, scrapertools, tmdb
 
 
-host = 'https://www21.mejortorrent.zip'
+host = 'https://www35.mejortorrent.eu'
 
 
 # ~ por si viene de enlaces guardados
@@ -18,7 +24,11 @@ ant_hosts = ['https://mejortorrent.app', 'https://mejortorrent.wtf', 'https://ww
              'https://www11.mejortorrent.rip', 'https://www12.mejortorrent.rip', 'https://www13.mejortorrent.rip',
              'https://www14.mejortorrent.rip', 'https://www15.mejortorrent.rip', 'https://www16.mejortorrent.rip',
              'https://www17.mejortorrent.zip', 'https://www18.mejortorrent.zip', 'https://www19.mejortorrent.zip',
-             'https://www20.mejortorrent.zip']
+             'https://www20.mejortorrent.zip', 'https://www21.mejortorrent.zip', 'https://www22.mejortorrent.zip',
+             'https://www23.mejortorrent.zip', 'https://www24.mejortorrent.zip', 'https://www25.mejortorrent.zip',
+             'https://www26.mejortorrent.eu', 'https://www27.mejortorrent.eu', 'https://www28.mejortorrent.eu',
+             'https://www29.mejortorrent.eu', 'https://www30.mejortorrent.eu', 'https://www31.mejortorrent.eu',
+             'https://www32.mejortorrent.eu', 'https://www33.mejortorrent.eu','https://www34.mejortorrent.eu' ]
 
 
 domain = config.get_setting('dominio', 'mejortorrentapp', default='')
@@ -106,9 +116,9 @@ def acciones(item):
     if domain_memo: url = domain_memo
     else: url = host
 
-    itemlist.append(Item( channel='actions', action='show_latest_domains', title='[COLOR moccasin][B]Últimos Cambios de Dominios[/B][/COLOR]', thumbnail=config.get_thumb('pencil') ))
+    itemlist.append(item.clone( channel='actions', action='show_latest_domains', title='[COLOR moccasin][B]Últimos Cambios de Dominios[/B][/COLOR]', thumbnail=config.get_thumb('pencil') ))
 
-    itemlist.append(Item( channel='helper', action='show_help_domains', title='[B]Información Dominios[/B]', thumbnail=config.get_thumb('help'), text_color='green' ))
+    itemlist.append(item.clone( channel='helper', action='show_help_domains', title='[B]Información Dominios[/B]', thumbnail=config.get_thumb('help'), text_color='green' ))
 
     itemlist.append(item.clone( channel='domains', action='test_domain_mejortorrentapp', title='Test Web del canal [COLOR yellow][B] ' + url + '[/B][/COLOR]',
                                 from_channel='mejortorrentapp', folder=False, text_color='chartreuse' ))
@@ -119,6 +129,10 @@ def acciones(item):
     itemlist.append(item.clone( channel='domains', action='manto_domain_mejortorrentapp', title=title, desde_el_canal = True, folder=False, text_color='darkorange' ))
 
     itemlist.append(item_configurar_proxies(item))
+
+    itemlist.append(item.clone( channel='helper', action='show_help_prales', title='[B]Cual es su canal Principal[/B]', pral = True, text_color='turquoise' ))
+
+    itemlist.append(item.clone( channel='actions', action='show_old_domains', title='[COLOR coral][B]Historial Dominios[/B][/COLOR]', channel_id = 'mejortorrentapp' ))
 
     platformtools.itemlist_refresh()
 
@@ -332,10 +346,11 @@ def list_all(item):
                                         contentType='movie', contentTitle=titulo, infoLabels={'year': year} ))
 
         elif item.search_type == 'tvshow':
-            if " Temporada" in title: SerieName = title.split(" Temporada")[0]
-            else: SerieName = title
+            SerieName = corregir_SerieName(title)
 
             if SerieName:
+                title = title.replace('Temporada', '[COLOR tan]Temp.[/COLOR]').replace('temporada', '[COLOR tan]Temp.[/COLOR]')
+
                 itemlist.append(item.clone( action='episodios', url=url, title=title, thumbnail=thumb, qualities=qlty,
                                             contentType='tvshow', contentSerieName=SerieName, infoLabels={'year': year} ))
 
@@ -421,7 +436,7 @@ def list_list(item):
             elif type == 'series': sufijo = 'tvshow'
             else: sufijo = '[COLOR yellow]Documental[/COLOR]'
 
-        title = title.replace('-', ' ')
+        title = title.replace('-', ' ').strip()
 
         if item.search_type == 'movie':
             if not item.search_type == "all":
@@ -439,14 +454,9 @@ def list_list(item):
             if not item.search_type == "all":
                 if item.search_type == "movie": continue
 
-            if " Temporada" in title: SerieName = title.split(" Temporada")[0]
-            else: SerieName = title
+            SerieName = corregir_SerieName(title)
 
-            if "ª" in SerieName:
-                SerieName = SerieName.split("ª")[0]
-                if "  " in SerieName: SerieName = SerieName.split("  ")[0]
-
-                SerieName = SerieName.strip()
+            title = title.replace('Temporada', '[COLOR tan]Temp.[/COLOR]').replace('temporada', '[COLOR tan]Temp.[/COLOR]')
 
             itemlist.append(item.clone( action='episodios', url = url, title = title, fmt_sufijo = sufijo,
                                         contentType = 'tvshow', contentSerieName = SerieName, infoLabels = {'year': year} ))
@@ -523,21 +533,21 @@ def episodios(item):
 
         if not tempo == 0:
             season = tempo
-            episode = num_epis
+            epis = num_epis
         else:
             if 'Cap. ' in str(item.qualities):
                season = scrapertools.find_single_match(str(item.qualities), 'Cap. (.*?)-').strip()
-               episode = scrapertools.find_single_match(str(item.qualities), '-(.*?)$').strip()
+               epis = scrapertools.find_single_match(str(item.qualities), '-(.*?)$').strip()
             else:
                s_e = scrapertools.get_season_and_episode(url)
- 
+
                try:
                   season = int(s_e.split("x")[0])
-                  episode = s_e.split("x")[1]
+                  epis = s_e.split("x")[1]
                except:
                   i += 1
                   season = 0
-                  episode = i
+                  epis = i
 
         title = str(season) + 'x' + str(i) + ' ' + item.contentSerieName
 
@@ -550,7 +560,7 @@ def episodios(item):
             SerieName = title
 
         itemlist.append(item.clone( action='findvideos', url = url, title = title,
-                                    contentSerieName = SerieName, contentType='episode', contentSeason = season, contentEpisodeNumber = episode ))
+                                    contentSerieName = SerieName, contentType='episode', contentSeason = season, contentEpisodeNumber = epis ))
 
     tmdb.set_infoLabels(itemlist)
 
@@ -581,6 +591,67 @@ def findvideos(item):
     itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = item.url, server = 'torrent', language = lang ))
 
     return itemlist
+
+
+def play(item):
+    logger.info()
+    itemlist = []
+
+    if item.url.endswith('.torrent'):
+        if config.get_setting('proxies', item.channel, default=''):
+            if PY3:
+                from core import requeststools
+                data = requeststools.read(item.url, 'mejortorrentapp')
+            else:
+                data = do_downloadpage(item.url)
+
+            if data:
+                if '<h1>Not Found</h1>' in str(data) or '<!DOCTYPE html>' in str(data) or '<!DOCTYPE>' in str(data):
+                    return 'Archivo [COLOR red]Inexistente[/COLOR]'
+
+                file_local = os.path.join(config.get_data_path(), "temp.torrent")
+                with open(file_local, 'wb') as f: f.write(data); f.close()
+
+                itemlist.append(item.clone( url = file_local, server = 'torrent' ))
+        else:
+            itemlist.append(item.clone( url = item.url, server = 'torrent' ))
+    else:
+        itemlist.append(item.clone( url = item.url, server = 'torrent' ))
+
+    return itemlist
+
+
+def corregir_SerieName(SerieName):
+    logger.info()
+
+    if "[" in SerieName: SerieName = SerieName.split("[")[0]
+    elif "720p" in SerieName: SerieName = SerieName.split("720p")[0]
+
+    if '1ª' in SerieName: SerieName = SerieName.split("1ª")[0]
+    if '2ª' in SerieName: SerieName = SerieName.split("2ª")[0]
+    if '3ª' in SerieName: SerieName = SerieName.split("3ª")[0]
+    if '4ª' in SerieName: SerieName = SerieName.split("4ª")[0]
+    if '5ª' in SerieName: SerieName = SerieName.split("5ª")[0]
+    if '6ª' in SerieName: SerieName = SerieName.split("6ª")[0]
+    if '7ª' in SerieName: SerieName = SerieName.split("7ª")[0]
+    if '8ª' in SerieName: SerieName = SerieName.split("8ª")[0]
+    if '9ª' in SerieName: SerieName = SerieName.split("9ª")[0]
+
+    if "1 Temporada" in SerieName: SerieName = SerieName.split("1 Temporada")[0]
+    elif "2 Temporada" in SerieName: SerieName = SerieName.split("2 Temporada")[0]
+    elif "3 Temporada" in SerieName: SerieName = SerieName.split("3 Temporada")[0]
+    elif "4 Temporada" in SerieName: SerieName = SerieName.split("4 Temporada")[0]
+    elif "5 Temporada" in SerieName: SerieName = SerieName.split("5 Temporada")[0]
+    elif "6 Temporada" in SerieName: SerieName = SerieName.split("6 Temporada")[0]
+    elif "7 Temporada" in SerieName: SerieName = SerieName.split("6 Temporada")[0]
+    elif "8 Temporada" in SerieName: SerieName = SerieName.split("8 Temporada")[0]
+    elif "9 Temporada" in SerieName: SerieName = SerieName.split("9 Temporada")[0]
+    elif " Temporada" in SerieName: SerieName = SerieName.split(" Temporada")[0]
+    elif " - " in SerieName: SerieName = SerieName.split(" - ")[0]
+
+    SerieName = SerieName.strip()
+
+    return SerieName
 
 
 def search(item, texto):

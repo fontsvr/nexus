@@ -1,0 +1,236 @@
+#EXTM3U
+## Premium Latino
+#EXTINF:-1 tvg-name="AMC Latinoamerica" tvg-id="AMC" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/4/45/AMC_%282019%29.svg/revision/latest/scale-to-width-down/200?cb=20190713011740" tvg-chno="1" group-title="Premium Latino", catchup="vod",[COLOR darkorange][I][B]AMC[/B][/COLOR] [COLOR darkorange][/I][/COLOR]
+http://190.60.40.37:12500/play/a018/index.m3u8
+
+#EXTINF:-1tvg-name="AMC Latinoamerica" tvg-id="AMC" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/4/45/AMC_%282019%29.svg/revision/latest/scale-to-width-down/200?cb=20190713011740" tvg-chno="1" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]AMC[/B][/COLOR] [COLOR darkorange][/I][/COLOR]
+http://187.102.208.83:50000/play/a00u/index.m3u8
+
+#EXTINF:-1tvg-name="AMC Latinoamerica" tvg-id="AMC" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/4/45/AMC_%282019%29.svg/revision/latest/scale-to-width-down/200?cb=20190713011740" tvg-chno="1" group-title="Premium Latino", catchup="vod",[COLOR orangered][I][B]AMC[/B][/COLOR] [COLOR darkorange][/I][/COLOR]
+http://186.148.195.206:8000/play/a047/index.m3u8
+
+#EXTINF:-1 tvg-name="AXN LatinoAmerica" tvg-id="AXN" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/d/dc/2016_AXN_logo.svg/revision/latest/scale-to-width-down/300?cb=20201126064846" tvg-chno="5" group-title="Premium Latino", catchup="vod",[COLOR darkorange][I][B]AXN[/B] [COLOR orange]OPC5[/I][/COLOR]
+http://170.239.207.48:4050/play/CH18
+
+#EXTINF:-1 tvg-name="AXN LatinoAmerica" tvg-id="AXN" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/d/dc/2016_AXN_logo.svg/revision/latest/scale-to-width-down/300?cb=20201126064846" tvg-chno="7" group-title="Premium Latino", catchup="vod",[COLOR orange]AXN[/COLOR]
+http://168.181.122.234:8000/play/a00s/index.m3u8
+
+#EXTINF:-1 tvg-name="AXN LatinoAmerica" tvg-id="AXN" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/d/dc/2016_AXN_logo.svg/revision/latest/scale-to-width-down/300?cb=20201126064846" tvg-chno="8" group-title="Premium Latino", catchup="vod",[COLOR orangered][B]AXN[/B] OPC2[/COLOR]
+http://45.166.92.22:58001/play/a02n/index.m3u8
+
+#EXTINF:-1 tvg-name="CineCanal HD" tvg-id="CineCanal HD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c3/Cinecanal_2018.png/revision/latest/scale-to-width-down/250?cb=20180907210148" tvg-chno="9" group-title="Premium Latino", catchup="vod",[COLOR darkorange][I][B]CineCanal [/B][COLOR orange][/I][/COLOR]
+http://190.95.220.212:8000/play/a01l/index.m3u8
+
+#EXTINF:-1 tvg-name="CineCanal" tvg-id="CineCanal" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/c/c3/Cinecanal_2018.png/revision/latest/scale-to-width-down/250?cb=20180907210148" tvg-chno="10" group-title="Premium Latino", catchup="vod",[COLOR orange]CineCanal[/COLOR]
+http://200.37.186.109:8000/play/a03l/index.m3u8
+
+#EXTINF:-1 tvg-name="CineCanal" tvg-id="CineCanal" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s105609_dark_360w_270h.png" tvg-chno="10" group-title="Premium Latino", catchup="vod",[COLOR orangered]CineCanal[/COLOR]
+http://190.61.44.34:1010/play/a04p/index.m3u8
+
+#EXTINF:-1 tvg-name="Cinemax Latino HD" tvg-id="Cinemax Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16794_dark_360w_270h.png" tvg-chno="11" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]Cinemax Latino HD[/I][/B][/COLOR]
+http://live1.cl.cdn.lla.vtrplay.com/cinemaxhdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD
+
+#EXTINF:-1 tvg-name="Cinemax Este" tvg-id="Cinemax Este" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16794_dark_360w_270h.png" tvg-chno="12" group-title="Premium Latino", catchup="vod",[COLOR orange]Cinemax Este[/COLOR]
+http://200.37.186.109:8000/play/a01s/index.m3u8
+
+#EXTINF:-1 tvg-name="Cinemax Latino HD" tvg-id="Cinemax Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s16794_dark_360w_270h.png" tvg-chno="12" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Cinemax MEX[/I][/B][/COLOR]
+http://186.148.195.206:8000/play/a00u/index.m3u8
+
+#EXTINF:-1 tvg-name="ExtremaTV" tvg-id="ExtremaTV" tvg-logo="http://radioextremacr.com/img/logo.png" tvg-chno="12" group-title="Premium Latino", catchup="vod",[COLOR skyblue][B][I]ExtremaTV[/I][/B][/COLOR]
+http://livestreamcdn.net:1935/ExtremaTV/ExtremaTV/media_w539852487_8532.playlist.m3u8
+
+
+#EXTINF:-1 tvg-name="Syfy Latinoamerica" tvg-id="Syfy Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s56727_dark_360w_270h.png" tvg-chno="13" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]Syfy HD[/B] [COLOR orange]OPC2[/I][/COLOR]
+http://160.20.165.245:8000/play/a01e/index.m3u8
+
+#EXTINF:-1 tvg-name="Syfy Latinoamerica" tvg-id="Syfy Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s56727_dark_360w_270h.png" tvg-chno="14" group-title="Premium Latino", catchup="vod",[COLOR orange]Syfy OPC1[/COLOR]
+http://200.24.204.242:6020/play/a0bq/index.m3u8
+
+#EXTINF:-1 tvg-name="Syfy Latinoamerica" tvg-id="Syfy Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s56727_dark_360w_270h.png" tvg-chno="15" group-title="Premium Latino", catchup="vod",[COLOR orange]Syfy OPC5[/COLOR]
+http://138.59.177.34:8000/play/a053/index.m3u8
+
+#EXTINF:-1 tvg-name="Syfy Latinoamerica" tvg-id="Syfy Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s56727_dark_360w_270h.png" tvg-chno="16" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]SYFY MEXICO[/I][/B][/COLOR]
+http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102389.ts
+
+##EXTINF:-1 tvg-name="SYFY" tvg-id="SYFY" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s56727_dark_360w_270h.png" tvg-chno="16" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]SYFY[/I][/B][/COLOR]
+
+
+#EXTINF:-1 tvg-name="Discovery Channel LatinoAmerica" tvg-id="Discovery Channel Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s15798_dark_360w_270h.png" tvg-chno="17" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]Discovery Channel HD [COLOR orange]LatinoAmerica[/B][/I][/COLOR]
+http://138.59.177.34:8000/play/a077/index.m3u8
+
+#EXTINF:-1 tvg-name="Discovery Channel Latino" tvg-id="Discovery Channel Latino" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s15798_dark_360w_270h.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Discovery Channel Latino[/COLOR]
+http://138.59.177.34:8000/play/a054/index.m3u8
+
+#EXTINF:-1 tvg-name="Discovery Channel Latino" tvg-id="Discovery Channel Latino" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s15798_dark_360w_270h.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Discovery Channel Latino OP1[/COLOR]
+http://200.24.204.242:6020/play/a0cc/index.m3u8
+
+#EXTINF:-1 tvg-name="Discovery H&H Latino" tvg-id="Discovery H&H" tvg-logo="http://descargas.podzone.net/logos/-discovery-home-&-health.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Discovery H&H MEX[/COLOR]
+http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102118.ts
+
+#EXTINF:-1 tvg-name="Discovery Theater" tvg-id="Discovery Theater" tvg-logo="http://descargas.podzone.net/logos/-discovery-theater.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Discovery Theater MEX[/COLOR]
+http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102121.ts
+
+#EXTINF:-1 tvg-name="Discovery World" tvg-id="Discovery World" tvg-logo="http://descargas.podzone.net/logos/-discovery-world.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Discovery World MEX[/COLOR]
+http://kiubo.biz:80/Nicolay@022/Nico@0223/102123.ts
+
+#EXTINF:-1 tvg-name="PlanetaTV Peliculas" tvg-id="PlanetaTV Peliculas" tvg-logo="https://i.imgur.com/J3PwDyP.jpg" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]PlanetaTV Peliculas[/COLOR]
+https://scl.edge.grupoz.cl/movie/live/playlist.m3u8
+
+#EXTINF:-1 tvg-name="Claro Cinema" tvg-id="Claro Cinema" tvg-logo="http://descargas.podzone.net/logos/-claro-cinema.png" tvg-chno="18" group-title="Premium Latino", catchup="vod",[COLOR orange]Claro Cinema MEX[/COLOR]
+http://legendstv.com.mx:80/Nicolay@022/Nico@0223/102360.ts
+
+#EXTINF:-1 tvg-name="HBO Mundi HD" tvg-id="HBO Mundi HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s70081_dark_360w_270h.png" tvg-chno="19" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]HBO Mundi HD[/I][/B] [COLOR orange][/COLOR]
+http://186.148.195.206:8000/play/a02w/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Mundi HD" tvg-id="HBO Mundi HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s70081_dark_360w_270h.png" tvg-chno="20" group-title="Premium Latino", catchup="vod",[COLOR darkorange][B][I]HBO Mundi [/I][/B] [COLOR orange][/COLOR]
+http://201.184.160.154:4849/play/CH68
+
+#EXTINF:-1 tvg-name="HBO Family Latinoamerica" tvg-id="HBO Family Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s34879_dark_360w_270h.png" tvg-chno="21" group-title="Premium Latino", catchup="vod",[COLOR orangered][B][I]HBO Family[/I][/B] [/COLOR]
+http://190.61.44.34:1010/play/a05w/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Family Latinoamerica" tvg-id="HBO Family Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s34879_dark_360w_270h.png" tvg-chno="21" group-title="Premium Latino", catchup="vod",[COLOR orang][B][I]HBO Family[/I][/B] [/COLOR]
+https://focusea27.com/cloudstrmtkz16_SD/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Family Latinoamerica" tvg-id="HBO Family Latinoamerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s34879_dark_360w_270h.png" tvg-chno="21" group-title="Premium Latino", catchup="vod",[COLOR darkorange][B][I]HBO Family[/I][/B] [/COLOR]
+http://192.141.99.3:8000/play/a03a
+
+#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="22" group-title="Premium Latino", catchup="vod",[COLOR blue][I][B]HBO HD[/I][/B][/COLOR]
+http://168.181.122.234:8000/play/a02o/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="22" group-title="Premium Latino", catchup="vod",[COLOR orangered][I][B]HBO (M)[/I][/B][/COLOR]
+http://45.166.92.22:58001/play/a03s/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="23" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO (M2)[/I][/B][/COLOR]
+http://200.59.188.3:8000/play/a020
+
+#EXTINF:-1 tvg-name="HBO" tvg-id="HBO West Latino HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="23" group-title="Premium Latino", catchup="vod",[COLOR darkorange][I][B]HBO (M3)[/I][/B][/COLOR]
+https://focusea27.com/cloudstrmtkz15_SD/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Plus LatinoAmerica HD" tvg-id="HBO" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="24" group-title="Premium Latino", catchup="vod",[COLOR darkorange][I][B]HBO+ HD[/B] [COLOR orange]+3H[/I][/COLOR]
+http://181.78.10.121:27000/play/a00t/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Plus LatinoAmerica HD" tvg-id="HBO" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="24" group-title="Premium Latino", catchup="vod",[COLOR orangered][I][B]HBO+[/B] [COLOR orange][/I][/COLOR]
+http://179.1.87.75:8098/play/a0ef/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Plus LatinoAmerica HD" tvg-id="HBO" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="24" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO+ M[/B] [COLOR orange][/I][/COLOR]
+http://186.148.195.206:8000/play/a03k/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO XTREME" tvg-id="HBO XTREME" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="25" group-title="Premium Latino",[COLOR orangered][B][I]HBO XTREME[/I][/B][/COLOR]
+http://179.1.146.21:8000/play/a071/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO XTREME" tvg-id="HBO XTREME" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="25" group-title="Premium Latino",[COLOR orange][B][I]HBO XTREME MEX[/I][/B][/COLOR]
+http://181.78.105.146:6060/play/a00l
+
+#EXTINF:-1 tvg-name="HBO XTREME" tvg-id="HBO XTREME" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s12288_dark_360w_270h.png" tvg-chno="25" group-title="Premium Latino",[COLOR darkorange][B][I]HBO XTREME MEX[/I][/B][/COLOR]
+http://200.59.188.3:8000/play/a035
+
+#EXTINF:-1 tvg-name="HBO 2" tvg-id="HBO 2" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s68140_dark_360w_270h.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]HBO 2 HD[/I][/B] [COLOR orange][/COLOR]
+http://181.78.10.121:27000/play/a02b/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO 2" tvg-id="HBO 2" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s68140_dark_360w_270h.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO 2[/B] [COLOR orange]OPC1[/I][/COLOR]
+http://168.181.122.234:8000/play/a02p/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO 2" tvg-id="HBO 2" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s68140_dark_360w_270h.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR orangered][I][B]HBO 2[/B] [COLOR orange]OPC1[/I][/COLOR]
+http://200.59.188.3:8000/play/a027
+
+#EXTINF:-1 tvg-name="HBO POP" tvg-id="HBO POP" tvg-logo="http://descargas.podzone.net/logos/-HBO-pop.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR orangered][I][B]HBO POP[/B] [COLOR orange][/I][/COLOR]
+http://45.71.252.16:8000/play/a0hv/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO POP" tvg-id="HBO POP" tvg-logo="http://descargas.podzone.net/logos/-HBO-pop.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO POP[/B] [COLOR orange][/I][/COLOR]
+http://45.179.164.30:8000/play/a052/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO POP" tvg-id="HBO POP" tvg-logo="http://descargas.podzone.net/logos/-HBO-pop.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR darkorange][I][B]HBO POP DUAL[/B] [COLOR orange][/I][/COLOR]
+http://38.43.151.206:8000/play/a00p/index.m3u8
+
+#EXTINF:-1 tvg-name="HBO Signature" tvg-id="HBO Signature" tvg-logo="http://descargas.podzone.net/logos/-HBO-signature.png" tvg-chno="26" group-title="Premium Latino", catchup="vod",[COLOR orange][I][B]HBO Signature MEX[/B] [COLOR orange][/I][/COLOR]
+http://186.148.195.206:8000/play/a03l/index.m3u8
+
+#EXTINF:-1 tvg-name="History Channel LatinoAmerica" tvg-id="History Channel LatinoAmerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s60964_dark_360w_270h.png" tvg-chno="27" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Historia[/I][/B] [COLOR orange][/COLOR]
+http://bantel-cdn1.iptvperu.tv:1935/cdnnjf/History/playlist.m3u8
+
+#EXTINF:-1 tvg-name="History Channel LatinoAmerica" tvg-id="History Channel LatinoAmerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s60964_dark_360w_270h.png" tvg-chno="28" group-title="Premium Latino", catchup="vod",[COLOR darkorange]Historia [COLOR orange][/COLOR]
+http://190.60.40.37:12500/play/a00g/index.m3u8
+
+#EXTINF:-1 tvg-name="History Channel LatinoAmerica" tvg-id="History Channel LatinoAmerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s60964_dark_360w_270h.png" tvg-chno="28" group-title="Premium Latino", catchup="vod",[COLOR orangered]Historia [COLOR orange][/COLOR]
+http://177.93.41.134:4000/play/a031/index.m3u8
+
+#EXTINF:-1 tvg-name="H2 Latinoamerica" tvg-id="History 2" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s80374_dark_360w_270h.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR darkorange][B][I]History 2[/I][/B][/COLOR]
+http://190.60.40.37:12500/play/a026/index.m3u8
+
+#EXTINF:-1 tvg-name="H2 Latinoamerica" tvg-id="History 2" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s80374_dark_360w_270h.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR skyblue][B][I]History 2 HD [/I][/B][/COLOR]
+http://167.250.135.246:81/play/a0bd/index.m3u8
+
+#EXTINF:-1 tvg-name="H2 Latinoamerica" tvg-id="History 2" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s80374_dark_360w_270h.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]History 2[/I][/B][/COLOR]
+http://170.82.37.21:8000/play/a01g/index.m3u8
+
+#EXTINF:-1 tvg-name="Universal Cinema" tvg-id="Universal Cinema" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s80374_dark_360w_270h.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orangered][B][I]Universal Cinema[/I][/B][/COLOR]
+http://45.5.117.182:8000/play/a0jz/index.m3u8
+
+#EXTINF:-1 tvg-name="Universal Cinema" tvg-id="Universal Cinema" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s80374_dark_360w_270h.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Universal Cinema[/I][/B][/COLOR]
+http://45.166.92.22:58001/play/a01t/index.m3u8
+
+#EXTINF:-1 tvg-name="Universal Reality" tvg-id="Universal Reality" tvg-logo="http://descargas.podzone.net/logos/-universal-reality.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Universal Reality[/I][/B][/COLOR]
+http://181.78.105.146:6060/play/a03r
+
+#EXTINF:-1 tvg-name="Universal Premier" tvg-id="Universal Premier" tvg-logo="http://descargas.podzone.net/logos/-universal-premier.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orangered][B][I]Universal Premier Dual[/I][/B][/COLOR]
+http://181.78.105.146:8800/play/a068
+
+#EXTINF:-1 tvg-name="Golden EDGE" tvg-id="Golden EDGE" tvg-logo="http://descargas.podzone.net/logos/-golden-edge.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Golden EDGE[/I][/B][/COLOR]
+http://190.61.44.34:1010/play/a084/index.m3u8
+
+#EXTINF:-1 tvg-name="Golden Premier" tvg-id="Golden Premier" tvg-logo="http://descargas.podzone.net/logos/-golden-premiere.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Golden Premier MEX[/I][/B][/COLOR]
+http://187.102.208.83:50000/play/a057/index.m3u8
+
+#EXTINF:-1 tvg-name="Golden" tvg-id="Golden" tvg-logo="http://descargas.podzone.net/logos/-golden.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Golden Plus[/I][/B][/COLOR]
+http://190.60.33.245:4002/play/a0ev/index.m3u8
+
+#EXTINF:-1 tvg-name="Space" tvg-id="Space" tvg-logo="http://descargas.podzone.net/logos/-space.png" tvg-chno="29" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Space MEX[/I][/B][/COLOR]
+http://187.102.208.83:50000/play/a02n/index.m3u8
+
+#EXTINF:-1 tvg-name="National Geographic LatinoAmerica HD" tvg-id="National Geographic LatinoAmerica" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s25068_dark_360w_270h.png" tvg-chno="40" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]Nat Geo HD[/I][/B] [COLOR orange][/COLOR]
+http://bantel-cdn1.iptvperu.tv:1935/cdnnjf/NatGeo/playlist.m3u8
+
+#EXTINF:-1 tvg-name="National Geographic LatinoAmerica" tvg-id="National Geographic LatinoAmerica HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s25068_dark_360w_270h.png" tvg-chno="45" group-title="Premium Latino", catchup="vod",[COLOR orange]National Geographic LatinoAmerica[/COLOR]
+http://45.5.117.182:8000/play/a0ey/index.m3u8
+
+#EXTINF:-1 tvg-name="FX" tvg-id="FX" tvg-logo="http://descargas.podzone.net/logos/-FX.png" tvg-chno="45" group-title="Premium Latino", catchup="vod",[COLOR orange]FX[/COLOR]
+http://45.166.92.22:58001/play/a00s/index.m3u8
+
+#EXTINF:-1 tvg-name="TNT SERIES" tvg-id="TNT SERIES" tvg-logo="http://descargas.podzone.net/logos/-TNT-series.png" tvg-chno="45" group-title="Premium Latino", catchup="vod",[COLOR orange]TNT SERIES MEX[/COLOR]
+http://45.166.92.22:58001/play/a01m/index.m3u8
+
+#EXTINF:-1 tvg-name="WARNER" tvg-id="WARNER" tvg-logo="http://descargas.podzone.net/logos/-warner.png" tvg-chno="45" group-title="Premium Latino", catchup="vod",[COLOR orange]WARNER MEXICO[/COLOR]
+http://45.166.92.22:58001/play/a049/index.m3u8
+
+#EXTINF:-1 tvg-name="Pasiones HD" tvg-id="Pasiones HD" tvg-logo="https://zap2it.tmsimg.com/h3/NowShowing/61776/s71621_ll_h15_aa.png" tvg-chno="46" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]Pasiones HD[/I][/B] [COLOR orange][/COLOR]
+http://200.37.186.109:8000/play/a05s/index.m3u8
+
+#EXTINF:-1 tvg-name="Pasiones HD" tvg-id="Pasiones HD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/b/bd/Pasiones2015.png/revision/latest?cb=20170518201426" tvg-chno="46" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]Pasiones HD[/I][/B] [COLOR orange][/COLOR]
+http://187.102.208.83:50000/play/a024/index.m3u8
+
+#EXTINF:-1 tvg-name="Pasiones HD" tvg-id="Pasiones HD" tvg-logo="https://zap2it.tmsimg.com/h3/NowShowing/61776/s71621_ll_h15_aa.png" tvg-chno="46" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]Pasiones HD[/I][/B] [COLOR orange][/COLOR]
+http://181.78.8.90:16123/play/ch35
+
+#EXTINF:-1 tvg-name="Paramount Network" tvg-id="Paramount Network" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/5/59/Paramount_Channel.svg/revision/latest/scale-to-width-down/200?cb=20190430121503" tvg-chno="46" group-title="Premium Latino", catchup="vod",[COLOR blue][B][I]Paramount+ MEXiCO[/I][/B] [COLOR orange][/COLOR]
+http://200.37.186.109:8000/play/a03r/index.m3u8
+
+#EXTINF:-1 tvg-name="Sony Movies HD" tvg-id="Sony Movies HD" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s19385_dark_360w_270h.png" tvg-chno="47" group-title="Premium Latino", catchup="vod",[COLOR orangered][B][I]Sony Cine HD[/I][/B] [COLOR orange][/COLOR]
+https://cdn.klowdtv.net/803B48A/n1.klowdtv.net/live1/cine_720p/playlist.m3u8
+
+#EXTINF:-1 tvg-name="Sony Movies HD" tvg-id="Sony Movies HD" tvg-logo="http://descargas.podzone.net/logos/-sony.png" tvg-chno="47" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Sony Movies[/I][/B] [COLOR orange][/COLOR]
+http://45.166.92.22:58001/play/a00u/index.m3u8
+
+#EXTINF:-1 tvg-name="Sony Movies HD" tvg-id="Sony Movies HD" tvg-logo="http://descargas.podzone.net/logos/-sony.png" tvg-chno="47" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Sony Movies Dual[/I][/B] [COLOR orange][/COLOR]
+http://181.78.105.146:8800/play/a04w
+
+#EXTINF:-1 tvg-name="ADN 40" tvg-id="ADN 40" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThOvMDS00260_JUsGIHbIDT-42TEKunphcTg&usqp=CAU" tvg-chno="47" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]ADN 40 MEXICO[/I][/B] [COLOR orange][/COLOR]
+http://legendstv.com.mx:80/Nicolay@022/Nico@0223/111316.ts
+
+#EXTINF:-1 tvg-name="Adn 40" tvg-id="Adn 40" tvg-logo="https://image.roku.com/blog/wp-content/uploads/2023/08/Screenshot-2023-08-04-at-11.04.47-AM.png" tvg-chno="47" group-title="Premium Latino", catchup="vod",[COLOR orange][B][I]Adn 40 MEXICO[/I][/B] [COLOR orange][/COLOR]
+https://mdstrm.com/live-stream-playlist/60b578b060947317de7b57ac.m3u8
+
+#EXTINF:-1 tvg-name="Penthouse" tvg-id="Penthouse" tvg-logo="" tvg-chno="69" group-title="Premium Latino", catchup="vod",[COLOR pink][B][I]Penthouse[/I][/B][/COLOR]
+http://45.166.92.22:58001/play/a04c/index.m3u8
+
+#EXTINF:-1 tvg-name="Playboy" tvg-id="Playboy" tvg-logo="" tvg-chno="69" group-title="Premium Latino", catchup="vod",[COLOR pink][B][I]Playboy[/I][/B][/COLOR]
+http://45.166.92.22:58001/play/a03z/index.m3u8

@@ -651,6 +651,10 @@ msgctxt "#30015"
 msgid "Realdebrid"
 msgstr ""
 
+msgctxt "#30016"
+msgid "Debrid-Link (Limitado)"
+msgstr ""
+
 msgctxt "#30017"
 msgid "Trakt.tv"
 msgstr ""
@@ -659,8 +663,12 @@ msgctxt "#30020"
 msgid "More..."
 msgstr ""
 
-msgctxt "#30025"
-msgid "Only debug"
+msgctxt "#30023"
+msgid "Resync with Trakt.tv"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Delete viewed"
 msgstr ""
 
 msgctxt "#30025"
@@ -668,15 +676,19 @@ msgid "Maintenance"
 msgstr ""
 
 msgctxt "#30026"
-msgid "Reset Cache ResolveUrl"
+msgid "Reset Cache"
 msgstr ""
 
 msgctxt "#30028"
-msgid "Sort Movies ..."
+msgid "Sort..."
+msgstr ""
+
+msgctxt "#30029"
+msgid "Coloring the labels"
 msgstr ""
 
 msgctxt "#30030"
-msgid "Starting [COLOR %s]%s (%sx%s) [/COLOR] in %s seconds"
+msgid "Starting %s in %s seconds"
 msgstr ""
 
 
@@ -818,8 +830,32 @@ msgctxt "#30066"
 msgid "No trailer available for %s at this time"
 msgstr ""
 
+msgctxt "#30067"
+msgid "Play trailer"
+msgstr ""
+
 msgctxt "#30068"
 msgid "Seasons / Episodes"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Maximum number of items in a list"
+msgstr ""
+
+msgctxt "#30070"
+msgid "23"
+msgstr ""
+
+msgctxt "#30034"
+msgid "53"
+msgstr ""
+
+msgctxt "#30054"
+msgid "71"
+msgstr ""
+
+msgctxt "#30086"
+msgid "101"
 msgstr ""
 
 msgctxt "#30071"
@@ -898,6 +934,10 @@ msgctxt "#30090"
 msgid "After six months"
 msgstr ""
 
+msgctxt "#30091"
+msgid "Do not follow this show..."
+msgstr ""
+
 msgctxt "#30092"
 msgid "Show series in follow-up"
 msgstr ""
@@ -916,6 +956,18 @@ msgstr ""
 
 msgctxt "#30096"
 msgid "Reset api key..."
+msgstr ""
+
+msgctxt "#30097"
+msgid "Do not follow this series on any device"
+msgstr ""
+
+msgctxt "#30098"
+msgid "Show expiration"
+msgstr ""
+
+msgctxt "#30099"
+msgid "Autoplay (1080p only)"
 msgstr ""
 
 # moria
@@ -986,6 +1038,10 @@ msgstr ""
 
 msgctxt "#30117"
 msgid "For quality"
+msgstr ""
+
+sgctxt "#30118"
+msgid "By random order"
 msgstr ""
 
 msgctxt "#30119"
@@ -1157,7 +1213,7 @@ msgid "There is no content available for your version"
 msgstr ""
 
 msgctxt "#30506"
-msgid "It is necessary to have a Realdebrid or Alldebrid account to resolve this link"
+msgid "It is necessary to have a debrid account to resolve this link"
 msgstr ""
 
 msgctxt "#30507"
@@ -1266,4 +1322,16 @@ msgstr "
 
 msgctxt "#30534"
 msgid "Select a list:"
+msgstr ""
+
+msgctxt "#30535"
+msgid "You are about to remove this Trakt.tv listing from this device\nDo you want to continue?"
+msgstr ""
+
+msgctxt "#30536"
+msgid "List of movies to watch"
+msgstr ""
+
+msgctxt "#30537"
+msgid "List of series to watch"
 msgstr ""

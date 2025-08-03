@@ -7,10 +7,16 @@ from core.item import Item
 from core import httptools, scrapertools, servertools, tmdb
 
 
-host = 'https://drama.kissasian.dad/'
+host = 'https://kissasian.org.ru/'
 
 
 def do_downloadpage(url, post=None, headers=None):
+    # ~ por si viene de enlaces guardados
+    ant_hosts = ['https://drama.kissasian.dad/', 'https://kissasian.email/', 'https://kissasian.cfd/']
+
+    for ant in ant_hosts:
+        url = url.replace(ant, host)
+
     data = httptools.downloadpage(url, post=post, headers=headers).data
 
     return data
@@ -28,39 +34,6 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'drama', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'tvshow' ))
-
-    itemlist.append(item.clone( title = 'Por letra (A - Z)', action = 'alfabetico', search_type = 'tvshow' ))
-
-    return itemlist
-
-
-def generos(item):
-    logger.info()
-    itemlist = []
-
-    data = do_downloadpage(host)
-    data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
-
-    bloque = scrapertools.find_single_match(data, '>Genres<(.*?)</ul>')
-
-    matches = re.compile('<a href="(.*?)".*?>(.*?)</a>').findall(bloque)
-
-    for url, gen in matches:
-        itemlist.append(item.clone( title = gen, action = 'list_all', url = url, text_color = 'firebrick' ))
-
-    return sorted(itemlist, key=lambda x: x.title)
-
-
-def alfabetico(item):
-    logger.info()
-    itemlist = []
-
-    for letra in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-        url = host + 'az-list/' + letra.lower()
-
-        itemlist.append(item.clone( title = letra, action = 'list_all', url = url, text_color='firebrick' ))
-
     return itemlist
 
 
@@ -71,12 +44,12 @@ def list_all(item):
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    matches = re.compile('<div class="item">(.*?)</a>                </div>            </div>').findall(data)
+    matches = re.compile('<span class="status">(.*?)</li>').findall(data)
 
     for match in matches:
         url = scrapertools.find_single_match(match, ' href="(.*?)"')
 
-        title = scrapertools.find_single_match(match, 'data-jp="(.*?)"')
+        title = scrapertools.find_single_match(match, 'alt="(.*?)"')
 
         if not url or not title: continue
 
@@ -90,35 +63,21 @@ def list_all(item):
 
         thumb = scrapertools.find_single_match(match, ' src="(.*?)"')
 
-        itemlist.append(item.clone( action='temporadas', url=url, title=title, thumbnail=thumb,
+        title = title.replace('Season', '[COLOR tan]Temp.[/COLOR]').replace('season', '[COLOR tan]Temp.[/COLOR]')
+
+        itemlist.append(item.clone( action='episodios', url=url, title=title, thumbnail=thumb,
                                     contentType = 'tvshow', contentSerieName = SerieName, infoLabels={'year': year} ))
 
     tmdb.set_infoLabels(itemlist)
 
     if itemlist:
-        if '<ul class="pagination">' in data:
-             next_page = scrapertools.find_single_match(data, '<ul class="pagination">.*?<li class="page-item active">.*?href="(.*?)"')
+        if '<div class="pagination">' in data:
+             next_page = scrapertools.find_single_match(data, '<div class="pagination">.*?class="page-numbers current">.*?href="(.*?)".*?</ul>')
 
              if next_page:
-                 if 'page=' in next_page:
+                 if '/page/' in next_page:
                      itemlist.append(item.clone( title='Siguientes ...', url=next_page, action='list_all', text_color='coral' ))
 
-    return itemlist
-
-
-def temporadas(item):
-    logger.info()
-    itemlist = []
-
-    if config.get_setting('channels_seasons', default=True):
-        title = 'Sin temporadas'
-
-        platformtools.dialog_notification(item.contentSerieName.replace('&#038;', '&').replace('&#8217;', "'"), '[COLOR tan]' + title + '[/COLOR]')
-
-    item.contentType = 'season'
-    item.page = 0
-    item.contentSeason = 1
-    itemlist = episodios(item)
     return itemlist
 
 
@@ -132,17 +91,9 @@ def episodios(item):
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    _id = scrapertools.find_single_match(data, 'data-id="(.*?)"')
+    bloque = scrapertools.find_single_match(data, '<ul class="list-episode">(.*?)</ul>')
 
-    if not _id: return itemlist
-
-    data = do_downloadpage(host + 'ajax/episode/list-episode?movieId=' + _id)
-
-    data = data.replace('\\/', '/')
-    data = data.replace('=\\', '=').replace('\\"', '"')
-    data = data.replace('=/', '=').replace('\/"', '"')
-
-    matches = re.compile('<a class="ep-item".*?href="(.*?)".*?data-num="(.*?)"', re.DOTALL).findall(str(data))
+    matches = scrapertools.find_multiple_matches(bloque, '<a title="(.*?)".*?href="(.*?)"')
 
     if item.page == 0 and item.perpage == 50:
         sum_parts = len(matches)
@@ -152,7 +103,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('KissAsian', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('KissAsian', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -184,11 +138,23 @@ def episodios(item):
                     item.perpage = sum_parts
                 else: item.perpage = 50
 
-    for url, epis in matches[item.page * item.perpage:]:
-        title = str(item.contentSeason) + 'x' + str(epis) + ' ' + item.contentSerieName
+    for title, url in matches[item.page * item.perpage:]:
+        season = '1'
+
+        epi = scrapertools.find_single_match(url, '-episode-(.*?)/')
+        if not epi: epi = scrapertools.find_single_match(url, '-ep-(.*?)/')
+        if not epi: epi = '1'
+
+        if '-' in epi: epi = epi.split("-")[0]
+
+        title = str(season) + 'x' + str(epi) + ' ' + item.contentSerieName
+
+        title = title.replace('Season', '[COLOR tan]Temp.[/COLOR]').replace('season', '[COLOR tan]Temp.[/COLOR]')
+
+        url = host[:-1] + url
 
         itemlist.append(item.clone( action='findvideos', url = url, title = title,
-                                    contentType = 'episode', contentSeason = item.contentSeason, contentEpisodeNumber=epis ))
+                                    contentType = 'episode', contentSeason = season, contentEpisodeNumber=epi ))
 
         if len(itemlist) >= item.perpage:
             break
@@ -209,21 +175,7 @@ def findvideos(item):
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    _ep = scrapertools.find_single_match(data, 'data-id="(.*?)"')
-
-    if not _ep: return itemlist
-
-    data = do_downloadpage(host + 'ajax/episode/player?episode_id=' + _ep, headers={'Referer': item.url})
-
-    link = scrapertools.find_single_match(data, '"server_link":"(.*?)"')
-
-    if not link: return itemlist
-
-    link = link.replace('\\/', '/')
-
-    data = do_downloadpage(link, headers={'Referer': item.url})
-
-    matches = re.compile('class="linkserver".*?data-video="(.*?)"', re.DOTALL).findall(str(data))
+    matches = re.compile('data-src="(.*?)"', re.DOTALL).findall(str(data))
 
     ses = 0
 
@@ -238,7 +190,7 @@ def findvideos(item):
 
         url = servertools.normalize_url(servidor, url)
 
-        if '/asianbxkiun.' in url:
+        if '/asianbxkiun.' in url or '/embasic.pro' in url:
             data = do_downloadpage(url)
 
             links = re.compile('data-video="(.*?)"', re.DOTALL).findall(data)
@@ -247,6 +199,7 @@ def findvideos(item):
                 if not link: continue
 
                 elif '/asianbxkiun.' in link: continue
+                elif '/embasic.pro/' in link: continue
 
                 servidor = servertools.get_server_from_url(link)
                 servidor = servertools.corregir_servidor(servidor)
@@ -254,21 +207,60 @@ def findvideos(item):
                 link = servertools.normalize_url(servidor, link)
 
                 other = ''
-                if servidor == 'various': other = servertools.corregir_other(link)
 
-                itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = link, language = 'Vos', other = other ))
+                if servidor == 'various': other = servertools.corregir_other(link)
+                elif servidor == 'zures': other = servertools.corregir_zures(link)
+
+                itemlist.append(Item( channel = item.channel, action = 'play', server=servidor, title='', url=link,
+                                      language='Vo', other=other.capitalize() ))
 
             continue
 
         other = ''
-        if servidor == 'various': other = servertools.corregir_other(url)
 
-        itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = 'Vos', other = other ))
+        if servidor == 'various': other = servertools.corregir_other(url)
+        elif servidor == 'zures': other = servertools.corregir_zures(url)
+
+        itemlist.append(Item( channel = item.channel, action = 'play', server=servidor, title='', url=url,
+                              language='Vo', other=other.capitalize() ))
 
     if not itemlist:
         if not ses == 0:
             platformtools.dialog_notification(config.__addon_name, '[COLOR tan][B]Sin enlaces Soportados[/B][/COLOR]')
             return
+
+    return itemlist
+
+
+def play(item):
+    logger.info()
+    itemlist = []
+
+    url = item.url
+
+    if '/embasic.pro/' in item.url:
+        data = do_downloadpage(item.url)
+        data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
+
+        url = scrapertools.find_single_match(data, 'onclick="location.href=' + "*.*?'(.*?)'")
+
+    if url:
+        url = url.replace('http://', 'https://')
+
+        servidor = servertools.get_server_from_url(url)
+        servidor = servertools.corregir_servidor(servidor)
+
+        url = servertools.normalize_url(servidor, url)
+
+        if '/asianload.' in url: servidor = 'zures'
+
+        if servidor == 'directo':
+            new_server = servertools.corregir_other(url).lower()
+            if new_server.startswith("http"):
+                if not config.get_setting('developer_mode', default=False): return itemlist
+            servidor = new_server
+
+        itemlist.append(item.clone(url = url, server = servidor))
 
     return itemlist
 

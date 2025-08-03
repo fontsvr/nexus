@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1153" type="dialog">
+	<onload condition="String.IsEmpty(Window(Home).Property(CustomSelectGameOSDSettings))">SetFocus(90100)</onload>
+	<onload condition="!String.IsEmpty(Window(Home).Property(CustomSelectGameOSDSettings))">SetFocus(90101)</onload>
+	
+	<controls>
+		<control type="group">
+			<include>DialogOpenCloseAnimation</include>
+			<left>457</left>
+			<top>240</top>
+			<animation effect="slide" end="0,-100" time="0" condition="!String.IsEmpty(Window(Home).Property(CustomSelectSearch)) + Skin.HasSetting(centermainmenu)">Conditional</animation>
+			<animation effect="slide" end="0,100" time="0" condition="!String.IsEmpty(Window(Home).Property(CustomSelectSearch)) + !Skin.HasSetting(centermainmenu)">Conditional</animation>
+			<visible>![Window.IsActive(gamestretchmode) | Window.IsActive(gamevideofilter) | Window.IsActive(gamevideorotation) | Window.IsActive(gamevolume) | Window.IsActive(InGameSaves)]</visible>
+			<include>VisibleFadeAnimation</include>
+			<control type="group">
+				<visible>String.IsEmpty(Window(Home).Property(CustomSelectGameOSDSettings))</visible>
+				<control type="group">
+					<visible>String.IsEmpty(Window(Home).Property(CustomSelectSearch))</visible>
+					<control type="image">
+						<left>157</left>
+						<width>692</width>
+						<height>600</height>
+						<texture border="40">dialogs/default/bg.png</texture>
+					</control>
+					<control type="image">
+						<left>187</left>
+						<top>86</top>
+						<width>632</width>
+						<height>482</height>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="5">dialogs/default/inner.png</texture>
+					</control>
+				</control>
+				<control type="group">
+					<visible>!String.IsEmpty(Window(Home).Property(CustomSelectSearch))</visible>
+					<control type="image">
+						<left>157</left>
+						<width>692</width>
+						<height>360</height>
+						<texture border="40">dialogs/default/bg.png</texture>
+					</control>
+					<control type="image">
+						<left>187</left>
+						<top>86</top>
+						<width>632</width>
+						<height>242</height>
+						<texture border="5">dialogs/default/inner.png</texture>
+					</control>
+				</control>
+				<control type="label" id="1">
+					<left>30</left>
+					<top>32</top>
+					<width>940</width>
+					<height>40</height>
+					<font>font15_title</font>
+					<label>$VAR[CustomSelectLabelVar] [COLORcc76ff003]buscador[/COLOR]</label>
+					<align>center</align>
+					<textcolor>dialogheader</textcolor>
+				</control>
+			
+			<control type="panel" id="90100">
+			<left>244</left><!--189-->
+				<top>112</top><!--128-88-->
+				<width>680</width><!--628-->
+				<height>455</height><!--480-->
+				<onup>90100</onup>
+				<ondown>90100</ondown>
+				<onleft>90100</onleft>
+				<onright>60</onright>
+				<pagecontrol>60</pagecontrol>
+				<scrolltime tween="quadratic" easing="out">200</scrolltime>
+			<itemlayout width="628" height="65"><!--<itemlayout width="520" height="75">-->
+				<control type="image">
+					<centerleft>5%</centerleft>
+					<top>5</top><!--16-->
+					<left>10</left>
+					<width>50</width>
+					<height>50</height>
+					<texture diffuse="listselect_fo.png">$INFO[ListItem.Art(thumb)]</texture>
+					<aspectratio>scale</aspectratio>
+				</control>	
+				<control type="label">
+					<centerleft>50%</centerleft>
+					<align>left</align>
+					<left>100</left>
+					<top>12</top><!--16-->
+					<width>628</width>
+					<height>36</height>
+					<font>font13_title</font>
+					<textcolor>$VAR[UnfocusedMainMenuColor]</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+			</itemlayout>
+			<focusedlayout width="628" height="65">
+				<control type="image">
+					<left>0</left>
+					<top>0</top>
+					<width>520</width><!--520-->
+					<height>60</height><!--75-->
+					<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
+				</control>
+				<control type="image">
+					<centerleft>5%</centerleft>
+					<top>5</top>
+					<left>10</left>
+					<aligny>center</aligny>
+					<width>50</width>
+					<height>50</height>
+					<texture>$INFO[ListItem.Art(thumb)]</texture>
+					<aspectratio>scale</aspectratio>
+				</control>	
+				<control type="label">
+					<centerleft>50%</centerleft>
+					<align>left</align>
+					<left>100</left>
+					<top>12</top><!---->
+					<width>628</width>
+					<height>36</height>
+					<font>font13_title</font>
+					<textcolor>$VAR[FocusedMainMenuColor]</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+			</focusedlayout>
+			<content>
+				<item>
+					<thumb>special://skin/extras/buscadores/icons/palantir3.png</thumb>
+					<label>Buscador Palantir3</label>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.palantir3)">ActivateWindow(10025,&quot;plugin://plugin.video.palantir3/&quot;,return)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.palantir3)">InstallAddon(plugin.video.palantir3)</onclick>
+				</item>
+		
+				<item>
+					<thumb>special://skin/extras/buscadores/icons/alfa.png</thumb>
+					<label>Buscador Alfa</label>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.alfa)">ActivateWindow(10025,&quot;plugin://plugin.video.alfa/?ewogICAgImFjdGlvbiI6ICJtYWlubGlzdCIsCiAgICAiY2F0ZWdvcnkiOiAiU2VsZWNjaW9uYSB1bmEgY2F0ZWdvclx1MDBlZGEiLAogICAgImNoYW5uZWwiOiAic2VhcmNoIiwKICAgICJjb250ZXh0IjogWwogICAgICAgIHsKICAgICAgICAgICAgImFjdGlvbiI6ICJvcGNpb25lcyIsCiAgICAgICAgICAgICJjaGFubmVsIjogInNlYXJjaCIsCiAgICAgICAgICAgICJnb3RvIjogdHJ1ZSwKICAgICAgICAgICAgInRpdGxlIjogIkNvbmZpZ3VyYXIgQnVzY2Fkb3IiCiAgICAgICAgfQogICAgXSwKICAgICJpbmZvTGFiZWxzIjoge30sCiAgICAidGh1bWJuYWlsIjogImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9hbGZhLWFkZG9uL21lZGlhL21hc3Rlci90aGVtZXMvZGFya1xcdGh1bWJfc2VhcmNoLnBuZyIsCiAgICAidGl0bGUiOiAiQnVzY2FyIiwKICAgICJ2aWV3bW9kZSI6ICJsaXN0Igp9&quot;,return)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.alfa)">InstallAddon(plugin.video.alfa)</onclick>
+				</item>
+				<item>
+					<thumb>special://skin/extras/buscadores/icons/balandro.png</thumb>
+					<label>Buscador Balandro</label>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.balandro)">ActivateWindow(10025,&quot;plugin://plugin.video.balandro/?ewogICAgImFjdGlvbiI6ICJtYWlubGlzdCIsIAogICAgImNhdGVnb3J5IjogIkJhbGFuZHJvIiwgCiAgICAiY2hhbm5lbCI6ICJzZWFyY2giLCAKICAgICJpbmZvTGFiZWxzIjoge30sIAogICAgInRodW1ibmFpbCI6ICJDOlxcVXNlcnNcXGRhdmlqXFxBcHBEYXRhXFxSb2FtaW5nXFxLb2RpXFxhZGRvbnNcXHBsdWdpbi52aWRlby5iYWxhbmRyb1xccmVzb3VyY2VzXFxtZWRpYVxcdGhlbWVzXFxkZWZhdWx0XFxtYWduaWZ5aW5nZ2xhc3MucG5nIiwgCiAgICAidGl0bGUiOiAiQnVzY2FyIgp9&quot;,return)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.balandro)">InstallAddon(plugin.video.balandro)</onclick>
+				</item>
+				<item>
+					<thumb>special://skin/extras/buscadores/icons/tacones.png</thumb>
+					<label>Buscador Tacones</label>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.tacones)">ActivateWindow(10025,&quot;plugin://plugin.video.tacones/?url=%24doregex%5Bresults%5D&amp;mode=17&amp;regexs=%7B%27results%27%3A%20%7B%27name%27%3A%20%27results%27%2C%20%27listrepeat%27%3A%20%27%5Cn%3Ctitle%3E%5BCOLOR%20red%5D%E2%80%A2%5B/COLOR%5D%20%5BB%5D%5BCOLOR%20white%5D%5Bresults.param1%5D%5B/COLOR%5D%5B/B%5D%3C/title%3E%5Cn%3Clink%3E%24doregex%5BselectionLinks%5D%3C/link%3E%5Cn%3Cyear%3E%5Bresults.param2%5D%3C/year%3E%5Cn%3Cgenre%3E%5Bresults.param3%5D%3C/genre%3E%5Cn%3Cinfo%3E%5Bresults.param4%5D%3C/info%3E%5Cn%3Cthumbnail%3E%5Bresults.param5%5D%3C/thumbnail%3E%5Cn%3Cfanart%3E%5Bresults.param6%5D%3C/fanart%3E%5Cn%27%2C%20%27expres%27%3A%20%22%23%24pyFunction%5Cndef%20GetLSProData%28page_data%2CCookie_Jar%2Cm%29%3A%5Cn%20%20%20%20import%20xbmc%2C%20xbmcgui%5Cn%20%20%20%20import%20requests%5Cn%20%20%20%20import%20json%5Cn%20%20%20%20import%20difflib%5Cn%20%20%20%20from%20xml.etree%20import%20ElementTree%5Cn%20%20%20%20data%20%3D%20requests.get%28%27https%3A//gitlab.com/stiletto1/s/-/raw/main/c%27%29.text%5Cn%20%20%20%20xml%20%3D%20ElementTree.fromstring%28data%29%5Cn%20%20%20%20inputText%20%3D%20xbmcgui.Dialog%28%29.input%28%27Buscar%20Pelicula%3A%20%27%2C%20type%3Dxbmcgui.INPUT_ALPHANUM%29.upper%28%29%5Cn%20%20%20%20%5Cn%20%20%20%20def%20getLinks%28item%29%3A%5Cn%20%20%20%20%20%20%20%20links%20%3D%20dict%28%29%5Cn%20%20%20%20%20%20%20%20for%20k%2C%20v%20in%20item.items%28%29%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20if%20len%28v%29%20%3D%3D%2040%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20links.update%28%7Bk%3A%20v%7D%29%5Cn%20%20%20%20%20%20%20%20return%20links%5Cn%5Cn%20%20%20%20def%20parseJSON%28data%29%3A%5Cn%20%20%20%20%20%20%20%20results%20%3D%20list%28%29%5Cn%20%20%20%20%20%20%20%20for%20item%20in%20list%28sorted%28json.loads%28data%29%2C%20key%3Dlambda%20x%3A%20x%5B%27ratio%27%5D%2C%20reverse%3DTrue%29%29%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20film%20%3D%20item%5B%27item%27%5D%5Cn%20%20%20%20%20%20%20%20%20%20%20%20links%20%3D%20getLinks%28film%29%5Cn%20%20%20%20%20%20%20%20%20%20%20%20if%20not%20links%3A%20continue%5Cn%20%20%20%20%20%20%20%20%20%20%20%20results.append%28%28film.get%28%27title%27%29%2C%20film.get%28%27date%27%29%2C%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20film.get%28%27genre%27%29%2C%20film.get%28%27info%27%29%2C%20film.get%28%27thumbnail%27%29%2C%20film.get%28%27fanart%27%29%2C%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20str%28links%29%29%29%5Cn%20%20%20%20%20%20%20%20return%20results%5Cn%5Cn%20%20%20%20def%20getResults%28items%29%3A%5Cn%20%20%20%20%20%20%20%20results%20%3D%20list%28%29%5Cn%20%20%20%20%20%20%20%20for%20item%20in%20items%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20title%20%3D%20item.find%28%27title%27%29.text.upper%28%29%5Cn%20%20%20%20%20%20%20%20%20%20%20%20ratio%20%3D%20100%20if%20inputText%20in%20title.upper%28%29%20else%20difflib.SequenceMatcher%28%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20None%2C%20title%2C%20inputText%29.ratio%28%29%20%2A%20100%5Cn%20%20%20%20%20%20%20%20%20%20%20%20if%20ratio%20%3C%2060%3A%20continue%20%5Cn%20%20%20%20%20%20%20%20%20%20%20%20newitem%20%3D%20dict%28%29%5Cn%20%20%20%20%20%20%20%20%20%20%20%20for%20elem%20in%20item.iter%28%29%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20elem.tag%20%3D%3D%20%27item%27%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20continue%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20newitem.update%28%7Belem.tag%3A%20elem.text%7D%29%5Cn%20%20%20%20%20%20%20%20%20%20%20%20results.append%28%7B%27ratio%27%3A%20ratio%2C%20%27item%27%3A%20newitem%7D%29%5Cn%20%20%20%20%20%20%20%20return%20results%5Cn%20%20%20%20return%20parseJSON%28json.dumps%28list%28sorted%28getResults%28xml.findall%28%27item%27%29%29%2C%5Cn%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20key%3Dlambda%20x%3A%20x%5B%27ratio%27%5D%2C%20reverse%3DTrue%29%29%29%29%5Cn%22%2C%20%27page%27%3A%20None%2C%20%27cookiejar%27%3A%20%27%27%7D%2C%20%27selectionLinks%27%3A%20%7B%27name%27%3A%20%27selectionLinks%27%2C%20%27expres%27%3A%20%22%23%24pyFunction%5Cndef%20GetLSProData%28page_data%2CCookie_Jar%2Cm%29%3A%5Cn%20%20%20%20import%20xbmcgui%2C%20xbmc%5Cn%20%20%20%20dialog%20%3D%20xbmcgui.Dialog%28%29%5Cn%20%20%20%20links%20%3D%20%5Bresults.param7%5D%5Cn%20%20%20%20option%20%3D%200%20%5Cn%20%20%20%20if%20len%28links%29%20%3E%201%3A%5Cn%20%20%20%20%20%20%20%20option%20%3D%20dialog.select%28%27Seleccione%20Calidad%3A%27%2C%20%5Bquality.replace%28%27microhd%27%2C%27Micro%20HD%27%29.replace%28%27fullhd%27%2C%27Full%20HD%27%29.replace%28%27tresd%27%2C%273D%27%29.replace%28%27cuatrok%27%2C%274K%27%29%20for%20quality%20in%20links.keys%28%29%5D%29%5Cn%20%20%20%20%20%20%20%20if%20option%20%3D%3D%20-1%3A%5Cn%20%20%20%20%20%20%20%20%20%20%20%20return%20%5Cn%20%20%20%20return%20%27plugin%3A//plugin.video.elementum/play%3Furi%3Dmagnet%3A%3Fxt%3Durn%3Abtih%3A%27%20%2B%20list%28links.values%28%29%29%5Boption%5D%5Cn%22%2C%20%27page%27%3A%20None%2C%20%27cookiejar%27%3A%20%27%27%7D%7D&amp;iconimage=https%3A%2F%2Fi.imgur.com%2Fg412a9y.png&quot;,return)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.tacones)">InstallAddon(plugin.video.tacones)</onclick>
+				</item>
+				<item>
+					<thumb>special://skin/extras/buscadores/icons/duffyou.jpg</thumb>
+					<label>Buscador DuffYou</label>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.duffyou)">ActivateWindow(10025,&quot;plugin://plugin.video.duffyou/?eydhY3Rpb24nOiAnb2kwT28wMG9PJywgJ2ZhbmFydCc6ICcvc3RvcmFnZS9lbXVsYXRlZC8wL0FuZHJvaWQvZGF0YS90aGUudGVhbS5rZHZ0L2ZpbGVzLy5rb2RpL2FkZG9ucy9wbHVnaW4udmlkZW8uZHVmZnlvdS9mYW5hcnQuanBnJywgJ2ljb24nOiAnL3N0b3JhZ2UvZW11bGF0ZWQvMC9BbmRyb2lkL2RhdGEvdGhlLnRlYW0ua2R2dC9maWxlcy8ua29kaS9hZGRvbnMvcGx1Z2luLnZpZGVvLmR1ZmZ5b3UvcmVzb3VyY2VzL21lZGlhL3NlYXJjaC5wbmcnLCAnbGFiZWwnOiAnQnVzY2FyJywgJ3Bsb3QnOiAnW0JdQnVzY2FyWy9CXVtDUl1bQ1JdQnVzY2EgdW4gdmlkZW8sIHVuIGRpcmVjdG8sIHVuYSBwbGF5bGlzdCBvIHVuIGNhbmFsLid9&quot;,return)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.duffyou)">InstallAddon(plugin.video.duffyou)</onclick>
+				</item>
+				<item>
+					<thumb>special://skin/extras/buscadores/icons/youtube.png</thumb>
+					<label>Buscador YouTube</label>
+					<onclick>Dialog.Close(all)</onclick>
+					<onclick condition="System.HasAddon(plugin.video.youtube)">ActivateWindow(10025,&quot;plugin://plugin.video.youtube/kodion/search/list/?category_label=Buscar&quot;,return)</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
+				</item>
+			</content>
+		</control>
+			
+			</control>
+		</control>
+	</controls>
+</window>
+
+

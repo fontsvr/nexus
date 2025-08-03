@@ -89,6 +89,8 @@ def acciones(item):
 
     itemlist.append(item_configurar_proxies(item))
 
+    itemlist.append(item.clone ( channel='helper', action='show_help_prales', title='[B]Cual es su canal Principal[/B]', pral = True, text_color='turquoise' ))
+
     platformtools.itemlist_refresh()
 
     return itemlist
@@ -108,7 +110,7 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'series-online.html', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Últimos capítulos', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
+    itemlist.append(item.clone( title = 'Últimos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
 
     itemlist.append(item.clone( title = 'Por género', action = 'generos', search_type = 'tvshow' ))
     itemlist.append(item.clone( title = 'Por año', action = 'anios', search_type = 'tvshow' ))
@@ -131,7 +133,7 @@ def generos(item):
     for url, title in matches:
         title = title.replace('&amp;', '&').strip()
 
-        itemlist.append(item.clone( title = title, action = 'list_all', url = url, genre = title, text_color = 'hotpink' ))
+        itemlist.append(item.clone( title = title, action = 'list_all', url = url, text_color = 'hotpink' ))
 
     return sorted(itemlist,key=lambda x: x.title)
 
@@ -190,7 +192,7 @@ def list_all(item):
 
         thumb = scrapertools.find_single_match(match, '<img src="(.*?)"')
 
-        title = title.replace('online gratis', '').strip()
+        title = title.replace('online gratis', '').replace('&#039;', "'").replace('&amp;', '&').strip()
 
         year = '-'
         if '/series-online/año/' in item.url:
@@ -234,7 +236,7 @@ def last_epis(item):
 
         if not url or not title: continue
 
-        title = title.replace('&#039;', "'")
+        title = title.replace('&#039;', "'").replace('&amp;', '&')
 
         SerieName = scrapertools.find_single_match(title, '(.*?)- T').strip()
 
@@ -242,13 +244,17 @@ def last_epis(item):
 
         if not season: season = 1
 
-        epis = scrapertools.find_single_match(title, 'Capítulo(.*?)</span>').strip()
+        epis = scrapertools.find_single_match(title, 'Capítulo(.*?)$').strip()
 
         if not epis: epis = 1
 
-        title = title.replace('Capítulo ', '[COLOR goldenrod]Capítulo [/COLOR]')
+        title = title.replace(' T ', '[COLOR tan] Temp. [/COLOR]')
 
-        itemlist.append(item.clone( action = 'findvideos', url = url, title = title, infoLabels={'year': '-'},
+        title = title.replace('Capítulo ', '[COLOR goldenrod]Epis. [/COLOR]')
+
+        titulo = str(season) + 'x' + str(epis) + ' ' + title
+
+        itemlist.append(item.clone( action = 'findvideos', url = url, title = titulo, infoLabels={'year': '-'},
                                     contentSerieName = SerieName, contentType = 'episode', contentSeason = season, contentEpisodeNumber = epis ))
 
     tmdb.set_infoLabels(itemlist)
@@ -309,7 +315,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('OnlineTv', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('OnlineTv', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')

@@ -23,19 +23,18 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if descartar_xxx: return itemlist
-
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
     itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'videos/' ))
 
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'most-popular/' ))
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'most-popular/' ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'top-rated/' ))
 
     itemlist.append(item.clone( title = 'Long Play', action = 'list_all', url = host + 'search/?sort_by=duration&from_videos=1' ))
@@ -120,9 +119,9 @@ def list_all(item):
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    bloque = scrapertools.find_single_match(data, '<div class="list-videos">(.*?)</div></div></div></div>')
+    bloque = scrapertools.find_single_match(data, '<div class="list-videos">(.*?)<footer>')
 
-    matches = re.compile('<a href="(.*?)".*?title="(.*?)".*?src="(.*?)".*?<span class="is-hd">(.*?)</span>').findall(bloque)
+    matches = re.compile('<div class="item.*?<a href="(.*?)".*?title="(.*?)".*?src="(.*?)".*?<span class="is-hd">(.*?)</span>').findall(bloque)
 
     for url, title, thumb, time in matches:
         if '</i>' in time: time = scrapertools.find_single_match(time, '</i>(.*?)$')
@@ -152,6 +151,13 @@ def list_all(item):
 def findvideos(item):
     logger.info()
     itemlist = []
+
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)

@@ -7,7 +7,7 @@ from core.item import Item
 from core import httptools, scrapertools, servertools
 
 
-host = 'https://www4.hentaila.com/'
+host = 'https://www5.hentaila.com/'
 
 
 def mainlist(item):
@@ -18,13 +18,14 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color='orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color='orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'directorio' ))
 
@@ -35,7 +36,7 @@ def mainlist_pelis(item):
     itemlist.append(item.clone( title = 'En emisión', action = 'list_all', url = host + 'directorio?status[1]=on' ))
     itemlist.append(item.clone( title = 'Finalizados', action = 'list_all', url = host + 'directorio?status[2]=on' ))
 
-    itemlist.append(item.clone( title = 'Sin censura', action = 'list_all', url = host + 'directorio?uncensored=on' ))
+    itemlist.append(item.clone( title = 'Sin censura', action = 'list_all', url = host + 'directorio?uncensored=on', text_color = 'tan' ))
 
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias' ))
 
@@ -51,7 +52,7 @@ def categorias(item):
 
     bloque = scrapertools.find_single_match(data, '>Generos<(.*?)</section>')
 
-    matches = re.compile('<li.*?<a href="(.*?)".*?class>(.*?)</a>', re.DOTALL).findall(bloque)
+    matches = re.compile('<a href="(.*?)".*?class.*?>(.*?)</a>', re.DOTALL).findall(bloque)
 
     for genre, title in matches:
         url = host[:-1] + genre
@@ -121,7 +122,9 @@ def episodios(item):
 
         thumb = host[:-1] + thumb
 
-        itemlist.append(item.clone( action = 'findvideos', url = url, title = title, thumbnail = thumb, contentType = 'movie', contentTitle = title, contentExtra='adults' ))
+        titulo = title.replace('Episodio', '[COLOR goldenrod]Epis.[/COLOR]')
+
+        itemlist.append(item.clone( action = 'findvideos', url = url, title = titulo, thumbnail = thumb, contentType = 'movie', contentTitle = title, contentExtra='adults' ))
 
     return itemlist
 
@@ -129,6 +132,13 @@ def episodios(item):
 def findvideos(item):
     logger.info()
     itemlist = []
+
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     data = httptools.downloadpage(item.url).data
     data = re.sub(r'\n|\r|\t|\s{2}', "", data)
@@ -152,10 +162,13 @@ def findvideos(item):
         url = servertools.normalize_url(servidor, url)
 
         other = ''
+
         if servidor == 'various': other = servertools.corregir_other(url)
+        elif servidor == 'zures': other = servertools.corregir_zures(url)
 
         if not servidor == 'directo':
-            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url, language = lang, other = other ))
+            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url,
+                                  language = lang, other = other ))
 
     if not itemlist:
         if not ses == 0:
@@ -187,6 +200,8 @@ def list_search(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'api/search'
         item.texto = texto.replace(" ", "+")
         return list_search(item)

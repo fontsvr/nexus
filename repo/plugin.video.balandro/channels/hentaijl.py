@@ -18,13 +18,14 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color='orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color='orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'directorio-hentai' ))
 
@@ -36,7 +37,7 @@ def mainlist_pelis(item):
     itemlist.append(item.clone( title = 'En emisión', action = 'list_all', url = host + 'directorio-hentai?estado[]=0&order=created' ))
     itemlist.append(item.clone( title = 'Finalizados', action = 'list_all', url = host + 'directorio-hentai?estado[]=1&order=created' ))
 
-    itemlist.append(item.clone( title = 'Latino', action = 'list_all', url = host + 'directorio-hentai?genre[]=71&order=updated', text_color = 'pink' ))
+    itemlist.append(item.clone( title = 'En latino', action = 'list_all', url = host + 'directorio-hentai?genre[]=71&order=updated', text_color = 'pink' ))
 
     itemlist.append(item.clone( title = 'Hentai', action = 'list_all', url = host + 'directorio-hentai?tipo[]=1&tipo[]=7&order=updated' ))
     itemlist.append(item.clone( title = 'Jav', action = 'list_all', url = host + 'directorio-hentai?tipo[]=2&order=updated' ))
@@ -106,7 +107,7 @@ def list_all(item):
 
         thumb = scrapertools.find_single_match(match, "<img src='(.*?)'")
 
-        titulo = title.replace('episodio', '[COLOR goldenrod]episodio[/COLOR]')
+        titulo = title.replace('episodio', '[COLOR goldenrod]Epis.[/COLOR]')
 
         if item.group == 'find':
             itemlist.append(item.clone( action = 'findvideos', url = url, title = titulo, thumbnail = thumb, contentType = 'movie', contentTitle = title, contentExtra='adults' ))
@@ -156,6 +157,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = httptools.downloadpage(item.url).data
     data = re.sub(r'\n|\r|\t|\s{2}', "", data)
 
@@ -169,16 +177,21 @@ def findvideos(item):
     for url in matches:
         ses += 1
 
+        url = url.replace('/Smoothpre.', '/smoothpre.')
+
         servidor = servertools.get_server_from_url(url)
         servidor = servertools.corregir_servidor(servidor)
 
         url = servertools.normalize_url(servidor, url)
 
         other = ''
+
         if servidor == 'various': other = servertools.corregir_other(url)
+        elif servidor == 'zures': other = servertools.corregir_zures(url)
 
         if url:
-            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url, language = lang, other = other ))
+            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url,
+                                  language = lang, other = other.capitalize() ))
 
     # ~ descargas  ReCaptcha
 
@@ -193,6 +206,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'directorio-hentai?q=' + texto.replace(" ", "+")
         return list_all(item)
     except:

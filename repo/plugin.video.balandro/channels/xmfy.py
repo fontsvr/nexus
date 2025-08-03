@@ -23,18 +23,19 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'page/1/?filter=latest' ))
 
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'page/1/?filter=most-viewed' ))
     itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'page/1/?filter=popular' ))
+    itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'page/1/?filter=most-viewed' ))
     itemlist.append(item.clone( title = 'Long Play', action = 'list_all', url = host + 'page/1/?filter=longest' ))
 
     itemlist.append(item.clone( title = 'Por canal', action = 'canales', url= host + 'categories/page/1/' ))
@@ -163,6 +164,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
@@ -193,12 +201,11 @@ def findvideos(item):
                 itemlist.append(Item( channel = item.channel, action='play', title='', url=url, server = servidor, language = 'Vo', other = other) )
 
     # ~ Embeds
-    matches = re.compile('<meta itemprop="embedURL".*?content="(.*?)"', re.DOTALL).findall(data)
+    matches = re.compile('<iframe src="(.*?)"', re.DOTALL).findall(data)
+    if not matches: matches = re.compile('<meta itemprop="embedUR.*?content="(.*?)"', re.DOTALL).findall(data)
 
     for url in matches:
         ses += 1
-
-        if url == '#content': continue
 
         if url:
             servidor = servertools.get_server_from_url(url)
@@ -220,6 +227,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'page/1/?s=%s&filter=latest' % texto.replace(" ", "+")
         return list_all(item)
     except:

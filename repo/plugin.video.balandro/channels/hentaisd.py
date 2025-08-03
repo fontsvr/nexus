@@ -20,21 +20,22 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color='orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color='orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'hentai/' ))
 
     itemlist.append(item.clone( title = 'Estrenos', action = 'list_list', url = host + 'hentai/estrenos/', text_color = 'cyan' ))
 
-    itemlist.append(item.clone( title = 'Sin censura', action = 'list_all', url = host + 'hentai/sin-censura/' ))
+    itemlist.append(item.clone( title = 'Sin censura', action = 'list_all', url = host + 'hentai/sin-censura/', text_color = 'tan' ))
 
-    itemlist.append(item.clone( title = 'Latino', action = 'list_list', url = host + 'hentai/generos/latino/', text_color = 'pink' ))
+    itemlist.append(item.clone( title = 'En latino', action = 'list_list', url = host + 'hentai/generos/latino/', text_color = 'pink' ))
 
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias' ))
 
@@ -48,12 +49,12 @@ def categorias(item):
     data = httptools.downloadpage(host + 'hentai/generos/').data
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    matches = re.compile('<h3 class="media-heading"><a href="([^"]+)" alt="([^"]+)"', re.DOTALL).findall(data)
+    matches = re.compile('<h3 class="media-heading">.*?<a href="(.*?)".*?alt="(.*?)"', re.DOTALL).findall(data)
 
     for url, title in matches:
         if title == 'audio latino': continue
         elif title == 'Audio Castellano': continue
-        elif title == 'Calida Full HD': continue
+        elif title == 'Calidad Full HD': continue
 
         title = title.replace('&ntilde;', 'ñ')
 
@@ -71,7 +72,7 @@ def list_all(item):
     data = httptools.downloadpage(item.url).data
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    matches = re.compile('<div class="media">.*?<a href="([^"]+)".*?<img src="([^"]+)".*?alt="([^"]+)".*?>([^<]+)</p>', re.DOTALL).findall(data)
+    matches = re.compile('<div class="media".*?<a href="(.*?)".*?<img src="(.*?)".*?alt="(.*?)".*?<p.*?">(.*?)</p>', re.DOTALL).findall(data)
 
     for url, thumb, title, plot in matches:
         title = title.strip()
@@ -95,7 +96,7 @@ def list_list(item):
     data = httptools.downloadpage(item.url).data
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
-    matches = re.compile('<div class="col-sm-6 col-md-2 central">.*?<a href="([^"]+)".*?<img src="([^"]+)".*?<h5>([^<]+)</h5>', re.DOTALL).findall(data)
+    matches = re.compile('<div class="col-sm-6 col-md-2 central">.*?href="([^"]+)".*?src="([^"]+)".*?<h5>([^<]+)</h5>', re.DOTALL).findall(data)
 
     for url, thumb, title in matches:
         itemlist.append(item.clone( action = 'episodios', url = url, title = title, thumbnail = thumb, contentType = 'movie', contentTitle = title, contentExtra='adults' ))
@@ -130,6 +131,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = httptools.downloadpage(item.url).data
     data = re.sub(r'\n|\r|\t|&nbsp;|<br>||<br/>', "", data)
 
@@ -141,7 +149,10 @@ def findvideos(item):
         url = url.replace('cloud/index.php', 'cloud/query.php')
 
         if "/player.php" in url:
-            data = httptools.downloadpage(url).data
+            resp = httptools.downloadpage(url)
+            if not resp.sucess: continue
+
+            data = resp.data
 
             phantom = scrapertools.find_single_match(data, 'Phantom.Start\("(.*?)"\)')
             phantom = phantom.replace('"+"', '')
@@ -169,7 +180,9 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
-        item.url =  host + '/buscar/?t=' + texto.replace(" ", "+")
+        config.set_setting('search_last_video', texto)
+
+        item.url =  host + 'buscar/?t=' + texto.replace(" ", "+")
         return list_all(item)
     except:
         import sys

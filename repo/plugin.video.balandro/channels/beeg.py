@@ -24,13 +24,14 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    # ~ itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    # ~ itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = url_api + 'facts/tag?id=27173&limit=48&offset=0' ))
 
@@ -100,7 +101,7 @@ def list_all(item):
         except:
            continue
 
-        thumb = "https://thumbs-015.externulls.com/videos/%s/%s.jpg" % (str(id), str(thumb[0]))
+        thumb = "https://thumbs.externulls.com/videos/%s/%s.jpg" % (str(id), str(thumb[0]))
 
         url = url_api + 'facts/file/' + str(id)
 
@@ -133,6 +134,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = httptools.downloadpage(item.url).data
 
     matches = re.compile('"fl_cdn_(\d+)": "([^"]+)"', re.DOTALL).findall(data)
@@ -164,6 +172,8 @@ def list_search(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         # ~  websocket
         # ~ # ws_send('{"type":"search","payload":{"Search_string":"' + texto.replace(" ", "+") + '","offset":0,"limit":30}}')
         item.url =  "wss://search.externulls.com/" + texto.replace(" ", "+")

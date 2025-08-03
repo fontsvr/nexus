@@ -1,24 +1,27 @@
 # -*- coding: utf-8 -*-
-import sys, xbmc, os, json, requests, urllib3, xbmcplugin, vavoosigner, resolveurl, base64
-try: from resources.lib import utils
-except: from lib import utils
+
+# edit 2024-12-10 kasi
+
+import sys, xbmc, json, requests, urllib3, resolveurl, base64
+from resources.lib import utils
 from xbmcgui import ListItem, Dialog
+
 urllib3.disable_warnings()
-session = requests.session()
+session = requests.Session()
 BASEURL = "https://vavoo.to/ccapi/"
 try:from concurrent.futures import ThreadPoolExecutor, as_completed
 except:pass
-try: lines = json.loads(utils.addon.getSetting("favs"))
-except: lines=[]
-try: 
+try:
 	from infotagger.listitem import ListItemInfoTag
 	tagger = True
 except: tagger = False
 
 def _index(params):
 	utils.set_content("files")
-	if len(lines)>0: addDir2("TV Favoriten (Live)", "DefaultAddonPVRClient", "favchannels")
-	addDir2("Live", "DefaultAddonPVRClient", "channels")
+	# edit kasi
+	# if len(lines)>0: addDir2("TV Favoriten (Live)", "DefaultAddonPVRClient", "favchannels")
+	# addDir2("Live", "DefaultAddonPVRClient", "channels")
+	addDir2("Live", "DefaultAddonPVRClient", "live")
 	addDir2("Filme", "DefaultMovies", "indexMovie")
 	addDir2("Serien", "DefaultTVShows", "indexSerie")
 	utils.end()
@@ -44,7 +47,7 @@ def createListItem(params):
 	if not data: return
 	infos = data["infos"]
 	if params.get("e"):o = ListItem("S%sxE%s %s" %(params["s"], params["e"], infos["title"]) , infos["title"])
-	else:o = ListItem(infos["title"])
+	else: o = ListItem('%s (%s)' %(infos["title"], infos["year"])) if 'year' in infos and infos["year"] else ListItem(infos["title"])
 	o.setProperties(data["properties"])
 	art = data["art"]
 	if art.get("poster"): art["icon"] = art["poster"]
@@ -71,7 +74,7 @@ def _list(params):
 		content = "movies"
 	utils.set_content(content)
 	utils.set_category(cat)
-	paramslist = [{"action": "get" if e["id"].startswith("movie") else "seasons" ,"id":e["id"]} for e in data]
+	paramslist = [{"action": "get" if e["id"].startswith("movie") else "seasons" ,"id":e["id"], "n":e["name"]} for e in data]
 	with ThreadPoolExecutor(len(paramslist)) as executor:
 		future_to_url = {executor.submit(createListItem, urlparams):urlparams for urlparams in paramslist}
 		for future in as_completed(future_to_url):
@@ -83,6 +86,7 @@ def _list(params):
 				utils.add(urlparams, o, isFolder)
 	if next: addDir(">>> Weiter", {"action": "list", "id": next})
 	utils.end()
+
 
 def _search(params):
 	type = "SERIEN" if params["id"].startswith("serie") else "FILM"
@@ -109,12 +113,14 @@ def _search(params):
 
 def _genres(params):
 	serie_genrelist = [
-		{"genre": "Action & Adventure", "icon":"Adventure"}, {"genre": "Animation", "icon":"Animation"}, {"genre": "Komödie", "icon":"Comedy"}, {"genre": "Krimi", "icon":"Crime"}, {"genre": "Dokumentarfilm", "icon":"Documentary"}, {"genre": "Drama", "icon":"Drama"},
-		{"genre": "Familie", "icon":"Family"}, {"genre": "Kids", "icon":"Children"}, {"genre": "Mystery", "icon":"Mystery"}, {"genre": "News", "icon":"News"}, {"genre": "Reality", "icon":"Reality"}, {"genre": "Sci-Fi & Fantasy", "icon":"Sci-Fi"},
-		{"genre": "Soap", "icon":"Soap"}, {"genre": "Talk", "icon":"Biography"}, {"genre": "War & Politics", "icon":"War"}, {"genre": "Western", "icon":"Western"}]
+		{"genre": "Action & Adventure", "icon":"Adventure"}, {"genre": "Animation", "icon":"Animation"}, {"genre": "Komödie", "icon":"Comedy"}, {"genre": "Krimi", "icon":"Crime"},
+		{"genre": "Dokumentarfilm", "icon":"Documentary"}, {"genre": "Drama", "icon":"Drama"}, {"genre": "Familie", "icon":"Family"}, {"genre": "Kids", "icon":"Children"},
+		{"genre": "Mystery", "icon":"Mystery"}, {"genre": "News", "icon":"News"}, {"genre": "Reality", "icon":"Reality-TV"}, {"genre": "Sci-Fi & Fantasy", "icon":"Sci-Fi"},	# edit Reality by kasi
+		{"genre": "Soap", "icon":"Sitcom"}, {"genre": "Talk", "icon":"Biography"}, {"genre": "War & Politics", "icon":"War"}, {"genre": "Western", "icon":"Western"}]			# edit Soap by kasi
 	movie_genrelist = [
-		{"genre": "Action", "icon":"Action"}, {"genre": "Abenteuer", "icon":"Adventure"}, {"genre": "Animation", "icon":"Animation"}, {"genre": "Komödie", "icon":"Comedy"}, {"genre": "Krimi", "icon":"Crime"}, {"genre": "Dokumentarfilm", "icon":"Documentary"},
-		{"genre": "Drama", "icon":"Drama"}, {"genre": "Familie", "icon":"Family"}, {"genre": "Fantasy", "icon":"Fantasy"}, {"genre": "Historie", "icon":"History"}, {"genre": "Horror", "icon":"Horror"}, {"genre": "Musik", "icon":"Music"},
+		{"genre": "Action", "icon":"Action"}, {"genre": "Abenteuer", "icon":"Adventure"}, {"genre": "Animation", "icon":"Animation"}, {"genre": "Komödie", "icon":"Comedy"},
+		{"genre": "Krimi", "icon":"Crime"}, {"genre": "Dokumentarfilm", "icon":"Documentary"}, {"genre": "Drama", "icon":"Drama"}, {"genre": "Familie", "icon":"Family"},
+		{"genre": "Fantasy", "icon":"Fantasy"}, {"genre": "Historie", "icon":"History"}, {"genre": "Horror", "icon":"Horror"}, {"genre": "Musik", "icon":"Music"},
 		{"genre": "Mystery", "icon":"Mystery"}, {"genre": "Liebesfilm", "icon":"Romance"}, {"genre": "Science Fiction", "icon":"Sci-Fi"}, {"genre": "TV-Film", "icon":"Mini-Series"},
 		{"genre": "Thriller", "icon":"Thriller"}, {"genre": "Kriegsfilm", "icon":"War"}, {"genre": "Western", "icon":"Western"}]
 	genrelist= serie_genrelist if params["id"].startswith("serie") else movie_genrelist
@@ -155,24 +161,22 @@ def showFailedNotification(msg="Keine Streams gefunden"):
 
 def resolve(mirror):
 	utils.log(mirror, header="Try to resolve:")
-	if "hd-stream" in mirror["url"]:
-		try:
-			posturl = "https://hd-stream.to/api/source/%s" % mirror["url"].split("/")[-1]
-			data = {"r": "https://kinoger.to/", "d": "hd-stream.to"}
-			response = session.post(posturl, data)
-			response.raise_for_status()
-			return sorted(response.json()["data"], key=lambda x: int(x["label"].replace("p", "")), reverse=True)[0]["file"]
-		except Exception as e: utils.log(e)
-	elif resolveurl.relevant_resolvers(utils.urlparse(mirror["url"]).hostname):
-		try: return resolveurl.resolve(mirror["url"])
-		except Exception as e: utils.log(e)
-	else:
-		try: 
-			res = callApi2('open', {'link': mirror["url"]})[-1]
-			headers = res.get('headers', {})
-			return session.get(res['url'], headers=headers, stream=True).url
-		except Exception as e: utils.log(e)
-	return
+	try: 
+		resolved= resolveurl.resolve(mirror["url"])
+		return resolved
+	except: pass
+	try:
+		_headers={"user-agent": "MediaHubMX/2", "content-type": "application/json; charset=utf-8", "content-length": "102", "accept-encoding": "gzip", "mediahubmx-signature": utils.getAuthSignature()}
+		_data = {"language":"de","region":"AT","url":mirror["url"],"clientVersion":"3.0.2"}
+		url = requests.post("https://vavoo.to/mediahubmx-resolve.json", json=_data, headers=_headers).json()["data"]["url"]
+		resolved= resolveurl.resolve(url)
+		return resolved
+	except: pass
+	try:
+		res = callApi2('open', {'link': mirror["url"]})[-1]
+		headers = res.get('headers', {})
+		resolved = session.get(res['url'], headers=headers, stream=True).url
+	except: return
 
 def checkstream(url):
 	if not url: return
@@ -189,7 +193,7 @@ def checkstream(url):
 		res = session.get(newurl, headers=headers, params=params, stream=True)
 		res.raise_for_status()
 		if "text" in res.headers.get("Content-Type","text"): raise Exception("Keine Videodatei")
-	except Exception as e: 
+	except Exception as e:
 		utils.log(e)
 		return
 	else: return url
@@ -197,27 +201,20 @@ def checkstream(url):
 def _get(params):
 	manual = True if params.get("manual") == "true" else False
 	find = True if params.get("find") == "true" else False
-	if utils.addon.getSetting("site") == "false":
-		utils.log("Suche Streams in VAVOO")
-		if params.get("e"): params["id"] = "%s.%s.%s" % (params["id"], params["s"], params["e"])
-		mirrors = cachedcall("links", {"id": params["id"], "language": "de"}, 3600)
-	else:
-		params["site"] = "dezor"
-		mirrors = utils.get_cache(params)
-		if not mirrors:
-			utils.log("Suche Streams in DEZOR")
+	params["site"] = "vavoo"
+	mirrors = utils.get_cache(params)
+	_headers={"user-agent": "MediaHubMX/2", "content-type": "application/json; charset=utf-8", "content-length": "1898", "accept-encoding": "gzip", "mediahubmx-signature": utils.getAuthSignature()}
+	if not mirrors:
+		name = params.get("n")
+		if not name:
 			b = utils.get_meta(params)
-			_headers={"user-agent": "MediaHubMX/2", "accept": "application/json", "content-type": "application/json; charset=utf-8", "content-length": "158", "accept-encoding": "gzip", "Host": "www.kool.to", "mediahubmx-signature": vavoosigner.getDezorSig()}
 			if params.get("e"):
-				for episode in b["episodes"]:
-					if episode["episode_number"] == int(params["e"]):
-						airdate = episode["air_date"]
-						tmdb_episode_id = episode["id"]
-				_data={"language":"de","region":"AT","type":"series","ids":{"tmdb_id": b["ids"]["tmdb"],"imdb_id":b["ids"]["imdb"]},"name":b["infos"]["tvshowtitle"],"nameTranslations":{},"originalName":b["infos"]["originaltitle"],"releaseDate":b["infos"]["premiered"],"episode":{"ids":{"tmdb_episode_id":tmdb_episode_id},"name":b["infos"]["title"],"releaseDate":airdate,"season":params["s"],"episode":params["e"]},"clientVersion":"1.1.3"}
-			else: _data={"language":"de","region":"AT","type":"movie","ids":{"tmdb_id": b["ids"]["tmdb"],"imdb_id":b["ids"]["imdb"]},"name":b["infos"]["title"],"nameTranslations":{},"originalName":b["infos"]["originaltitle"],"releaseDate":b["infos"]["premiered"],"episode":{},"clientVersion":"1.1.3"}
-			url = "https://www.kool.to/kool-cluster/mediahubmx-source.json"
-			mirrors = requests.post(url, data=json.dumps(_data), headers=_headers).json()
-			utils.set_cache(params, mirrors, 3600)
+				name = b["infos"]["tvshowtitle"] if params.get("e") else b["infos"]["title"]
+		if params.get("e"):_data={"language":"de","region":"AT","type":"series","ids":{"tmdb_id":params["id"].split(".")[1]},"name":name,"episode":{"season":params["s"],"episode":params["e"]},"clientVersion":"3.0.2"}
+		else: _data={"language":"de","region":"AT","type":"movie","ids":{"tmdb_id":params["id"].split(".")[1]},"name":name,"episode":{},"clientVersion":"3.0.2"}
+		url = "https://vavoo.to/mediahubmx-source.json"
+		mirrors = requests.post(url, json=_data, headers=_headers).json()
+		utils.set_cache(params, mirrors, 3600)
 	if not mirrors:
 		utils.log("Keine Mirrors gefunden")
 		if not find: showFailedNotification()
@@ -225,21 +222,18 @@ def _get(params):
 	else:
 		newurllist, streamurl =[], None
 		for i ,a in enumerate(mirrors, 1):
+			if not "de" in a.get('languages', []): continue
 			a["hoster"] = utils.urlparse(a["url"]).netloc
 			if "streamz" in a["hoster"]: continue # den hoster kann man vergessen
-			lang = a.get("languages", a.get("language", False))
-			if "1080p" in a["name"]:
+			quali = a.get("tag", "SD")
+			if quali == "1080p" or quali == "FHD":
 				if int(utils.addon.getSetting("stream_quali") or 0) > 0: continue
 				a["name"], a["weight"] = "%s %s" %(a["hoster"], "1080p"), 1080+i
-			elif "720p" in a["name"]:
+			elif quali == "720p" or quali == "HD":
 				if int(utils.addon.getSetting("stream_quali") or 0) > 1: continue
 				a["name"], a["weight"] = "%s %s" %(a["hoster"], "720p"), 720+i
-			elif "480p" in a["name"]: a["name"], a["weight"] = "%s %s" %(a["hoster"], "480p"), 480+i
-			elif "360p" in a["name"]: a["name"], a["weight"] = "%s %s" %(a["hoster"], "360p"), 360+i
 			else: a["name"], a["weight"] = a["hoster"], i
-			if lang:
-				if "de" in lang: newurllist.append({"name":a["name"], "weight":a["weight"], "hoster": a["hoster"], "url":a["url"]})
-			else: newurllist.append({"name":a["name"], "weight":a["weight"], "hoster": a["hoster"], "url":a["url"]})
+			newurllist.append({"name":a["name"], "weight":a["weight"], "hoster": a["hoster"], "url":a["url"]})
 		mirrors = list(sorted(newurllist, key=lambda x: x["weight"], reverse=True)) if newurllist else None
 		if not mirrors:
 			utils.log("Keine Mirrors gefunden")
@@ -262,15 +256,20 @@ def _get(params):
 		else:
 			utils.log("Spiele :%s" % streamurl)
 			o = ListItem(xbmc.getInfoLabel("ListItem.Title"))
-			o.setPath(streamurl)
 			o.setProperty("IsPlayable", "true")
 			if ".m3u8" in streamurl:
-				o.setMimeType("application/vnd.apple.mpegurl")
-				if utils.PY2: o.setProperty("inputstreamaddon", "inputstream.adaptive")
+				if utils.PY2: 
+					o.setProperty("inputstreamaddon", "inputstream.adaptive")
+					#o.setProperty("inputstream.adaptive.manifest_type", "hls")
 				else: o.setProperty("inputstream", "inputstream.adaptive")
-				o.setProperty("inputstream.adaptive.manifest_type", "hls")
+				o.setProperty('inputstream.adaptive.config', '{"ssl_verify_peer":false}')
+				if "|" in streamurl: 
+					streamurl, headers = streamurl.split("|")
+					o.setProperty('inputstream.adaptive.common_headers', headers)
+					o.setProperty('inputstream.adaptive.stream_headers', headers)
+			o.setPath(streamurl)
 			if int(sys.argv[1]) > 0: utils.set_resolved(o)
-			else: 
+			else:
 				from resources.lib.player import cPlayer
 				xbmc.Player().play(streamurl, o)
 				return cPlayer().startPlayer()
@@ -307,7 +306,7 @@ def cachedcall(action, params, timeout=75600):
 def callApi(action, params, method="GET", headers=None, **kwargs):
 	utils.log(params, header="Action:%s params:" % action)
 	if not headers: headers = dict()
-	headers["auth-token"] = vavoosigner.getAuthSignature()
+	headers["auth-token"] = utils.getAuthSignature()
 	resp = session.request(method, (BASEURL + action), params=params, headers=headers, **kwargs)
 	resp.raise_for_status()
 	data = resp.json()

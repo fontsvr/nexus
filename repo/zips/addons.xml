@@ -608,7 +608,7 @@
         </assets>
     </extension>
     <extension point="xbmc.service" library="videolibrary_service.py" start="login|startup" />
-</addon><addon id="plugin.video.balandro" name="Balandro" version="4.0.11" provider-name="Team Balandro">
+</addon><addon id="plugin.video.balandro" name="Balandro" version="4.0.19" provider-name="Team Balandro">
   <requires>
      <import addon="script.module.requests" />
   </requires>
@@ -628,11 +628,11 @@
       <screenshot>resources/screenshots/4.jpg</screenshot>
     </assets>
     <news>
-    [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]4.0.11[/COLOR][COLOR chartreuse]  Septiembre de 2024[/B][/COLOR]
+    [COLOR darkorange][B]Versión  [/COLOR][COLOR yellow]4.0.19[/COLOR][COLOR chartreuse]  Julio de 2025[/B][/COLOR]
 
     [COLOR goldenrod][B]Media Centers:[/B][/COLOR]
         [COLOR tan][B]Kodi Versiones Oficiales Soportadas:[/B][/COLOR]
-        [COLOR plum][B]]22.x Piers,  21.x Omega,  20.x Nexus,  19.x Matrix,[/B][/COLOR]
+        [COLOR plum][B]22.x Piers,  21.x Omega,  20.x Nexus,  19.x Matrix,[/B][/COLOR]
         [COLOR plum][B]18.x Leia  y  17.x Krypton[/B][/COLOR]
 
     [COLOR springgreen][B]Fuente[/COLOR]  [COLOR cyan]https://repobal.github.io/base/[/B][/COLOR]
@@ -661,7 +661,7 @@
         Sin Novedades
     </news>
     <summary>Balandro es un Navegador de Páginas Webs</summary>
-    <description>[COLOR moccasin][B]Navega con Kodi por Páginas Webs para poder ver sus contenidos de manera fácil. [COLOR yellow]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] un MOD derivado de [COLOR yellowgreen]Pelisalacarta y Alfa[COLOR yellow],[COLOR mediumaquamarine] y tiene como objeto, permitir visualizar [COLOR deepskyblue]Películas[COLOR mediumaquamarine], [COLOR hotpink]Series[COLOR mediumaquamarine], [COLOR darkcyan]Documentales[COLOR mediumaquamarine], etc., todo a través de Internet y directamente desde su sistema Media Center. [COLOR orchid]Este Add-On es tan solo un mero Ejercicio de Aprendizaje del Lenguaje de Programación Python y se distribuye sin Ningún Contenido Multimedia adjunto al mismo [COLOR lightgrey][I]En consecuencia solo las Webs son Plenamente Responsables de los contenidos que publiquen.[/I][/B][/COLOR]</description>
+    <description>[COLOR moccasin][B]Navega con Kodi por Páginas Webs para poder ver sus contenidos de manera fácil. [COLOR yellow]Balandro es desde el año [COLOR cyan]2018[COLOR yellow] un MOD derivado de [COLOR yellowgreen]Pelisalacarta y Alfa[COLOR yellow],[COLOR mediumaquamarine] y tiene como objeto, permitir visualizar [COLOR deepskyblue]Películas[COLOR mediumaquamarine], [COLOR hotpink]Series[COLOR mediumaquamarine], [COLOR aquamarine]Documentales[COLOR mediumaquamarine], etc., todo a través de Internet y directamente desde su sistema Media Center. [COLOR orchid]Este Add-On es tan solo un mero Ejercicio de Aprendizaje del Lenguaje de Programación Python y se distribuye sin Ningún Contenido Multimedia adjunto al mismo [COLOR red][I]En consecuencia solo las Webs son los Plenamente Responsables de los contenidos que publiquen.[/I][/B][/COLOR]</description>
     <disclaimer>[COLOR aqua][B]Los Propietarios y Distribuidores de este Add-On no Proveen ni Distribuyen Ningún Contenido Mostrado por el Add-On, ni Tienen Afiliación alguna con los Proveedores/Webs de contenidos. [COLOR tan]Está Prohibida su distribución, solo ó junto con Contenidos Multimedia Protegidos por los Derechos de Autor. [COLOR chocolate]Si este tipo de contenido está Prohibido en su País, solamente Usted será el Responsable de su uso. [COLOR white]La vulneración de estas prohibiciones Exonerarán de cualquier Culpa a sus Autores, [COLOR red]Siendo el unico Responsable quien lo haya Distribuido ó Utilizado Ilegalmente.[/B][/COLOR]</disclaimer>
     <platform>all</platform>
     <license>GNU GPL v3</license>
@@ -981,14 +981,12 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <screenshot>resources/screen5.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.palantir3" name="[COLOR gold]Palantir 3[/COLOR]" version="3.1.3" provider-name="TierraMedia">
+</addon><addon id="plugin.video.palantir3" name="[COLOR gold]Palantir 3[/COLOR]" version="3.3.5" provider-name="The Lords Of Flix">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.inputstreamhelper" version="0.5.0" />
     <import addon="script.module.pycryptodome" version="3.4.3" />
     <import addon="script.module.requests" />
-    <import addon="script.embuary.info" />
-    <import addon="script.module.resolveurl" version="5.0.00" optional="true" />
   </requires>
 
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -1000,17 +998,9 @@ No se acepta ninguna responsabilidad por el uso de este addon.
       <menu id="kodi.core.main">
         <item library="context.py">
           <label>[COLOR gold]Menú Palantir 3...[/COLOR]</label>
-          <visible>String.IsEqual(Container.PluginName,"plugin.video.palantir3")</visible>
+          <visible>String.Contains(ListItem.FolderPath,palantir3)</visible>
         </item>
       </menu>
-  </extension>
-
-  <extension point="xbmc.addon.repository" name="Palantir 3 official Repo">
-    <dir minversion="18.9.0">
-        <info compressed="false">https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/</datadir>
-    </dir>
   </extension>
 
   <extension point="xbmc.addon.metadata">
@@ -1025,7 +1015,7 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         <screenshot>resources/media/Captura3.png</screenshot>
         <screenshot>resources/media/Captura4.png</screenshot>
     </assets>
-    <forum>https://t.me/addon_palantir</forum>
+    <forum>https://matrix.to/#/#palantir-3:matrix.org</forum>
   </extension>
 </addon><addon id="plugin.video.playlistloader" name="Playlist Loader" version="1.1.6" provider-name="Nux007, Publish3r, Silhouette2022">
   <requires>
@@ -1243,11 +1233,11 @@ No se acepta ninguna responsabilidad por el uso de este addon.
     </assets>        
 		<language>es</language>
 	</extension>
-</addon><addon id="plugin.video.vavooto" name="VAVOO.TO" version="6.0.3.0" provider-name="kasi,michaz">
+</addon><addon id="plugin.video.vavooto" name="VAVOO.TO" version="8.4.7" provider-name="kasi,michaz">
 	<requires>
-		<import addon="script.module.vavoo" version="0.1.3.2" />
 		<import addon="script.module.requests" />
 		<import addon="script.module.resolveurl" />
+		<import addon="inputstream.adaptive" /> 
 		<import addon="inputstream.ffmpegdirect" optional="true" /> 
 		<import addon="script.module.futures" optional="true" />
 		<import addon="script.module.infotagger" optional="true" />
@@ -1263,30 +1253,6 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<icon>icon.png</icon>
 		</assets>
 	</extension>
-</addon><addon id="plugin.video.winner" name="[COLOR orange]WINNER 2[/COLOR]" version="2.8.1" provider-name="La Taberna and Camaradas">
-    <requires>
-        <import addon="script.module.six" version="1.11.0" />
-        <import addon="plugin.video.duffyou" />
-        <import addon="script.module.simplecache" />
-        <import addon="script.module.horus" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-    </extension>
-
-    <extension point="xbmc.addon.metadata">
-        <summary lang="es">[COLOR orange]WINNER 2[/COLOR]</summary>
-        <description lang="es">Addon con eventos deportivos en directo.</description>
-        <disclaimer lang="es">Este es un software [COLOR red][B]gratuito[/B][/COLOR][CR][COLOR red][B]Pero no se permite[/B][/COLOR] su distribuición preinstalada en ningún tipo de dispositivo ni tampoco su inclusión total o parcial en cualquier paquete de software y/o hardware por el que el usuario final deba [COLOR red][B]pagar o hacer una donación[/B][/COLOR], por su adquisición, por su uso o por recibir asistencia.[CR]Si cree que alguna de estas normas no se está cumpliendo póngase en contacto con nosotros.</disclaimer>
-        <license lang="es">[B]Este es un software gratuito[/B]</license>
-        <platform>all</platform>
-        <assets>
-            <icon>resources/media/icon.jpg</icon>
-            <fanart>resources/media/fanart.jpg</fanart>
-        </assets>
-
-        <news />
-    </extension>
 </addon><addon id="pvr.plutotv" version="20.3.0" name="Pluto.tv PVR Client" provider-name="Team Kodi, flubshi">
   <requires>
 <import addon="kodi.binary.global.main" minversion="2.0.0" version="2.0.2" />
@@ -1512,6 +1478,23 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <icon>icon.png</icon>
         </assets>
     </extension>
+</addon><addon id="repository.estupalant" name="Repositorio Palantir" version="1.0.1" provider-name="The Lords Of Flix">
+    <extension point="xbmc.addon.repository" name="Palantir 3 y Skin">
+    	<dir minversion="19.0.0">
+    	    <info compressed="false">https://palantir.5g.in/Repo/addons.xml</info>
+        	<checksum>https://palantir.5g.in/Repo/addons.xml.md5</checksum>
+        	<datadir zip="true">https://palantir.5g.in/Repo/</datadir>
+	    </dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary />
+   		<description lang="en">Repositorio oficial de Palantir y Estuary Palantir</description>
+		<platform>all</platform>
+		<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+	</extension>
 </addon><addon id="repository.fontsvr" name="Repo [B][COLOR aqua]FONTS[COLOR azure]VR[/COLOR][/B]" version="2.1" provider-name="fontsvr">
     <extension point="xbmc.addon.repository" name="Repo FONTSVR">
         <dir>
@@ -1860,23 +1843,6 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<icon>icon.png</icon>
 		</assets> 
 	</extension>
-</addon><addon id="repository.palantir2" name="[COLOR gold]Repositorio Palantir 2[/COLOR]" version="2.0.2" provider-name="TierraMedia">
-    <extension point="xbmc.addon.repository" name="Palantir 2 official Repo">
-    	<dir minversion="18.9.0">
-    	    <info compressed="false">https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/addons.xml</info>
-		    <checksum>https://raw.githubusercontent.com/Palantiraddon/Repo/master/Palantir/addons.xml.md5</checksum>
-		    <datadir zip="true">https://raw.githubusercontent.com/Palantiraddon/repo/master/Palantir/</datadir>
-	    </dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary />
-   		<description lang="en">[COLOR gold]Instala Palantir 2[/COLOR]</description>
-		<platform>all</platform>
-		<assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.gif</fanart>
-        </assets>
-	</extension>
 </addon><addon id="repository.palantir3" name="[COLOR gold]Repositorio Palantir 3[/COLOR]" version="2.0.3" provider-name="TierraMedia">
     <extension point="xbmc.addon.repository" name="Palantir 3 official Repo">
     	<dir minversion="18.9.0">
@@ -2025,35 +1991,8 @@ No se acepta ninguna responsabilidad por el uso de este addon.
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="repository.theblackghost" name="The Black Ghost Repo" version="0.0.2" provider-name="BlackGhost">
-    <extension point="xbmc.addon.repository" name="theblackghost">
-		<dir>
-			<info>https://raw.githubusercontent.com/blackghostaddon/repo/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/blackghostaddon/repo/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/blackghostaddon/repo/master/</datadir>
-		 </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-        <summary>Black all Black Ghost</summary>
-		<description lang="en_GB">Black Ghost REPO</description>
-		<description lang="es_ES">Black Ghost Repositorio</description>
-        <license />
-		<language />
-		<website />
-		<news />
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets> 
-    </extension>
-</addon><addon id="repository.thecrew" name="[COLOR orchid]THE CREW REPO[/COLOR]" provider-name="The Crew" version="0.3.6">
+</addon><addon id="repository.thecrew" name="[COLOR orchid]THE CREW REPO[/COLOR]" provider-name="The Crew" version="0.3.7">
 	<extension point="xbmc.addon.repository" name="The Crew">
-			<dir minversion="16.0.0" maxversion="18.9.9">
-			<info compressed="false">https://raw.githubusercontent.com/thecrewwh/zips/master/_zip/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/thecrewwh/zips/master/_zip/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/thecrewwh/zips/master/_zip</datadir>
-			</dir>
 			<dir minversion="18.9.9">
 			<info compressed="false">https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/thecrewwh/zips/master//matrix/_zip/addons.xml.md5</checksum>
@@ -2065,24 +2004,19 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
 			</dir>
 			<dir>
-			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+			<info compressed="false">https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/</datadir>
+			</dir>
+			<dir>
+			<info compressed="false">https://github.com/OldManJax/repository.animaniac/raw/master/addons.xml</info>
+			<checksum>https://github.com/OldManJax/repository.animaniac/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/OldManJax/repository.animaniac/raw/master/</datadir>
 			</dir>
 			<dir>
 			<info compressed="false">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/</datadir>
-			</dir>
-			<dir>
-			<info compressed="false">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/</datadir>
-			</dir>
-			<dir>
-			<info compressed="false">https://raw.githubusercontent.com/therealatreides/housetools/master/code/_housefiles/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/therealatreides/housetools/master/code/_housefiles/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/therealatreides/housetools/master/code/_housefiles/</datadir>
 			</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
@@ -2154,6 +2088,35 @@ No se acepta ninguna responsabilidad por el uso de este addon.
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon><addon id="script.fontsvr" name="[COLOR aqua]Script fontsVR[/COLOR]" version="1.7" provider-name="fontsvr">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="resource.language.es_es" />
+        <import addon="script.module.requests" />
+        <import addon="script.module.six" />
+    </requires>
+    
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+	
+	<extension point="xbmc.addon.repository" name="omega">		
+		<info>https://raw.githubusercontent.com/fontsvr/omega/master/repo/zips/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/fontsvr/omega/master/repo/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/fontsvr/omega/master/repo/zips/</datadir>
+    </extension>
+    
+    
+    
+    <extension point="xbmc.addon.metadata">
+    <summary lang="en">Utilidades para Skins fontsvr</summary>
+    <description lang="en">Utilidades para Skins fontsvr. Ajustes y herramientas para addons.</description>
+        <platform>all</platform>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+		<assets>
+            <icon>icon.png</icon>
         </assets>
     </extension>
 </addon><addon id="script.kelebek" name="KELEBEK" version="3.6" provider-name="Iron Butterfly">
@@ -2464,16 +2427,6 @@ No se acepta ninguna responsabilidad por el uso de este addon.
 			<fanart>resources/fanart.jpg</fanart>
 			<screenshot>resources/screen1.jpg</screenshot>
 			<screenshot>resources/screen2.jpg</screenshot>
-		</assets>
-	</extension>
-</addon><addon id="script.module.vavoo" name="Vavoosign" version="0.1.3.2" provider-name="michaz1988">
-	<requires>
-		<import addon="script.module.requests" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<assets>
-			<icon>icon.png</icon>
 		</assets>
 	</extension>
 </addon><addon id="script.rikteam" name="[COLOR goldenrod]Script RikTeam[/COLOR]" version="1.6" provider-name="RikTeam">
@@ -2855,6 +2808,109 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
 		</assets>
 		<news>[I][COLOR FFFF9800]v9.0.1[/COLOR][/I][CR]- Live TV fixes and updates[CR]- Remove transparency from widget info "shadow"[CR]- Add Greek MPAA Ratings[CR]- Hide movie set count in info when showing mediaflags for RightList[CR]- Changes to MyPVRTimers[CR]- Fix for multiimage control displaying background when not supposed to[CR][I][COLOR FFFF9800]v9.0.0[/COLOR][/I][CR]- Kodi v20 Nexus support[CR]- Fix mismatched DialogMusicInfo icons[CR]- Add option to hide the system bars on the main menu[CR]- Add HDR type flags to some views[CR]- Add basic support for MyFavourites.xml[CR]- Fix status indicators not following the setting for MyFlix Landscape[CR]- Rework Settings screen[CR]- Add script.xbmcbackup to optional add-ons[CR]- Add show password button to DialogKeyboard.xml[CR]- Add option to hide budget + revenue from DialogVideoInfo[CR]- Remove references to Artwork Beef[CR]- Fix Live Background overriding SubMenu backgrounds[CR]- Add scrollbar to MyPVRRecordings[CR]- Add Opus mediaflag for audio codec[CR]- Fix InfoWall alternate layout status indicators[CR]- Add solid color backgrounds to fallback options[CR]- Fix navigation issue when in General section of Skin Settings[CR]- Add greyscale versions of colored aspect ratio icons to include missing ratios[CR]- Fix music playlist opening videoplaylists instead of musicplaylists for main and submenus using the main menu customizer[CR]- Add zorder to DialogSubtitles so pause icon/label isn't shown on top when directly calling SubtitleSearch[CR][CR][B]All updates may contain various changes and/or improvements[/B][CR]For a more complete list visit:[CR][I][COLOR FFFF9800]https://github.com/mikesilvo164/Aeon-Nox-SiLVO/commits/master[/COLOR][/I]</news>
 	</extension>
+</addon><addon id="skin.aeon.nox.silvo.fontsvr" version="21.0.1" name="VR21 fontsvr" provider-name="fontsvr, SiLVO">
+	<requires>
+		<import addon="xbmc.gui" version="5.17.0" />
+		<import addon="script.skinshortcuts" version="2.0.1" />
+		<import addon="resource.images.studios.white" version="0.0.1" />
+		<import addon="resource.images.recordlabels.white" version="0.0.1" />
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false">
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="16x9" />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="af_ZA">Geskep deur BigNoid, Modded deur SiLVO, en Widgets deur Mr. V</summary>
+		<summary lang="de_DE">Erstellt von BigNoid, modifiziert von SiLVO, Widgets von Mr. V</summary>
+		<summary lang="el_GR">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="en_AU">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="en_GB">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="en_NZ">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="en_US">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="es_ES">Creada por BigNoid, Modificada por SiLVO, y Widgets por Mr. V</summary>
+		<summary lang="et_EE">Looja: BigNoid, muutja: SiLVO, ja vidinad: Mr. V</summary>
+		<summary lang="fi_FI">BigNoidin tekemä ja SILVOn muokkaama. Widgetit Mr. V:ltä</summary>
+		<summary lang="fr_CA">Créé par BigNoid, modifié by SiLVO, et gadgets logiciels par Mr. V</summary>
+		<summary lang="fr_FR">Créé par BigNoid, Moddé par SiLVO, avec les widgets de M. V</summary>
+		<summary lang="gl_ES">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="he_IL">המעטפת נוצרה על ידי BigNoid, Modded by SiLVO, and והיישומונים על ידי Mr. VLO</summary>
+		<summary lang="hu_HU">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="is_IS">Útbúið af BigNoid, breytt af SiLVO, viðmótshlutar eftir Mr. V</summary>
+		<summary lang="it_IT">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="ko_KR">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="lt_LT">Sukūrė BigNoid, modifikavo SiLVO bei valdiklius pridėjo Mr. V</summary>
+		<summary lang="ms_MY">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="nb_NO">Laget av BigNoid, modifisert av SiLVO, og miniprogrammer av Mr. V.</summary>
+		<summary lang="nl_NL">Ontwikkeld door BigNoid, aangepast door SiLVO, en Widgets door Mr. V</summary>
+		<summary lang="pl_PL">Stworzona przez BigNoid, zmodyfikowana przez SiLVO, a gadżety autorstwa Mr. V</summary>
+		<summary lang="pt_BR">Criado por BigNoid, Modificado por SiLVO e Widgets por Mr. V</summary>
+		<summary lang="pt_PT">Criado por BigNoid, Modded por SiLVO, e Widgets por Mr. V</summary>
+		<summary lang="ro_RO">Creat de BigNoid, Modificat de SiLVO, și widget-uri deMr. V</summary>
+		<summary lang="ru_RU">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="sk_SK">Vytvoril BigNoid, Upravil SiLVO, miniaplikácie vytvoril Mr. V</summary>
+		<summary lang="sv_SE">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="th_TH">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="tr_TR">BigNoid tarafından oluşturuldu; Modlar SILVO'dan, Widget'lar Mr. V'den.</summary>
+		<summary lang="vi_VN">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V - Sự trở về</summary>
+		<summary lang="zh_CN">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
+		<summary lang="zh_TW">由BigNoid原創，SiLVO進行改造，以及由Mr. V製作的小工具</summary>
+		<description lang="af_ZA">Heeltemal oor ontwerp om 'n moderne aansig te skep, terwyl die klassieke Aeon gevoel behou word.</description>
+		<description lang="de_DE">Komplett neu designed für ein modernes Aussehen und das klassische Aeon-Feeling beizubehalten.</description>
+		<description lang="el_GR">Πλήρως επανασχεδιασμένο για να προσφέρει μια μοντέρνα αισθητική, διατηρώντας ταυτόχρονα την κλασική ομορφιά του Aeon.</description>
+		<description lang="en_AU">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="en_GB">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="en_NZ">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="en_US">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<description lang="es_ES">Completamente rediseñado para crear un aspecto moderno, pero conservando el toque clásico Aeon.</description>
+		<description lang="et_EE">Täielikult uuesti disainitud, et luua tänapäevane välimus samas säilitades klassikaline Aeoni tunnetus.</description>
+		<description lang="fi_FI">Täysin uudelleensuunniteltu moderni ulkoasu, kuitenkin tuntuen klassiselta Aeonilta.</description>
+		<description lang="fr_CA">Complètement remanié pour créer une apparence moderne, tout en conservant l’esprit classique d’Aeon.</description>
+		<description lang="fr_FR">Totalement revu pour créer un look moderne, en gardant l'expérience Aeon.</description>
+		<description lang="gl_ES">Redeseñado completamente para crear unha aparencia moderna ao tempo que mantén a sensación do clásico Aeon.</description>
+		<description lang="he_IL">עיצוב חדש היוצר מראה מודרני אך משמר את ההרגשה של Aeon הקלאסי.</description>
+		<description lang="hr_HR">Potpuno preoblikovan moderan izgled, uz zadržani klasični Aeon osjećaj.</description>
+		<description lang="hu_HU">Teljesen áttervezett modern kinézet, de megtartva a klasszikus Aeon érzetet.</description>
+		<description lang="is_IS">Endurhannað nútímalegt útlit í anda Aeon.</description>
+		<description lang="it_IT">Completamente ridisegnato per creare un look moderno, mantenendo la consueta qualità Aeon.</description>
+		<description lang="ko_KR">고전적인 Aeon 느낌을 유지하면서 현대적인 모습으로 완전히 다시 디자인하여 만들었습니다.</description>
+		<description lang="lt_LT">Pilnai atnaujinta, kad sukurtų modernią išvaizdą, išlaikant klasikinio Aeon pojūtį.</description>
+		<description lang="ms_MY">Direka semula sepenuhnya untuk hasilkan penampilan modern, tetapi masih mengekalkan penampilan Aeon klasik.</description>
+		<description lang="nb_NO">Helt redesignet for å tilby en moderne utforming, samtidig som den klassiske Aeon-følelsen er beholdt.</description>
+		<description lang="nl_NL">Volledig opnieuw ontworpen om een ​​moderne look te creëren, met behoud van het klassieke Aeon-gevoel.</description>
+		<description lang="pl_PL">Całkowicie przeprojektowana skóra Aeon, o nowoczesnym wyglądzie, zachowując klasyczny układ skóry Aeon.</description>
+		<description lang="pt_BR">Design completamente novo para criar um look moderno, mantendo o feeling do Aeon Clássico.</description>
+		<description lang="pt_PT">Completamente redesenhado para criar um visual moderno enquanto retém o toque clássico Aeon.</description>
+		<description lang="ro_RO">Complet reproiectat pentru a crea o înfățișare modernă, dar totuși păstrând atmosfera clasică Aeon.</description>
+		<description lang="ru_RU">Полностью переработан, чтобы создать современный облик, сохраняя при этом классическое чувство Aeon.</description>
+		<description lang="sk_SK">Kompletne prepracovaný dizajn s moderným vzhľadom pri zachovaní klasického štýlu Aeon.</description>
+		<description lang="sv_SE">Totalt omarbetad för att skapa ett modernt utseende, samtidigt som man behåller den klassiska Aeon-känslan.</description>
+		<description lang="th_TH">การออกแบบใหม่หมดจด เพื่อสร้างรูปลักษณ์ทันสมัย, ​​ขณะที่ยังคงความรู้สึกคลาสสิคของ Aeon.</description>
+		<description lang="tr_TR">Modern görünüme kavuşturmak için baştan tasarlandı, klasik Aeon hissi korundu</description>
+		<description lang="vi_VN">Thiết kế lại hoàn toàn để tạo nên một phong cách hiện đại, trong khi đó vẫn duy trì một cảm giác Aeon cổ điển.</description>
+		<description lang="zh_TW">完全的翻新設計以創造現代化的視覺感受，同時仍維持Aeon的經典外觀。</description>
+		<platform>all</platform>
+		<license>CC BY-NC-SA 4.0</license>
+		<forum>https://forum.kodi.tv/showthread.php?tid=210069</forum>
+		<website>https://github.com/MikeSiLVO/skin.aeon.nox.silvo</website>
+		<source>https://github.com/MikeSiLVO/skin.aeon.nox.silvo</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+			<screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-05.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-06.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-07.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-08.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-09.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-10.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-11.jpg</screenshot>
+			<screenshot>resources/screenshots/screenshot-12.jpg</screenshot>
+		</assets>
+		<news>[I][COLOR FFFF9800]v10.0.1[/COLOR][/I][CR]- Vertical menu mouse fix[CR]- Fix playlist statistics infoline being empty[CR][TABS]1[/TABS][LIGHT](still needs Embuary Helper installed and enabled)[/LIGHT][CR][I][COLOR FFFF9800]v10.0.0[/COLOR][/I][CR]- Fix navigation issue in Music OSD settings[CR]- Add SceneMarkers, Cuts, &amp; Editlist markers to seekbar[CR]- Add trakt comments to recommendations dialog[CR]- Add music video icon to default List view for music and a button to play "Video links" in DialogMusicInfo[CR]- Tweaks to channel Wall for PVR[CR]- Some Live Background fixes thx davewuk[CR][CR][B]All updates may contain various changes and/or improvements[/B][CR]For a more complete list visit:[CR][I][COLOR FFFF9800]https://github.com/MikeSiLVO/skin.aeon.nox.silvo/commits/master[/COLOR][/I]</news>
+	</extension>
+	<extension point="xbmc.service" library="extras/libreria.py" start="login|startup" />
 </addon><addon id="skin.ctouch" version="9.3.4.3" name="Cristal Touch" provider-name="STVA">
 	<requires>
 		<import addon="resource.language.es_es" version="0.0.0" />		

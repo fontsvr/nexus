@@ -3,7 +3,7 @@
   "name": "TodoPeliculas",
   "thumbnail": "todopeliculas.jpg",
 
-  "active": true,
+  "active": false,
 
   "searchable": true,
   "search_types": ["movie"],
@@ -13,5 +13,5 @@
 
   "clusters": ["news", "rankings", "kids", "docs", "vos"],
 
-  "notes": "Películas por géneros."
+  "notes": "Web ANULADA. Películas por géneros."
 }

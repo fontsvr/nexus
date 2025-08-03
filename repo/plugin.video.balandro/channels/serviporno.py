@@ -23,16 +23,18 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host ))
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'mas-vistos/' ))
+
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'mas-vistos/' ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'mas-votados/' ))
 
     itemlist.append(item.clone( title = 'Por canal', action = 'canales', url= host + 'sitios/' ))
@@ -99,7 +101,7 @@ def pornstars(item):
 
     patron = '<div class="box-chica">.*?'
     patron += '<a href="([^"]+)".*?'
-    patron += 'data-src="(.*?)".*?'
+    patron += "data-src='(.*?)'.*?"
     patron += '<h4><a href="[^"]+">([^<]+)</a></h4>.*?'
 
     matches = re.compile(patron, re.DOTALL).findall(data)
@@ -158,6 +160,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     data = do_downloadpage(item.url)
     data = re.sub(r"\n|\r|\t|&nbsp;|<br>|<br/>", "", data)
 
@@ -182,6 +191,8 @@ def findvideos(item):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'search/?q=%s' % (texto.replace(" ", "+"))
         return list_all(item)
     except:

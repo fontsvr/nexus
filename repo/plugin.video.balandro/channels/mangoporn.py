@@ -7,10 +7,16 @@ from core.item import Item
 from core import httptools, scrapertools, servertools
 
 
-host = 'https://mangoporn.net/'
+host = 'https://mangoporn.co/'
 
 
 def do_downloadpage(url, post=None, headers=None):
+    # ~ por si viene de enlaces guardados
+    ant_hosts = ['https://mangoporn.net/']
+
+    for ant in ant_hosts:
+        url = url.replace(ant, host)
+
     raise_weberror = True
     if '/year/' in url: raise_weberror = False
 
@@ -27,27 +33,28 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
-    itemlist.append(item.clone( title = 'Películas:', folder=False, text_color='moccasin' ))
+    itemlist.append(item.clone( title = '[B]Películas:[/B]', folder=False, text_color='moccasin' ))
 
-    itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'genres/porn-movies/page/1/' ))
+    itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'adult/genres/porn-movies/' ))
 
-    itemlist.append(item.clone( title = ' - Tendencias', action = 'list_all', url = host + 'adult/trending/page/1/' ))
+    itemlist.append(item.clone( title = ' - Tendencias', action = 'list_all', url = host + 'adult/trending/' ))
 
-    itemlist.append(item.clone( title = 'Vídeos:', folder=False, text_color='moccasin' ))
+    itemlist.append(item.clone( title = '[B]Vídeos:[/B]', folder=False, text_color='moccasin' ))
 
-    itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'xxxporn/' ))
+    itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'xxxfree/' ))
 
-    itemlist.append(item.clone( title = ' - Tendencias', action = 'list_all', url = host + 'xxxporn/trending/page/1/' ))
+    itemlist.append(item.clone( title = ' - Tendencias', action = 'list_all', url = host + 'xxxfree/trending/' ))
 
-    itemlist.append(item.clone( title = ' - Más valorados', action = 'list_all', url = host + 'ratings/page/1/' ))
+    itemlist.append(item.clone( title = ' - Más valorados', action = 'list_all', url = host + 'xxxfree/ratings/' ))
 
     itemlist.append(item.clone( title = 'Por canal', action = 'categorias', url = host, group = 'canales' ))
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias', url = host, group = 'categorias'))
@@ -110,11 +117,13 @@ def list_all(item):
 
         title = scrapertools.find_single_match(match, 'alt="(.*?)"')
 
-        if '?php' in title: title = scrapertools.find_single_match(match, '<h3>.*?">(.*?)</a>')
+        if '?php' in title:
+            title = scrapertools.find_single_match(match, '<h3>.*?">(.*?)</a>')
+            if not title: title = scrapertools.find_single_match(match, 'alt=".*?alt="(.*?)"')
 
         if not url or not title: continue
 
-        title = title.replace('Porn Online Free', '').strip()
+        title = title.replace('Porn Online Free', '').replace('Watch', '').strip()
 
         title = title.replace('&#8211;', '').replace('&#038;', '&').replace('&#8217;', "'").replace('&#8230;', '').strip()
 
@@ -134,7 +143,6 @@ def list_all(item):
 
     if itemlist:
         next_page = scrapertools.find_single_match(data,'<div class="pagination">.*?<span class="current">.*?' + "<a href='(.*?)'")
-
         if not next_page: next_page = scrapertools.find_single_match(data,'<div class="pagination">.*?<span class="current">.*?<a href="(.*?)"')
 
         if next_page:
@@ -149,6 +157,13 @@ def list_all(item):
 def findvideos(item):
     logger.info()
     itemlist = []
+
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     item.url = item.url.replace('http://', 'https://')
 
@@ -175,8 +190,11 @@ def findvideos(item):
             other = ''
 
             if servidor == 'various': other = servertools.corregir_other(url)
+            elif servidor == 'zures': other = servertools.corregir_zures(url)
 
-            itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = 'Vo', other = other ))
+            if not servidor == 'directo':
+                itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url,
+                                      language = 'Vo', other = other.capitalize() ))
 
     # ~  Download
     if '>Download Sources' in data:
@@ -207,8 +225,11 @@ def findvideos(item):
                 other = 'D'
 
                 if servidor == 'various': other = servertools.corregir_other(url) + ' ' + other
+                elif servidor == 'zures': other = servertools.corregir_zures(url) + ' ' + other
 
-                itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url, language = 'Vo', other = other ))
+                if not servidor == 'directo':
+                    itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, title = '', url = url,
+                                          language = 'Vo', other = other.capitalize() ))
 
     if not itemlist:
         if not ses == 0:
@@ -244,7 +265,9 @@ def play(item):
 def search(item, texto):
     logger.info()
     try:
-        item.url =  host + 'xxxporn/page/1/?s=%s' % (texto.replace(" ", "+"))
+        config.set_setting('search_last_video', texto)
+
+        item.url =  host + 'adult/?s=%s' % (texto.replace(" ", "+"))
         return list_all(item)
     except:
         import sys

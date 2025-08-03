@@ -10,9 +10,6 @@ from core import httptools, scrapertools, servertools
 host = 'https://es.pornhub.com/'
 
 
-perpage = 30
-
-
 def do_downloadpage(url, post=None, headers=None):
     data = httptools.downloadpage(url, post=post, headers=headers).data
 
@@ -27,25 +24,29 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    if config.get_setting('descartar_xxx', default=False): return
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
+        config.set_setting('ses_pin', True)
 
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + "video/" ))
 
-    itemlist.append(item.clone( title = 'En castellano', action = 'list_all', url = host + "language/spanish", text_color = 'pink' ))
+    itemlist.append(item.clone( title = 'En castellano', action = 'list_all', url = host + "language/spanish", text_color = 'moccasin' ))
 
-    itemlist.append(item.clone( title = 'Novedades', action = 'list_all', url = host + "video?o=cm" ))
-    itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + "video?o=mv" ))
+    itemlist.append(item.clone( title = 'Últimos', action = 'list_all', url = host + "video?o=cm", text_color = 'cyan' ))
+
+    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + "video?o=mv" ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + "video?o=tr" ))
+
     itemlist.append(item.clone( title = 'Más candentes', action = 'list_all', url = host + "video?o=ht" ))
 
+    itemlist.append(item.clone( title = 'Caseros', action = 'list_all', url = host + "video?p=homemade&o=tr", text_color = 'tan' ))
+
     itemlist.append(item.clone( title = 'Long play', action = 'list_all', url = host + "video?o=lg" ))
-    itemlist.append(item.clone( title = 'Caseros', action = 'list_all', url = host + "video?p=homemade&o=tr" ))
 
     itemlist.append(item.clone( title = 'Por canal', action = 'canales', url = host + 'channels?o=rk' ))
     itemlist.append(item.clone( title = 'Por categoría', action = 'categorias', url = host + 'categories/' ))
@@ -257,6 +258,13 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
+
     headers = {'Referer': item.url}
 
     data = do_downloadpage(item.url, headers = headers)
@@ -310,6 +318,8 @@ def get_video_url(page_url):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.url =  host + 'video/search?search=%s&o=mr' % (texto.replace(" ", "+"))
         return list_all(item)
     except:

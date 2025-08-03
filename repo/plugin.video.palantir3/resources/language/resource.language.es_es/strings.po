@@ -60,37 +60,37 @@ msgctxt "#30010"
 msgid "Accounts"
 msgstr "Cuentas"
 
-msgctxt "#30014"
-msgid "Alldebrid"
-msgstr "Alldebrid"
-
-msgctxt "#30015"
-msgid "Realdebrid"
-msgstr "Realdebrid"
-
-msgctxt "#30017"
-msgid "Trakt.tv"
-msgstr "Trakt.tv"
-
 msgctxt "#30020"
 msgid "More..."
 msgstr "Más..."
+
+msgctxt "#30023"
+msgid "Resync with Trakt.tv"
+msgstr "Resincronizar con Trakt.tv"
+
+msgctxt "#30024"
+msgid "Delete viewed"
+msgstr "Borrar vistos"
 
 msgctxt "#30025"
 msgid "Maintenance"
 msgstr "Mantenimiento"
 
 msgctxt "#30026"
-msgid "Reset Cache ResolveUrl"
-msgstr "Reiniciar Cache ResolveUrl"
+msgid "Reset Cache"
+msgstr "Reiniciar Cache"
 
 msgctxt "#30028"
-msgid "Sort Movies ..."
-msgstr "Ordenar películas..."
+msgid "Sort..."
+msgstr "Ordenar..."
+
+msgctxt "#30029"
+msgid "Coloring the labels"
+msgstr "Colorear las etiquetas"
 
 msgctxt "#30030"
-msgid "Starting [COLOR %s]%s (%sx%s) [/COLOR] in %s seconds"
-msgstr "Iniciando [COLOR %s]%s (%sx%s)[/COLOR] en %s segundos"
+msgid "Starting %s in %s seconds"
+msgstr "Iniciando %s en %s segundos"
 
 
 # Palantir
@@ -173,7 +173,7 @@ msgstr "Error al eliminar de favoritos"
 
 msgctxt "#30051"
 msgid "We're updating the list of movies and series for you."
-msgstr "Estamos actualizando el listado de peliculas y series para ti."
+msgstr "Estamos actualizando el listado de películas y series para ti."
 
 msgctxt "#30052"
 msgid "Vers. %s (More of %s different contents)"
@@ -231,9 +231,19 @@ msgctxt "#30066"
 msgid "No trailer available for %s at this time"
 msgstr "Ningun trailer disponible para %s en este momento"
 
+msgctxt "#30067"
+msgid "Play trailer"
+msgstr "Reproducir trailer"
+
 msgctxt "#30068"
 msgid "Seasons / Episodes"
 msgstr "Temporadas/Episodios"
+
+msgctxt "#30069"
+msgid "Maximum number of items in a list"
+msgstr "Numero máximo de elementos en un listado"
+
+
 
 msgctxt "#30071"
 msgid "Add personal lists automatically"
@@ -311,6 +321,10 @@ msgctxt "#30090"
 msgid "After six months"
 msgstr "Después de seis meses"
 
+msgctxt "#30091"
+msgid "Do not follow this show..."
+msgstr "No seguir esta serie..."
+
 msgctxt "#30092"
 msgid "Show series in follow-up"
 msgstr "Mostrar series en seguimiento"
@@ -330,6 +344,18 @@ msgstr "Incluir información extra en los títulos"
 msgctxt "#30096"
 msgid "Reset api key..."
 msgstr "Restablecer clave API..."
+
+msgctxt "#30097"
+msgid "Do not follow this series on any device"
+msgstr "No seguir en ningún dispositivo"
+
+msgctxt "#30098"
+msgid "Show expiration"
+msgstr "Mostrar aviso de caducidad"
+
+msgctxt "#30099"
+msgid "Autoplay (1080p only)"
+msgstr "Reproducción automática (solo 1080p)"
 
 # moria
 
@@ -400,6 +426,10 @@ msgstr "Por año"
 msgctxt "#30117"
 msgid "For quality"
 msgstr "Por calidad"
+
+msgctxt "#30118"
+msgid "By random order"
+msgstr "Por orden aleatorio"
 
 msgctxt "#30119"
 msgid "For sagas"
@@ -570,8 +600,8 @@ msgid "There is no content available for your version"
 msgstr "No hay contenido disponible para su versión"
 
 msgctxt "#30506"
-msgid "It is necessary to have a Realdebrid or Alldebrid account to resolve this link"
-msgstr "Es necesario tener una cuenta en Realdebrid o Alldebrid para resolver este enlace"
+msgid "It is necessary to have a debrid account to resolve this link"
+msgstr "Es necesario tener una cuenta debrid para resolver este enlace"
 
 msgctxt "#30507"
 msgid "You need to have your Trakt.tv account activated and paired to use this option\nDo you want to activate it now?"
@@ -684,3 +714,15 @@ msgstr "Añadir a lista Trakt.tv personal..."
 msgctxt "#30534"
 msgid "Select a list:"
 msgstr "Seleccione una lista:"
+
+msgctxt "#30535"
+msgid "You are about to remove this Trakt.tv listing from this device\nDo you want to continue?"
+msgstr "Esta apunto de eliminar esta lista de Trakt.tv de este dispositivo\n¿desea continuar?"
+
+msgctxt "#30536"
+msgid "List of movies to watch"
+msgstr "Lista de películas pendientes de ver"
+
+msgctxt "#30537"
+msgid "List of series to watch"
+msgstr "Lista de series pendientes de ver"

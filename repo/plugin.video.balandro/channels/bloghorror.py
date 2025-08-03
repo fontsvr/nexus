@@ -17,6 +17,19 @@ def do_downloadpage(url, post=None, headers=None):
 
     data = httptools.downloadpage(url, post=post, headers=headers).data
 
+    if '<h1>aaWAF is checking your access</h1>' in data:
+        if not '/?s=' in url:
+            if config.get_setting('channels_re_charges', default=True): platformtools.dialog_notification('BlogHorror', '[COLOR cyan]Re-Intentanto acceso[/COLOR]')
+
+        timeout = config.get_setting('channels_repeat', default=30)
+
+        data = httptools.downloadpage(url, post=post, headers=headers, timeout=timeout).data
+
+        if '<h1>aaWAF is checking your access</h1>' in data:
+            if not '/?s=' in url:
+                platformtools.dialog_notification(config.__addon_name, '[COLOR red][B]CloudFlare[COLOR orangered] Protection [COLOR yellowgreen]aaWAF[/B][/COLOR]')
+            return ''
+
     return data
 
 
@@ -90,7 +103,7 @@ def list_all(item):
 
     bloque = scrapertools.find_single_match(data, '</h1>(.*?)<div class="covernews-pagination">')
 
-    matches = scrapertools.find_multiple_matches(bloque, '<article id="post-(.*?)</article>')
+    matches = scrapertools.find_multiple_matches(bloque, '<article(.*?)</article>')
 
     for match in matches:
         url = scrapertools.find_single_match(match, '<a href="(.*?)"')
@@ -107,7 +120,7 @@ def list_all(item):
 
         thumb = scrapertools.find_single_match(match, 'data-background="(.*?)"')
 
-        title = title.replace('&#038;', '&').replace('&#8211;', '')
+        title = title.replace('&#038;', '&').replace('&#8211;', '').replace('&#8217;s', "'s")
 
         year = '-'
 
@@ -219,7 +232,7 @@ def findvideos(item):
 
         if idioma:
             if not other == 'Magnet' and not other == 'mega':
-                lng = idioma
+                lng = idioma.replace('<em>', '').strip()
                 other = ''
 
         if servidor == 'directo':
@@ -230,6 +243,26 @@ def findvideos(item):
         if not servidor == 'directo':
             itemlist.append(Item( channel = item.channel, action = 'play', title = '', url = url,
                                   server = servidor, language = lang, quality = qlty, other = other, age = lng ))
+
+    # ~ Otros
+    matches = re.compile('<a href="(.*?)".*?data-wpel-link="external">(.*?)<', re.DOTALL).findall(bloque)
+
+    for url, tipo in matches:
+        ses += 1
+
+        if '1fichier' in url: continue
+
+        if tipo.lower() == 'subtitulos': continue
+
+        servidor = servertools.get_server_from_url(url)
+        servidor = servertools.corregir_servidor(servidor)
+
+        url = servertools.normalize_url(servidor, url)
+
+        link_other = ''
+        if servidor == 'various': link_other = servertools.corregir_other(url)
+
+        itemlist.append(Item( channel = item.channel, action = 'play', server = servidor, url = url, language = lang, other = link_other ))
 
     if not itemlist:
         if not ses == 0:

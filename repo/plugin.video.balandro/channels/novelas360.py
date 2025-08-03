@@ -40,13 +40,13 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Buscar serie ...', action = 'search', search_type = 'tvshow', text_color = 'hotpink' ))
 
-    itemlist.append(item.clone( title = 'Novelas:', folder=False, text_color='moccasin' ))
+    itemlist.append(item.clone( title = '[B]Novelas:[/B]', folder=False, text_color='moccasin' ))
 
     itemlist.append(item.clone( title = ' - Catálogo', action = 'list_nov', url = host + 'video_tag/novelas-online/', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = ' - [COLOR limegreen]Últimos capítulos[/COLOR]', action = 'list_nov', url = host + 'video_tag/telenovelas-online-gratis/', search_type = 'tvshow' ))
+    itemlist.append(item.clone( title = ' - [COLOR cyan]Últimos capítulos[/COLOR]', action = 'list_nov', url = host + 'video_tag/telenovelas-online-gratis/', search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Series:', folder=False, text_color='moccasin' ))
+    itemlist.append(item.clone( title = '[B]Series:[/B]', folder=False, text_color='moccasin' ))
 
     itemlist.append(item.clone( title = ' - Catálogo', action = 'list_all', url = host + 'series/', search_type = 'tvshow' ))
 
@@ -63,16 +63,16 @@ def paises(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item.clone( title = 'América', action = 'list_all', url = host + 'telenovelas/estados-unidos/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Argentina', action = 'list_all', url = host + 'telenovelas/argentina/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Brasil', action = 'list_all', url = host + 'telenovelas/brasil/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Chile', action = 'list_all', url = host + 'telenovelas/chile/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Colombia', action = 'list_all', url = host + 'telenovelas/colombia/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'México', action = 'list_all', url = host + 'telenovelas/mexico/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Perú', action = 'list_all', url = host + 'telenovelas/peru/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Turquía', action = 'list_all', url = host + 'telenovelas/turquia/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Venezuela', action = 'list_all', url = host + 'telenovelas/venezuela/', text_color='moccasin' ))
-    itemlist.append(item.clone( title = 'Resto del Mundo', action = 'list_all', url = host + 'telenovelas/resto-del-mundo/', text_color='moccasin' ))
+    itemlist.append(item.clone( title = 'América', action = 'list_all', url = host + 'telenovelas/estados-unidos/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Argentina', action = 'list_all', url = host + 'telenovelas/argentina/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Brasil', action = 'list_all', url = host + 'telenovelas/brasil/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Chile', action = 'list_all', url = host + 'telenovelas/chile/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Colombia', action = 'list_all', url = host + 'telenovelas/colombia/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'México', action = 'list_all', url = host + 'telenovelas/mexico/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Perú', action = 'list_all', url = host + 'telenovelas/peru/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Turquía', action = 'list_all', url = host + 'telenovelas/turquia/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Venezuela', action = 'list_all', url = host + 'telenovelas/venezuela/', text_color='hotpink' ))
+    itemlist.append(item.clone( title = 'Resto del Mundo', action = 'list_all', url = host + 'telenovelas/resto-del-mundo/', text_color='hotpink' ))
 
     return itemlist
 
@@ -282,7 +282,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('Novelas360', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('Novelas360', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
@@ -387,6 +390,7 @@ def findvideos(item):
         elif url.startswith('http://vidmoly/'): url = url.replace('http://vidmoly/w/', 'https://vidmoly/embed-').replace('http://vidmoly/', 'https://vidmoly/')
 
         elif url.startswith('https://sr.ennovelas.net/'): url = url.replace('/sr.ennovelas.net/', '/waaw.to/')
+        elif url.startswith('https://sr.ennovelas.watch/'): url = url.replace('/sr.ennovelas.watch/', '/waaw.to/')
         elif url.startswith('https://video.ennovelas.net/'): url = url.replace('/video.ennovelas.net/', '/waaw.to/')
         elif url.startswith('https://reproductor.telenovelas-turcas.com.es/'): url = url.replace('/reproductor.telenovelas-turcas.com.es/', '/waaw.to/')
         elif url.startswith('https://novelas360.cyou/player/'): url = url.replace('/novelas360.cyou/player/', '/waaw.to/')

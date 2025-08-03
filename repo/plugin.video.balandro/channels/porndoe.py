@@ -23,26 +23,25 @@ def mainlist_pelis(item):
     logger.info()
     itemlist = []
 
-    descartar_xxx = config.get_setting('descartar_xxx', default=False)
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
 
-    if descartar_xxx: return itemlist
+        config.set_setting('ses_pin', True)
 
-    if config.get_setting('adults_password'):
-        from modules import actions
-        if actions.adults_password(item) == False: return
-
-    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', text_color = 'orange' ))
+    itemlist.append(item.clone( title = 'Buscar vídeo ...', action = 'search', search_type = 'movie', search_video = 'adult', text_color = 'orange' ))
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_all', url = host + 'videos' ))
 
-    itemlist.append(item.clone( title = 'Exclusivos', action = 'list_all', url = host + 'category/74/premium-hd' ))
+    itemlist.append(item.clone( title = 'Exclusivos', action = 'list_all', url = host + 'category/74/premium-hd', text_color = 'pink' ))
 
-    itemlist.append(item.clone( title = 'Escenas', action = 'list_all', url = host + 'movies' ))
-
-    itemlist.append(item.clone( title = 'Más populares', action = 'list_all', url = host + 'videos/top-porn-germany' ))
+    itemlist.append(item.clone( title = 'Escenas', action = 'list_all', url = host + 'movies', text_color = 'tan' ))
 
     itemlist.append(item.clone( title = 'Más vistos', action = 'list_all', url = host + 'videos?sort=views' ))
     itemlist.append(item.clone( title = 'Más valorados', action = 'list_all', url = host + 'videos?sort=likes' ))
+
+    itemlist.append(item.clone( title = 'Más candentes', action = 'list_all', url = host + 'videos/top-porn-germany' ))
 
     itemlist.append(item.clone( title = 'Long Play', action = 'list_all', url = host + 'videos?sort=length' ))
 
@@ -161,8 +160,12 @@ def findvideos(item):
     logger.info()
     itemlist = []
 
-    logger.info()
-    itemlist = []
+    if not config.get_setting('ses_pin'):
+        if config.get_setting('adults_password'):
+            from modules import actions
+            if actions.adults_password(item) == False: return
+
+        config.set_setting('ses_pin', True)
 
     videos = get_video_url(item.url)
 
@@ -213,6 +216,8 @@ def get_video_url(page_url):
 def search(item, texto):
     logger.info()
     try:
+        config.set_setting('search_last_video', texto)
+
         item.tex = texto.replace(" ", "+") + '/'
         item.url = host + 'search?keywords=' + item.tex
         return list_all(item)

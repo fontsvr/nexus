@@ -60,13 +60,13 @@ def mainlist_series(item):
 
     itemlist.append(item.clone( title = 'Catálogo', action = 'list_ser', url = host, search_type = 'tvshow' ))
 
-    itemlist.append(item.clone( title = 'Últimos capítulos', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
+    itemlist.append(item.clone( title = 'Últimos episodios', action = 'last_epis', url = host, search_type = 'tvshow', text_color = 'cyan' ))
 
     itemlist.append(item.clone( title = 'Últimas', action = 'list_ser', url = host, search_type = 'tvshow', group = 'lasts', text_color = 'moccasin' ))
 
-    itemlist.append(item.clone( title = 'Recomendadas', action = 'list_ser', url = host, search_type = 'tvshow', group = 'recom' ))
+    itemlist.append(item.clone( title = 'Más valoradas', action = 'list_ser', url = host, search_type = 'tvshow', group = 'recom' ))
 
-    itemlist.append(item.clone( title = 'Más series', action = 'otras', search_type = 'tvshow' ))
+    itemlist.append(item.clone( title = 'Otras series', action = 'otras', search_type = 'tvshow', text_color = 'hotpink' ))
 
     return itemlist
 
@@ -75,13 +75,31 @@ def otras(item):
     logger.info()
     itemlist = []
 
-    itemlist.append(item.clone( title = 'Antorchas heroes de la fé', action = 'temporadas', url = host + 'antorchas-heroes-de-la-fe/', search_type = 'tvshow' ))
+    title = 'Antorchas heroes de la fé'
+    url = host + 'antorchas-heroes-de-la-fe/'
 
-    itemlist.append(item.clone( title = 'El superlibro', action = 'temporadas', url = host + 'el-superlibro/', search_type = 'tvshow' ))
+    itemlist.append(item.clone( action='temporadas', url=url, title=title,
+                                contentType = 'tvshow', contentSerieName = title, infoLabels={'year': '-'} ))
 
-    itemlist.append(item.clone( title = 'La vindicación', action = 'temporadas', url = host + 'la-vindicacion-completa/', search_type = 'tvshow' ))
+    title = 'El superlibro'
+    url = host + 'el-superlibro/'
 
-    itemlist.append(item.clone( title = 'Tetelestai', action = 'temporadas', url = host + 'tetelestai/', search_type = 'tvshow' ))
+    itemlist.append(item.clone( action='temporadas', url=url, title=title,
+                                contentType = 'tvshow', contentSerieName = title, infoLabels={'year': '-'} ))
+
+    title = 'La vindicación'
+    url = host + 'la-vindicacion-completa/'
+
+    itemlist.append(item.clone( action='temporadas', url=url, title=title,
+                                contentType = 'tvshow', contentSerieName = title, infoLabels={'year': '-'} ))
+
+    title = 'Tetelestai'
+    url = host + 'tetelestai/'
+
+    itemlist.append(item.clone( action='temporadas', url=url, title=title,
+                                contentType = 'tvshow', contentSerieName = title, infoLabels={'year': '-'} ))
+
+    tmdb.set_infoLabels(itemlist)
 
     return itemlist
 
@@ -97,14 +115,14 @@ def list_all(item):
 
     bloque = scrapertools.find_single_match(data, '>PELÍCULAS DISPONIBLES<(.*?)>SIGUENOS<')
 
-    matches = scrapertools.find_multiple_matches(bloque, '<div class="wpb_text_column wpb_content_element(.*?)</div></div>')
+    matches = scrapertools.find_multiple_matches(bloque, '<div class="wpb_column vc_column_container td-pb-span3">(.*?)</div></div>')
 
     num_matches = len(matches)
 
     for match in matches[item.page * perpage:]:
         link = scrapertools.find_single_match(match, 'data-mfp-src="(.*?)"')
 
-        title = scrapertools.find_single_match(match, '<p><!--(.*?)-->').strip()
+        title = scrapertools.find_single_match(match, '<!--(.*?)-->').strip()
 
         if not link or not title: continue
 
@@ -117,8 +135,12 @@ def list_all(item):
 
         if link.startswith("//"): link = 'https:' + link
 
+        PeliName = title
+
+        PeliName = PeliName.replace('(SUB)', '').replace(' - LA PELÍCULA', '').replace(' - DOCUMENTAL', '').replace(' - DOCUMENTARY', '').strip()
+
         itemlist.append(item.clone( action='findvideos', link=link, title=title, thumbnail=thumb,
-                                    contentType = 'movie', contentTitle = title, infoLabels={'year': year} ))
+                                    contentType = 'movie', contentTitle = PeliName, infoLabels={'year': year} ))
 
         if len(itemlist) >= perpage: break
 
@@ -167,6 +189,8 @@ def list_ser(item):
 
         if not title: continue
 
+        if title == 'javascript:;': continue
+
         titulo = title.replace('-hd-google-drive', ' ').replace('-google-drive', ' ').replace('-hd-ok-ru', ' ').replace('-ok-ru', ' ').replace('-hd', ' ').replace('-sd', ' ').strip()
 
         titulo = titulo.replace('-recordtv-subtitulada', ' ').replace('-recordtv', ' ').strip()
@@ -200,7 +224,7 @@ def last_epis(item):
     data = do_downloadpage(item.url)
     data = re.sub(r'\n|\r|\t|\s{2}|&nbsp;', '', data)
 
-    bloque = scrapertools.find_single_match(data, '>CAPÍTULOS MÁS RECIENTES<(.*?)</div></div>')
+    bloque = scrapertools.find_single_match(data, '>CAPÍTULOS MÁS RECIENTES<(.*?)>SERIES RECOMENDADAS<')
 
     matches = re.compile('<a href="(.*?)".*?data-lazy-src="(.*?)"', re.DOTALL).findall(bloque)
 
@@ -340,7 +364,10 @@ def episodios(item):
             if not tvdb_id: tvdb_id = scrapertools.find_single_match(str(item), "'tmdb_id': '(.*?)'")
         except: tvdb_id = ''
 
-        if config.get_setting('channels_charges', default=True): item.perpage = sum_parts
+        if config.get_setting('channels_charges', default=True):
+            item.perpage = sum_parts
+            if sum_parts >= 100:
+                platformtools.dialog_notification('SeriesBiblicas', '[COLOR cyan]Cargando ' + str(sum_parts) + ' elementos[/COLOR]')
         elif tvdb_id:
             if sum_parts > 50:
                 platformtools.dialog_notification('SeriesBiblicas', '[COLOR cyan]Cargando Todos los elementos[/COLOR]')
