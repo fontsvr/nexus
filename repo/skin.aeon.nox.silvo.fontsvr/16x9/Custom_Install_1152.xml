@@ -5,13 +5,17 @@
 
 	<!--<onload condition="!System.HasAddon(script.skinshortcuts)">SetProperty(RunSkinShortcutsAfterInstall,True,Home)</onload>-->
     <!--imprescindibles o no  + System.HasAddon(repository.slyguy) + System.HasAddon(plugin.program.iptv.merge)-->
-	<onload condition="System.HasAddon(script.skinshortcuts) + System.HasAddon(script.fontsvr) + System.HasAddon(pvr.iptvsimple)">ReplaceWindow(1151)</onload>
+	<onload condition="System.HasAddon(script.skinshortcuts) + System.HasAddon(script.fontsvr) + System.HasAddon(pvr.iptvsimple) + System.HasAddon(repository.slyguy)
+	+ System.HasAddon(repository.slyguy.inputstreamhelper) + System.HasAddon(repository.thecrew) + System.HasAddon(repository.alfa-addon) + System.HasAddon(repository.michaz)">ReplaceWindow(1151)</onload>
 	<onload condition="!System.HasAddon(script.skinshortcuts)">InstallAddon(script.skinshortcuts)</onload>
 	<onload condition="!System.HasAddon(repository.fontsvr)">InstallAddon(repository.fontsvr)</onload>
 	<onload condition="!System.HasAddon(repository.rebase)">InstallAddon(repository.rebase)</onload>
 	<onload condition="!System.HasAddon(script.fontsvr)">InstallAddon(script.fontsvr)</onload>
 	<onload condition="!System.HasAddon(repository.slyguy)">InstallAddon(repository.slyguy)</onload>
-	<onload condition="!System.HasAddon(repository.micha)">InstallAddon(repository.michaz)</onload>
+	<onload condition="!System.HasAddon(repository.slyguy.inputstreamhelper)">InstallAddon(repository.slyguy.inputstreamhelper)</onload>
+	<onload condition="!System.HasAddon(repository.thecrew)">InstallAddon(repository.thecrew)</onload>
+	<onload condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onload>
+	<onload condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onload>
 	<onload condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onload>
 	<!--<onload condition="!System.HasAddon(plugin.program.iptv.merge)">InstallAddon(plugin.program.iptv.merge)</onload>-->
 	<onload condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(pvr.iptvsimple)</onload>
@@ -222,6 +226,17 @@
 					<onclick condition="!System.AddonIsEnabled(repository.alfa-addon)">EnableAddon(repository.alfa-addon)</onclick>
 					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>
 				</control>
+				<control type="button" id="328">
+					<font>font13_title</font>
+                    <label>$VAR[Instalado-repository.slyguy.inputstreamhelper]</label>
+					<height>60</height>
+					<width>100%</width>
+					<align>center</align>
+					<texturefocus colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texturefocus>
+					<texturenofocus/>
+					<onclick condition="!System.AddonIsEnabled(repository.slyguy.inputstreamhelper)">EnableAddon(repository.slyguy.inputstreamhelper)</onclick>
+					<onclick condition="!System.HasAddon(repository.slyguy.inputstreamhelper)">InstallAddon(repository.slyguy.inputstreamhelper)</onclick>
+				</control>
 				<control type="textbox">
 					<height>20</height>
 					<width>auto</width><!--640-850-->
@@ -243,7 +258,7 @@
 				    <texture colordiffuse="66FFFFFF">colors/black.png</texture>
 					<visible>[!Skin.HasSetting(preguntado_ajustes)]</visible>
 				</control>
-				<!--<control type="textbox">
+				<control type="textbox">
 					<height>60</height>
 					<width>auto</width>
 					<aligny>center</aligny>
@@ -253,7 +268,7 @@
 					<label>[COLOR yellow]El ajuste no está instalado.[/COLOR]</label>
 				    <texture colordiffuse="orange">colors/black.png</texture>
 				    <visible>[!Skin.HasSetting(preguntado_ajustes)]</visible>
-				</control>-->
+				</control>
 
 				<control type="textbox">
 					<height>60</height>
@@ -278,7 +293,7 @@
 				<control type="button" id="655">
 					<onleft>308</onleft>
 					<onright>309</onright>
-					<onup>327</onup>
+					<onup>328</onup>
 					<ondown>309</ondown>
 					<centerright>50%</centerright>
 					<height>95</height>
@@ -289,15 +304,16 @@
 					<label>INSTALACIÓN DE AJUSTES  [[COLOR yellow]NO INSTALADO[/COLOR]]</label>
 					<onclick condition="!System.HasAddon(script.fontsvr)">InstallAddon(script.fontsvr)</onclick>
 					<onclick condition="!System.HasAddon(repository.slyguy)">InstallAddon(repository.slyguy)</onclick>
+					<onclick condition="!System.HasAddon(repository.slyguy.inputstreamhelper)">InstallAddon(repository.slyguy.inputstreamhelper)</onclick>
 					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>
 					<onclick condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onclick>
 					<onclick condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(pvr.iptvsimple)</onclick>
 					<onclick condition="!System.HasAddon(repository.thecrew)">InstallAddon(repository.thecrew)</onclick>
 					<onclick condition="!System.HasAddon(repository.alfa-addon)">InstallAddon(repository.alfa-addon)</onclick>
 					<onclick condition="System.HasAddon(script.fontsvr)">ReplaceWindow(1151)</onclick>
-					<visible>!Skin.HasSetting(preguntado_ajustes) | !System.HasAddon(script.fontsvr) | !System.HasAddon(script.skinshortcuts) |
-					!System.HasAddon(repository.slyguy) | !System.HasAddon(repository.michaz)| !System.HasAddon(plugin.video.vavooto) | !System.HasAddon(pvr.iptvsimple) |
-					!System.HasAddon(repository.thecrew)</visible>
+					<visible>!Skin.HasSetting(preguntado_ajustes) | !System.HasAddon(script.fontsvr) | !System.HasAddon(script.skinshortcuts)</visible> 
+					<!--|!System.HasAddon(repository.slyguy) | !System.HasAddon(repository.michaz)| !System.HasAddon(plugin.video.vavooto) | !System.HasAddon(pvr.iptvsimple) |
+					!System.HasAddon(repository.thecrew)-->
 				</control>
 				<!--<onclick>Dialog.Close(1152)</onclick>-->
 				<!--<onclick condition="!System.HasAddon(slyguy.pluto.tv.provider)">InstallAddon(slyguy.pluto.tv.provider)</onclick>-->
@@ -305,7 +321,7 @@
 				<control type="button" id="655">
 					<onleft>308</onleft>
 					<onright>309</onright>
-					<onup>327</onup>
+					<onup>328</onup>
 					<ondown>309</ondown>
 					<centerright>50%</centerright>
 					<height>95</height>
@@ -316,6 +332,7 @@
 					<label>INSTALACIÓN DE AJUSTES  [[COLOR springgreen]INSTALADO[/COLOR]]</label>
 					<onclick condition="!System.HasAddon(script.fontsvr)">InstallAddon(script.fontsvr)</onclick>
 					<onclick condition="!System.HasAddon(repository.slyguy)">InstallAddon(repository.slyguy)</onclick>
+					<onclick condition="!System.HasAddon(repository.slyguy.inputstreamhelper)">InstallAddon(repository.slyguy.inputstreamhelper)</onclick>
 					<onclick condition="!System.HasAddon(repository.michaz)">InstallAddon(repository.michaz)</onclick>
 					<onclick condition="!System.HasAddon(plugin.video.vavooto)">InstallAddon(plugin.video.vavooto)</onclick>
 					<onclick condition="!System.HasAddon(pvr.iptvsimple)">InstallAddon(pvr.iptvsimple)</onclick>

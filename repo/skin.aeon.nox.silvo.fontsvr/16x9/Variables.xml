@@ -55,12 +55,16 @@
 	   <value condition="!System.HasAddon(repository.thecrew)">• repository.thecrew [COLOR invalid]×[/COLOR] </value>
 	   <value condition="System.AddonIsEnabled(repository.thecrew)+System.HasAddon(repository.thecrew)">• [COLOR snow]repository.thecrew[/COLOR] $INFO[System.AddonVersion(repository.thecrew),(,)] [COLOR=FF00991F]√[/COLOR]</value>
     </variable>
-		<variable name="Instalado-repository.alfa-addon">
+	<variable name="Instalado-repository.alfa-addon">
 	   <value condition="!System.AddonIsEnabled(repository.alfa-addon) + System.HasAddon(repository.alfa-addon)">• repository.alfa-addon $INFO[System.AddonVersion(repository.alfa-addon),(,)] [COLOR pink]!![/COLOR]</value>
 	   <value condition="!System.HasAddon(repository.alfa-addon)">• repository.alfa-addon [COLOR invalid]×[/COLOR] </value>
 	   <value condition="System.AddonIsEnabled(repository.alfa-addon)+System.HasAddon(repository.alfa-addon)">• [COLOR snow]repository.alfa-addon[/COLOR] $INFO[System.AddonVersion(repository.alfa-addon),(,)] [COLOR=FF00991F]√[/COLOR]</value>
     </variable>
-	
+	<variable name="Instalado-repository.slyguy.inputstreamhelper">
+	   <value condition="!System.AddonIsEnabled(repository.slyguy.inputstreamhelper) + System.HasAddon(repository.slyguy.inputstreamhelper)">• repository.slyguy.inputstreamhelper $INFO[System.AddonVersion(repository.slyguy.inputstreamhelper),(,)] [COLOR pink]!![/COLOR]</value>
+	   <value condition="!System.HasAddon(repository.slyguy.inputstreamhelper)">• repository.alfa-addon [COLOR invalid]×[/COLOR] </value>
+	   <value condition="System.AddonIsEnabled(repository.slyguy.inputstreamhelper)+System.HasAddon(repository.slyguy.inputstreamhelper)">• [COLOR snow]repository.slyguy.inputstreamhelper[/COLOR] $INFO[System.AddonVersion(repository.slyguy.inputstreamhelper),(,)] [COLOR=FF00991F]√[/COLOR]</value>
+    </variable>
 	
 	<variable name="Status-repo-fontsvr">
 	   <value condition="!System.AddonIsEnabled(repository.fontsvr) + System.HasAddon(repository.fontsvr)">[COLOR pink]!![/COLOR]</value>
