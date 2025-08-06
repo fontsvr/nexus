@@ -49,7 +49,11 @@ class Router:
             from resources.libs.gui.main_menu import MainMenu
             MainMenu().get_listing()
             self._finish(handle)
-
+        elif mode == 'install_skin':
+           # això captura name i url
+           from resources.libs.gui.addon_menu import AddonMenu
+           AddonMenu().install_skin(name, url)
+           self._finish(handle)
         # SETTINGS
         elif mode == 'settings':  # OpenWizard settings
             CONFIG.open_settings(name)

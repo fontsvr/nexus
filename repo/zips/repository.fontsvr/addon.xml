@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.fontsvr" name="Repo [B][COLOR aqua]FONTS[COLOR azure]VR[/COLOR][/B]" version="2.1" provider-name="fontsvr">
+<addon id="repository.fontsvr" name="Repo [B][COLOR aqua]FONTS[COLOR azure]VR[/COLOR][/B]" version="2.2" provider-name="fontsvr">
     <extension point="xbmc.addon.repository" name="Repo FONTSVR">
         <dir>
 		<info compressed="false">https://raw.githubusercontent.com/fontsvr/omega/main/omega/zips/addons.xml</info>
