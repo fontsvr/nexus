@@ -19,7 +19,7 @@
 
 import xbmc
 import xbmcgui
-import xbmcvfs
+
 import os
 
 from resources.libs.common.config import CONFIG
@@ -407,53 +407,20 @@ class AddonMenu:
         if not os.path.exists(CONFIG.PACKAGES):
             os.makedirs(CONFIG.PACKAGES)
         
-        #progress_dialog.create(CONFIG.ADDONTITLE,
-        #             '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name),
-        #             '', '[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
-        # Només passem títol i text inicial al create()
-        progress_dialog.create(
-            CONFIG.ADDONTITLE,
-            '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(
-                CONFIG.COLOR2, CONFIG.COLOR1, name
-            )
-        )
+        progress_dialog.create(CONFIG.ADDONTITLE,
+                      '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name),
+                      '', '[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
 
-        # Si vols mostrar “Please Wait” com a segona línia, actualitza-ho:
-        progress_dialog.update(
-            0,
-            '[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2)
-        )
-
-
-        #urlsplits = url.split('/')
-        #lib = xbmc.makeLegalFilename(os.path.join(CONFIG.PACKAGES, urlsplits[-1]))
-        # Obtenim el nom de fitxer des de la URL i el desescapem
-        from urllib.parse import urlparse, unquote
-
-        parsed = urlparse(url)
-        filename = unquote(os.path.basename(parsed.path))
-        lib = os.path.join(CONFIG.PACKAGES, filename)
+        urlsplits = url.split('/')
+        lib = xbmc.makeLegalFilename(os.path.join(CONFIG.PACKAGES, urlsplits[-1]))
         try:
             os.remove(lib)
         except:
             pass
         Downloader().download(url, lib)
-        #title = '[COLOR {0}][B]Instalando:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
-        #progress_dialog.update(0, title, '', '[COLOR {0}]Espera[/COLOR]'.format(CONFIG.COLOR2))
-        title = '[COLOR {0}][B]Instalando:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(
-            CONFIG.COLOR2, CONFIG.COLOR1, name
-        )
-        # Actualitzem percentatge i text:
-        progress_dialog.update(
-            0,
-            title
-        )
-        progress_dialog.update(
-            50,
-            '[COLOR {0}]Espera[/COLOR]'.format(CONFIG.COLOR2)
-        )
-        addons_path = xbmcvfs.translatePath("special://home/addons/")
-        percent, errors, error = extract.all(lib, addons_path, title=title) #,CONFIG.HOME,
+        title = '[COLOR {0}][B]Instalando:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+        progress_dialog.update(0, title, '', '[COLOR {0}]Espera[/COLOR]'.format(CONFIG.COLOR2))
+        percent, errors, error = extract.all(lib, CONFIG.HOME, title=title)
         installed = db.grab_addons(lib)
         db.addon_database(installed, 1, True)
         progress_dialog.close()
