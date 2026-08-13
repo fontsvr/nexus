@@ -1,0 +1,3 @@
+# Local utility used to rebuild the Kodi repository.
+# Keep it on this computer without publishing it in the GitHub file listing.
+_repo_generator.py
